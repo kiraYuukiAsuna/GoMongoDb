@@ -1,15 +1,12 @@
-module Hello
+module DBMS
 
 go 1.21
 
-require (
-	github.com/gin-gonic/gin v1.9.1
-)
+require github.com/gin-gonic/gin v1.9.1
 
 require (
+	github.com/google/uuid v1.4.0
 	go.mongodb.org/mongo-driver v1.12.1
-	github.com/samber/lo v1.38.1
-	gorm.io/gorm v1.25.5
 )
 
 require (
