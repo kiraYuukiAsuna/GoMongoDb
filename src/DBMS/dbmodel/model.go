@@ -85,6 +85,9 @@ type SwcNodeDataV1 struct {
 
 type SwcDataV1 = []SwcNodeDataV1
 
+type SwcDataInterfaceV1 = []interface {
+}
+
 type DailyStatisticsMetaInfoV1 struct {
 	Base        MetaInfoBase `bson:"Base,inline"`
 	Name        string       `bson:"Name"`

@@ -4,6 +4,7 @@ import (
 	"DBMS/dal"
 	"DBMS/dbmodel"
 	"fmt"
+	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 )
@@ -317,6 +318,71 @@ func TestDailyStatisticsInfo() {
 	}
 
 	if info1.Description != "Test Modify UserInfo1" {
+		failedNumber++
+		fmt.Println("Test 8 Failed")
+	}
+
+	fmt.Printf("Failed number: %d \n", failedNumber)
+}
+
+func TestSwcData() {
+	fmt.Println("TestSwcData:")
+	var info1 dbmodel.SwcNodeDataV1
+	info1.Base.Id = primitive.NewObjectID()
+	info1.Base.Uuid = uuid.NewString()
+
+	var info2 dbmodel.SwcNodeDataV1
+	info2.Base.Id = primitive.NewObjectID()
+	info2.Base.Uuid = uuid.NewString()
+
+	failedNumber := 0
+
+	var swcMetaInfo dbmodel.SwcMetaInfoV1
+	swcMetaInfo.Base.Id = primitive.NewObjectID()
+	swcMetaInfo.Name = "Hanasaka"
+
+	var swcData1 dbmodel.SwcDataV1
+	swcData1 = append(swcData1, info1)
+
+	var swcData2 dbmodel.SwcDataV1
+	swcData2 = append(swcData2, info2)
+
+	if dal.CreateSwcData(swcMetaInfo, swcData1, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 1 Failed")
+	}
+
+	if dal.CreateSwcData(swcMetaInfo, swcData1, dal.GetDbInstance()).Status == true {
+		failedNumber++
+		fmt.Println("Test 2 Failed")
+	}
+
+	if dal.CreateSwcData(swcMetaInfo, swcData2, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 3 Failed")
+	}
+
+	if dal.DeleteSwcData(swcMetaInfo, swcData2, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 4 Failed")
+	}
+
+	if dal.DeleteSwcData(swcMetaInfo, swcData2, dal.GetDbInstance()).Status == true {
+		failedNumber++
+		fmt.Println("Test 5 Failed")
+	}
+	info1.Creator = "Test Modify"
+	if dal.ModifySwcData(swcMetaInfo, swcData1, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 6 Failed")
+	}
+
+	if dal.QuerySwcData(swcMetaInfo, &swcData1, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 7 Failed")
+	}
+
+	if info1.Creator != "Test Modify" {
 		failedNumber++
 		fmt.Println("Test 8 Failed")
 	}

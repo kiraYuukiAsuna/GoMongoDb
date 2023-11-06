@@ -14,6 +14,7 @@ func main() {
 	UnitTest.TestPermissionGroupInfo()
 	UnitTest.TestSwcInfo()
 	UnitTest.TestDailyStatisticsInfo()
+	UnitTest.TestSwcData()
 
 	return
 

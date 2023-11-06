@@ -4,6 +4,7 @@ import (
 	"DBMS/dbmodel"
 	"context"
 	"errors"
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -405,18 +406,109 @@ func QueryDailyStatistics(permissionGroupMetaInfo *dbmodel.DailyStatisticsMetaIn
 	}
 }
 
-//func CreateSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
-//
-//}
-//
-//func DeleteSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
-//
-//}
-//
-//func ModifySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
-//
-//}
-//
-//func QuerySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
-//
-//}
+func CreateSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
+	var interfaceSlice dbmodel.SwcDataInterfaceV1 = make(dbmodel.SwcDataInterfaceV1, len(swcData))
+	for i, v := range swcData {
+		interfaceSlice[i] = v
+	}
+	result, err := collection.InsertMany(context.TODO(), interfaceSlice)
+	if err != nil {
+		if result != nil {
+			return ReturnWrapper{false,
+				"Insert many node failed! Inserted:" + strconv.Itoa(len(result.InsertedIDs)) +
+					" , Error:" + strconv.Itoa(len(interfaceSlice)-len(result.InsertedIDs)) +
+					" Total:" + strconv.Itoa(len(interfaceSlice))}
+		} else {
+			return ReturnWrapper{false, "Insert many node failed!"}
+		}
+	}
+	return ReturnWrapper{true, "Create many node Success"}
+}
+
+func DeleteSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
+
+	// 创建一个存储所有uuids的切片
+	var uuids []interface{}
+	for _, v := range swcData {
+		uuids = append(uuids, v.Base.Uuid)
+	}
+
+	// 创建一个使用$in操作符的过滤器
+	filterInterface := bson.D{{Key: "uuid", Value: bson.M{"$in": uuids}}}
+
+	// 使用这个过滤器来删除所有匹配的文档
+	result, err := collection.DeleteMany(context.TODO(), filterInterface)
+
+	fmt.Print(err.Error())
+	if err != nil {
+		if result != nil {
+			return ReturnWrapper{false,
+				"Delete many node failed! Deleted:" + strconv.Itoa(int(result.DeletedCount)) +
+					" , Error:" + strconv.Itoa(len(filterInterface)-int(result.DeletedCount)) +
+					" Total:" + strconv.Itoa(len(filterInterface))}
+		} else {
+			return ReturnWrapper{false, "Delete many node failed!"}
+		}
+
+	}
+	return ReturnWrapper{true, "Delete many node Success"}
+}
+
+func ModifySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
+	var interfaceSlice dbmodel.SwcDataInterfaceV1 = make(dbmodel.SwcDataInterfaceV1, len(swcData))
+	for i, v := range swcData {
+		interfaceSlice[i] = v
+	}
+
+	filter := bson.A{}
+	for _, v := range swcData {
+		filter = append(filter, bson.D{{"uuid", v.Base.Uuid}})
+	}
+	filterInterface := bson.D{{
+		"$or", filter,
+	}}
+
+	result, err := collection.UpdateMany(context.TODO(), filterInterface, interfaceSlice)
+	if err != nil {
+		if result != nil {
+			return ReturnWrapper{false,
+				"Modify many node failed! Matched:" + strconv.Itoa(int(result.MatchedCount)) +
+					" , Error:" + strconv.Itoa(len(interfaceSlice)-int(result.MatchedCount)) +
+					" Total:" + strconv.Itoa(len(interfaceSlice))}
+		} else {
+			return ReturnWrapper{false, "Modify many node failed!"}
+		}
+
+	}
+	return ReturnWrapper{true, "Modify many node Success"}
+}
+
+func QuerySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
+	var interfaceSlice dbmodel.SwcDataInterfaceV1 = make(dbmodel.SwcDataInterfaceV1, len(*swcData))
+	for i, v := range *swcData {
+		interfaceSlice[i] = v
+	}
+
+	filter := bson.A{}
+	for _, v := range *swcData {
+		filter = append(filter, bson.D{{"uuid", v.Base.Uuid}})
+	}
+	filterInterface := bson.D{{
+		"$or", filter,
+	}}
+
+	result, err := collection.Find(context.TODO(), filterInterface)
+	if err != nil {
+		return ReturnWrapper{false, "Query many node failed!"}
+	}
+
+	err2 := result.Decode(interfaceSlice)
+	if err2 != nil {
+		return ReturnWrapper{false, "Decode many node query result failed!"}
+	}
+	return ReturnWrapper{true, "Query many node Success"}
+}

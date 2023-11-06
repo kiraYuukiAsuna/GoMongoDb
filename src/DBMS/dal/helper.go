@@ -38,6 +38,9 @@ func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) 
 	dbInfo.MetaInfoDb = connectionInfo.Client.Database(metaInfoDataBaseName)
 	dbInfo.SwcDb = connectionInfo.Client.Database(swcDataBaseName)
 
+	var deleteIfExist bool
+	deleteIfExist = true
+
 	databaseNames, err := connectionInfo.Client.ListDatabaseNames(context.TODO(), bson.M{})
 	if err != nil {
 		log.Fatal(err)
@@ -50,10 +53,16 @@ func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) 
 			break
 		}
 	}
-	if databaseExists1 {
+	if databaseExists1 && !deleteIfExist {
 		log.Fatalf("Database %s exists! Check your database!\n", metaInfoDataBaseName)
 
 	} else {
+		if databaseExists1 && deleteIfExist {
+			err := dbInfo.MetaInfoDb.Drop(context.TODO())
+			if err != nil {
+				log.Fatal("Delete exist meta info database failed")
+			}
+		}
 		log.Printf("Database %s does not exist. Start to create a new one!\n", metaInfoDataBaseName)
 
 		var err error
@@ -115,9 +124,15 @@ func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) 
 			break
 		}
 	}
-	if databaseExists2 {
+	if databaseExists2 && !deleteIfExist {
 		log.Fatalf("Database %s exists! Check your database!\n", swcDataBaseName)
 	} else {
+		if databaseExists2 && deleteIfExist {
+			err := dbInfo.SwcDb.Drop(context.TODO())
+			if err != nil {
+				log.Fatal("Delete exist swc database failed")
+			}
+		}
 		log.Printf("Database %s does not exist. Will create new one when needed!\n", swcDataBaseName)
 	}
 
