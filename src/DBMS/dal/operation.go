@@ -3,11 +3,13 @@ package dal
 import (
 	"DBMS/dbmodel"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"io"
 	"log"
 	"strconv"
 	"time"
@@ -408,9 +410,9 @@ func QueryDailyStatistics(permissionGroupMetaInfo *dbmodel.DailyStatisticsMetaIn
 
 func CreateSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
 	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
-	var interfaceSlice dbmodel.SwcDataInterfaceV1 = make(dbmodel.SwcDataInterfaceV1, len(swcData))
-	for i, v := range swcData {
-		interfaceSlice[i] = v
+	var interfaceSlice []interface{}
+	for _, v := range swcData {
+		interfaceSlice = append(interfaceSlice, v)
 	}
 	result, err := collection.InsertMany(context.TODO(), interfaceSlice)
 	if err != nil {
@@ -429,20 +431,21 @@ func CreateSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1,
 func DeleteSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
 	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
 
-	// 创建一个存储所有uuids的切片
-	var uuids []interface{}
+	uuidList := bson.A{}
+
 	for _, v := range swcData {
-		uuids = append(uuids, v.Base.Uuid)
+		uuidList = append(uuidList, bson.D{{"uuid", v.Base.Uuid}})
 	}
 
-	// 创建一个使用$in操作符的过滤器
-	filterInterface := bson.D{{Key: "uuid", Value: bson.M{"$in": uuids}}}
+	filterInterface := bson.D{
+		{"$or",
+			uuidList},
+	}
 
 	// 使用这个过滤器来删除所有匹配的文档
 	result, err := collection.DeleteMany(context.TODO(), filterInterface)
-
-	fmt.Print(err.Error())
 	if err != nil {
+		fmt.Print(err.Error())
 		if result != nil {
 			return ReturnWrapper{false,
 				"Delete many node failed! Deleted:" + strconv.Itoa(int(result.DeletedCount)) +
@@ -456,59 +459,110 @@ func DeleteSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1,
 	return ReturnWrapper{true, "Delete many node Success"}
 }
 
-func ModifySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+func ModifySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcNodeData dbmodel.SwcNodeDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
 	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
-	var interfaceSlice dbmodel.SwcDataInterfaceV1 = make(dbmodel.SwcDataInterfaceV1, len(swcData))
-	for i, v := range swcData {
-		interfaceSlice[i] = v
-	}
 
-	filter := bson.A{}
-	for _, v := range swcData {
-		filter = append(filter, bson.D{{"uuid", v.Base.Uuid}})
-	}
-	filterInterface := bson.D{{
-		"$or", filter,
-	}}
-
-	result, err := collection.UpdateMany(context.TODO(), filterInterface, interfaceSlice)
+	result, err := collection.UpdateOne(context.TODO(),
+		bson.D{{"uuid", swcNodeData.Base.Uuid}},
+		bson.D{{"$set", swcNodeData}},
+	)
 	if err != nil {
 		if result != nil {
 			return ReturnWrapper{false,
-				"Modify many node failed! Matched:" + strconv.Itoa(int(result.MatchedCount)) +
-					" , Error:" + strconv.Itoa(len(interfaceSlice)-int(result.MatchedCount)) +
-					" Total:" + strconv.Itoa(len(interfaceSlice))}
-		} else {
-			return ReturnWrapper{false, "Modify many node failed!"}
+				"Modify swc node failed! Error" + err.Error()}
 		}
 
 	}
-	return ReturnWrapper{true, "Modify many node Success"}
+	return ReturnWrapper{true, "Modify swc node Success"}
 }
 
 func QuerySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
 	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
-	var interfaceSlice dbmodel.SwcDataInterfaceV1 = make(dbmodel.SwcDataInterfaceV1, len(*swcData))
-	for i, v := range *swcData {
-		interfaceSlice[i] = v
-	}
+	var interfaceSlice []interface{}
 
-	filter := bson.A{}
 	for _, v := range *swcData {
-		filter = append(filter, bson.D{{"uuid", v.Base.Uuid}})
+		interfaceSlice = append(interfaceSlice, v)
 	}
-	filterInterface := bson.D{{
-		"$or", filter,
-	}}
 
-	result, err := collection.Find(context.TODO(), filterInterface)
+	uuidList := bson.A{}
+
+	for _, v := range *swcData {
+		uuidList = append(uuidList, bson.D{{"uuid", v.Base.Uuid}})
+	}
+
+	filterInterface := bson.D{
+		{"$or",
+			uuidList},
+	}
+
+	cursor, err := collection.Find(context.TODO(), filterInterface)
 	if err != nil {
 		return ReturnWrapper{false, "Query many node failed!"}
 	}
 
-	err2 := result.Decode(interfaceSlice)
-	if err2 != nil {
-		return ReturnWrapper{false, "Decode many node query result failed!"}
+	if err = cursor.All(context.TODO(), swcData); err != nil {
+		panic(err)
+	}
+
+	for _, result := range *swcData {
+		err := cursor.Decode(&result)
+		if err != nil && err != io.EOF {
+			return ReturnWrapper{false, err.Error()}
+		}
+		output, err := json.MarshalIndent(result, "", "    ")
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query many node Success"}
+}
+
+func QuerySwcDataByUserAndTime(
+	swcMetaInfo dbmodel.SwcMetaInfoV1, userUuid string,
+	startTime time.Time,
+	endTime time.Time,
+	swcData *dbmodel.SwcDataV1,
+	databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+
+	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
+
+	filterInterface := bson.D{}
+
+	if userUuid == "" {
+		filterInterface = append(filterInterface, bson.E{Key: "$and",
+			Value: bson.A{
+				bson.M{"CreateTime": bson.M{"$gte": startTime}},
+				bson.M{"CreateTime": bson.M{"$lte": endTime}},
+			}})
+	} else {
+		filterInterface = append(filterInterface, bson.E{Key: "$and",
+			Value: bson.A{
+				bson.M{"Creator": userUuid},
+				bson.M{"CreateTime": bson.M{"$gte": startTime}},
+				bson.M{"CreateTime": bson.M{"$lte": endTime}},
+			}})
+	}
+
+	cursor, err := collection.Find(context.TODO(), filterInterface)
+	if err != nil {
+		return ReturnWrapper{false, "QuerySwcDataByUserAndTime Error"}
+	}
+
+	if err = cursor.All(context.TODO(), swcData); err != nil {
+		panic(err)
+	}
+
+	for _, result := range *swcData {
+		err := cursor.Decode(&result)
+		if err != nil && err != io.EOF {
+			return ReturnWrapper{false, err.Error()}
+		}
+		output, err := json.MarshalIndent(result, "", "    ")
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("%s\n", output)
+	}
+	return ReturnWrapper{true, "QuerySwcDataByUserAndTime Success"}
 }

@@ -23,6 +23,7 @@ type MetaInfoBase struct {
 type UserMetaInfoV1 struct {
 	Base                MetaInfoBase `bson:"Base,inline"`
 	Name                string       `bson:"Name"`
+	Password            string       `bson:"Password"`
 	Description         string       `bson:"Description"`
 	CreateTime          time.Time    `bson:"CreateTime"`
 	HeadPhotoBinData    bytes.Buffer `bson:"HeadPhotoBinData"`
@@ -73,6 +74,15 @@ type ProjectMetaInfoV1 struct {
 	WorkMode               string                        `bson:"WorkMode"`
 }
 
+type SwcMetaInfoV1 struct {
+	Base             MetaInfoBase `bson:"Base,inline"`
+	Name             string       `bson:"Name"`
+	Description      string       `bson:"Description"`
+	Creator          string       `bson:"Creator"`
+	CreateTime       time.Time    `bson:"CreateTime"`
+	LastModifiedTime time.Time    `bson:"LastModifiedTime"`
+}
+
 type SwcNodeDataV1 struct {
 	Base              MetaInfoBase `bson:"Base,inline"`
 	SwcData           string       `bson:"SwcData"` // replace with actually content def
@@ -84,9 +94,6 @@ type SwcNodeDataV1 struct {
 }
 
 type SwcDataV1 = []SwcNodeDataV1
-
-type SwcDataInterfaceV1 = []interface {
-}
 
 type DailyStatisticsMetaInfoV1 struct {
 	Base        MetaInfoBase `bson:"Base,inline"`
@@ -111,12 +118,4 @@ type DailyStatisticsMetaInfoV1 struct {
 	NodeQueryNumber    int32 `bson:"NodeQueryNumber"`
 
 	ActiveUserNumber int32 `bson:"ActiveUserNumber"`
-}
-
-type SwcMetaInfoV1 struct {
-	Base        MetaInfoBase `bson:"Base,inline"`
-	Name        string       `bson:"Name"`
-	Description string       `bson:"Description"`
-	Creator     string       `bson:"Creator"`
-	CreateTime  time.Time    `bson:"CreateTime"`
 }

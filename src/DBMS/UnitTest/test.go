@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
+	"time"
 )
 
 func InitializeDb() {
@@ -367,24 +368,29 @@ func TestSwcData() {
 		fmt.Println("Test 4 Failed")
 	}
 
-	if dal.DeleteSwcData(swcMetaInfo, swcData2, dal.GetDbInstance()).Status == true {
+	if dal.DeleteSwcData(swcMetaInfo, swcData2, dal.GetDbInstance()).Status == false {
 		failedNumber++
 		fmt.Println("Test 5 Failed")
 	}
 	info1.Creator = "Test Modify"
-	if dal.ModifySwcData(swcMetaInfo, swcData1, dal.GetDbInstance()).Status == false {
+	if dal.ModifySwcData(swcMetaInfo, info1, dal.GetDbInstance()).Status == false {
 		failedNumber++
 		fmt.Println("Test 6 Failed")
 	}
-
+	info1.Creator = ""
 	if dal.QuerySwcData(swcMetaInfo, &swcData1, dal.GetDbInstance()).Status == false {
 		failedNumber++
 		fmt.Println("Test 7 Failed")
 	}
 
-	if info1.Creator != "Test Modify" {
+	if swcData1[0].Creator != "Test Modify" {
 		failedNumber++
 		fmt.Println("Test 8 Failed")
+	}
+
+	if dal.QuerySwcDataByUserAndTime(swcMetaInfo, "", time.Time{}, time.Time{}, &swcData1, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 9 Failed")
 	}
 
 	fmt.Printf("Failed number: %d \n", failedNumber)

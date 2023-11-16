@@ -9,6 +9,10 @@ import (
 	"log"
 )
 
+//func SayHelloAgain(context *gin.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+//	return &pb.HelloReply{Message: "Hello again " + in.GetName()}, nil
+//}
+
 func InitializeNewDataBaseHandler(context *gin.Context) {
 	dal.InitializeNewDataBase(dal.DefaultMetaInfoDataBaseName, dal.DefaultSwcDataBaseName)
 }
