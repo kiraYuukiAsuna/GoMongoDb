@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+option go_package = "DBMS/Generated/proto/message";
+
+package proto;
+
+import public "google/protobuf/timestamp.proto";
+
+message MetaInfoBase{
+    string _id = 1;
+    string ApiVersion = 2;
+    string Uuid = 3;
+}
+
+message UserMetaInfoV1{
+    MetaInfoBase Base = 1;
+    string Name = 2;
+    string Password = 3;
+    string Description = 4;
+    google.protobuf.Timestamp CreateTime = 5;
+    bytes HeadPhotoBinData = 6;
+    string UserPermissionGroup = 7;
+}
+
+message GlobalPermissionMetaInfoV1{
+    bool WritePermissionCreateProject = 1;
+    bool WritePermissionModifyProject = 2;
+    bool WritePermissionDeleteProject = 3;
+    bool ReadPerimissionQuery = 4;
+}
+
+message ProjectPermissionMetaInfoV1{
+    bool WritePermission_AddData = 1;
+    bool WritePermission_ModifyData = 2;
+    bool WritePermission_DeleteData = 3;
+    bool ReadPerimission_Query = 4;
+}
+
+message PermissionGroupMetaInfoV1{
+    MetaInfoBase Base = 1;
+    string Name = 2;
+    string Description = 3;
+    GlobalPermissionMetaInfoV1 GlobalPermission = 4;
+    ProjectPermissionMetaInfoV1 ProjectPermission = 5;
+
+}
+
+message UserPermissionOverrideMetaInfoV1{
+    GlobalPermissionMetaInfoV1 GlobalPermission = 1;
+    ProjectPermissionMetaInfoV1 ProjectPermission = 2;
+}
+
+message ProjectMetaInfoV1{
+    MetaInfoBase Base = 1;
+    string Name = 2;
+    string Description = 3;
+    string Creator = 4;
+    google.protobuf.Timestamp CreateTime = 5;
+    google.protobuf.Timestamp LastModifiedTime = 6;
+    repeated string SwcList = 7;
+    UserPermissionOverrideMetaInfoV1 PermissionOverride = 8;
+    string WorkMode = 9;
+}
+
+message SwcMetaInfoV1{
+    MetaInfoBase Base = 1;
+    string Name = 2;
+    string Description = 3;
+    string Creator = 4;
+    google.protobuf.Timestamp CreateTime = 5;
+    google.protobuf.Timestamp LastModifiedTime = 6;
+
+}
+
+message SwcNodeDataV1{
+    MetaInfoBase Base = 1;
+    string SwcData = 2;
+    string Creator = 3;
+    google.protobuf.Timestamp CreateTime = 4;
+    google.protobuf.Timestamp LastModifiedTime = 5;
+    string AnnotatorUserUuid = 6;
+    string CheckerUserUuid = 7;
+}
+
+message SwcDataV1{
+    repeated SwcNodeDataV1 SwcData = 1;
+}
+
+message DailyStatisticsMetaInfoV1{
+    MetaInfoBase Base = 1;
+    string Name = 2;
+    string Description = 3;
+    string Day = 4;
+    int32 CreatedProjectNumber = 5;
+    int32 CreatedSwcNumber = 6;
+    int32 CreateSwcNodeNumber = 7;
+    int32 DeletedProjectNumber = 8;
+    int32 DeletedSwcNumber = 9;
+    int32 DeletedSwcNodeNumber = 10;
+    int32 ModifiedProjectNumber = 11;
+    int32 ModifiedSwcNumber = 12;
+    int32 ModifiedSwcNodeNumber = 13;
+    int32 ProjectQueryNumber = 14;
+    int32 SwcQueryNumber = 15;
+    int32 NodeQueryNumber = 16;
+    int32 ActiveUserNumber = 17;
+}

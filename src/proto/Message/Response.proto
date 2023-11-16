@@ -1,0 +1,200 @@
+syntax = "proto3";
+
+option go_package = "DBMS/Generated/proto/response";
+
+package proto;
+
+import public "google/protobuf/timestamp.proto";
+import "Message/Message.proto";
+
+message CreateUserResponse{
+    bool status = 1;
+    string Message = 2;
+    UserMetaInfoV1 UserInfo = 3;
+}
+
+message DeleteUserResponse{
+    bool status = 1;
+    string Message = 2;
+    UserMetaInfoV1 UserInfo = 3;
+}
+
+message UpdateUserResponse{
+    bool status = 1;
+    string Message = 2;
+    UserMetaInfoV1 UserInfo = 3;
+}
+
+message GetUserResponse{
+    bool status = 1;
+    string Message = 2;
+    UserMetaInfoV1 UserInfo = 3;
+}
+
+message UserLoginResponse{
+    bool status = 1;
+    string Message = 2;
+    UserMetaInfoV1 UserInfo = 3;
+}
+
+message UserLogoutResponse{
+    bool status = 1;
+    string Message = 2;
+}
+
+message GetUsersResponse{
+    bool status = 1;
+    string Message = 2;
+    repeated UserMetaInfoV1 UserInfo = 3;
+}
+
+message GetUserPermissionGroupResponse{
+    bool status = 1;
+    string Message = 2;
+    PermissionGroupMetaInfoV1 PermissionGroup = 3;
+}
+
+message GetPermissionGroupResponse{
+    bool status = 1;
+    string Message = 2;
+    PermissionGroupMetaInfoV1 PermissionGroupList = 3;
+}
+
+message GetPermissionGroupsResponse{
+    bool status = 1;
+    string Message = 2;
+    repeated PermissionGroupMetaInfoV1 PermissionGroupList = 3;
+}
+
+message ChangeUserPermissionGroupResponse{
+    bool status = 1;
+    string Message = 2;
+    PermissionGroupMetaInfoV1 PermissionGroup = 3;
+}
+
+message CreateProjectResponse{
+    bool status = 1;
+    string Message = 2;
+    ProjectMetaInfoV1 ProjectInfo = 3;
+}
+
+message DeleteProjectResponse{
+    bool status = 1;
+    string Message = 2;
+    ProjectMetaInfoV1 ProjectInfo = 3;
+}
+
+message UpdateProjectResponse{
+    bool status = 1;
+    string Message = 2;
+    ProjectMetaInfoV1 ProjectInfo = 3;
+}
+
+message GetProjectResponse{
+    bool status = 1;
+    string Message = 2;
+    ProjectMetaInfoV1 ProjectInfo = 3;
+}
+
+message GetProjectsResponse{
+    bool status = 1;
+    string Message = 2;
+    repeated ProjectMetaInfoV1 ProjectInfo = 3;
+}
+
+message CreateSwcResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcMetaInfoV1 SwcInfo = 3;
+}
+
+message DeleteSwcResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcMetaInfoV1 SwcInfo = 3;
+}
+
+message UpdateSwcResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcMetaInfoV1 SwcInfo = 3;
+}
+
+message GetSwcMetaInfoResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcMetaInfoV1 SwcInfo = 3;
+}
+
+message GetSwcsMetaInfoResponse{
+    bool status = 1;
+    string Message = 2;
+    repeated SwcMetaInfoV1 SwcInfo = 3;
+}
+
+message CreateSwcNodeDataResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message DeleteSwcNodeDataResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message UpdateSwcNodeDataResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message GetSwcNodeDataResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message GetSwcsNodeDataResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message GetSwcsNodeDataByTimeAndUserResponse{
+    bool status = 1;
+    string Message = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message BackupFullDatabaseReponse{
+    bool status = 1;
+    string Message = 2;
+    bool InstantBackup = 3;
+    google.protobuf.Timestamp DelayBackupTime = 4;
+}
+
+message CreateDailyStatisticsResponse{
+    bool status = 1;
+    string Message = 2;
+    DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 3;
+}
+
+message DeleteDailyStatisticsResponse{
+    bool status = 1;
+    string Message = 2;
+    DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 3;
+}
+
+message UpdateDailyStatisticsResponse{
+    bool status = 1;
+    string Message = 2;
+    DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 3;
+}
+
+message GetDailyStatisticsResponse{
+    bool status = 1;
+    string Message = 2;
+    repeated DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 3;
+}

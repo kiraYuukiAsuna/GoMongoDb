@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option go_package = "DBMS/Generated/proto/service";
+
+package proto;
+
+import public "google/protobuf/timestamp.proto";
+import "Message/Message.proto";
+import "Message/Request.proto";
+import "Message/Response.proto";
+
+
+service DBMS {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
+    rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+    rpc UserLogin(UserLoginRequest) returns (UserLoginResponse) {}
+    rpc UserLogout(UserLogoutRequest) returns (UserLogoutResponse) {}
+    rpc UserOnlineHeartBeatNotifications(UserOnlineHeartBeatNotifications) returns (){}       
+    rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse)
+    rpc GetUserPermissionGroup(GetUserPermissionGroupRequest) returns (GetUserPermissionGroupResponse){}
+    rpc GetUsersPermissionGroups(GetUsersPermissionGroupsRequest) returns (GetUsersPermissionGroupsResponse){}
+    rpc GetPermissionGroup(GetPermissionGroupRequest) returns (GetPermissionGroupResponse){}
+    rpc ChangeUserPermissionGroup(ChangeUserPermissionGroupRequest) returns (ChangeUserPermissionGroupResponse){}
+    rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
+    rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse){}
+    rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse){}
+    rpc GetProject(GetProjectRequest) returns (GetProjectResponse){}
+    rpc GetProjects(GetProjectsRequest) returns (GetProjectsResponse){}
+    rpc CreateSwc(CreateSwcRequest) returns (CreateSwcResponse){}
+    rpc DeleteSwc(DeleteSwcRequest) returns (DeleteSwcResponse){}
+    rpc UpdateSwc(UpdateSwcRequest) returns (UpdateSwcResponse){}
+    rpc GetSwcMetaInfo(GetSwcMetaInfoRequest) returns (GetSwcMetaInfoResponse){}
+    rpc GetSwcsMetaInfoRequest(GetSwcsMetaInfoRequest) returns (GetSwcsMeta
+}

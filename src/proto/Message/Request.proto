@@ -1,0 +1,175 @@
+syntax = "proto3";
+
+option go_package = "DBMS/Generated/proto/request";
+
+package proto;
+
+import public "google/protobuf/timestamp.proto";
+import "Message/Message.proto";
+
+message CreateUserRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
+message DeleteUserRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
+message UpdateUserRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
+message GetUserRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
+message UserLoginRequest{
+    string UserName = 1;
+    string Password = 2;
+}
+
+message UserLogoutRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
+message UserOnlineHeartBeatNotification{
+    UserMetaInfoV1 UserInfo = 1;
+    int64 HeartBeatTime = 2;
+}
+
+message GetUsersRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
+message GetUserPermissionGroupRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
+message GetUserPermissionsGroupRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    PermissionGroupMetaInfoV1 PermissionGroup = 2;
+}
+
+message GetPermissionGroupRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    PermissionGroupMetaInfoV1 PermissionGroup = 2;
+}
+
+message ChangeUserPermissionGroupRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    PermissionGroupMetaInfoV1 PermissionGroup = 2;
+}
+
+message CreateProjectRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    ProjectMetaInfoV1 ProjectInfo = 2;
+}
+
+message DeleteProjectRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    ProjectMetaInfoV1 ProjectInfo = 2;
+}
+
+message UpdateProjectRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    ProjectMetaInfoV1 ProjectInfo = 2;
+}
+
+message GetProjectRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    ProjectMetaInfoV1 ProjectInfo = 2;
+}
+
+message GetProjectsRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
+message CreateSwcRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcInfo = 2;
+}
+
+message DeleteSwcRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcInfo = 2;
+}
+
+message UpdateSwcRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcInfo = 2;
+}
+
+message GetSwcMetaInfoRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcInfo = 2;
+}
+
+message GetSwcsMetaInfoRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
+message CreateSwcNodeDataRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcInfo = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message DeleteSwcNodeDataRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcInfo = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message UpdateSwcNodeDataRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcInfo = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message GetSwcNodeDataRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcInfo = 2;
+    SwcDataV1 SwcNodeData = 3;
+}
+
+message GetSwcsNodeDataRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcInfo = 2;
+}
+
+message GetSwcsNodeDataByTimeAndUserRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    SwcMetaInfoV1 SwcNodeData = 2;
+    google.protobuf.Timestamp CreateTime = 3;
+    string UserUuid = 4;
+}
+
+message BackupFullDatabaseRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    bool InstantBackup = 2;
+    google.protobuf.Timestamp DelayBackupTime = 3;
+}
+
+message CreateDailyStatisticsRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 2;
+}
+
+message DeleteDailyStatisticsRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 2;
+}
+
+message UpdateDailyStatisticsRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 2;
+}
+
+message GetDailyStatisticsRequest{
+    UserMetaInfoV1 UserInfo = 1;
+    DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 2;
+}
+
+message GetDailyStatisticsListRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
