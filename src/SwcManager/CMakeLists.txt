@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.26)
 project(SwcManager)
 
 set(CMAKE_CXX_STANDARD 20)
-
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -15,32 +14,14 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
+find_package(protobuf CONFIG REQUIRED)
+
+# this is heuristically generated, and may not be correct
+find_package(gRPC CONFIG REQUIRED)
+
 include_directories(
-        ThirdParty/upb_x64-windows/include
-        ThirdParty/abseil_x64-windows/include
-        ThirdParty/c-ares_x64-windows/include
-        ThirdParty/grpc_x64-windows/include
-        ThirdParty/openssl_x64-windows/include
-        ThirdParty/protobuf_x64-windows/include
-        ThirdParty/re2_x64-windows/include
-        ThirdParty/zlib_x64-windows/include
         ../Generated
 )
-
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    link_directories(
-            ThirdParty/upb_x64-windows/debug/lib
-            ThirdParty/abseil_x64-windows/debug/lib
-            ThirdParty/c-ares_x64-windows/debug/lib
-            ThirdParty/grpc_x64-windows/debug/lib
-            ThirdParty/openssl_x64-windows/debug/lib
-            ThirdParty/protobuf_x64-windows/debug/lib
-            ThirdParty/re2_x64-windows/debug/lib
-            ThirdParty/zlib_x64-windows/debug/lib
-    )
-else ()
-
-endif ()
 
 set(PROJECT_HEADERS
 
@@ -60,25 +41,18 @@ set(PROJECT_SOURCES
 
 )
 
-add_executable(SwcManager ${PROJECT_HEADERS} ${PROJECT_SOURCES})
+add_executable(SwcManager main.cpp)
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_link_libraries(SwcManager
-            Qt::Core
-            Qt::Gui
-            Qt::Widgets
-            abseil_dll
-            cares
-            address_sorting gpr grpc grpc++
-            libcrypto libssl
-            libprotobufd
-            re2
-            descriptor_upb_proto upb upb_textformat upb_extension_registry upb_fastdecode upb_json upb_mini_table upb_textformat  upb_reflection upb_collections upb_utf8_range
-            zlibd
-    )
-else ()
+target_link_libraries(SwcManager
+        Qt::Core
+        Qt::Gui
+        Qt::Widgets
+)
 
-endif ()
+target_link_libraries(SwcManager PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite)
+
+# note: 7 additional targets are not displayed.
+target_link_libraries(main PRIVATE gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts)
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

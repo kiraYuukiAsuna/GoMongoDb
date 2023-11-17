@@ -3,8 +3,8 @@ mkdir "DBMS/Generated"
 mkdir "DBMS/Generated/Message"
 mkdir "DBMS/Generated/Service"
 
-"Bin/protobuf/bin/protoc.exe" -I=Bin/protobuf/include -I=proto --go_out=DBMS/Generated --go-grpc_out=DBMS/Generated proto/Message/*
-"Bin/protobuf/bin/protoc.exe" -I=Bin/protobuf/include -I=proto --go_out=DBMS/Generated --go-grpc_out=DBMS/Generated proto/Service/*
+"Bin/protobuf/bin/protoc.exe" -I=Bin/protobuf/include -I=proto --plugin=protoc-gen-go=Bin/protobuf/bin/protoc-gen-go.exe --plugin=protoc-gen-go-grpc=Bin/protobuf/bin/protoc-gen-go-grpc.exe  --go_out=DBMS/Generated --go-grpc_out=DBMS/Generated proto/Message/*
+"Bin/protobuf/bin/protoc.exe" -I=Bin/protobuf/include -I=proto --plugin=protoc-gen-go=Bin/protobuf/bin/protoc-gen-go.exe --plugin=protoc-gen-go-grpc=Bin/protobuf/bin/protoc-gen-go-grpc.exe  --go_out=DBMS/Generated --go-grpc_out=DBMS/Generated proto/Service/*
 
 move DBMS/Generated/DBMS/Generated/proto DBMS/Generated/proto
 

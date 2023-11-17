@@ -15,23 +15,37 @@ service DBMS {
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
     rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+    rpc GetAllUser(GetAllUserRequest) returns (GetAllUserResponse){}
+
     rpc UserLogin(UserLoginRequest) returns (UserLoginResponse) {}
     rpc UserLogout(UserLogoutRequest) returns (UserLogoutResponse) {}
-    rpc UserOnlineHeartBeatNotifications(UserOnlineHeartBeatNotifications) returns (){}       
-    rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
-    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse)
+    rpc UserOnlineHeartBeatNotifications(UserOnlineHeartBeatNotification) returns (UserOnlineHeartBeatResponse){}       
+
     rpc GetUserPermissionGroup(GetUserPermissionGroupRequest) returns (GetUserPermissionGroupResponse){}
-    rpc GetUsersPermissionGroups(GetUsersPermissionGroupsRequest) returns (GetUsersPermissionGroupsResponse){}
     rpc GetPermissionGroup(GetPermissionGroupRequest) returns (GetPermissionGroupResponse){}
     rpc ChangeUserPermissionGroup(ChangeUserPermissionGroupRequest) returns (ChangeUserPermissionGroupResponse){}
+    
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
     rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse){}
     rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse){}
     rpc GetProject(GetProjectRequest) returns (GetProjectResponse){}
-    rpc GetProjects(GetProjectsRequest) returns (GetProjectsResponse){}
+    rpc GetAllProject(GetAllProjectRequest) returns (GetAllProjectResponse){}
+   
     rpc CreateSwc(CreateSwcRequest) returns (CreateSwcResponse){}
     rpc DeleteSwc(DeleteSwcRequest) returns (DeleteSwcResponse){}
     rpc UpdateSwc(UpdateSwcRequest) returns (UpdateSwcResponse){}
     rpc GetSwcMetaInfo(GetSwcMetaInfoRequest) returns (GetSwcMetaInfoResponse){}
-    rpc GetSwcsMetaInfoRequest(GetSwcsMetaInfoRequest) returns (GetSwcsMeta
+    rpc GetAllSwcMetaInfo(GetAllSwcMetaInfoRequest) returns (GetAllSwcMetaInfoResponse){}
+    rpc CreateSwcNodeData(CreateSwcNodeDataRequest) returns (CreateSwcNodeDataResponse){}
+    rpc DeleteSwcNodeData(DeleteSwcNodeDataRequest) returns (DeleteSwcNodeDataResponse){}
+    rpc UpdateSwcNodeData(UpdateSwcNodeDataRequest) returns (UpdateSwcNodeDataResponse){}
+    rpc GetSwcNodeData(GetSwcNodeDataRequest) returns (GetSwcNodeDataResponse){}
+    rpc GetSwcFullNodeData(GetSwcFullNodeDataRequest) returns (GetSwcFullNodeDataResponse){}
+    rpc GetSwcNodeDataListByTimeAndUser(GetSwcNodeDataListByTimeAndUserRequest) returns (GetSwcNodeDataListByTimeAndUserResponse){}
+    rpc BackupFullDatabase(BackupFullDatabaseRequest) returns (BackupFullDatabaseResponse){}
+    rpc CreateDailyStatistics(CreateDailyStatisticsRequest) returns (CreateDailyStatisticsResponse){}
+    rpc DeleteDailyStatistics(DeleteDailyStatisticsRequest) returns (DeleteDailyStatisticsResponse){}
+    rpc UpdateDailyStatistics(UpdateDailyStatisticsRequest) returns (UpdateDailyStatisticsResponse){}
+    rpc GetDailyStatistics(GetDailyStatisticsRequest) returns (GetDailyStatisticsResponse){}
+    rpc GetDailyStatisticsList(GetDailyStatisticsListRequest) returns (GetDailyStatisticsListResponse){}
 }

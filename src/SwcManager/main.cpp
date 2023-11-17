@@ -1,7 +1,8 @@
 #include <QApplication>
 #include <QPushButton>
+
 #include <iostream>
-#include "grpcpp/grpcpp.h"
+#include "grp"
 #include "Service/Service.grpc.pb.h"
 
 class DBMSServiceImpl final : public proto::DBMS::Service{
@@ -17,14 +18,9 @@ public:
     }
 };
 
-int main(int argc, char** argv) {
-    setbuf(stdout, nullptr);
 
-    QApplication a(argc, argv);
-    QPushButton button("Hello world!", nullptr);
-    button.resize(200, 100);
-    button.show();
-    return QApplication::exec();
+int main(int argc, char *argv[]) {
+    setbuf(stdout, nullptr);
 
     auto ch = grpc::CreateChannel("127.0.0.1:8080", grpc::InsecureChannelCredentials());
 
@@ -45,6 +41,9 @@ int main(int argc, char** argv) {
         std::cout<<status.error_message()<<"\n";
     }
 
-
-
+    QApplication a(argc, argv);
+    QPushButton button("Hello world!", nullptr);
+    button.resize(200, 100);
+    button.show();
+    return QApplication::exec();
 }

@@ -26,5 +26,8 @@ type MongoDbDataBaseInfo struct {
 
 const (
 	DefaultMetaInfoDataBaseName string = "MetaInfoDataBase"
-	DefaultSwcDataBaseName      string = "SwcDataBase"
+	DevMetaInfoDataBaseName     string = "DevMetaInfoDataBase"
+
+	DefaultSwcDataBaseName string = "SwcDataBase"
+	DevSwcDataBaseName     string = "DevSwcDataBase"
 )

@@ -23,6 +23,10 @@ message GetUserRequest{
     UserMetaInfoV1 UserInfo = 1;
 }
 
+message GetAllUserRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
 message UserLoginRequest{
     string UserName = 1;
     string Password = 2;
@@ -37,17 +41,8 @@ message UserOnlineHeartBeatNotification{
     int64 HeartBeatTime = 2;
 }
 
-message GetUsersRequest{
-    UserMetaInfoV1 UserInfo = 1;
-}
-
 message GetUserPermissionGroupRequest{
     UserMetaInfoV1 UserInfo = 1;
-}
-
-message GetUserPermissionsGroupRequest{
-    UserMetaInfoV1 UserInfo = 1;
-    PermissionGroupMetaInfoV1 PermissionGroup = 2;
 }
 
 message GetPermissionGroupRequest{
@@ -80,7 +75,7 @@ message GetProjectRequest{
     ProjectMetaInfoV1 ProjectInfo = 2;
 }
 
-message GetProjectsRequest{
+message GetAllProjectRequest{
     UserMetaInfoV1 UserInfo = 1;
 }
 
@@ -104,7 +99,7 @@ message GetSwcMetaInfoRequest{
     SwcMetaInfoV1 SwcInfo = 2;
 }
 
-message GetSwcsMetaInfoRequest{
+message GetAllSwcMetaInfoRequest{
     UserMetaInfoV1 UserInfo = 1;
 }
 
@@ -132,12 +127,12 @@ message GetSwcNodeDataRequest{
     SwcDataV1 SwcNodeData = 3;
 }
 
-message GetSwcsNodeDataRequest{
+message GetSwcFullNodeDataRequest{
     UserMetaInfoV1 UserInfo = 1;
     SwcMetaInfoV1 SwcInfo = 2;
 }
 
-message GetSwcsNodeDataByTimeAndUserRequest{
+message GetSwcNodeDataListByTimeAndUserRequest{
     UserMetaInfoV1 UserInfo = 1;
     SwcMetaInfoV1 SwcNodeData = 2;
     google.protobuf.Timestamp CreateTime = 3;

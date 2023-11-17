@@ -31,6 +31,12 @@ message GetUserResponse{
     UserMetaInfoV1 UserInfo = 3;
 }
 
+message GetAllUserResponse{
+    bool status = 1;
+    string Message = 2;
+    repeated UserMetaInfoV1 UserInfo = 3;
+}
+
 message UserLoginResponse{
     bool status = 1;
     string Message = 2;
@@ -42,10 +48,9 @@ message UserLogoutResponse{
     string Message = 2;
 }
 
-message GetUsersResponse{
+message UserOnlineHeartBeatResponse{
     bool status = 1;
     string Message = 2;
-    repeated UserMetaInfoV1 UserInfo = 3;
 }
 
 message GetUserPermissionGroupResponse{
@@ -96,7 +101,7 @@ message GetProjectResponse{
     ProjectMetaInfoV1 ProjectInfo = 3;
 }
 
-message GetProjectsResponse{
+message GetAllProjectResponse{
     bool status = 1;
     string Message = 2;
     repeated ProjectMetaInfoV1 ProjectInfo = 3;
@@ -126,7 +131,7 @@ message GetSwcMetaInfoResponse{
     SwcMetaInfoV1 SwcInfo = 3;
 }
 
-message GetSwcsMetaInfoResponse{
+message GetAllSwcMetaInfoResponse{
     bool status = 1;
     string Message = 2;
     repeated SwcMetaInfoV1 SwcInfo = 3;
@@ -156,19 +161,19 @@ message GetSwcNodeDataResponse{
     SwcDataV1 SwcNodeData = 3;
 }
 
-message GetSwcsNodeDataResponse{
+message GetSwcFullNodeDataResponse{
     bool status = 1;
     string Message = 2;
     SwcDataV1 SwcNodeData = 3;
 }
 
-message GetSwcsNodeDataByTimeAndUserResponse{
+message GetSwcNodeDataListByTimeAndUserResponse{
     bool status = 1;
     string Message = 2;
     SwcDataV1 SwcNodeData = 3;
 }
 
-message BackupFullDatabaseReponse{
+message BackupFullDatabaseResponse{
     bool status = 1;
     string Message = 2;
     bool InstantBackup = 3;
@@ -194,6 +199,12 @@ message UpdateDailyStatisticsResponse{
 }
 
 message GetDailyStatisticsResponse{
+    bool status = 1;
+    string Message = 2;
+    DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 3;
+}
+
+message GetDailyStatisticsListResponse{
     bool status = 1;
     string Message = 2;
     repeated DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 3;
