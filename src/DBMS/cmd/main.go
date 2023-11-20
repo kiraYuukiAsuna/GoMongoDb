@@ -3,13 +3,15 @@ package main
 import (
 	"DBMS/UnitTest"
 	"DBMS/apihandler"
+	"DBMS/bll"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func main() {
-	//bll.NewGrpcServer()
-	//return
+	bll.Initialize()
+	bll.NewGrpcServer()
+	return
 
 	UnitTest.InitializeDb()
 	UnitTest.TestUserInfo()

@@ -21,13 +21,14 @@ type MetaInfoBase struct {
 }
 
 type UserMetaInfoV1 struct {
-	Base                MetaInfoBase `bson:"Base,inline"`
-	Name                string       `bson:"Name"`
-	Password            string       `bson:"Password"`
-	Description         string       `bson:"Description"`
-	CreateTime          time.Time    `bson:"CreateTime"`
-	HeadPhotoBinData    bytes.Buffer `bson:"HeadPhotoBinData"`
-	UserPermissionGroup string       `bson:"UserPermissionGroup"`
+	Base                MetaInfoBase  `bson:"Base,inline"`
+	Name                string        `bson:"Name"`
+	Password            string        `bson:"Password"`
+	Description         string        `bson:"Description"`
+	CreateTime          time.Time     `bson:"CreateTime"`
+	HeadPhotoBinData    *bytes.Buffer `bson:"HeadPhotoBinData"`
+	UserPermissionGroup string        `bson:"UserPermissionGroup"`
+	OnlineStatus        string        `bson:"OnlineStatus"`
 }
 
 type GlobalPermissionMetaInfoV1 struct {

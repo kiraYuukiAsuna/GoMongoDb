@@ -50,6 +50,10 @@ message GetPermissionGroupRequest{
     PermissionGroupMetaInfoV1 PermissionGroup = 2;
 }
 
+message GetAllPermissionGroupRequest{
+    UserMetaInfoV1 UserInfo = 1;
+}
+
 message ChangeUserPermissionGroupRequest{
     UserMetaInfoV1 UserInfo = 1;
     PermissionGroupMetaInfoV1 PermissionGroup = 2;
@@ -165,6 +169,6 @@ message GetDailyStatisticsRequest{
     DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 2;
 }
 
-message GetDailyStatisticsListRequest{
+message GetAllDailyStatisticsRequest{
     UserMetaInfoV1 UserInfo = 1;
 }

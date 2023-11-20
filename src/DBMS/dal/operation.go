@@ -67,7 +67,7 @@ func CreateProject(projectMetaInfo dbmodel.ProjectMetaInfoV1, databaseInfo Mongo
 		return ReturnWrapper{false, "Unknown error!"}
 	} else {
 		// find one means already exist
-		return ReturnWrapper{false, "Project already exit!"}
+		return ReturnWrapper{false, "Project already exist!"}
 	}
 
 }
@@ -120,6 +120,36 @@ func QueryProject(projectMetaInfo *dbmodel.ProjectMetaInfoV1, databaseInfo Mongo
 	}
 }
 
+func QueryAllProject(projectMetaInfoList *[]dbmodel.ProjectMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	var projectCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.ProjectMetaInfoCollectionString)
+
+	cursor, err := projectCollection.Find(
+		context.TODO(),
+		bson.D{})
+
+	if err != nil {
+		return ReturnWrapper{false, "Query all Project failed!"}
+	}
+
+	if err = cursor.All(context.TODO(), projectMetaInfoList); err != nil {
+		fmt.Println(err.Error())
+		return ReturnWrapper{false, "Query all Project failed!"}
+	}
+
+	for _, result := range *projectMetaInfoList {
+		err := cursor.Decode(&result)
+		if err != nil && err != io.EOF {
+			return ReturnWrapper{false, err.Error()}
+		}
+		output, err := json.MarshalIndent(result, "", "    ")
+		if err != nil {
+			return ReturnWrapper{false, "Query all Project failed!"}
+		}
+		fmt.Printf("%s\n", output)
+	}
+	return ReturnWrapper{true, "Query all Project Success"}
+}
+
 func CreateUser(userMetaInfo dbmodel.UserMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
 	var userCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.UserMetaInfoCollectionString)
 
@@ -138,7 +168,7 @@ func CreateUser(userMetaInfo dbmodel.UserMetaInfoV1, databaseInfo MongoDbDataBas
 		return ReturnWrapper{false, "Unknown error!"}
 	} else {
 		// find one means already exist
-		return ReturnWrapper{false, "User already exit!"}
+		return ReturnWrapper{false, "User already exist!"}
 	}
 
 }
@@ -192,6 +222,36 @@ func QueryUser(userMetaInfo *dbmodel.UserMetaInfoV1, databaseInfo MongoDbDataBas
 	}
 }
 
+func QueryAllUser(userMetaInfoList *[]dbmodel.UserMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	var userCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.UserMetaInfoCollectionString)
+
+	cursor, err := userCollection.Find(
+		context.TODO(),
+		bson.D{})
+
+	if err != nil {
+		return ReturnWrapper{false, "Query all user failed!"}
+	}
+
+	if err = cursor.All(context.TODO(), userMetaInfoList); err != nil {
+		fmt.Println(err.Error())
+		return ReturnWrapper{false, "Query all user failed!"}
+	}
+
+	for _, result := range *userMetaInfoList {
+		err := cursor.Decode(&result)
+		if err != nil && err != io.EOF {
+			return ReturnWrapper{false, err.Error()}
+		}
+		output, err := json.MarshalIndent(result, "", "    ")
+		if err != nil {
+			return ReturnWrapper{false, "Query all user failed!"}
+		}
+		fmt.Printf("%s\n", output)
+	}
+	return ReturnWrapper{true, "Query all user Success"}
+}
+
 func CreatePermissionGroup(permissionGroupMetaInfo dbmodel.PermissionGroupMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
 	var permissionGroupCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.PermissionGroupMetaInfoCollectioString)
 
@@ -210,7 +270,7 @@ func CreatePermissionGroup(permissionGroupMetaInfo dbmodel.PermissionGroupMetaIn
 		return ReturnWrapper{false, "Unknown error!"}
 	} else {
 		// find one means already exist
-		return ReturnWrapper{false, "Permission group already exit!"}
+		return ReturnWrapper{false, "Permission group already exist!"}
 	}
 
 }
@@ -264,6 +324,36 @@ func QueryPermissionGroup(permissionGroupMetaInfo *dbmodel.PermissionGroupMetaIn
 	}
 }
 
+func QueryAllPermissionGroup(permissionGroupList *[]dbmodel.PermissionGroupMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	var permissionGroupCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.PermissionGroupMetaInfoCollectioString)
+
+	cursor, err := permissionGroupCollection.Find(
+		context.TODO(),
+		bson.D{})
+
+	if err != nil {
+		return ReturnWrapper{false, "Query all PermissionGroup failed!"}
+	}
+
+	if err = cursor.All(context.TODO(), permissionGroupList); err != nil {
+		fmt.Println(err.Error())
+		return ReturnWrapper{false, "Query all PermissionGroup failed!"}
+	}
+
+	for _, result := range *permissionGroupList {
+		err := cursor.Decode(&result)
+		if err != nil && err != io.EOF {
+			return ReturnWrapper{false, err.Error()}
+		}
+		output, err := json.MarshalIndent(result, "", "    ")
+		if err != nil {
+			return ReturnWrapper{false, "Query all PermissionGroup failed!"}
+		}
+		fmt.Printf("%s\n", output)
+	}
+	return ReturnWrapper{true, "Query all PermissionGroup Success"}
+}
+
 func CreateSwc(swcMetaInfo dbmodel.SwcMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
 	var swcCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.SwcMetaInfoCollectionString)
 
@@ -282,7 +372,7 @@ func CreateSwc(swcMetaInfo dbmodel.SwcMetaInfoV1, databaseInfo MongoDbDataBaseIn
 		return ReturnWrapper{false, "Unknown error!"}
 	} else {
 		// find one means already exist
-		return ReturnWrapper{false, "Swc already exit!"}
+		return ReturnWrapper{false, "Swc already exist!"}
 	}
 
 }
@@ -336,6 +426,36 @@ func QuerySwc(swcMetaInfo *dbmodel.SwcMetaInfoV1, databaseInfo MongoDbDataBaseIn
 	}
 }
 
+func QueryAllSwc(swcMetaInfoList *[]dbmodel.SwcMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	var swcCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.SwcMetaInfoCollectionString)
+
+	cursor, err := swcCollection.Find(
+		context.TODO(),
+		bson.D{})
+
+	if err != nil {
+		return ReturnWrapper{false, "Query all swc failed!"}
+	}
+
+	if err = cursor.All(context.TODO(), swcMetaInfoList); err != nil {
+		fmt.Println(err.Error())
+		return ReturnWrapper{false, "Query all swc failed!"}
+	}
+
+	for _, result := range *swcMetaInfoList {
+		err := cursor.Decode(&result)
+		if err != nil && err != io.EOF {
+			return ReturnWrapper{false, err.Error()}
+		}
+		output, err := json.MarshalIndent(result, "", "    ")
+		if err != nil {
+			return ReturnWrapper{false, "Query all swc failed!"}
+		}
+		fmt.Printf("%s\n", output)
+	}
+	return ReturnWrapper{true, "Query all swc Success"}
+}
+
 func CreateDailyStatistics(dailyStatisticsMetaInfo dbmodel.DailyStatisticsMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
 	var dailyStatisticsCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.DailyStatisticsMetaInfoCollectionString)
 
@@ -354,7 +474,7 @@ func CreateDailyStatistics(dailyStatisticsMetaInfo dbmodel.DailyStatisticsMetaIn
 		return ReturnWrapper{false, "Unknown error!"}
 	} else {
 		// find one means already exist
-		return ReturnWrapper{false, "Daily statistics already exit!"}
+		return ReturnWrapper{false, "Daily statistics already exist!"}
 	}
 
 }
@@ -390,9 +510,9 @@ func ModifyDailyStatistics(dailyStatisticsMetaInfo dbmodel.DailyStatisticsMetaIn
 }
 
 func QueryDailyStatistics(permissionGroupMetaInfo *dbmodel.DailyStatisticsMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
-	var permissionGroupCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.PermissionGroupMetaInfoCollectioString)
+	var dailyStatisticsCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.DailyStatisticsMetaInfoCollectionString)
 
-	result := permissionGroupCollection.FindOne(
+	result := dailyStatisticsCollection.FindOne(
 		context.TODO(),
 		bson.D{{"Name", permissionGroupMetaInfo.Name}})
 
@@ -406,6 +526,36 @@ func QueryDailyStatistics(permissionGroupMetaInfo *dbmodel.DailyStatisticsMetaIn
 			return ReturnWrapper{true, ""}
 		}
 	}
+}
+
+func QueryAllDailyStatistics(dailyStatisticsList *[]dbmodel.DailyStatisticsMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	var dailyStatisticsCollection = databaseInfo.MetaInfoDb.Collection(dbmodel.DailyStatisticsMetaInfoCollectionString)
+
+	cursor, err := dailyStatisticsCollection.Find(
+		context.TODO(),
+		bson.D{})
+
+	if err != nil {
+		return ReturnWrapper{false, "Query all DailyStatistics failed!"}
+	}
+
+	if err = cursor.All(context.TODO(), dailyStatisticsList); err != nil {
+		fmt.Println(err.Error())
+		return ReturnWrapper{false, "Query all DailyStatistics failed!"}
+	}
+
+	for _, result := range *dailyStatisticsList {
+		err := cursor.Decode(&result)
+		if err != nil && err != io.EOF {
+			return ReturnWrapper{false, err.Error()}
+		}
+		output, err := json.MarshalIndent(result, "", "    ")
+		if err != nil {
+			return ReturnWrapper{false, "Query all DailyStatistics failed!"}
+		}
+		fmt.Printf("%s\n", output)
+	}
+	return ReturnWrapper{true, "Query all DailyStatistics Success"}
 }
 
 func CreateSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
@@ -501,7 +651,7 @@ func QuerySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcDataV1,
 	}
 
 	if err = cursor.All(context.TODO(), swcData); err != nil {
-		panic(err)
+		return ReturnWrapper{false, "Query many node failed!"}
 	}
 
 	for _, result := range *swcData {
@@ -511,7 +661,7 @@ func QuerySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcDataV1,
 		}
 		output, err := json.MarshalIndent(result, "", "    ")
 		if err != nil {
-			panic(err)
+			return ReturnWrapper{false, "Query many node failed!"}
 		}
 		fmt.Printf("%s\n", output)
 	}
@@ -550,7 +700,7 @@ func QuerySwcDataByUserAndTime(
 	}
 
 	if err = cursor.All(context.TODO(), swcData); err != nil {
-		panic(err)
+		return ReturnWrapper{false, "QuerySwcDataByUserAndTime failed!"}
 	}
 
 	for _, result := range *swcData {
@@ -560,9 +710,40 @@ func QuerySwcDataByUserAndTime(
 		}
 		output, err := json.MarshalIndent(result, "", "    ")
 		if err != nil {
-			panic(err)
+			return ReturnWrapper{false, "QuerySwcDataByUserAndTime failed!"}
 		}
 		fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "QuerySwcDataByUserAndTime Success"}
+}
+
+func QueryAllSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
+	var interfaceSlice []interface{}
+
+	for _, v := range *swcData {
+		interfaceSlice = append(interfaceSlice, v)
+	}
+
+	cursor, err := collection.Find(context.TODO(), bson.D{})
+	if err != nil {
+		return ReturnWrapper{false, "Query many node failed!"}
+	}
+
+	if err = cursor.All(context.TODO(), swcData); err != nil {
+		return ReturnWrapper{false, "Query many node failed!"}
+	}
+
+	for _, result := range *swcData {
+		err := cursor.Decode(&result)
+		if err != nil && err != io.EOF {
+			return ReturnWrapper{false, err.Error()}
+		}
+		output, err := json.MarshalIndent(result, "", "    ")
+		if err != nil {
+			return ReturnWrapper{false, "Query many node failed!"}
+		}
+		fmt.Printf("%s\n", output)
+	}
+	return ReturnWrapper{true, "Query many node Success"}
 }

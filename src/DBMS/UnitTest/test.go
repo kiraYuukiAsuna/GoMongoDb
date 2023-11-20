@@ -87,6 +87,12 @@ func TestUserInfo() {
 		fmt.Println("Test 8 Failed")
 	}
 
+	var userMetaInfoList []dbmodel.UserMetaInfoV1
+	if dal.QueryAllUser(&userMetaInfoList, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 9 Failed")
+	}
+
 	fmt.Printf("failed number: %d \n", failedNumber)
 }
 
@@ -144,6 +150,12 @@ func TestProjectInfo() {
 	if info1.Description != "Test Modify UserInfo1" {
 		failedNumber++
 		fmt.Println("Test 8 Failed")
+	}
+
+	var projectMetaInfoList []dbmodel.ProjectMetaInfoV1
+	if dal.QueryAllProject(&projectMetaInfoList, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 9 Failed")
 	}
 
 	fmt.Printf("Failed number: %d \n", failedNumber)
@@ -205,6 +217,12 @@ func TestSwcInfo() {
 		fmt.Println("Test 8 Failed")
 	}
 
+	var swcMetaInfoList []dbmodel.SwcMetaInfoV1
+	if dal.QueryAllSwc(&swcMetaInfoList, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 9 Failed")
+	}
+
 	fmt.Printf("Failed number: %d \n", failedNumber)
 }
 
@@ -264,6 +282,12 @@ func TestPermissionGroupInfo() {
 		fmt.Println("Test 8 Failed")
 	}
 
+	var permissionGroupList []dbmodel.PermissionGroupMetaInfoV1
+	if dal.QueryAllPermissionGroup(&permissionGroupList, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 9 Failed")
+	}
+
 	fmt.Printf("Failed number: %d \n", failedNumber)
 }
 
@@ -321,6 +345,12 @@ func TestDailyStatisticsInfo() {
 	if info1.Description != "Test Modify UserInfo1" {
 		failedNumber++
 		fmt.Println("Test 8 Failed")
+	}
+
+	var dailyStatisticsGroupList []dbmodel.DailyStatisticsMetaInfoV1
+	if dal.QueryAllDailyStatistics(&dailyStatisticsGroupList, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 9 Failed")
 	}
 
 	fmt.Printf("Failed number: %d \n", failedNumber)
@@ -389,6 +419,12 @@ func TestSwcData() {
 	}
 
 	if dal.QuerySwcDataByUserAndTime(swcMetaInfo, "", time.Time{}, time.Time{}, &swcData1, dal.GetDbInstance()).Status == false {
+		failedNumber++
+		fmt.Println("Test 9 Failed")
+	}
+
+	var swcDataList dbmodel.SwcDataV1
+	if dal.QueryAllSwcData(swcMetaInfo, &swcDataList, dal.GetDbInstance()).Status == false {
 		failedNumber++
 		fmt.Println("Test 9 Failed")
 	}

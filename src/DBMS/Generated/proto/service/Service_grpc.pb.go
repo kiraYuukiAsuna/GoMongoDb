@@ -31,6 +31,7 @@ const (
 	DBMS_UserOnlineHeartBeatNotifications_FullMethodName = "/proto.DBMS/UserOnlineHeartBeatNotifications"
 	DBMS_GetUserPermissionGroup_FullMethodName           = "/proto.DBMS/GetUserPermissionGroup"
 	DBMS_GetPermissionGroup_FullMethodName               = "/proto.DBMS/GetPermissionGroup"
+	DBMS_GetAllPermissionGroup_FullMethodName            = "/proto.DBMS/GetAllPermissionGroup"
 	DBMS_ChangeUserPermissionGroup_FullMethodName        = "/proto.DBMS/ChangeUserPermissionGroup"
 	DBMS_CreateProject_FullMethodName                    = "/proto.DBMS/CreateProject"
 	DBMS_DeleteProject_FullMethodName                    = "/proto.DBMS/DeleteProject"
@@ -53,7 +54,7 @@ const (
 	DBMS_DeleteDailyStatistics_FullMethodName            = "/proto.DBMS/DeleteDailyStatistics"
 	DBMS_UpdateDailyStatistics_FullMethodName            = "/proto.DBMS/UpdateDailyStatistics"
 	DBMS_GetDailyStatistics_FullMethodName               = "/proto.DBMS/GetDailyStatistics"
-	DBMS_GetDailyStatisticsList_FullMethodName           = "/proto.DBMS/GetDailyStatisticsList"
+	DBMS_GetAllDailyStatistics_FullMethodName            = "/proto.DBMS/GetAllDailyStatistics"
 )
 
 // DBMSClient is the client API for DBMS service.
@@ -70,6 +71,7 @@ type DBMSClient interface {
 	UserOnlineHeartBeatNotifications(ctx context.Context, in *request.UserOnlineHeartBeatNotification, opts ...grpc.CallOption) (*response.UserOnlineHeartBeatResponse, error)
 	GetUserPermissionGroup(ctx context.Context, in *request.GetUserPermissionGroupRequest, opts ...grpc.CallOption) (*response.GetUserPermissionGroupResponse, error)
 	GetPermissionGroup(ctx context.Context, in *request.GetPermissionGroupRequest, opts ...grpc.CallOption) (*response.GetPermissionGroupResponse, error)
+	GetAllPermissionGroup(ctx context.Context, in *request.GetAllPermissionGroupRequest, opts ...grpc.CallOption) (*response.GetAllPermissionGroupResponse, error)
 	ChangeUserPermissionGroup(ctx context.Context, in *request.ChangeUserPermissionGroupRequest, opts ...grpc.CallOption) (*response.ChangeUserPermissionGroupResponse, error)
 	CreateProject(ctx context.Context, in *request.CreateProjectRequest, opts ...grpc.CallOption) (*response.CreateProjectResponse, error)
 	DeleteProject(ctx context.Context, in *request.DeleteProjectRequest, opts ...grpc.CallOption) (*response.DeleteProjectResponse, error)
@@ -92,7 +94,7 @@ type DBMSClient interface {
 	DeleteDailyStatistics(ctx context.Context, in *request.DeleteDailyStatisticsRequest, opts ...grpc.CallOption) (*response.DeleteDailyStatisticsResponse, error)
 	UpdateDailyStatistics(ctx context.Context, in *request.UpdateDailyStatisticsRequest, opts ...grpc.CallOption) (*response.UpdateDailyStatisticsResponse, error)
 	GetDailyStatistics(ctx context.Context, in *request.GetDailyStatisticsRequest, opts ...grpc.CallOption) (*response.GetDailyStatisticsResponse, error)
-	GetDailyStatisticsList(ctx context.Context, in *request.GetDailyStatisticsListRequest, opts ...grpc.CallOption) (*response.GetDailyStatisticsListResponse, error)
+	GetAllDailyStatistics(ctx context.Context, in *request.GetAllDailyStatisticsRequest, opts ...grpc.CallOption) (*response.GetAllDailyStatisticsResponse, error)
 }
 
 type dBMSClient struct {
@@ -187,6 +189,15 @@ func (c *dBMSClient) GetUserPermissionGroup(ctx context.Context, in *request.Get
 func (c *dBMSClient) GetPermissionGroup(ctx context.Context, in *request.GetPermissionGroupRequest, opts ...grpc.CallOption) (*response.GetPermissionGroupResponse, error) {
 	out := new(response.GetPermissionGroupResponse)
 	err := c.cc.Invoke(ctx, DBMS_GetPermissionGroup_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) GetAllPermissionGroup(ctx context.Context, in *request.GetAllPermissionGroupRequest, opts ...grpc.CallOption) (*response.GetAllPermissionGroupResponse, error) {
+	out := new(response.GetAllPermissionGroupResponse)
+	err := c.cc.Invoke(ctx, DBMS_GetAllPermissionGroup_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -391,9 +402,9 @@ func (c *dBMSClient) GetDailyStatistics(ctx context.Context, in *request.GetDail
 	return out, nil
 }
 
-func (c *dBMSClient) GetDailyStatisticsList(ctx context.Context, in *request.GetDailyStatisticsListRequest, opts ...grpc.CallOption) (*response.GetDailyStatisticsListResponse, error) {
-	out := new(response.GetDailyStatisticsListResponse)
-	err := c.cc.Invoke(ctx, DBMS_GetDailyStatisticsList_FullMethodName, in, out, opts...)
+func (c *dBMSClient) GetAllDailyStatistics(ctx context.Context, in *request.GetAllDailyStatisticsRequest, opts ...grpc.CallOption) (*response.GetAllDailyStatisticsResponse, error) {
+	out := new(response.GetAllDailyStatisticsResponse)
+	err := c.cc.Invoke(ctx, DBMS_GetAllDailyStatistics_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -414,6 +425,7 @@ type DBMSServer interface {
 	UserOnlineHeartBeatNotifications(context.Context, *request.UserOnlineHeartBeatNotification) (*response.UserOnlineHeartBeatResponse, error)
 	GetUserPermissionGroup(context.Context, *request.GetUserPermissionGroupRequest) (*response.GetUserPermissionGroupResponse, error)
 	GetPermissionGroup(context.Context, *request.GetPermissionGroupRequest) (*response.GetPermissionGroupResponse, error)
+	GetAllPermissionGroup(context.Context, *request.GetAllPermissionGroupRequest) (*response.GetAllPermissionGroupResponse, error)
 	ChangeUserPermissionGroup(context.Context, *request.ChangeUserPermissionGroupRequest) (*response.ChangeUserPermissionGroupResponse, error)
 	CreateProject(context.Context, *request.CreateProjectRequest) (*response.CreateProjectResponse, error)
 	DeleteProject(context.Context, *request.DeleteProjectRequest) (*response.DeleteProjectResponse, error)
@@ -436,7 +448,7 @@ type DBMSServer interface {
 	DeleteDailyStatistics(context.Context, *request.DeleteDailyStatisticsRequest) (*response.DeleteDailyStatisticsResponse, error)
 	UpdateDailyStatistics(context.Context, *request.UpdateDailyStatisticsRequest) (*response.UpdateDailyStatisticsResponse, error)
 	GetDailyStatistics(context.Context, *request.GetDailyStatisticsRequest) (*response.GetDailyStatisticsResponse, error)
-	GetDailyStatisticsList(context.Context, *request.GetDailyStatisticsListRequest) (*response.GetDailyStatisticsListResponse, error)
+	GetAllDailyStatistics(context.Context, *request.GetAllDailyStatisticsRequest) (*response.GetAllDailyStatisticsResponse, error)
 	mustEmbedUnimplementedDBMSServer()
 }
 
@@ -473,6 +485,9 @@ func (UnimplementedDBMSServer) GetUserPermissionGroup(context.Context, *request.
 }
 func (UnimplementedDBMSServer) GetPermissionGroup(context.Context, *request.GetPermissionGroupRequest) (*response.GetPermissionGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPermissionGroup not implemented")
+}
+func (UnimplementedDBMSServer) GetAllPermissionGroup(context.Context, *request.GetAllPermissionGroupRequest) (*response.GetAllPermissionGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllPermissionGroup not implemented")
 }
 func (UnimplementedDBMSServer) ChangeUserPermissionGroup(context.Context, *request.ChangeUserPermissionGroupRequest) (*response.ChangeUserPermissionGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChangeUserPermissionGroup not implemented")
@@ -540,8 +555,8 @@ func (UnimplementedDBMSServer) UpdateDailyStatistics(context.Context, *request.U
 func (UnimplementedDBMSServer) GetDailyStatistics(context.Context, *request.GetDailyStatisticsRequest) (*response.GetDailyStatisticsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDailyStatistics not implemented")
 }
-func (UnimplementedDBMSServer) GetDailyStatisticsList(context.Context, *request.GetDailyStatisticsListRequest) (*response.GetDailyStatisticsListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDailyStatisticsList not implemented")
+func (UnimplementedDBMSServer) GetAllDailyStatistics(context.Context, *request.GetAllDailyStatisticsRequest) (*response.GetAllDailyStatisticsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllDailyStatistics not implemented")
 }
 func (UnimplementedDBMSServer) mustEmbedUnimplementedDBMSServer() {}
 
@@ -732,6 +747,24 @@ func _DBMS_GetPermissionGroup_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DBMSServer).GetPermissionGroup(ctx, req.(*request.GetPermissionGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_GetAllPermissionGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetAllPermissionGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).GetAllPermissionGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_GetAllPermissionGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).GetAllPermissionGroup(ctx, req.(*request.GetAllPermissionGroupRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1132,20 +1165,20 @@ func _DBMS_GetDailyStatistics_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DBMS_GetDailyStatisticsList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(request.GetDailyStatisticsListRequest)
+func _DBMS_GetAllDailyStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetAllDailyStatisticsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DBMSServer).GetDailyStatisticsList(ctx, in)
+		return srv.(DBMSServer).GetAllDailyStatistics(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DBMS_GetDailyStatisticsList_FullMethodName,
+		FullMethod: DBMS_GetAllDailyStatistics_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DBMSServer).GetDailyStatisticsList(ctx, req.(*request.GetDailyStatisticsListRequest))
+		return srv.(DBMSServer).GetAllDailyStatistics(ctx, req.(*request.GetAllDailyStatisticsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1196,6 +1229,10 @@ var DBMS_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPermissionGroup",
 			Handler:    _DBMS_GetPermissionGroup_Handler,
+		},
+		{
+			MethodName: "GetAllPermissionGroup",
+			Handler:    _DBMS_GetAllPermissionGroup_Handler,
 		},
 		{
 			MethodName: "ChangeUserPermissionGroup",
@@ -1286,8 +1323,8 @@ var DBMS_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DBMS_GetDailyStatistics_Handler,
 		},
 		{
-			MethodName: "GetDailyStatisticsList",
-			Handler:    _DBMS_GetDailyStatisticsList_Handler,
+			MethodName: "GetAllDailyStatistics",
+			Handler:    _DBMS_GetAllDailyStatistics_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

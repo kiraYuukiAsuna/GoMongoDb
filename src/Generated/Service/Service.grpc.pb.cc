@@ -32,6 +32,7 @@ static const char* DBMS_method_names[] = {
   "/proto.DBMS/UserOnlineHeartBeatNotifications",
   "/proto.DBMS/GetUserPermissionGroup",
   "/proto.DBMS/GetPermissionGroup",
+  "/proto.DBMS/GetAllPermissionGroup",
   "/proto.DBMS/ChangeUserPermissionGroup",
   "/proto.DBMS/CreateProject",
   "/proto.DBMS/DeleteProject",
@@ -54,7 +55,7 @@ static const char* DBMS_method_names[] = {
   "/proto.DBMS/DeleteDailyStatistics",
   "/proto.DBMS/UpdateDailyStatistics",
   "/proto.DBMS/GetDailyStatistics",
-  "/proto.DBMS/GetDailyStatisticsList",
+  "/proto.DBMS/GetAllDailyStatistics",
 };
 
 std::unique_ptr< DBMS::Stub> DBMS::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -74,29 +75,30 @@ DBMS::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, cons
   , rpcmethod_UserOnlineHeartBeatNotifications_(DBMS_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetUserPermissionGroup_(DBMS_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetPermissionGroup_(DBMS_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ChangeUserPermissionGroup_(DBMS_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CreateProject_(DBMS_method_names[11], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_DeleteProject_(DBMS_method_names[12], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateProject_(DBMS_method_names[13], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetProject_(DBMS_method_names[14], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetAllProject_(DBMS_method_names[15], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CreateSwc_(DBMS_method_names[16], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_DeleteSwc_(DBMS_method_names[17], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateSwc_(DBMS_method_names[18], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetSwcMetaInfo_(DBMS_method_names[19], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetAllSwcMetaInfo_(DBMS_method_names[20], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CreateSwcNodeData_(DBMS_method_names[21], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_DeleteSwcNodeData_(DBMS_method_names[22], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateSwcNodeData_(DBMS_method_names[23], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetSwcNodeData_(DBMS_method_names[24], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetSwcFullNodeData_(DBMS_method_names[25], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetSwcNodeDataListByTimeAndUser_(DBMS_method_names[26], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_BackupFullDatabase_(DBMS_method_names[27], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CreateDailyStatistics_(DBMS_method_names[28], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_DeleteDailyStatistics_(DBMS_method_names[29], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateDailyStatistics_(DBMS_method_names[30], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetDailyStatistics_(DBMS_method_names[31], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetDailyStatisticsList_(DBMS_method_names[32], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetAllPermissionGroup_(DBMS_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ChangeUserPermissionGroup_(DBMS_method_names[11], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CreateProject_(DBMS_method_names[12], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DeleteProject_(DBMS_method_names[13], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateProject_(DBMS_method_names[14], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetProject_(DBMS_method_names[15], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetAllProject_(DBMS_method_names[16], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CreateSwc_(DBMS_method_names[17], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DeleteSwc_(DBMS_method_names[18], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateSwc_(DBMS_method_names[19], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetSwcMetaInfo_(DBMS_method_names[20], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetAllSwcMetaInfo_(DBMS_method_names[21], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CreateSwcNodeData_(DBMS_method_names[22], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DeleteSwcNodeData_(DBMS_method_names[23], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateSwcNodeData_(DBMS_method_names[24], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetSwcNodeData_(DBMS_method_names[25], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetSwcFullNodeData_(DBMS_method_names[26], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetSwcNodeDataListByTimeAndUser_(DBMS_method_names[27], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_BackupFullDatabase_(DBMS_method_names[28], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CreateDailyStatistics_(DBMS_method_names[29], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DeleteDailyStatistics_(DBMS_method_names[30], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateDailyStatistics_(DBMS_method_names[31], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetDailyStatistics_(DBMS_method_names[32], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetAllDailyStatistics_(DBMS_method_names[33], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status DBMS::Stub::CreateUser(::grpc::ClientContext* context, const ::proto::CreateUserRequest& request, ::proto::CreateUserResponse* response) {
@@ -325,6 +327,29 @@ void DBMS::Stub::async::GetPermissionGroup(::grpc::ClientContext* context, const
 ::grpc::ClientAsyncResponseReader< ::proto::GetPermissionGroupResponse>* DBMS::Stub::AsyncGetPermissionGroupRaw(::grpc::ClientContext* context, const ::proto::GetPermissionGroupRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncGetPermissionGroupRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status DBMS::Stub::GetAllPermissionGroup(::grpc::ClientContext* context, const ::proto::GetAllPermissionGroupRequest& request, ::proto::GetAllPermissionGroupResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::proto::GetAllPermissionGroupRequest, ::proto::GetAllPermissionGroupResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetAllPermissionGroup_, context, request, response);
+}
+
+void DBMS::Stub::async::GetAllPermissionGroup(::grpc::ClientContext* context, const ::proto::GetAllPermissionGroupRequest* request, ::proto::GetAllPermissionGroupResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::proto::GetAllPermissionGroupRequest, ::proto::GetAllPermissionGroupResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetAllPermissionGroup_, context, request, response, std::move(f));
+}
+
+void DBMS::Stub::async::GetAllPermissionGroup(::grpc::ClientContext* context, const ::proto::GetAllPermissionGroupRequest* request, ::proto::GetAllPermissionGroupResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetAllPermissionGroup_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::GetAllPermissionGroupResponse>* DBMS::Stub::PrepareAsyncGetAllPermissionGroupRaw(::grpc::ClientContext* context, const ::proto::GetAllPermissionGroupRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::GetAllPermissionGroupResponse, ::proto::GetAllPermissionGroupRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetAllPermissionGroup_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::GetAllPermissionGroupResponse>* DBMS::Stub::AsyncGetAllPermissionGroupRaw(::grpc::ClientContext* context, const ::proto::GetAllPermissionGroupRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetAllPermissionGroupRaw(context, request, cq);
   result->StartCall();
   return result;
 }
@@ -835,25 +860,25 @@ void DBMS::Stub::async::GetDailyStatistics(::grpc::ClientContext* context, const
   return result;
 }
 
-::grpc::Status DBMS::Stub::GetDailyStatisticsList(::grpc::ClientContext* context, const ::proto::GetDailyStatisticsListRequest& request, ::proto::GetDailyStatisticsListResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::proto::GetDailyStatisticsListRequest, ::proto::GetDailyStatisticsListResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetDailyStatisticsList_, context, request, response);
+::grpc::Status DBMS::Stub::GetAllDailyStatistics(::grpc::ClientContext* context, const ::proto::GetAllDailyStatisticsRequest& request, ::proto::GetAllDailyStatisticsResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::proto::GetAllDailyStatisticsRequest, ::proto::GetAllDailyStatisticsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetAllDailyStatistics_, context, request, response);
 }
 
-void DBMS::Stub::async::GetDailyStatisticsList(::grpc::ClientContext* context, const ::proto::GetDailyStatisticsListRequest* request, ::proto::GetDailyStatisticsListResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::proto::GetDailyStatisticsListRequest, ::proto::GetDailyStatisticsListResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetDailyStatisticsList_, context, request, response, std::move(f));
+void DBMS::Stub::async::GetAllDailyStatistics(::grpc::ClientContext* context, const ::proto::GetAllDailyStatisticsRequest* request, ::proto::GetAllDailyStatisticsResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::proto::GetAllDailyStatisticsRequest, ::proto::GetAllDailyStatisticsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetAllDailyStatistics_, context, request, response, std::move(f));
 }
 
-void DBMS::Stub::async::GetDailyStatisticsList(::grpc::ClientContext* context, const ::proto::GetDailyStatisticsListRequest* request, ::proto::GetDailyStatisticsListResponse* response, ::grpc::ClientUnaryReactor* reactor) {
-  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetDailyStatisticsList_, context, request, response, reactor);
+void DBMS::Stub::async::GetAllDailyStatistics(::grpc::ClientContext* context, const ::proto::GetAllDailyStatisticsRequest* request, ::proto::GetAllDailyStatisticsResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetAllDailyStatistics_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::GetDailyStatisticsListResponse>* DBMS::Stub::PrepareAsyncGetDailyStatisticsListRaw(::grpc::ClientContext* context, const ::proto::GetDailyStatisticsListRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::GetDailyStatisticsListResponse, ::proto::GetDailyStatisticsListRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetDailyStatisticsList_, context, request);
+::grpc::ClientAsyncResponseReader< ::proto::GetAllDailyStatisticsResponse>* DBMS::Stub::PrepareAsyncGetAllDailyStatisticsRaw(::grpc::ClientContext* context, const ::proto::GetAllDailyStatisticsRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::GetAllDailyStatisticsResponse, ::proto::GetAllDailyStatisticsRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetAllDailyStatistics_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::proto::GetDailyStatisticsListResponse>* DBMS::Stub::AsyncGetDailyStatisticsListRaw(::grpc::ClientContext* context, const ::proto::GetDailyStatisticsListRequest& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::proto::GetAllDailyStatisticsResponse>* DBMS::Stub::AsyncGetAllDailyStatisticsRaw(::grpc::ClientContext* context, const ::proto::GetAllDailyStatisticsRequest& request, ::grpc::CompletionQueue* cq) {
   auto* result =
-    this->PrepareAsyncGetDailyStatisticsListRaw(context, request, cq);
+    this->PrepareAsyncGetAllDailyStatisticsRaw(context, request, cq);
   result->StartCall();
   return result;
 }
@@ -962,6 +987,16 @@ DBMS::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       DBMS_method_names[10],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetAllPermissionGroupRequest, ::proto::GetAllPermissionGroupResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](DBMS::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::proto::GetAllPermissionGroupRequest* req,
+             ::proto::GetAllPermissionGroupResponse* resp) {
+               return service->GetAllPermissionGroup(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      DBMS_method_names[11],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::ChangeUserPermissionGroupRequest, ::proto::ChangeUserPermissionGroupResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
              ::grpc::ServerContext* ctx,
@@ -970,7 +1005,7 @@ DBMS::Service::Service() {
                return service->ChangeUserPermissionGroup(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[11],
+      DBMS_method_names[12],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::CreateProjectRequest, ::proto::CreateProjectResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -980,7 +1015,7 @@ DBMS::Service::Service() {
                return service->CreateProject(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[12],
+      DBMS_method_names[13],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::DeleteProjectRequest, ::proto::DeleteProjectResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -990,7 +1025,7 @@ DBMS::Service::Service() {
                return service->DeleteProject(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[13],
+      DBMS_method_names[14],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::UpdateProjectRequest, ::proto::UpdateProjectResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1000,7 +1035,7 @@ DBMS::Service::Service() {
                return service->UpdateProject(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[14],
+      DBMS_method_names[15],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetProjectRequest, ::proto::GetProjectResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1010,7 +1045,7 @@ DBMS::Service::Service() {
                return service->GetProject(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[15],
+      DBMS_method_names[16],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetAllProjectRequest, ::proto::GetAllProjectResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1020,7 +1055,7 @@ DBMS::Service::Service() {
                return service->GetAllProject(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[16],
+      DBMS_method_names[17],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::CreateSwcRequest, ::proto::CreateSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1030,7 +1065,7 @@ DBMS::Service::Service() {
                return service->CreateSwc(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[17],
+      DBMS_method_names[18],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::DeleteSwcRequest, ::proto::DeleteSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1040,7 +1075,7 @@ DBMS::Service::Service() {
                return service->DeleteSwc(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[18],
+      DBMS_method_names[19],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::UpdateSwcRequest, ::proto::UpdateSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1050,7 +1085,7 @@ DBMS::Service::Service() {
                return service->UpdateSwc(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[19],
+      DBMS_method_names[20],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetSwcMetaInfoRequest, ::proto::GetSwcMetaInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1060,7 +1095,7 @@ DBMS::Service::Service() {
                return service->GetSwcMetaInfo(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[20],
+      DBMS_method_names[21],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetAllSwcMetaInfoRequest, ::proto::GetAllSwcMetaInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1070,7 +1105,7 @@ DBMS::Service::Service() {
                return service->GetAllSwcMetaInfo(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[21],
+      DBMS_method_names[22],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::CreateSwcNodeDataRequest, ::proto::CreateSwcNodeDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1080,7 +1115,7 @@ DBMS::Service::Service() {
                return service->CreateSwcNodeData(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[22],
+      DBMS_method_names[23],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::DeleteSwcNodeDataRequest, ::proto::DeleteSwcNodeDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1090,7 +1125,7 @@ DBMS::Service::Service() {
                return service->DeleteSwcNodeData(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[23],
+      DBMS_method_names[24],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::UpdateSwcNodeDataRequest, ::proto::UpdateSwcNodeDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1100,7 +1135,7 @@ DBMS::Service::Service() {
                return service->UpdateSwcNodeData(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[24],
+      DBMS_method_names[25],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetSwcNodeDataRequest, ::proto::GetSwcNodeDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1110,7 +1145,7 @@ DBMS::Service::Service() {
                return service->GetSwcNodeData(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[25],
+      DBMS_method_names[26],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetSwcFullNodeDataRequest, ::proto::GetSwcFullNodeDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1120,7 +1155,7 @@ DBMS::Service::Service() {
                return service->GetSwcFullNodeData(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[26],
+      DBMS_method_names[27],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetSwcNodeDataListByTimeAndUserRequest, ::proto::GetSwcNodeDataListByTimeAndUserResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1130,7 +1165,7 @@ DBMS::Service::Service() {
                return service->GetSwcNodeDataListByTimeAndUser(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[27],
+      DBMS_method_names[28],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::BackupFullDatabaseRequest, ::proto::BackupFullDatabaseResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1140,7 +1175,7 @@ DBMS::Service::Service() {
                return service->BackupFullDatabase(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[28],
+      DBMS_method_names[29],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::CreateDailyStatisticsRequest, ::proto::CreateDailyStatisticsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1150,7 +1185,7 @@ DBMS::Service::Service() {
                return service->CreateDailyStatistics(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[29],
+      DBMS_method_names[30],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::DeleteDailyStatisticsRequest, ::proto::DeleteDailyStatisticsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1160,7 +1195,7 @@ DBMS::Service::Service() {
                return service->DeleteDailyStatistics(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[30],
+      DBMS_method_names[31],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::UpdateDailyStatisticsRequest, ::proto::UpdateDailyStatisticsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1170,7 +1205,7 @@ DBMS::Service::Service() {
                return service->UpdateDailyStatistics(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[31],
+      DBMS_method_names[32],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetDailyStatisticsRequest, ::proto::GetDailyStatisticsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
@@ -1180,14 +1215,14 @@ DBMS::Service::Service() {
                return service->GetDailyStatistics(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      DBMS_method_names[32],
+      DBMS_method_names[33],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetDailyStatisticsListRequest, ::proto::GetDailyStatisticsListResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetAllDailyStatisticsRequest, ::proto::GetAllDailyStatisticsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](DBMS::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::proto::GetDailyStatisticsListRequest* req,
-             ::proto::GetDailyStatisticsListResponse* resp) {
-               return service->GetDailyStatisticsList(ctx, req, resp);
+             const ::proto::GetAllDailyStatisticsRequest* req,
+             ::proto::GetAllDailyStatisticsResponse* resp) {
+               return service->GetAllDailyStatistics(ctx, req, resp);
              }, this)));
 }
 
@@ -1258,6 +1293,13 @@ DBMS::Service::~Service() {
 }
 
 ::grpc::Status DBMS::Service::GetPermissionGroup(::grpc::ServerContext* context, const ::proto::GetPermissionGroupRequest* request, ::proto::GetPermissionGroupResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status DBMS::Service::GetAllPermissionGroup(::grpc::ServerContext* context, const ::proto::GetAllPermissionGroupRequest* request, ::proto::GetAllPermissionGroupResponse* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -1418,7 +1460,7 @@ DBMS::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status DBMS::Service::GetDailyStatisticsList(::grpc::ServerContext* context, const ::proto::GetDailyStatisticsListRequest* request, ::proto::GetDailyStatisticsListResponse* response) {
+::grpc::Status DBMS::Service::GetAllDailyStatistics(::grpc::ServerContext* context, const ::proto::GetAllDailyStatisticsRequest* request, ::proto::GetAllDailyStatisticsResponse* response) {
   (void) context;
   (void) request;
   (void) response;

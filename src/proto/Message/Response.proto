@@ -65,7 +65,7 @@ message GetPermissionGroupResponse{
     PermissionGroupMetaInfoV1 PermissionGroupList = 3;
 }
 
-message GetPermissionGroupsResponse{
+message GetAllPermissionGroupResponse{
     bool status = 1;
     string Message = 2;
     repeated PermissionGroupMetaInfoV1 PermissionGroupList = 3;
@@ -204,7 +204,7 @@ message GetDailyStatisticsResponse{
     DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 3;
 }
 
-message GetDailyStatisticsListResponse{
+message GetAllDailyStatisticsResponse{
     bool status = 1;
     string Message = 2;
     repeated DailyStatisticsMetaInfoV1 DailyStatisticsInfo = 3;

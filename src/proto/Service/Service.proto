@@ -23,6 +23,7 @@ service DBMS {
 
     rpc GetUserPermissionGroup(GetUserPermissionGroupRequest) returns (GetUserPermissionGroupResponse){}
     rpc GetPermissionGroup(GetPermissionGroupRequest) returns (GetPermissionGroupResponse){}
+    rpc GetAllPermissionGroup(GetAllPermissionGroupRequest) returns (GetAllPermissionGroupResponse){}
     rpc ChangeUserPermissionGroup(ChangeUserPermissionGroupRequest) returns (ChangeUserPermissionGroupResponse){}
     
     rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){}
@@ -47,5 +48,5 @@ service DBMS {
     rpc DeleteDailyStatistics(DeleteDailyStatisticsRequest) returns (DeleteDailyStatisticsResponse){}
     rpc UpdateDailyStatistics(UpdateDailyStatisticsRequest) returns (UpdateDailyStatisticsResponse){}
     rpc GetDailyStatistics(GetDailyStatisticsRequest) returns (GetDailyStatisticsResponse){}
-    rpc GetDailyStatisticsList(GetDailyStatisticsListRequest) returns (GetDailyStatisticsListResponse){}
+    rpc GetAllDailyStatistics(GetAllDailyStatisticsRequest) returns (GetAllDailyStatisticsResponse){}
 }

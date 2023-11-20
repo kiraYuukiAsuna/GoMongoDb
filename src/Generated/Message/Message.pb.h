@@ -408,6 +408,7 @@ class UserMetaInfoV1 final :
     kDescriptionFieldNumber = 4,
     kHeadPhotoBinDataFieldNumber = 6,
     kUserPermissionGroupFieldNumber = 7,
+    kOnlineStatusFieldNumber = 8,
     kBaseFieldNumber = 1,
     kCreateTimeFieldNumber = 5,
   };
@@ -481,6 +482,20 @@ class UserMetaInfoV1 final :
   std::string* _internal_mutable_userpermissiongroup();
   public:
 
+  // string OnlineStatus = 8;
+  void clear_onlinestatus();
+  const std::string& onlinestatus() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_onlinestatus(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_onlinestatus();
+  PROTOBUF_NODISCARD std::string* release_onlinestatus();
+  void set_allocated_onlinestatus(std::string* onlinestatus);
+  private:
+  const std::string& _internal_onlinestatus() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_onlinestatus(const std::string& value);
+  std::string* _internal_mutable_onlinestatus();
+  public:
+
   // .proto.MetaInfoBase Base = 1;
   bool has_base() const;
   private:
@@ -530,6 +545,7 @@ class UserMetaInfoV1 final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr description_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr headphotobindata_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr userpermissiongroup_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr onlinestatus_;
     ::proto::MetaInfoBase* base_;
     ::PROTOBUF_NAMESPACE_ID::Timestamp* createtime_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -3211,6 +3227,56 @@ inline void UserMetaInfoV1::set_allocated_userpermissiongroup(std::string* userp
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:proto.UserMetaInfoV1.UserPermissionGroup)
+}
+
+// string OnlineStatus = 8;
+inline void UserMetaInfoV1::clear_onlinestatus() {
+  _impl_.onlinestatus_.ClearToEmpty();
+}
+inline const std::string& UserMetaInfoV1::onlinestatus() const {
+  // @@protoc_insertion_point(field_get:proto.UserMetaInfoV1.OnlineStatus)
+  return _internal_onlinestatus();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UserMetaInfoV1::set_onlinestatus(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.onlinestatus_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:proto.UserMetaInfoV1.OnlineStatus)
+}
+inline std::string* UserMetaInfoV1::mutable_onlinestatus() {
+  std::string* _s = _internal_mutable_onlinestatus();
+  // @@protoc_insertion_point(field_mutable:proto.UserMetaInfoV1.OnlineStatus)
+  return _s;
+}
+inline const std::string& UserMetaInfoV1::_internal_onlinestatus() const {
+  return _impl_.onlinestatus_.Get();
+}
+inline void UserMetaInfoV1::_internal_set_onlinestatus(const std::string& value) {
+  
+  _impl_.onlinestatus_.Set(value, GetArenaForAllocation());
+}
+inline std::string* UserMetaInfoV1::_internal_mutable_onlinestatus() {
+  
+  return _impl_.onlinestatus_.Mutable(GetArenaForAllocation());
+}
+inline std::string* UserMetaInfoV1::release_onlinestatus() {
+  // @@protoc_insertion_point(field_release:proto.UserMetaInfoV1.OnlineStatus)
+  return _impl_.onlinestatus_.Release();
+}
+inline void UserMetaInfoV1::set_allocated_onlinestatus(std::string* onlinestatus) {
+  if (onlinestatus != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.onlinestatus_.SetAllocated(onlinestatus, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.onlinestatus_.IsDefault()) {
+    _impl_.onlinestatus_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:proto.UserMetaInfoV1.OnlineStatus)
 }
 
 // -------------------------------------------------------------------

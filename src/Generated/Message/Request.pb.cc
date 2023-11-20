@@ -154,6 +154,19 @@ struct GetPermissionGroupRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetPermissionGroupRequestDefaultTypeInternal _GetPermissionGroupRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetAllPermissionGroupRequest::GetAllPermissionGroupRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.userinfo_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct GetAllPermissionGroupRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetAllPermissionGroupRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetAllPermissionGroupRequestDefaultTypeInternal() {}
+  union {
+    GetAllPermissionGroupRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAllPermissionGroupRequestDefaultTypeInternal _GetAllPermissionGroupRequest_default_instance_;
 PROTOBUF_CONSTEXPR ChangeUserPermissionGroupRequest::ChangeUserPermissionGroupRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userinfo_)*/nullptr
@@ -467,21 +480,21 @@ struct GetDailyStatisticsRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetDailyStatisticsRequestDefaultTypeInternal _GetDailyStatisticsRequest_default_instance_;
-PROTOBUF_CONSTEXPR GetDailyStatisticsListRequest::GetDailyStatisticsListRequest(
+PROTOBUF_CONSTEXPR GetAllDailyStatisticsRequest::GetAllDailyStatisticsRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userinfo_)*/nullptr
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct GetDailyStatisticsListRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetDailyStatisticsListRequestDefaultTypeInternal()
+struct GetAllDailyStatisticsRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetAllDailyStatisticsRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GetDailyStatisticsListRequestDefaultTypeInternal() {}
+  ~GetAllDailyStatisticsRequestDefaultTypeInternal() {}
   union {
-    GetDailyStatisticsListRequest _instance;
+    GetAllDailyStatisticsRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetDailyStatisticsListRequestDefaultTypeInternal _GetDailyStatisticsListRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAllDailyStatisticsRequestDefaultTypeInternal _GetAllDailyStatisticsRequest_default_instance_;
 }  // namespace proto
-static ::_pb::Metadata file_level_metadata_Message_2fRequest_2eproto[33];
+static ::_pb::Metadata file_level_metadata_Message_2fRequest_2eproto[34];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Message_2fRequest_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Message_2fRequest_2eproto = nullptr;
 
@@ -559,6 +572,13 @@ const uint32_t TableStruct_Message_2fRequest_2eproto::offsets[] PROTOBUF_SECTION
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupRequest, _impl_.userinfo_),
   PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupRequest, _impl_.permissiongroup_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::proto::GetAllPermissionGroupRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::proto::GetAllPermissionGroupRequest, _impl_.userinfo_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::ChangeUserPermissionGroupRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -741,12 +761,12 @@ const uint32_t TableStruct_Message_2fRequest_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::proto::GetDailyStatisticsRequest, _impl_.userinfo_),
   PROTOBUF_FIELD_OFFSET(::proto::GetDailyStatisticsRequest, _impl_.dailystatisticsinfo_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::proto::GetDailyStatisticsListRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetAllDailyStatisticsRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::proto::GetDailyStatisticsListRequest, _impl_.userinfo_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetAllDailyStatisticsRequest, _impl_.userinfo_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::proto::CreateUserRequest)},
@@ -759,29 +779,30 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 50, -1, -1, sizeof(::proto::UserOnlineHeartBeatNotification)},
   { 58, -1, -1, sizeof(::proto::GetUserPermissionGroupRequest)},
   { 65, -1, -1, sizeof(::proto::GetPermissionGroupRequest)},
-  { 73, -1, -1, sizeof(::proto::ChangeUserPermissionGroupRequest)},
-  { 81, -1, -1, sizeof(::proto::CreateProjectRequest)},
-  { 89, -1, -1, sizeof(::proto::DeleteProjectRequest)},
-  { 97, -1, -1, sizeof(::proto::UpdateProjectRequest)},
-  { 105, -1, -1, sizeof(::proto::GetProjectRequest)},
-  { 113, -1, -1, sizeof(::proto::GetAllProjectRequest)},
-  { 120, -1, -1, sizeof(::proto::CreateSwcRequest)},
-  { 128, -1, -1, sizeof(::proto::DeleteSwcRequest)},
-  { 136, -1, -1, sizeof(::proto::UpdateSwcRequest)},
-  { 144, -1, -1, sizeof(::proto::GetSwcMetaInfoRequest)},
-  { 152, -1, -1, sizeof(::proto::GetAllSwcMetaInfoRequest)},
-  { 159, -1, -1, sizeof(::proto::CreateSwcNodeDataRequest)},
-  { 168, -1, -1, sizeof(::proto::DeleteSwcNodeDataRequest)},
-  { 177, -1, -1, sizeof(::proto::UpdateSwcNodeDataRequest)},
-  { 186, -1, -1, sizeof(::proto::GetSwcNodeDataRequest)},
-  { 195, -1, -1, sizeof(::proto::GetSwcFullNodeDataRequest)},
-  { 203, -1, -1, sizeof(::proto::GetSwcNodeDataListByTimeAndUserRequest)},
-  { 213, -1, -1, sizeof(::proto::BackupFullDatabaseRequest)},
-  { 222, -1, -1, sizeof(::proto::CreateDailyStatisticsRequest)},
-  { 230, -1, -1, sizeof(::proto::DeleteDailyStatisticsRequest)},
-  { 238, -1, -1, sizeof(::proto::UpdateDailyStatisticsRequest)},
-  { 246, -1, -1, sizeof(::proto::GetDailyStatisticsRequest)},
-  { 254, -1, -1, sizeof(::proto::GetDailyStatisticsListRequest)},
+  { 73, -1, -1, sizeof(::proto::GetAllPermissionGroupRequest)},
+  { 80, -1, -1, sizeof(::proto::ChangeUserPermissionGroupRequest)},
+  { 88, -1, -1, sizeof(::proto::CreateProjectRequest)},
+  { 96, -1, -1, sizeof(::proto::DeleteProjectRequest)},
+  { 104, -1, -1, sizeof(::proto::UpdateProjectRequest)},
+  { 112, -1, -1, sizeof(::proto::GetProjectRequest)},
+  { 120, -1, -1, sizeof(::proto::GetAllProjectRequest)},
+  { 127, -1, -1, sizeof(::proto::CreateSwcRequest)},
+  { 135, -1, -1, sizeof(::proto::DeleteSwcRequest)},
+  { 143, -1, -1, sizeof(::proto::UpdateSwcRequest)},
+  { 151, -1, -1, sizeof(::proto::GetSwcMetaInfoRequest)},
+  { 159, -1, -1, sizeof(::proto::GetAllSwcMetaInfoRequest)},
+  { 166, -1, -1, sizeof(::proto::CreateSwcNodeDataRequest)},
+  { 175, -1, -1, sizeof(::proto::DeleteSwcNodeDataRequest)},
+  { 184, -1, -1, sizeof(::proto::UpdateSwcNodeDataRequest)},
+  { 193, -1, -1, sizeof(::proto::GetSwcNodeDataRequest)},
+  { 202, -1, -1, sizeof(::proto::GetSwcFullNodeDataRequest)},
+  { 210, -1, -1, sizeof(::proto::GetSwcNodeDataListByTimeAndUserRequest)},
+  { 220, -1, -1, sizeof(::proto::BackupFullDatabaseRequest)},
+  { 229, -1, -1, sizeof(::proto::CreateDailyStatisticsRequest)},
+  { 237, -1, -1, sizeof(::proto::DeleteDailyStatisticsRequest)},
+  { 245, -1, -1, sizeof(::proto::UpdateDailyStatisticsRequest)},
+  { 253, -1, -1, sizeof(::proto::GetDailyStatisticsRequest)},
+  { 261, -1, -1, sizeof(::proto::GetAllDailyStatisticsRequest)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -795,6 +816,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::proto::_UserOnlineHeartBeatNotification_default_instance_._instance,
   &::proto::_GetUserPermissionGroupRequest_default_instance_._instance,
   &::proto::_GetPermissionGroupRequest_default_instance_._instance,
+  &::proto::_GetAllPermissionGroupRequest_default_instance_._instance,
   &::proto::_ChangeUserPermissionGroupRequest_default_instance_._instance,
   &::proto::_CreateProjectRequest_default_instance_._instance,
   &::proto::_DeleteProjectRequest_default_instance_._instance,
@@ -817,7 +839,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::proto::_DeleteDailyStatisticsRequest_default_instance_._instance,
   &::proto::_UpdateDailyStatisticsRequest_default_instance_._instance,
   &::proto::_GetDailyStatisticsRequest_default_instance_._instance,
-  &::proto::_GetDailyStatisticsListRequest_default_instance_._instance,
+  &::proto::_GetAllDailyStatisticsRequest_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Message_2fRequest_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -841,77 +863,79 @@ const char descriptor_table_protodef_Message_2fRequest_2eproto[] PROTOBUF_SECTIO
   "foV1\"\177\n\031GetPermissionGroupRequest\022\'\n\010Use"
   "rInfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\0229\n\017Pe"
   "rmissionGroup\030\002 \001(\0132 .proto.PermissionGr"
-  "oupMetaInfoV1\"\206\001\n ChangeUserPermissionGr"
-  "oupRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.Use"
-  "rMetaInfoV1\0229\n\017PermissionGroup\030\002 \001(\0132 .p"
-  "roto.PermissionGroupMetaInfoV1\"n\n\024Create"
-  "ProjectRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto"
-  ".UserMetaInfoV1\022-\n\013ProjectInfo\030\002 \001(\0132\030.p"
-  "roto.ProjectMetaInfoV1\"n\n\024DeleteProjectR"
-  "equest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMet"
-  "aInfoV1\022-\n\013ProjectInfo\030\002 \001(\0132\030.proto.Pro"
-  "jectMetaInfoV1\"n\n\024UpdateProjectRequest\022\'"
-  "\n\010UserInfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\022"
-  "-\n\013ProjectInfo\030\002 \001(\0132\030.proto.ProjectMeta"
-  "InfoV1\"k\n\021GetProjectRequest\022\'\n\010UserInfo\030"
-  "\001 \001(\0132\025.proto.UserMetaInfoV1\022-\n\013ProjectI"
-  "nfo\030\002 \001(\0132\030.proto.ProjectMetaInfoV1\"\?\n\024G"
-  "etAllProjectRequest\022\'\n\010UserInfo\030\001 \001(\0132\025."
-  "proto.UserMetaInfoV1\"b\n\020CreateSwcRequest"
-  "\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMetaInfoV"
-  "1\022%\n\007SwcInfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1"
-  "\"b\n\020DeleteSwcRequest\022\'\n\010UserInfo\030\001 \001(\0132\025"
-  ".proto.UserMetaInfoV1\022%\n\007SwcInfo\030\002 \001(\0132\024"
-  ".proto.SwcMetaInfoV1\"b\n\020UpdateSwcRequest"
-  "\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMetaInfoV"
-  "1\022%\n\007SwcInfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1"
-  "\"g\n\025GetSwcMetaInfoRequest\022\'\n\010UserInfo\030\001 "
-  "\001(\0132\025.proto.UserMetaInfoV1\022%\n\007SwcInfo\030\002 "
-  "\001(\0132\024.proto.SwcMetaInfoV1\"C\n\030GetAllSwcMe"
-  "taInfoRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto."
-  "UserMetaInfoV1\"\221\001\n\030CreateSwcNodeDataRequ"
-  "est\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMetaIn"
-  "foV1\022%\n\007SwcInfo\030\002 \001(\0132\024.proto.SwcMetaInf"
-  "oV1\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.SwcData"
-  "V1\"\221\001\n\030DeleteSwcNodeDataRequest\022\'\n\010UserI"
-  "nfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\022%\n\007SwcI"
-  "nfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1\022%\n\013SwcNo"
-  "deData\030\003 \001(\0132\020.proto.SwcDataV1\"\221\001\n\030Updat"
-  "eSwcNodeDataRequest\022\'\n\010UserInfo\030\001 \001(\0132\025."
-  "proto.UserMetaInfoV1\022%\n\007SwcInfo\030\002 \001(\0132\024."
-  "proto.SwcMetaInfoV1\022%\n\013SwcNodeData\030\003 \001(\013"
-  "2\020.proto.SwcDataV1\"\216\001\n\025GetSwcNodeDataReq"
-  "uest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMetaI"
-  "nfoV1\022%\n\007SwcInfo\030\002 \001(\0132\024.proto.SwcMetaIn"
-  "foV1\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.SwcDat"
-  "aV1\"k\n\031GetSwcFullNodeDataRequest\022\'\n\010User"
-  "Info\030\001 \001(\0132\025.proto.UserMetaInfoV1\022%\n\007Swc"
-  "Info\030\002 \001(\0132\024.proto.SwcMetaInfoV1\"\276\001\n&Get"
-  "SwcNodeDataListByTimeAndUserRequest\022\'\n\010U"
-  "serInfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\022)\n\013"
-  "SwcNodeData\030\002 \001(\0132\024.proto.SwcMetaInfoV1\022"
-  ".\n\nCreateTime\030\003 \001(\0132\032.google.protobuf.Ti"
-  "mestamp\022\020\n\010UserUuid\030\004 \001(\t\"\220\001\n\031BackupFull"
-  "DatabaseRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.prot"
-  "o.UserMetaInfoV1\022\025\n\rInstantBackup\030\002 \001(\010\022"
-  "3\n\017DelayBackupTime\030\003 \001(\0132\032.google.protob"
-  "uf.Timestamp\"\206\001\n\034CreateDailyStatisticsRe"
+  "oupMetaInfoV1\"G\n\034GetAllPermissionGroupRe"
   "quest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMeta"
-  "InfoV1\022=\n\023DailyStatisticsInfo\030\002 \001(\0132 .pr"
-  "oto.DailyStatisticsMetaInfoV1\"\206\001\n\034Delete"
-  "DailyStatisticsRequest\022\'\n\010UserInfo\030\001 \001(\013"
-  "2\025.proto.UserMetaInfoV1\022=\n\023DailyStatisti"
-  "csInfo\030\002 \001(\0132 .proto.DailyStatisticsMeta"
-  "InfoV1\"\206\001\n\034UpdateDailyStatisticsRequest\022"
+  "InfoV1\"\206\001\n ChangeUserPermissionGroupRequ"
+  "est\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMetaIn"
+  "foV1\0229\n\017PermissionGroup\030\002 \001(\0132 .proto.Pe"
+  "rmissionGroupMetaInfoV1\"n\n\024CreateProject"
+  "Request\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMe"
+  "taInfoV1\022-\n\013ProjectInfo\030\002 \001(\0132\030.proto.Pr"
+  "ojectMetaInfoV1\"n\n\024DeleteProjectRequest\022"
   "\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMetaInfoV1"
-  "\022=\n\023DailyStatisticsInfo\030\002 \001(\0132 .proto.Da"
-  "ilyStatisticsMetaInfoV1\"\203\001\n\031GetDailyStat"
-  "isticsRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto."
-  "UserMetaInfoV1\022=\n\023DailyStatisticsInfo\030\002 "
-  "\001(\0132 .proto.DailyStatisticsMetaInfoV1\"H\n"
-  "\035GetDailyStatisticsListRequest\022\'\n\010UserIn"
-  "fo\030\001 \001(\0132\025.proto.UserMetaInfoV1B\036Z\034DBMS/"
-  "Generated/proto/requestP\000b\006proto3"
+  "\022-\n\013ProjectInfo\030\002 \001(\0132\030.proto.ProjectMet"
+  "aInfoV1\"n\n\024UpdateProjectRequest\022\'\n\010UserI"
+  "nfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\022-\n\013Proj"
+  "ectInfo\030\002 \001(\0132\030.proto.ProjectMetaInfoV1\""
+  "k\n\021GetProjectRequest\022\'\n\010UserInfo\030\001 \001(\0132\025"
+  ".proto.UserMetaInfoV1\022-\n\013ProjectInfo\030\002 \001"
+  "(\0132\030.proto.ProjectMetaInfoV1\"\?\n\024GetAllPr"
+  "ojectRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.U"
+  "serMetaInfoV1\"b\n\020CreateSwcRequest\022\'\n\010Use"
+  "rInfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\022%\n\007Sw"
+  "cInfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1\"b\n\020Del"
+  "eteSwcRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto."
+  "UserMetaInfoV1\022%\n\007SwcInfo\030\002 \001(\0132\024.proto."
+  "SwcMetaInfoV1\"b\n\020UpdateSwcRequest\022\'\n\010Use"
+  "rInfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\022%\n\007Sw"
+  "cInfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1\"g\n\025Get"
+  "SwcMetaInfoRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.p"
+  "roto.UserMetaInfoV1\022%\n\007SwcInfo\030\002 \001(\0132\024.p"
+  "roto.SwcMetaInfoV1\"C\n\030GetAllSwcMetaInfoR"
+  "equest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMet"
+  "aInfoV1\"\221\001\n\030CreateSwcNodeDataRequest\022\'\n\010"
+  "UserInfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\022%\n"
+  "\007SwcInfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1\022%\n\013"
+  "SwcNodeData\030\003 \001(\0132\020.proto.SwcDataV1\"\221\001\n\030"
+  "DeleteSwcNodeDataRequest\022\'\n\010UserInfo\030\001 \001"
+  "(\0132\025.proto.UserMetaInfoV1\022%\n\007SwcInfo\030\002 \001"
+  "(\0132\024.proto.SwcMetaInfoV1\022%\n\013SwcNodeData\030"
+  "\003 \001(\0132\020.proto.SwcDataV1\"\221\001\n\030UpdateSwcNod"
+  "eDataRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.U"
+  "serMetaInfoV1\022%\n\007SwcInfo\030\002 \001(\0132\024.proto.S"
+  "wcMetaInfoV1\022%\n\013SwcNodeData\030\003 \001(\0132\020.prot"
+  "o.SwcDataV1\"\216\001\n\025GetSwcNodeDataRequest\022\'\n"
+  "\010UserInfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\022%"
+  "\n\007SwcInfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1\022%\n"
+  "\013SwcNodeData\030\003 \001(\0132\020.proto.SwcDataV1\"k\n\031"
+  "GetSwcFullNodeDataRequest\022\'\n\010UserInfo\030\001 "
+  "\001(\0132\025.proto.UserMetaInfoV1\022%\n\007SwcInfo\030\002 "
+  "\001(\0132\024.proto.SwcMetaInfoV1\"\276\001\n&GetSwcNode"
+  "DataListByTimeAndUserRequest\022\'\n\010UserInfo"
+  "\030\001 \001(\0132\025.proto.UserMetaInfoV1\022)\n\013SwcNode"
+  "Data\030\002 \001(\0132\024.proto.SwcMetaInfoV1\022.\n\nCrea"
+  "teTime\030\003 \001(\0132\032.google.protobuf.Timestamp"
+  "\022\020\n\010UserUuid\030\004 \001(\t\"\220\001\n\031BackupFullDatabas"
+  "eRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserM"
+  "etaInfoV1\022\025\n\rInstantBackup\030\002 \001(\010\0223\n\017Dela"
+  "yBackupTime\030\003 \001(\0132\032.google.protobuf.Time"
+  "stamp\"\206\001\n\034CreateDailyStatisticsRequest\022\'"
+  "\n\010UserInfo\030\001 \001(\0132\025.proto.UserMetaInfoV1\022"
+  "=\n\023DailyStatisticsInfo\030\002 \001(\0132 .proto.Dai"
+  "lyStatisticsMetaInfoV1\"\206\001\n\034DeleteDailySt"
+  "atisticsRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.prot"
+  "o.UserMetaInfoV1\022=\n\023DailyStatisticsInfo\030"
+  "\002 \001(\0132 .proto.DailyStatisticsMetaInfoV1\""
+  "\206\001\n\034UpdateDailyStatisticsRequest\022\'\n\010User"
+  "Info\030\001 \001(\0132\025.proto.UserMetaInfoV1\022=\n\023Dai"
+  "lyStatisticsInfo\030\002 \001(\0132 .proto.DailyStat"
+  "isticsMetaInfoV1\"\203\001\n\031GetDailyStatisticsR"
+  "equest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.UserMet"
+  "aInfoV1\022=\n\023DailyStatisticsInfo\030\002 \001(\0132 .p"
+  "roto.DailyStatisticsMetaInfoV1\"G\n\034GetAll"
+  "DailyStatisticsRequest\022\'\n\010UserInfo\030\001 \001(\013"
+  "2\025.proto.UserMetaInfoV1B\036Z\034DBMS/Generate"
+  "d/proto/requestP\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fRequest_2eproto_deps[2] = {
   &::descriptor_table_Message_2fMessage_2eproto,
@@ -919,9 +943,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fRequest_2
 };
 static ::_pbi::once_flag descriptor_table_Message_2fRequest_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2fRequest_2eproto = {
-    false, false, 3633, descriptor_table_protodef_Message_2fRequest_2eproto,
+    false, false, 3705, descriptor_table_protodef_Message_2fRequest_2eproto,
     "Message/Request.proto",
-    &descriptor_table_Message_2fRequest_2eproto_once, descriptor_table_Message_2fRequest_2eproto_deps, 2, 33,
+    &descriptor_table_Message_2fRequest_2eproto_once, descriptor_table_Message_2fRequest_2eproto_deps, 2, 34,
     schemas, file_default_instances, TableStruct_Message_2fRequest_2eproto::offsets,
     file_level_metadata_Message_2fRequest_2eproto, file_level_enum_descriptors_Message_2fRequest_2eproto,
     file_level_service_descriptors_Message_2fRequest_2eproto,
@@ -3063,6 +3087,205 @@ void GetPermissionGroupRequest::InternalSwap(GetPermissionGroupRequest* other) {
 
 // ===================================================================
 
+class GetAllPermissionGroupRequest::_Internal {
+ public:
+  static const ::proto::UserMetaInfoV1& userinfo(const GetAllPermissionGroupRequest* msg);
+};
+
+const ::proto::UserMetaInfoV1&
+GetAllPermissionGroupRequest::_Internal::userinfo(const GetAllPermissionGroupRequest* msg) {
+  return *msg->_impl_.userinfo_;
+}
+void GetAllPermissionGroupRequest::clear_userinfo() {
+  if (GetArenaForAllocation() == nullptr && _impl_.userinfo_ != nullptr) {
+    delete _impl_.userinfo_;
+  }
+  _impl_.userinfo_ = nullptr;
+}
+GetAllPermissionGroupRequest::GetAllPermissionGroupRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:proto.GetAllPermissionGroupRequest)
+}
+GetAllPermissionGroupRequest::GetAllPermissionGroupRequest(const GetAllPermissionGroupRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  GetAllPermissionGroupRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userinfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_userinfo()) {
+    _this->_impl_.userinfo_ = new ::proto::UserMetaInfoV1(*from._impl_.userinfo_);
+  }
+  // @@protoc_insertion_point(copy_constructor:proto.GetAllPermissionGroupRequest)
+}
+
+inline void GetAllPermissionGroupRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userinfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+GetAllPermissionGroupRequest::~GetAllPermissionGroupRequest() {
+  // @@protoc_insertion_point(destructor:proto.GetAllPermissionGroupRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetAllPermissionGroupRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.userinfo_;
+}
+
+void GetAllPermissionGroupRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void GetAllPermissionGroupRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.GetAllPermissionGroupRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.userinfo_ != nullptr) {
+    delete _impl_.userinfo_;
+  }
+  _impl_.userinfo_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetAllPermissionGroupRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .proto.UserMetaInfoV1 UserInfo = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_userinfo(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetAllPermissionGroupRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:proto.GetAllPermissionGroupRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .proto.UserMetaInfoV1 UserInfo = 1;
+  if (this->_internal_has_userinfo()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::userinfo(this),
+        _Internal::userinfo(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.GetAllPermissionGroupRequest)
+  return target;
+}
+
+size_t GetAllPermissionGroupRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.GetAllPermissionGroupRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .proto.UserMetaInfoV1 UserInfo = 1;
+  if (this->_internal_has_userinfo()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.userinfo_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetAllPermissionGroupRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    GetAllPermissionGroupRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetAllPermissionGroupRequest::GetClassData() const { return &_class_data_; }
+
+
+void GetAllPermissionGroupRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetAllPermissionGroupRequest*>(&to_msg);
+  auto& from = static_cast<const GetAllPermissionGroupRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetAllPermissionGroupRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_userinfo()) {
+    _this->_internal_mutable_userinfo()->::proto::UserMetaInfoV1::MergeFrom(
+        from._internal_userinfo());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetAllPermissionGroupRequest::CopyFrom(const GetAllPermissionGroupRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetAllPermissionGroupRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetAllPermissionGroupRequest::IsInitialized() const {
+  return true;
+}
+
+void GetAllPermissionGroupRequest::InternalSwap(GetAllPermissionGroupRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.userinfo_, other->_impl_.userinfo_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetAllPermissionGroupRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
+      file_level_metadata_Message_2fRequest_2eproto[10]);
+}
+
+// ===================================================================
+
 class ChangeUserPermissionGroupRequest::_Internal {
  public:
   static const ::proto::UserMetaInfoV1& userinfo(const ChangeUserPermissionGroupRequest* msg);
@@ -3309,7 +3532,7 @@ void ChangeUserPermissionGroupRequest::InternalSwap(ChangeUserPermissionGroupReq
 ::PROTOBUF_NAMESPACE_ID::Metadata ChangeUserPermissionGroupRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[10]);
+      file_level_metadata_Message_2fRequest_2eproto[11]);
 }
 
 // ===================================================================
@@ -3560,7 +3783,7 @@ void CreateProjectRequest::InternalSwap(CreateProjectRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateProjectRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[11]);
+      file_level_metadata_Message_2fRequest_2eproto[12]);
 }
 
 // ===================================================================
@@ -3811,7 +4034,7 @@ void DeleteProjectRequest::InternalSwap(DeleteProjectRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteProjectRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[12]);
+      file_level_metadata_Message_2fRequest_2eproto[13]);
 }
 
 // ===================================================================
@@ -4062,7 +4285,7 @@ void UpdateProjectRequest::InternalSwap(UpdateProjectRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateProjectRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[13]);
+      file_level_metadata_Message_2fRequest_2eproto[14]);
 }
 
 // ===================================================================
@@ -4313,7 +4536,7 @@ void GetProjectRequest::InternalSwap(GetProjectRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetProjectRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[14]);
+      file_level_metadata_Message_2fRequest_2eproto[15]);
 }
 
 // ===================================================================
@@ -4512,7 +4735,7 @@ void GetAllProjectRequest::InternalSwap(GetAllProjectRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllProjectRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[15]);
+      file_level_metadata_Message_2fRequest_2eproto[16]);
 }
 
 // ===================================================================
@@ -4763,7 +4986,7 @@ void CreateSwcRequest::InternalSwap(CreateSwcRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateSwcRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[16]);
+      file_level_metadata_Message_2fRequest_2eproto[17]);
 }
 
 // ===================================================================
@@ -5014,7 +5237,7 @@ void DeleteSwcRequest::InternalSwap(DeleteSwcRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteSwcRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[17]);
+      file_level_metadata_Message_2fRequest_2eproto[18]);
 }
 
 // ===================================================================
@@ -5265,7 +5488,7 @@ void UpdateSwcRequest::InternalSwap(UpdateSwcRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateSwcRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[18]);
+      file_level_metadata_Message_2fRequest_2eproto[19]);
 }
 
 // ===================================================================
@@ -5516,7 +5739,7 @@ void GetSwcMetaInfoRequest::InternalSwap(GetSwcMetaInfoRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcMetaInfoRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[19]);
+      file_level_metadata_Message_2fRequest_2eproto[20]);
 }
 
 // ===================================================================
@@ -5715,7 +5938,7 @@ void GetAllSwcMetaInfoRequest::InternalSwap(GetAllSwcMetaInfoRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllSwcMetaInfoRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[20]);
+      file_level_metadata_Message_2fRequest_2eproto[21]);
 }
 
 // ===================================================================
@@ -6013,7 +6236,7 @@ void CreateSwcNodeDataRequest::InternalSwap(CreateSwcNodeDataRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateSwcNodeDataRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[21]);
+      file_level_metadata_Message_2fRequest_2eproto[22]);
 }
 
 // ===================================================================
@@ -6311,7 +6534,7 @@ void DeleteSwcNodeDataRequest::InternalSwap(DeleteSwcNodeDataRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteSwcNodeDataRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[22]);
+      file_level_metadata_Message_2fRequest_2eproto[23]);
 }
 
 // ===================================================================
@@ -6609,7 +6832,7 @@ void UpdateSwcNodeDataRequest::InternalSwap(UpdateSwcNodeDataRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateSwcNodeDataRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[23]);
+      file_level_metadata_Message_2fRequest_2eproto[24]);
 }
 
 // ===================================================================
@@ -6907,7 +7130,7 @@ void GetSwcNodeDataRequest::InternalSwap(GetSwcNodeDataRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcNodeDataRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[24]);
+      file_level_metadata_Message_2fRequest_2eproto[25]);
 }
 
 // ===================================================================
@@ -7158,7 +7381,7 @@ void GetSwcFullNodeDataRequest::InternalSwap(GetSwcFullNodeDataRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcFullNodeDataRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[25]);
+      file_level_metadata_Message_2fRequest_2eproto[26]);
 }
 
 // ===================================================================
@@ -7508,7 +7731,7 @@ void GetSwcNodeDataListByTimeAndUserRequest::InternalSwap(GetSwcNodeDataListByTi
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcNodeDataListByTimeAndUserRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[26]);
+      file_level_metadata_Message_2fRequest_2eproto[27]);
 }
 
 // ===================================================================
@@ -7785,7 +8008,7 @@ void BackupFullDatabaseRequest::InternalSwap(BackupFullDatabaseRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata BackupFullDatabaseRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[27]);
+      file_level_metadata_Message_2fRequest_2eproto[28]);
 }
 
 // ===================================================================
@@ -8036,7 +8259,7 @@ void CreateDailyStatisticsRequest::InternalSwap(CreateDailyStatisticsRequest* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateDailyStatisticsRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[28]);
+      file_level_metadata_Message_2fRequest_2eproto[29]);
 }
 
 // ===================================================================
@@ -8287,7 +8510,7 @@ void DeleteDailyStatisticsRequest::InternalSwap(DeleteDailyStatisticsRequest* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteDailyStatisticsRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[29]);
+      file_level_metadata_Message_2fRequest_2eproto[30]);
 }
 
 // ===================================================================
@@ -8538,7 +8761,7 @@ void UpdateDailyStatisticsRequest::InternalSwap(UpdateDailyStatisticsRequest* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateDailyStatisticsRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[30]);
+      file_level_metadata_Message_2fRequest_2eproto[31]);
 }
 
 // ===================================================================
@@ -8789,35 +9012,35 @@ void GetDailyStatisticsRequest::InternalSwap(GetDailyStatisticsRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetDailyStatisticsRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[31]);
+      file_level_metadata_Message_2fRequest_2eproto[32]);
 }
 
 // ===================================================================
 
-class GetDailyStatisticsListRequest::_Internal {
+class GetAllDailyStatisticsRequest::_Internal {
  public:
-  static const ::proto::UserMetaInfoV1& userinfo(const GetDailyStatisticsListRequest* msg);
+  static const ::proto::UserMetaInfoV1& userinfo(const GetAllDailyStatisticsRequest* msg);
 };
 
 const ::proto::UserMetaInfoV1&
-GetDailyStatisticsListRequest::_Internal::userinfo(const GetDailyStatisticsListRequest* msg) {
+GetAllDailyStatisticsRequest::_Internal::userinfo(const GetAllDailyStatisticsRequest* msg) {
   return *msg->_impl_.userinfo_;
 }
-void GetDailyStatisticsListRequest::clear_userinfo() {
+void GetAllDailyStatisticsRequest::clear_userinfo() {
   if (GetArenaForAllocation() == nullptr && _impl_.userinfo_ != nullptr) {
     delete _impl_.userinfo_;
   }
   _impl_.userinfo_ = nullptr;
 }
-GetDailyStatisticsListRequest::GetDailyStatisticsListRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+GetAllDailyStatisticsRequest::GetAllDailyStatisticsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:proto.GetDailyStatisticsListRequest)
+  // @@protoc_insertion_point(arena_constructor:proto.GetAllDailyStatisticsRequest)
 }
-GetDailyStatisticsListRequest::GetDailyStatisticsListRequest(const GetDailyStatisticsListRequest& from)
+GetAllDailyStatisticsRequest::GetAllDailyStatisticsRequest(const GetAllDailyStatisticsRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  GetDailyStatisticsListRequest* const _this = this; (void)_this;
+  GetAllDailyStatisticsRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.userinfo_){nullptr}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -8826,10 +9049,10 @@ GetDailyStatisticsListRequest::GetDailyStatisticsListRequest(const GetDailyStati
   if (from._internal_has_userinfo()) {
     _this->_impl_.userinfo_ = new ::proto::UserMetaInfoV1(*from._impl_.userinfo_);
   }
-  // @@protoc_insertion_point(copy_constructor:proto.GetDailyStatisticsListRequest)
+  // @@protoc_insertion_point(copy_constructor:proto.GetAllDailyStatisticsRequest)
 }
 
-inline void GetDailyStatisticsListRequest::SharedCtor(
+inline void GetAllDailyStatisticsRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -8839,8 +9062,8 @@ inline void GetDailyStatisticsListRequest::SharedCtor(
   };
 }
 
-GetDailyStatisticsListRequest::~GetDailyStatisticsListRequest() {
-  // @@protoc_insertion_point(destructor:proto.GetDailyStatisticsListRequest)
+GetAllDailyStatisticsRequest::~GetAllDailyStatisticsRequest() {
+  // @@protoc_insertion_point(destructor:proto.GetAllDailyStatisticsRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -8848,17 +9071,17 @@ GetDailyStatisticsListRequest::~GetDailyStatisticsListRequest() {
   SharedDtor();
 }
 
-inline void GetDailyStatisticsListRequest::SharedDtor() {
+inline void GetAllDailyStatisticsRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.userinfo_;
 }
 
-void GetDailyStatisticsListRequest::SetCachedSize(int size) const {
+void GetAllDailyStatisticsRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void GetDailyStatisticsListRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:proto.GetDailyStatisticsListRequest)
+void GetAllDailyStatisticsRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.GetAllDailyStatisticsRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -8870,7 +9093,7 @@ void GetDailyStatisticsListRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* GetDailyStatisticsListRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* GetAllDailyStatisticsRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -8907,9 +9130,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetDailyStatisticsListRequest::_InternalSerialize(
+uint8_t* GetAllDailyStatisticsRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:proto.GetDailyStatisticsListRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:proto.GetAllDailyStatisticsRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -8924,12 +9147,12 @@ uint8_t* GetDailyStatisticsListRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:proto.GetDailyStatisticsListRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:proto.GetAllDailyStatisticsRequest)
   return target;
 }
 
-size_t GetDailyStatisticsListRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:proto.GetDailyStatisticsListRequest)
+size_t GetAllDailyStatisticsRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.GetAllDailyStatisticsRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -8946,17 +9169,17 @@ size_t GetDailyStatisticsListRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetDailyStatisticsListRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetAllDailyStatisticsRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    GetDailyStatisticsListRequest::MergeImpl
+    GetAllDailyStatisticsRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetDailyStatisticsListRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetAllDailyStatisticsRequest::GetClassData() const { return &_class_data_; }
 
 
-void GetDailyStatisticsListRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<GetDailyStatisticsListRequest*>(&to_msg);
-  auto& from = static_cast<const GetDailyStatisticsListRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetDailyStatisticsListRequest)
+void GetAllDailyStatisticsRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetAllDailyStatisticsRequest*>(&to_msg);
+  auto& from = static_cast<const GetAllDailyStatisticsRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetAllDailyStatisticsRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -8968,27 +9191,27 @@ void GetDailyStatisticsListRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& 
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GetDailyStatisticsListRequest::CopyFrom(const GetDailyStatisticsListRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetDailyStatisticsListRequest)
+void GetAllDailyStatisticsRequest::CopyFrom(const GetAllDailyStatisticsRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetAllDailyStatisticsRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool GetDailyStatisticsListRequest::IsInitialized() const {
+bool GetAllDailyStatisticsRequest::IsInitialized() const {
   return true;
 }
 
-void GetDailyStatisticsListRequest::InternalSwap(GetDailyStatisticsListRequest* other) {
+void GetAllDailyStatisticsRequest::InternalSwap(GetAllDailyStatisticsRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.userinfo_, other->_impl_.userinfo_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata GetDailyStatisticsListRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata GetAllDailyStatisticsRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fRequest_2eproto_getter, &descriptor_table_Message_2fRequest_2eproto_once,
-      file_level_metadata_Message_2fRequest_2eproto[32]);
+      file_level_metadata_Message_2fRequest_2eproto[33]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -9033,6 +9256,10 @@ Arena::CreateMaybeMessage< ::proto::GetUserPermissionGroupRequest >(Arena* arena
 template<> PROTOBUF_NOINLINE ::proto::GetPermissionGroupRequest*
 Arena::CreateMaybeMessage< ::proto::GetPermissionGroupRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::proto::GetPermissionGroupRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::proto::GetAllPermissionGroupRequest*
+Arena::CreateMaybeMessage< ::proto::GetAllPermissionGroupRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::GetAllPermissionGroupRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::proto::ChangeUserPermissionGroupRequest*
 Arena::CreateMaybeMessage< ::proto::ChangeUserPermissionGroupRequest >(Arena* arena) {
@@ -9122,9 +9349,9 @@ template<> PROTOBUF_NOINLINE ::proto::GetDailyStatisticsRequest*
 Arena::CreateMaybeMessage< ::proto::GetDailyStatisticsRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::proto::GetDailyStatisticsRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::proto::GetDailyStatisticsListRequest*
-Arena::CreateMaybeMessage< ::proto::GetDailyStatisticsListRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::proto::GetDailyStatisticsListRequest >(arena);
+template<> PROTOBUF_NOINLINE ::proto::GetAllDailyStatisticsRequest*
+Arena::CreateMaybeMessage< ::proto::GetAllDailyStatisticsRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::GetAllDailyStatisticsRequest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

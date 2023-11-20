@@ -83,6 +83,12 @@ extern DeleteSwcRequestDefaultTypeInternal _DeleteSwcRequest_default_instance_;
 class DeleteUserRequest;
 struct DeleteUserRequestDefaultTypeInternal;
 extern DeleteUserRequestDefaultTypeInternal _DeleteUserRequest_default_instance_;
+class GetAllDailyStatisticsRequest;
+struct GetAllDailyStatisticsRequestDefaultTypeInternal;
+extern GetAllDailyStatisticsRequestDefaultTypeInternal _GetAllDailyStatisticsRequest_default_instance_;
+class GetAllPermissionGroupRequest;
+struct GetAllPermissionGroupRequestDefaultTypeInternal;
+extern GetAllPermissionGroupRequestDefaultTypeInternal _GetAllPermissionGroupRequest_default_instance_;
 class GetAllProjectRequest;
 struct GetAllProjectRequestDefaultTypeInternal;
 extern GetAllProjectRequestDefaultTypeInternal _GetAllProjectRequest_default_instance_;
@@ -92,9 +98,6 @@ extern GetAllSwcMetaInfoRequestDefaultTypeInternal _GetAllSwcMetaInfoRequest_def
 class GetAllUserRequest;
 struct GetAllUserRequestDefaultTypeInternal;
 extern GetAllUserRequestDefaultTypeInternal _GetAllUserRequest_default_instance_;
-class GetDailyStatisticsListRequest;
-struct GetDailyStatisticsListRequestDefaultTypeInternal;
-extern GetDailyStatisticsListRequestDefaultTypeInternal _GetDailyStatisticsListRequest_default_instance_;
 class GetDailyStatisticsRequest;
 struct GetDailyStatisticsRequestDefaultTypeInternal;
 extern GetDailyStatisticsRequestDefaultTypeInternal _GetDailyStatisticsRequest_default_instance_;
@@ -160,10 +163,11 @@ template<> ::proto::DeleteProjectRequest* Arena::CreateMaybeMessage<::proto::Del
 template<> ::proto::DeleteSwcNodeDataRequest* Arena::CreateMaybeMessage<::proto::DeleteSwcNodeDataRequest>(Arena*);
 template<> ::proto::DeleteSwcRequest* Arena::CreateMaybeMessage<::proto::DeleteSwcRequest>(Arena*);
 template<> ::proto::DeleteUserRequest* Arena::CreateMaybeMessage<::proto::DeleteUserRequest>(Arena*);
+template<> ::proto::GetAllDailyStatisticsRequest* Arena::CreateMaybeMessage<::proto::GetAllDailyStatisticsRequest>(Arena*);
+template<> ::proto::GetAllPermissionGroupRequest* Arena::CreateMaybeMessage<::proto::GetAllPermissionGroupRequest>(Arena*);
 template<> ::proto::GetAllProjectRequest* Arena::CreateMaybeMessage<::proto::GetAllProjectRequest>(Arena*);
 template<> ::proto::GetAllSwcMetaInfoRequest* Arena::CreateMaybeMessage<::proto::GetAllSwcMetaInfoRequest>(Arena*);
 template<> ::proto::GetAllUserRequest* Arena::CreateMaybeMessage<::proto::GetAllUserRequest>(Arena*);
-template<> ::proto::GetDailyStatisticsListRequest* Arena::CreateMaybeMessage<::proto::GetDailyStatisticsListRequest>(Arena*);
 template<> ::proto::GetDailyStatisticsRequest* Arena::CreateMaybeMessage<::proto::GetDailyStatisticsRequest>(Arena*);
 template<> ::proto::GetPermissionGroupRequest* Arena::CreateMaybeMessage<::proto::GetPermissionGroupRequest>(Arena*);
 template<> ::proto::GetProjectRequest* Arena::CreateMaybeMessage<::proto::GetProjectRequest>(Arena*);
@@ -1799,6 +1803,163 @@ class GetPermissionGroupRequest final :
 };
 // -------------------------------------------------------------------
 
+class GetAllPermissionGroupRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.GetAllPermissionGroupRequest) */ {
+ public:
+  inline GetAllPermissionGroupRequest() : GetAllPermissionGroupRequest(nullptr) {}
+  ~GetAllPermissionGroupRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetAllPermissionGroupRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetAllPermissionGroupRequest(const GetAllPermissionGroupRequest& from);
+  GetAllPermissionGroupRequest(GetAllPermissionGroupRequest&& from) noexcept
+    : GetAllPermissionGroupRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAllPermissionGroupRequest& operator=(const GetAllPermissionGroupRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetAllPermissionGroupRequest& operator=(GetAllPermissionGroupRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetAllPermissionGroupRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetAllPermissionGroupRequest* internal_default_instance() {
+    return reinterpret_cast<const GetAllPermissionGroupRequest*>(
+               &_GetAllPermissionGroupRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(GetAllPermissionGroupRequest& a, GetAllPermissionGroupRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetAllPermissionGroupRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetAllPermissionGroupRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetAllPermissionGroupRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetAllPermissionGroupRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetAllPermissionGroupRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const GetAllPermissionGroupRequest& from) {
+    GetAllPermissionGroupRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetAllPermissionGroupRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.GetAllPermissionGroupRequest";
+  }
+  protected:
+  explicit GetAllPermissionGroupRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserInfoFieldNumber = 1,
+  };
+  // .proto.UserMetaInfoV1 UserInfo = 1;
+  bool has_userinfo() const;
+  private:
+  bool _internal_has_userinfo() const;
+  public:
+  void clear_userinfo();
+  const ::proto::UserMetaInfoV1& userinfo() const;
+  PROTOBUF_NODISCARD ::proto::UserMetaInfoV1* release_userinfo();
+  ::proto::UserMetaInfoV1* mutable_userinfo();
+  void set_allocated_userinfo(::proto::UserMetaInfoV1* userinfo);
+  private:
+  const ::proto::UserMetaInfoV1& _internal_userinfo() const;
+  ::proto::UserMetaInfoV1* _internal_mutable_userinfo();
+  public:
+  void unsafe_arena_set_allocated_userinfo(
+      ::proto::UserMetaInfoV1* userinfo);
+  ::proto::UserMetaInfoV1* unsafe_arena_release_userinfo();
+
+  // @@protoc_insertion_point(class_scope:proto.GetAllPermissionGroupRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::proto::UserMetaInfoV1* userinfo_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2fRequest_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ChangeUserPermissionGroupRequest final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.ChangeUserPermissionGroupRequest) */ {
  public:
@@ -1847,7 +2008,7 @@ class ChangeUserPermissionGroupRequest final :
                &_ChangeUserPermissionGroupRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(ChangeUserPermissionGroupRequest& a, ChangeUserPermissionGroupRequest& b) {
     a.Swap(&b);
@@ -2024,7 +2185,7 @@ class CreateProjectRequest final :
                &_CreateProjectRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(CreateProjectRequest& a, CreateProjectRequest& b) {
     a.Swap(&b);
@@ -2201,7 +2362,7 @@ class DeleteProjectRequest final :
                &_DeleteProjectRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(DeleteProjectRequest& a, DeleteProjectRequest& b) {
     a.Swap(&b);
@@ -2378,7 +2539,7 @@ class UpdateProjectRequest final :
                &_UpdateProjectRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(UpdateProjectRequest& a, UpdateProjectRequest& b) {
     a.Swap(&b);
@@ -2555,7 +2716,7 @@ class GetProjectRequest final :
                &_GetProjectRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(GetProjectRequest& a, GetProjectRequest& b) {
     a.Swap(&b);
@@ -2732,7 +2893,7 @@ class GetAllProjectRequest final :
                &_GetAllProjectRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(GetAllProjectRequest& a, GetAllProjectRequest& b) {
     a.Swap(&b);
@@ -2889,7 +3050,7 @@ class CreateSwcRequest final :
                &_CreateSwcRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(CreateSwcRequest& a, CreateSwcRequest& b) {
     a.Swap(&b);
@@ -3066,7 +3227,7 @@ class DeleteSwcRequest final :
                &_DeleteSwcRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(DeleteSwcRequest& a, DeleteSwcRequest& b) {
     a.Swap(&b);
@@ -3243,7 +3404,7 @@ class UpdateSwcRequest final :
                &_UpdateSwcRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(UpdateSwcRequest& a, UpdateSwcRequest& b) {
     a.Swap(&b);
@@ -3420,7 +3581,7 @@ class GetSwcMetaInfoRequest final :
                &_GetSwcMetaInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   friend void swap(GetSwcMetaInfoRequest& a, GetSwcMetaInfoRequest& b) {
     a.Swap(&b);
@@ -3597,7 +3758,7 @@ class GetAllSwcMetaInfoRequest final :
                &_GetAllSwcMetaInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   friend void swap(GetAllSwcMetaInfoRequest& a, GetAllSwcMetaInfoRequest& b) {
     a.Swap(&b);
@@ -3754,7 +3915,7 @@ class CreateSwcNodeDataRequest final :
                &_CreateSwcNodeDataRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    22;
 
   friend void swap(CreateSwcNodeDataRequest& a, CreateSwcNodeDataRequest& b) {
     a.Swap(&b);
@@ -3951,7 +4112,7 @@ class DeleteSwcNodeDataRequest final :
                &_DeleteSwcNodeDataRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    23;
 
   friend void swap(DeleteSwcNodeDataRequest& a, DeleteSwcNodeDataRequest& b) {
     a.Swap(&b);
@@ -4148,7 +4309,7 @@ class UpdateSwcNodeDataRequest final :
                &_UpdateSwcNodeDataRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    24;
 
   friend void swap(UpdateSwcNodeDataRequest& a, UpdateSwcNodeDataRequest& b) {
     a.Swap(&b);
@@ -4345,7 +4506,7 @@ class GetSwcNodeDataRequest final :
                &_GetSwcNodeDataRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    25;
 
   friend void swap(GetSwcNodeDataRequest& a, GetSwcNodeDataRequest& b) {
     a.Swap(&b);
@@ -4542,7 +4703,7 @@ class GetSwcFullNodeDataRequest final :
                &_GetSwcFullNodeDataRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    26;
 
   friend void swap(GetSwcFullNodeDataRequest& a, GetSwcFullNodeDataRequest& b) {
     a.Swap(&b);
@@ -4719,7 +4880,7 @@ class GetSwcNodeDataListByTimeAndUserRequest final :
                &_GetSwcNodeDataListByTimeAndUserRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    27;
 
   friend void swap(GetSwcNodeDataListByTimeAndUserRequest& a, GetSwcNodeDataListByTimeAndUserRequest& b) {
     a.Swap(&b);
@@ -4932,7 +5093,7 @@ class BackupFullDatabaseRequest final :
                &_BackupFullDatabaseRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    28;
 
   friend void swap(BackupFullDatabaseRequest& a, BackupFullDatabaseRequest& b) {
     a.Swap(&b);
@@ -5120,7 +5281,7 @@ class CreateDailyStatisticsRequest final :
                &_CreateDailyStatisticsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    29;
 
   friend void swap(CreateDailyStatisticsRequest& a, CreateDailyStatisticsRequest& b) {
     a.Swap(&b);
@@ -5297,7 +5458,7 @@ class DeleteDailyStatisticsRequest final :
                &_DeleteDailyStatisticsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    30;
 
   friend void swap(DeleteDailyStatisticsRequest& a, DeleteDailyStatisticsRequest& b) {
     a.Swap(&b);
@@ -5474,7 +5635,7 @@ class UpdateDailyStatisticsRequest final :
                &_UpdateDailyStatisticsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    31;
 
   friend void swap(UpdateDailyStatisticsRequest& a, UpdateDailyStatisticsRequest& b) {
     a.Swap(&b);
@@ -5651,7 +5812,7 @@ class GetDailyStatisticsRequest final :
                &_GetDailyStatisticsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    32;
 
   friend void swap(GetDailyStatisticsRequest& a, GetDailyStatisticsRequest& b) {
     a.Swap(&b);
@@ -5780,24 +5941,24 @@ class GetDailyStatisticsRequest final :
 };
 // -------------------------------------------------------------------
 
-class GetDailyStatisticsListRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.GetDailyStatisticsListRequest) */ {
+class GetAllDailyStatisticsRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.GetAllDailyStatisticsRequest) */ {
  public:
-  inline GetDailyStatisticsListRequest() : GetDailyStatisticsListRequest(nullptr) {}
-  ~GetDailyStatisticsListRequest() override;
-  explicit PROTOBUF_CONSTEXPR GetDailyStatisticsListRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline GetAllDailyStatisticsRequest() : GetAllDailyStatisticsRequest(nullptr) {}
+  ~GetAllDailyStatisticsRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetAllDailyStatisticsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  GetDailyStatisticsListRequest(const GetDailyStatisticsListRequest& from);
-  GetDailyStatisticsListRequest(GetDailyStatisticsListRequest&& from) noexcept
-    : GetDailyStatisticsListRequest() {
+  GetAllDailyStatisticsRequest(const GetAllDailyStatisticsRequest& from);
+  GetAllDailyStatisticsRequest(GetAllDailyStatisticsRequest&& from) noexcept
+    : GetAllDailyStatisticsRequest() {
     *this = ::std::move(from);
   }
 
-  inline GetDailyStatisticsListRequest& operator=(const GetDailyStatisticsListRequest& from) {
+  inline GetAllDailyStatisticsRequest& operator=(const GetAllDailyStatisticsRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline GetDailyStatisticsListRequest& operator=(GetDailyStatisticsListRequest&& from) noexcept {
+  inline GetAllDailyStatisticsRequest& operator=(GetAllDailyStatisticsRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -5820,20 +5981,20 @@ class GetDailyStatisticsListRequest final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const GetDailyStatisticsListRequest& default_instance() {
+  static const GetAllDailyStatisticsRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const GetDailyStatisticsListRequest* internal_default_instance() {
-    return reinterpret_cast<const GetDailyStatisticsListRequest*>(
-               &_GetDailyStatisticsListRequest_default_instance_);
+  static inline const GetAllDailyStatisticsRequest* internal_default_instance() {
+    return reinterpret_cast<const GetAllDailyStatisticsRequest*>(
+               &_GetAllDailyStatisticsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    33;
 
-  friend void swap(GetDailyStatisticsListRequest& a, GetDailyStatisticsListRequest& b) {
+  friend void swap(GetAllDailyStatisticsRequest& a, GetAllDailyStatisticsRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetDailyStatisticsListRequest* other) {
+  inline void Swap(GetAllDailyStatisticsRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -5846,7 +6007,7 @@ class GetDailyStatisticsListRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(GetDailyStatisticsListRequest* other) {
+  void UnsafeArenaSwap(GetAllDailyStatisticsRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -5854,14 +6015,14 @@ class GetDailyStatisticsListRequest final :
 
   // implements Message ----------------------------------------------
 
-  GetDailyStatisticsListRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<GetDailyStatisticsListRequest>(arena);
+  GetAllDailyStatisticsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetAllDailyStatisticsRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const GetDailyStatisticsListRequest& from);
+  void CopyFrom(const GetAllDailyStatisticsRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const GetDailyStatisticsListRequest& from) {
-    GetDailyStatisticsListRequest::MergeImpl(*this, from);
+  void MergeFrom( const GetAllDailyStatisticsRequest& from) {
+    GetAllDailyStatisticsRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -5879,15 +6040,15 @@ class GetDailyStatisticsListRequest final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(GetDailyStatisticsListRequest* other);
+  void InternalSwap(GetAllDailyStatisticsRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "proto.GetDailyStatisticsListRequest";
+    return "proto.GetAllDailyStatisticsRequest";
   }
   protected:
-  explicit GetDailyStatisticsListRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit GetAllDailyStatisticsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -5921,7 +6082,7 @@ class GetDailyStatisticsListRequest final :
       ::proto::UserMetaInfoV1* userinfo);
   ::proto::UserMetaInfoV1* unsafe_arena_release_userinfo();
 
-  // @@protoc_insertion_point(class_scope:proto.GetDailyStatisticsListRequest)
+  // @@protoc_insertion_point(class_scope:proto.GetAllDailyStatisticsRequest)
  private:
   class _Internal;
 
@@ -6950,6 +7111,95 @@ inline void GetPermissionGroupRequest::set_allocated_permissiongroup(::proto::Pe
   }
   _impl_.permissiongroup_ = permissiongroup;
   // @@protoc_insertion_point(field_set_allocated:proto.GetPermissionGroupRequest.PermissionGroup)
+}
+
+// -------------------------------------------------------------------
+
+// GetAllPermissionGroupRequest
+
+// .proto.UserMetaInfoV1 UserInfo = 1;
+inline bool GetAllPermissionGroupRequest::_internal_has_userinfo() const {
+  return this != internal_default_instance() && _impl_.userinfo_ != nullptr;
+}
+inline bool GetAllPermissionGroupRequest::has_userinfo() const {
+  return _internal_has_userinfo();
+}
+inline const ::proto::UserMetaInfoV1& GetAllPermissionGroupRequest::_internal_userinfo() const {
+  const ::proto::UserMetaInfoV1* p = _impl_.userinfo_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::UserMetaInfoV1&>(
+      ::proto::_UserMetaInfoV1_default_instance_);
+}
+inline const ::proto::UserMetaInfoV1& GetAllPermissionGroupRequest::userinfo() const {
+  // @@protoc_insertion_point(field_get:proto.GetAllPermissionGroupRequest.UserInfo)
+  return _internal_userinfo();
+}
+inline void GetAllPermissionGroupRequest::unsafe_arena_set_allocated_userinfo(
+    ::proto::UserMetaInfoV1* userinfo) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.userinfo_);
+  }
+  _impl_.userinfo_ = userinfo;
+  if (userinfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetAllPermissionGroupRequest.UserInfo)
+}
+inline ::proto::UserMetaInfoV1* GetAllPermissionGroupRequest::release_userinfo() {
+  
+  ::proto::UserMetaInfoV1* temp = _impl_.userinfo_;
+  _impl_.userinfo_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::UserMetaInfoV1* GetAllPermissionGroupRequest::unsafe_arena_release_userinfo() {
+  // @@protoc_insertion_point(field_release:proto.GetAllPermissionGroupRequest.UserInfo)
+  
+  ::proto::UserMetaInfoV1* temp = _impl_.userinfo_;
+  _impl_.userinfo_ = nullptr;
+  return temp;
+}
+inline ::proto::UserMetaInfoV1* GetAllPermissionGroupRequest::_internal_mutable_userinfo() {
+  
+  if (_impl_.userinfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::UserMetaInfoV1>(GetArenaForAllocation());
+    _impl_.userinfo_ = p;
+  }
+  return _impl_.userinfo_;
+}
+inline ::proto::UserMetaInfoV1* GetAllPermissionGroupRequest::mutable_userinfo() {
+  ::proto::UserMetaInfoV1* _msg = _internal_mutable_userinfo();
+  // @@protoc_insertion_point(field_mutable:proto.GetAllPermissionGroupRequest.UserInfo)
+  return _msg;
+}
+inline void GetAllPermissionGroupRequest::set_allocated_userinfo(::proto::UserMetaInfoV1* userinfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.userinfo_);
+  }
+  if (userinfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(userinfo));
+    if (message_arena != submessage_arena) {
+      userinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, userinfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.userinfo_ = userinfo;
+  // @@protoc_insertion_point(field_set_allocated:proto.GetAllPermissionGroupRequest.UserInfo)
 }
 
 // -------------------------------------------------------------------
@@ -11107,25 +11357,25 @@ inline void GetDailyStatisticsRequest::set_allocated_dailystatisticsinfo(::proto
 
 // -------------------------------------------------------------------
 
-// GetDailyStatisticsListRequest
+// GetAllDailyStatisticsRequest
 
 // .proto.UserMetaInfoV1 UserInfo = 1;
-inline bool GetDailyStatisticsListRequest::_internal_has_userinfo() const {
+inline bool GetAllDailyStatisticsRequest::_internal_has_userinfo() const {
   return this != internal_default_instance() && _impl_.userinfo_ != nullptr;
 }
-inline bool GetDailyStatisticsListRequest::has_userinfo() const {
+inline bool GetAllDailyStatisticsRequest::has_userinfo() const {
   return _internal_has_userinfo();
 }
-inline const ::proto::UserMetaInfoV1& GetDailyStatisticsListRequest::_internal_userinfo() const {
+inline const ::proto::UserMetaInfoV1& GetAllDailyStatisticsRequest::_internal_userinfo() const {
   const ::proto::UserMetaInfoV1* p = _impl_.userinfo_;
   return p != nullptr ? *p : reinterpret_cast<const ::proto::UserMetaInfoV1&>(
       ::proto::_UserMetaInfoV1_default_instance_);
 }
-inline const ::proto::UserMetaInfoV1& GetDailyStatisticsListRequest::userinfo() const {
-  // @@protoc_insertion_point(field_get:proto.GetDailyStatisticsListRequest.UserInfo)
+inline const ::proto::UserMetaInfoV1& GetAllDailyStatisticsRequest::userinfo() const {
+  // @@protoc_insertion_point(field_get:proto.GetAllDailyStatisticsRequest.UserInfo)
   return _internal_userinfo();
 }
-inline void GetDailyStatisticsListRequest::unsafe_arena_set_allocated_userinfo(
+inline void GetAllDailyStatisticsRequest::unsafe_arena_set_allocated_userinfo(
     ::proto::UserMetaInfoV1* userinfo) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.userinfo_);
@@ -11136,9 +11386,9 @@ inline void GetDailyStatisticsListRequest::unsafe_arena_set_allocated_userinfo(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetDailyStatisticsListRequest.UserInfo)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetAllDailyStatisticsRequest.UserInfo)
 }
-inline ::proto::UserMetaInfoV1* GetDailyStatisticsListRequest::release_userinfo() {
+inline ::proto::UserMetaInfoV1* GetAllDailyStatisticsRequest::release_userinfo() {
   
   ::proto::UserMetaInfoV1* temp = _impl_.userinfo_;
   _impl_.userinfo_ = nullptr;
@@ -11153,14 +11403,14 @@ inline ::proto::UserMetaInfoV1* GetDailyStatisticsListRequest::release_userinfo(
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::proto::UserMetaInfoV1* GetDailyStatisticsListRequest::unsafe_arena_release_userinfo() {
-  // @@protoc_insertion_point(field_release:proto.GetDailyStatisticsListRequest.UserInfo)
+inline ::proto::UserMetaInfoV1* GetAllDailyStatisticsRequest::unsafe_arena_release_userinfo() {
+  // @@protoc_insertion_point(field_release:proto.GetAllDailyStatisticsRequest.UserInfo)
   
   ::proto::UserMetaInfoV1* temp = _impl_.userinfo_;
   _impl_.userinfo_ = nullptr;
   return temp;
 }
-inline ::proto::UserMetaInfoV1* GetDailyStatisticsListRequest::_internal_mutable_userinfo() {
+inline ::proto::UserMetaInfoV1* GetAllDailyStatisticsRequest::_internal_mutable_userinfo() {
   
   if (_impl_.userinfo_ == nullptr) {
     auto* p = CreateMaybeMessage<::proto::UserMetaInfoV1>(GetArenaForAllocation());
@@ -11168,12 +11418,12 @@ inline ::proto::UserMetaInfoV1* GetDailyStatisticsListRequest::_internal_mutable
   }
   return _impl_.userinfo_;
 }
-inline ::proto::UserMetaInfoV1* GetDailyStatisticsListRequest::mutable_userinfo() {
+inline ::proto::UserMetaInfoV1* GetAllDailyStatisticsRequest::mutable_userinfo() {
   ::proto::UserMetaInfoV1* _msg = _internal_mutable_userinfo();
-  // @@protoc_insertion_point(field_mutable:proto.GetDailyStatisticsListRequest.UserInfo)
+  // @@protoc_insertion_point(field_mutable:proto.GetAllDailyStatisticsRequest.UserInfo)
   return _msg;
 }
-inline void GetDailyStatisticsListRequest::set_allocated_userinfo(::proto::UserMetaInfoV1* userinfo) {
+inline void GetAllDailyStatisticsRequest::set_allocated_userinfo(::proto::UserMetaInfoV1* userinfo) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.userinfo_);
@@ -11191,12 +11441,14 @@ inline void GetDailyStatisticsListRequest::set_allocated_userinfo(::proto::UserM
     
   }
   _impl_.userinfo_ = userinfo;
-  // @@protoc_insertion_point(field_set_allocated:proto.GetDailyStatisticsListRequest.UserInfo)
+  // @@protoc_insertion_point(field_set_allocated:proto.GetAllDailyStatisticsRequest.UserInfo)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
