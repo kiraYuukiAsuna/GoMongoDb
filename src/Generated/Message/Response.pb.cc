@@ -157,7 +157,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR GetPermissionGroupResponse::GetPermissionGroupResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.permissiongrouplist_)*/nullptr
+  , /*decltype(_impl_.permissiongroup_)*/nullptr
   , /*decltype(_impl_.status_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetPermissionGroupResponseDefaultTypeInternal {
@@ -623,7 +623,7 @@ const uint32_t TableStruct_Message_2fResponse_2eproto::offsets[] PROTOBUF_SECTIO
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupResponse, _impl_.status_),
   PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupResponse, _impl_.message_),
-  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupResponse, _impl_.permissiongrouplist_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupResponse, _impl_.permissiongroup_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::GetAllPermissionGroupResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -939,78 +939,78 @@ const char descriptor_table_protodef_Message_2fResponse_2eproto[] PROTOBUF_SECTI
   "\010\022\017\n\007Message\030\002 \001(\t\"|\n\036GetUserPermissionG"
   "roupResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030"
   "\002 \001(\t\0229\n\017PermissionGroup\030\003 \001(\0132 .proto.P"
-  "ermissionGroupMetaInfoV1\"|\n\032GetPermissio"
+  "ermissionGroupMetaInfoV1\"x\n\032GetPermissio"
   "nGroupResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Messag"
-  "e\030\002 \001(\t\022=\n\023PermissionGroupList\030\003 \001(\0132 .p"
-  "roto.PermissionGroupMetaInfoV1\"\177\n\035GetAll"
-  "PermissionGroupResponse\022\016\n\006status\030\001 \001(\010\022"
-  "\017\n\007Message\030\002 \001(\t\022=\n\023PermissionGroupList\030"
-  "\003 \003(\0132 .proto.PermissionGroupMetaInfoV1\""
-  "\177\n!ChangeUserPermissionGroupResponse\022\016\n\006"
-  "status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\0229\n\017Permiss"
-  "ionGroup\030\003 \001(\0132 .proto.PermissionGroupMe"
-  "taInfoV1\"g\n\025CreateProjectResponse\022\016\n\006sta"
-  "tus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022-\n\013ProjectInf"
-  "o\030\003 \001(\0132\030.proto.ProjectMetaInfoV1\"g\n\025Del"
-  "eteProjectResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Me"
-  "ssage\030\002 \001(\t\022-\n\013ProjectInfo\030\003 \001(\0132\030.proto"
-  ".ProjectMetaInfoV1\"g\n\025UpdateProjectRespo"
-  "nse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022-\n\013"
-  "ProjectInfo\030\003 \001(\0132\030.proto.ProjectMetaInf"
-  "oV1\"d\n\022GetProjectResponse\022\016\n\006status\030\001 \001("
-  "\010\022\017\n\007Message\030\002 \001(\t\022-\n\013ProjectInfo\030\003 \001(\0132"
-  "\030.proto.ProjectMetaInfoV1\"g\n\025GetAllProje"
-  "ctResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 "
-  "\001(\t\022-\n\013ProjectInfo\030\003 \003(\0132\030.proto.Project"
-  "MetaInfoV1\"[\n\021CreateSwcResponse\022\016\n\006statu"
+  "e\030\002 \001(\t\0229\n\017PermissionGroup\030\003 \001(\0132 .proto"
+  ".PermissionGroupMetaInfoV1\"\177\n\035GetAllPerm"
+  "issionGroupResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007M"
+  "essage\030\002 \001(\t\022=\n\023PermissionGroupList\030\003 \003("
+  "\0132 .proto.PermissionGroupMetaInfoV1\"\177\n!C"
+  "hangeUserPermissionGroupResponse\022\016\n\006stat"
+  "us\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\0229\n\017PermissionG"
+  "roup\030\003 \001(\0132 .proto.PermissionGroupMetaIn"
+  "foV1\"g\n\025CreateProjectResponse\022\016\n\006status\030"
+  "\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022-\n\013ProjectInfo\030\003 "
+  "\001(\0132\030.proto.ProjectMetaInfoV1\"g\n\025DeleteP"
+  "rojectResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Messag"
+  "e\030\002 \001(\t\022-\n\013ProjectInfo\030\003 \001(\0132\030.proto.Pro"
+  "jectMetaInfoV1\"g\n\025UpdateProjectResponse\022"
+  "\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022-\n\013Proj"
+  "ectInfo\030\003 \001(\0132\030.proto.ProjectMetaInfoV1\""
+  "d\n\022GetProjectResponse\022\016\n\006status\030\001 \001(\010\022\017\n"
+  "\007Message\030\002 \001(\t\022-\n\013ProjectInfo\030\003 \001(\0132\030.pr"
+  "oto.ProjectMetaInfoV1\"g\n\025GetAllProjectRe"
+  "sponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022"
+  "-\n\013ProjectInfo\030\003 \003(\0132\030.proto.ProjectMeta"
+  "InfoV1\"[\n\021CreateSwcResponse\022\016\n\006status\030\001 "
+  "\001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007SwcInfo\030\003 \001(\0132\024."
+  "proto.SwcMetaInfoV1\"[\n\021DeleteSwcResponse"
+  "\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007Swc"
+  "Info\030\003 \001(\0132\024.proto.SwcMetaInfoV1\"[\n\021Upda"
+  "teSwcResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
+  "\030\002 \001(\t\022%\n\007SwcInfo\030\003 \001(\0132\024.proto.SwcMetaI"
+  "nfoV1\"`\n\026GetSwcMetaInfoResponse\022\016\n\006statu"
   "s\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007SwcInfo\030\003 \001("
-  "\0132\024.proto.SwcMetaInfoV1\"[\n\021DeleteSwcResp"
-  "onse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n"
-  "\007SwcInfo\030\003 \001(\0132\024.proto.SwcMetaInfoV1\"[\n\021"
-  "UpdateSwcResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
-  "sage\030\002 \001(\t\022%\n\007SwcInfo\030\003 \001(\0132\024.proto.SwcM"
-  "etaInfoV1\"`\n\026GetSwcMetaInfoResponse\022\016\n\006s"
-  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007SwcInfo\030"
-  "\003 \001(\0132\024.proto.SwcMetaInfoV1\"c\n\031GetAllSwc"
-  "MetaInfoResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mess"
-  "age\030\002 \001(\t\022%\n\007SwcInfo\030\003 \003(\0132\024.proto.SwcMe"
-  "taInfoV1\"c\n\031CreateSwcNodeDataResponse\022\016\n"
-  "\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNod"
-  "eData\030\003 \001(\0132\020.proto.SwcDataV1\"c\n\031DeleteS"
-  "wcNodeDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Me"
-  "ssage\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto"
-  ".SwcDataV1\"c\n\031UpdateSwcNodeDataResponse\022"
-  "\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcN"
-  "odeData\030\003 \001(\0132\020.proto.SwcDataV1\"`\n\026GetSw"
-  "cNodeDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
-  "sage\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto."
-  "SwcDataV1\"d\n\032GetSwcFullNodeDataResponse\022"
-  "\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcN"
-  "odeData\030\003 \001(\0132\020.proto.SwcDataV1\"q\n\'GetSw"
-  "cNodeDataListByTimeAndUserResponse\022\016\n\006st"
-  "atus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeDa"
-  "ta\030\003 \001(\0132\020.proto.SwcDataV1\"\211\001\n\032BackupFul"
-  "lDatabaseResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
-  "sage\030\002 \001(\t\022\025\n\rInstantBackup\030\003 \001(\010\0223\n\017Del"
-  "ayBackupTime\030\004 \001(\0132\032.google.protobuf.Tim"
-  "estamp\"\177\n\035CreateDailyStatisticsResponse\022"
-  "\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023Dail"
-  "yStatisticsInfo\030\003 \001(\0132 .proto.DailyStati"
-  "sticsMetaInfoV1\"\177\n\035DeleteDailyStatistics"
-  "Response\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001("
-  "\t\022=\n\023DailyStatisticsInfo\030\003 \001(\0132 .proto.D"
-  "ailyStatisticsMetaInfoV1\"\177\n\035UpdateDailyS"
-  "tatisticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
-  "sage\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001(\0132"
-  " .proto.DailyStatisticsMetaInfoV1\"|\n\032Get"
-  "DailyStatisticsResponse\022\016\n\006status\030\001 \001(\010\022"
-  "\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030"
-  "\003 \001(\0132 .proto.DailyStatisticsMetaInfoV1\""
-  "\177\n\035GetAllDailyStatisticsResponse\022\016\n\006stat"
-  "us\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatis"
-  "ticsInfo\030\003 \003(\0132 .proto.DailyStatisticsMe"
-  "taInfoV1B\037Z\035DBMS/Generated/proto/respons"
-  "eP\000b\006proto3"
+  "\0132\024.proto.SwcMetaInfoV1\"c\n\031GetAllSwcMeta"
+  "InfoResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030"
+  "\002 \001(\t\022%\n\007SwcInfo\030\003 \003(\0132\024.proto.SwcMetaIn"
+  "foV1\"c\n\031CreateSwcNodeDataResponse\022\016\n\006sta"
+  "tus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeDat"
+  "a\030\003 \001(\0132\020.proto.SwcDataV1\"c\n\031DeleteSwcNo"
+  "deDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Messag"
+  "e\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.Swc"
+  "DataV1\"c\n\031UpdateSwcNodeDataResponse\022\016\n\006s"
+  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeD"
+  "ata\030\003 \001(\0132\020.proto.SwcDataV1\"`\n\026GetSwcNod"
+  "eDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
+  "\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.SwcD"
+  "ataV1\"d\n\032GetSwcFullNodeDataResponse\022\016\n\006s"
+  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeD"
+  "ata\030\003 \001(\0132\020.proto.SwcDataV1\"q\n\'GetSwcNod"
+  "eDataListByTimeAndUserResponse\022\016\n\006status"
+  "\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeData\030\003"
+  " \001(\0132\020.proto.SwcDataV1\"\211\001\n\032BackupFullDat"
+  "abaseResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
+  "\030\002 \001(\t\022\025\n\rInstantBackup\030\003 \001(\010\0223\n\017DelayBa"
+  "ckupTime\030\004 \001(\0132\032.google.protobuf.Timesta"
+  "mp\"\177\n\035CreateDailyStatisticsResponse\022\016\n\006s"
+  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailySta"
+  "tisticsInfo\030\003 \001(\0132 .proto.DailyStatistic"
+  "sMetaInfoV1\"\177\n\035DeleteDailyStatisticsResp"
+  "onse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n"
+  "\023DailyStatisticsInfo\030\003 \001(\0132 .proto.Daily"
+  "StatisticsMetaInfoV1\"\177\n\035UpdateDailyStati"
+  "sticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
+  "\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001(\0132 .pr"
+  "oto.DailyStatisticsMetaInfoV1\"|\n\032GetDail"
+  "yStatisticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007M"
+  "essage\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001("
+  "\0132 .proto.DailyStatisticsMetaInfoV1\"\177\n\035G"
+  "etAllDailyStatisticsResponse\022\016\n\006status\030\001"
+  " \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatistics"
+  "Info\030\003 \003(\0132 .proto.DailyStatisticsMetaIn"
+  "foV1B\037Z\035DBMS/Generated/proto/responseP\000b"
+  "\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_2eproto_deps[2] = {
   &::descriptor_table_Message_2fMessage_2eproto,
@@ -1018,7 +1018,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_
 };
 static ::_pbi::once_flag descriptor_table_Message_2fResponse_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2fResponse_2eproto = {
-    false, false, 3731, descriptor_table_protodef_Message_2fResponse_2eproto,
+    false, false, 3727, descriptor_table_protodef_Message_2fResponse_2eproto,
     "Message/Response.proto",
     &descriptor_table_Message_2fResponse_2eproto_once, descriptor_table_Message_2fResponse_2eproto_deps, 2, 34,
     schemas, file_default_instances, TableStruct_Message_2fResponse_2eproto::offsets,
@@ -3456,18 +3456,18 @@ void GetUserPermissionGroupResponse::InternalSwap(GetUserPermissionGroupResponse
 
 class GetPermissionGroupResponse::_Internal {
  public:
-  static const ::proto::PermissionGroupMetaInfoV1& permissiongrouplist(const GetPermissionGroupResponse* msg);
+  static const ::proto::PermissionGroupMetaInfoV1& permissiongroup(const GetPermissionGroupResponse* msg);
 };
 
 const ::proto::PermissionGroupMetaInfoV1&
-GetPermissionGroupResponse::_Internal::permissiongrouplist(const GetPermissionGroupResponse* msg) {
-  return *msg->_impl_.permissiongrouplist_;
+GetPermissionGroupResponse::_Internal::permissiongroup(const GetPermissionGroupResponse* msg) {
+  return *msg->_impl_.permissiongroup_;
 }
-void GetPermissionGroupResponse::clear_permissiongrouplist() {
-  if (GetArenaForAllocation() == nullptr && _impl_.permissiongrouplist_ != nullptr) {
-    delete _impl_.permissiongrouplist_;
+void GetPermissionGroupResponse::clear_permissiongroup() {
+  if (GetArenaForAllocation() == nullptr && _impl_.permissiongroup_ != nullptr) {
+    delete _impl_.permissiongroup_;
   }
-  _impl_.permissiongrouplist_ = nullptr;
+  _impl_.permissiongroup_ = nullptr;
 }
 GetPermissionGroupResponse::GetPermissionGroupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -3480,7 +3480,7 @@ GetPermissionGroupResponse::GetPermissionGroupResponse(const GetPermissionGroupR
   GetPermissionGroupResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
-    , decltype(_impl_.permissiongrouplist_){nullptr}
+    , decltype(_impl_.permissiongroup_){nullptr}
     , decltype(_impl_.status_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -3493,8 +3493,8 @@ GetPermissionGroupResponse::GetPermissionGroupResponse(const GetPermissionGroupR
     _this->_impl_.message_.Set(from._internal_message(), 
       _this->GetArenaForAllocation());
   }
-  if (from._internal_has_permissiongrouplist()) {
-    _this->_impl_.permissiongrouplist_ = new ::proto::PermissionGroupMetaInfoV1(*from._impl_.permissiongrouplist_);
+  if (from._internal_has_permissiongroup()) {
+    _this->_impl_.permissiongroup_ = new ::proto::PermissionGroupMetaInfoV1(*from._impl_.permissiongroup_);
   }
   _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:proto.GetPermissionGroupResponse)
@@ -3506,7 +3506,7 @@ inline void GetPermissionGroupResponse::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
-    , decltype(_impl_.permissiongrouplist_){nullptr}
+    , decltype(_impl_.permissiongroup_){nullptr}
     , decltype(_impl_.status_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -3528,7 +3528,7 @@ GetPermissionGroupResponse::~GetPermissionGroupResponse() {
 inline void GetPermissionGroupResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.message_.Destroy();
-  if (this != internal_default_instance()) delete _impl_.permissiongrouplist_;
+  if (this != internal_default_instance()) delete _impl_.permissiongroup_;
 }
 
 void GetPermissionGroupResponse::SetCachedSize(int size) const {
@@ -3542,10 +3542,10 @@ void GetPermissionGroupResponse::Clear() {
   (void) cached_has_bits;
 
   _impl_.message_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && _impl_.permissiongrouplist_ != nullptr) {
-    delete _impl_.permissiongrouplist_;
+  if (GetArenaForAllocation() == nullptr && _impl_.permissiongroup_ != nullptr) {
+    delete _impl_.permissiongroup_;
   }
-  _impl_.permissiongrouplist_ = nullptr;
+  _impl_.permissiongroup_ = nullptr;
   _impl_.status_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -3574,10 +3574,10 @@ const char* GetPermissionGroupResponse::_InternalParse(const char* ptr, ::_pbi::
         } else
           goto handle_unusual;
         continue;
-      // .proto.PermissionGroupMetaInfoV1 PermissionGroupList = 3;
+      // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_permissiongrouplist(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_permissiongroup(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3627,11 +3627,11 @@ uint8_t* GetPermissionGroupResponse::_InternalSerialize(
         2, this->_internal_message(), target);
   }
 
-  // .proto.PermissionGroupMetaInfoV1 PermissionGroupList = 3;
-  if (this->_internal_has_permissiongrouplist()) {
+  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
+  if (this->_internal_has_permissiongroup()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::permissiongrouplist(this),
-        _Internal::permissiongrouplist(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(3, _Internal::permissiongroup(this),
+        _Internal::permissiongroup(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3657,11 +3657,11 @@ size_t GetPermissionGroupResponse::ByteSizeLong() const {
         this->_internal_message());
   }
 
-  // .proto.PermissionGroupMetaInfoV1 PermissionGroupList = 3;
-  if (this->_internal_has_permissiongrouplist()) {
+  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
+  if (this->_internal_has_permissiongroup()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.permissiongrouplist_);
+        *_impl_.permissiongroup_);
   }
 
   // bool status = 1;
@@ -3690,9 +3690,9 @@ void GetPermissionGroupResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_
   if (!from._internal_message().empty()) {
     _this->_internal_set_message(from._internal_message());
   }
-  if (from._internal_has_permissiongrouplist()) {
-    _this->_internal_mutable_permissiongrouplist()->::proto::PermissionGroupMetaInfoV1::MergeFrom(
-        from._internal_permissiongrouplist());
+  if (from._internal_has_permissiongroup()) {
+    _this->_internal_mutable_permissiongroup()->::proto::PermissionGroupMetaInfoV1::MergeFrom(
+        from._internal_permissiongroup());
   }
   if (from._internal_status() != 0) {
     _this->_internal_set_status(from._internal_status());
@@ -3723,9 +3723,9 @@ void GetPermissionGroupResponse::InternalSwap(GetPermissionGroupResponse* other)
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(GetPermissionGroupResponse, _impl_.status_)
       + sizeof(GetPermissionGroupResponse::_impl_.status_)
-      - PROTOBUF_FIELD_OFFSET(GetPermissionGroupResponse, _impl_.permissiongrouplist_)>(
-          reinterpret_cast<char*>(&_impl_.permissiongrouplist_),
-          reinterpret_cast<char*>(&other->_impl_.permissiongrouplist_));
+      - PROTOBUF_FIELD_OFFSET(GetPermissionGroupResponse, _impl_.permissiongroup_)>(
+          reinterpret_cast<char*>(&_impl_.permissiongroup_),
+          reinterpret_cast<char*>(&other->_impl_.permissiongroup_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetPermissionGroupResponse::GetMetadata() const {

@@ -31,10 +31,10 @@ message GlobalPermissionMetaInfoV1{
 }
 
 message ProjectPermissionMetaInfoV1{
-    bool WritePermission_AddData = 1;
-    bool WritePermission_ModifyData = 2;
-    bool WritePermission_DeleteData = 3;
-    bool ReadPerimission_Query = 4;
+    bool WritePermissionAddData = 1;
+    bool WritePermissionModifyData = 2;
+    bool WritePermissionDeleteData = 3;
+    bool ReadPerimissionQuery = 4;
 }
 
 message PermissionGroupMetaInfoV1{
@@ -59,7 +59,7 @@ message ProjectMetaInfoV1{
     google.protobuf.Timestamp CreateTime = 5;
     google.protobuf.Timestamp LastModifiedTime = 6;
     repeated string SwcList = 7;
-    UserPermissionOverrideMetaInfoV1 PermissionOverride = 8;
+    repeated ProjectPermissionMetaInfoV1 UserPermissionOverride = 8;
     string WorkMode = 9;
 }
 

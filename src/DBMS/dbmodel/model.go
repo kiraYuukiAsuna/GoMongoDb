@@ -40,11 +40,11 @@ type GlobalPermissionMetaInfoV1 struct {
 }
 
 type ProjectPermissionMetaInfoV1 struct {
-	WritePermission_AddData    bool `bson:"WritePermission_AddData"`
-	WritePermission_ModifyData bool `bson:"WritePermission_ModifyData"`
-	WritePermission_DeleteData bool `bson:"WritePermission_DeleteData"`
+	WritePermissionAddData    bool `bson:"WritePermissionAddData"`
+	WritePermissionModifyData bool `bson:"WritePermissionModifyData"`
+	WritePermissionDeleteData bool `bson:"WritePermissionDeleteData"`
 
-	ReadPerimission_Query bool `bson:"ReadPerimission_Query"`
+	ReadPerimissionQuery bool `bson:"ReadPerimissionQuery"`
 }
 
 type PermissionGroupMetaInfoV1 struct {

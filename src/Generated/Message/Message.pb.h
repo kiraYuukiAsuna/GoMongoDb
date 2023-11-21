@@ -862,40 +862,40 @@ class ProjectPermissionMetaInfoV1 final :
     kWritePermissionDeleteDataFieldNumber = 3,
     kReadPerimissionQueryFieldNumber = 4,
   };
-  // bool WritePermission_AddData = 1;
-  void clear_writepermission_adddata();
-  bool writepermission_adddata() const;
-  void set_writepermission_adddata(bool value);
+  // bool WritePermissionAddData = 1;
+  void clear_writepermissionadddata();
+  bool writepermissionadddata() const;
+  void set_writepermissionadddata(bool value);
   private:
-  bool _internal_writepermission_adddata() const;
-  void _internal_set_writepermission_adddata(bool value);
+  bool _internal_writepermissionadddata() const;
+  void _internal_set_writepermissionadddata(bool value);
   public:
 
-  // bool WritePermission_ModifyData = 2;
-  void clear_writepermission_modifydata();
-  bool writepermission_modifydata() const;
-  void set_writepermission_modifydata(bool value);
+  // bool WritePermissionModifyData = 2;
+  void clear_writepermissionmodifydata();
+  bool writepermissionmodifydata() const;
+  void set_writepermissionmodifydata(bool value);
   private:
-  bool _internal_writepermission_modifydata() const;
-  void _internal_set_writepermission_modifydata(bool value);
+  bool _internal_writepermissionmodifydata() const;
+  void _internal_set_writepermissionmodifydata(bool value);
   public:
 
-  // bool WritePermission_DeleteData = 3;
-  void clear_writepermission_deletedata();
-  bool writepermission_deletedata() const;
-  void set_writepermission_deletedata(bool value);
+  // bool WritePermissionDeleteData = 3;
+  void clear_writepermissiondeletedata();
+  bool writepermissiondeletedata() const;
+  void set_writepermissiondeletedata(bool value);
   private:
-  bool _internal_writepermission_deletedata() const;
-  void _internal_set_writepermission_deletedata(bool value);
+  bool _internal_writepermissiondeletedata() const;
+  void _internal_set_writepermissiondeletedata(bool value);
   public:
 
-  // bool ReadPerimission_Query = 4;
-  void clear_readperimission_query();
-  bool readperimission_query() const;
-  void set_readperimission_query(bool value);
+  // bool ReadPerimissionQuery = 4;
+  void clear_readperimissionquery();
+  bool readperimissionquery() const;
+  void set_readperimissionquery(bool value);
   private:
-  bool _internal_readperimission_query() const;
-  void _internal_set_readperimission_query(bool value);
+  bool _internal_readperimissionquery() const;
+  void _internal_set_readperimissionquery(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:proto.ProjectPermissionMetaInfoV1)
@@ -906,10 +906,10 @@ class ProjectPermissionMetaInfoV1 final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    bool writepermission_adddata_;
-    bool writepermission_modifydata_;
-    bool writepermission_deletedata_;
-    bool readperimission_query_;
+    bool writepermissionadddata_;
+    bool writepermissionmodifydata_;
+    bool writepermissiondeletedata_;
+    bool readperimissionquery_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1445,6 +1445,7 @@ class ProjectMetaInfoV1 final :
 
   enum : int {
     kSwcListFieldNumber = 7,
+    kUserPermissionOverrideFieldNumber = 8,
     kNameFieldNumber = 2,
     kDescriptionFieldNumber = 3,
     kCreatorFieldNumber = 4,
@@ -1452,7 +1453,6 @@ class ProjectMetaInfoV1 final :
     kBaseFieldNumber = 1,
     kCreateTimeFieldNumber = 5,
     kLastModifiedTimeFieldNumber = 6,
-    kPermissionOverrideFieldNumber = 8,
   };
   // repeated string SwcList = 7;
   int swclist_size() const;
@@ -1477,6 +1477,24 @@ class ProjectMetaInfoV1 final :
   const std::string& _internal_swclist(int index) const;
   std::string* _internal_add_swclist();
   public:
+
+  // repeated .proto.ProjectPermissionMetaInfoV1 UserPermissionOverride = 8;
+  int userpermissionoverride_size() const;
+  private:
+  int _internal_userpermissionoverride_size() const;
+  public:
+  void clear_userpermissionoverride();
+  ::proto::ProjectPermissionMetaInfoV1* mutable_userpermissionoverride(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::ProjectPermissionMetaInfoV1 >*
+      mutable_userpermissionoverride();
+  private:
+  const ::proto::ProjectPermissionMetaInfoV1& _internal_userpermissionoverride(int index) const;
+  ::proto::ProjectPermissionMetaInfoV1* _internal_add_userpermissionoverride();
+  public:
+  const ::proto::ProjectPermissionMetaInfoV1& userpermissionoverride(int index) const;
+  ::proto::ProjectPermissionMetaInfoV1* add_userpermissionoverride();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::ProjectPermissionMetaInfoV1 >&
+      userpermissionoverride() const;
 
   // string Name = 2;
   void clear_name();
@@ -1588,24 +1606,6 @@ class ProjectMetaInfoV1 final :
       ::PROTOBUF_NAMESPACE_ID::Timestamp* lastmodifiedtime);
   ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_lastmodifiedtime();
 
-  // .proto.UserPermissionOverrideMetaInfoV1 PermissionOverride = 8;
-  bool has_permissionoverride() const;
-  private:
-  bool _internal_has_permissionoverride() const;
-  public:
-  void clear_permissionoverride();
-  const ::proto::UserPermissionOverrideMetaInfoV1& permissionoverride() const;
-  PROTOBUF_NODISCARD ::proto::UserPermissionOverrideMetaInfoV1* release_permissionoverride();
-  ::proto::UserPermissionOverrideMetaInfoV1* mutable_permissionoverride();
-  void set_allocated_permissionoverride(::proto::UserPermissionOverrideMetaInfoV1* permissionoverride);
-  private:
-  const ::proto::UserPermissionOverrideMetaInfoV1& _internal_permissionoverride() const;
-  ::proto::UserPermissionOverrideMetaInfoV1* _internal_mutable_permissionoverride();
-  public:
-  void unsafe_arena_set_allocated_permissionoverride(
-      ::proto::UserPermissionOverrideMetaInfoV1* permissionoverride);
-  ::proto::UserPermissionOverrideMetaInfoV1* unsafe_arena_release_permissionoverride();
-
   // @@protoc_insertion_point(class_scope:proto.ProjectMetaInfoV1)
  private:
   class _Internal;
@@ -1615,6 +1615,7 @@ class ProjectMetaInfoV1 final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> swclist_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::ProjectPermissionMetaInfoV1 > userpermissionoverride_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr description_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr creator_;
@@ -1622,7 +1623,6 @@ class ProjectMetaInfoV1 final :
     ::proto::MetaInfoBase* base_;
     ::PROTOBUF_NAMESPACE_ID::Timestamp* createtime_;
     ::PROTOBUF_NAMESPACE_ID::Timestamp* lastmodifiedtime_;
-    ::proto::UserPermissionOverrideMetaInfoV1* permissionoverride_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3367,84 +3367,84 @@ inline void GlobalPermissionMetaInfoV1::set_readperimissionquery(bool value) {
 
 // ProjectPermissionMetaInfoV1
 
-// bool WritePermission_AddData = 1;
-inline void ProjectPermissionMetaInfoV1::clear_writepermission_adddata() {
-  _impl_.writepermission_adddata_ = false;
+// bool WritePermissionAddData = 1;
+inline void ProjectPermissionMetaInfoV1::clear_writepermissionadddata() {
+  _impl_.writepermissionadddata_ = false;
 }
-inline bool ProjectPermissionMetaInfoV1::_internal_writepermission_adddata() const {
-  return _impl_.writepermission_adddata_;
+inline bool ProjectPermissionMetaInfoV1::_internal_writepermissionadddata() const {
+  return _impl_.writepermissionadddata_;
 }
-inline bool ProjectPermissionMetaInfoV1::writepermission_adddata() const {
-  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.WritePermission_AddData)
-  return _internal_writepermission_adddata();
+inline bool ProjectPermissionMetaInfoV1::writepermissionadddata() const {
+  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.WritePermissionAddData)
+  return _internal_writepermissionadddata();
 }
-inline void ProjectPermissionMetaInfoV1::_internal_set_writepermission_adddata(bool value) {
+inline void ProjectPermissionMetaInfoV1::_internal_set_writepermissionadddata(bool value) {
   
-  _impl_.writepermission_adddata_ = value;
+  _impl_.writepermissionadddata_ = value;
 }
-inline void ProjectPermissionMetaInfoV1::set_writepermission_adddata(bool value) {
-  _internal_set_writepermission_adddata(value);
-  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.WritePermission_AddData)
+inline void ProjectPermissionMetaInfoV1::set_writepermissionadddata(bool value) {
+  _internal_set_writepermissionadddata(value);
+  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.WritePermissionAddData)
 }
 
-// bool WritePermission_ModifyData = 2;
-inline void ProjectPermissionMetaInfoV1::clear_writepermission_modifydata() {
-  _impl_.writepermission_modifydata_ = false;
+// bool WritePermissionModifyData = 2;
+inline void ProjectPermissionMetaInfoV1::clear_writepermissionmodifydata() {
+  _impl_.writepermissionmodifydata_ = false;
 }
-inline bool ProjectPermissionMetaInfoV1::_internal_writepermission_modifydata() const {
-  return _impl_.writepermission_modifydata_;
+inline bool ProjectPermissionMetaInfoV1::_internal_writepermissionmodifydata() const {
+  return _impl_.writepermissionmodifydata_;
 }
-inline bool ProjectPermissionMetaInfoV1::writepermission_modifydata() const {
-  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.WritePermission_ModifyData)
-  return _internal_writepermission_modifydata();
+inline bool ProjectPermissionMetaInfoV1::writepermissionmodifydata() const {
+  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.WritePermissionModifyData)
+  return _internal_writepermissionmodifydata();
 }
-inline void ProjectPermissionMetaInfoV1::_internal_set_writepermission_modifydata(bool value) {
+inline void ProjectPermissionMetaInfoV1::_internal_set_writepermissionmodifydata(bool value) {
   
-  _impl_.writepermission_modifydata_ = value;
+  _impl_.writepermissionmodifydata_ = value;
 }
-inline void ProjectPermissionMetaInfoV1::set_writepermission_modifydata(bool value) {
-  _internal_set_writepermission_modifydata(value);
-  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.WritePermission_ModifyData)
+inline void ProjectPermissionMetaInfoV1::set_writepermissionmodifydata(bool value) {
+  _internal_set_writepermissionmodifydata(value);
+  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.WritePermissionModifyData)
 }
 
-// bool WritePermission_DeleteData = 3;
-inline void ProjectPermissionMetaInfoV1::clear_writepermission_deletedata() {
-  _impl_.writepermission_deletedata_ = false;
+// bool WritePermissionDeleteData = 3;
+inline void ProjectPermissionMetaInfoV1::clear_writepermissiondeletedata() {
+  _impl_.writepermissiondeletedata_ = false;
 }
-inline bool ProjectPermissionMetaInfoV1::_internal_writepermission_deletedata() const {
-  return _impl_.writepermission_deletedata_;
+inline bool ProjectPermissionMetaInfoV1::_internal_writepermissiondeletedata() const {
+  return _impl_.writepermissiondeletedata_;
 }
-inline bool ProjectPermissionMetaInfoV1::writepermission_deletedata() const {
-  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.WritePermission_DeleteData)
-  return _internal_writepermission_deletedata();
+inline bool ProjectPermissionMetaInfoV1::writepermissiondeletedata() const {
+  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.WritePermissionDeleteData)
+  return _internal_writepermissiondeletedata();
 }
-inline void ProjectPermissionMetaInfoV1::_internal_set_writepermission_deletedata(bool value) {
+inline void ProjectPermissionMetaInfoV1::_internal_set_writepermissiondeletedata(bool value) {
   
-  _impl_.writepermission_deletedata_ = value;
+  _impl_.writepermissiondeletedata_ = value;
 }
-inline void ProjectPermissionMetaInfoV1::set_writepermission_deletedata(bool value) {
-  _internal_set_writepermission_deletedata(value);
-  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.WritePermission_DeleteData)
+inline void ProjectPermissionMetaInfoV1::set_writepermissiondeletedata(bool value) {
+  _internal_set_writepermissiondeletedata(value);
+  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.WritePermissionDeleteData)
 }
 
-// bool ReadPerimission_Query = 4;
-inline void ProjectPermissionMetaInfoV1::clear_readperimission_query() {
-  _impl_.readperimission_query_ = false;
+// bool ReadPerimissionQuery = 4;
+inline void ProjectPermissionMetaInfoV1::clear_readperimissionquery() {
+  _impl_.readperimissionquery_ = false;
 }
-inline bool ProjectPermissionMetaInfoV1::_internal_readperimission_query() const {
-  return _impl_.readperimission_query_;
+inline bool ProjectPermissionMetaInfoV1::_internal_readperimissionquery() const {
+  return _impl_.readperimissionquery_;
 }
-inline bool ProjectPermissionMetaInfoV1::readperimission_query() const {
-  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.ReadPerimission_Query)
-  return _internal_readperimission_query();
+inline bool ProjectPermissionMetaInfoV1::readperimissionquery() const {
+  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.ReadPerimissionQuery)
+  return _internal_readperimissionquery();
 }
-inline void ProjectPermissionMetaInfoV1::_internal_set_readperimission_query(bool value) {
+inline void ProjectPermissionMetaInfoV1::_internal_set_readperimissionquery(bool value) {
   
-  _impl_.readperimission_query_ = value;
+  _impl_.readperimissionquery_ = value;
 }
-inline void ProjectPermissionMetaInfoV1::set_readperimission_query(bool value) {
-  _internal_set_readperimission_query(value);
-  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.ReadPerimission_Query)
+inline void ProjectPermissionMetaInfoV1::set_readperimissionquery(bool value) {
+  _internal_set_readperimissionquery(value);
+  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.ReadPerimissionQuery)
 }
 
 // -------------------------------------------------------------------
@@ -4494,94 +4494,44 @@ ProjectMetaInfoV1::mutable_swclist() {
   return &_impl_.swclist_;
 }
 
-// .proto.UserPermissionOverrideMetaInfoV1 PermissionOverride = 8;
-inline bool ProjectMetaInfoV1::_internal_has_permissionoverride() const {
-  return this != internal_default_instance() && _impl_.permissionoverride_ != nullptr;
+// repeated .proto.ProjectPermissionMetaInfoV1 UserPermissionOverride = 8;
+inline int ProjectMetaInfoV1::_internal_userpermissionoverride_size() const {
+  return _impl_.userpermissionoverride_.size();
 }
-inline bool ProjectMetaInfoV1::has_permissionoverride() const {
-  return _internal_has_permissionoverride();
+inline int ProjectMetaInfoV1::userpermissionoverride_size() const {
+  return _internal_userpermissionoverride_size();
 }
-inline void ProjectMetaInfoV1::clear_permissionoverride() {
-  if (GetArenaForAllocation() == nullptr && _impl_.permissionoverride_ != nullptr) {
-    delete _impl_.permissionoverride_;
-  }
-  _impl_.permissionoverride_ = nullptr;
+inline void ProjectMetaInfoV1::clear_userpermissionoverride() {
+  _impl_.userpermissionoverride_.Clear();
 }
-inline const ::proto::UserPermissionOverrideMetaInfoV1& ProjectMetaInfoV1::_internal_permissionoverride() const {
-  const ::proto::UserPermissionOverrideMetaInfoV1* p = _impl_.permissionoverride_;
-  return p != nullptr ? *p : reinterpret_cast<const ::proto::UserPermissionOverrideMetaInfoV1&>(
-      ::proto::_UserPermissionOverrideMetaInfoV1_default_instance_);
+inline ::proto::ProjectPermissionMetaInfoV1* ProjectMetaInfoV1::mutable_userpermissionoverride(int index) {
+  // @@protoc_insertion_point(field_mutable:proto.ProjectMetaInfoV1.UserPermissionOverride)
+  return _impl_.userpermissionoverride_.Mutable(index);
 }
-inline const ::proto::UserPermissionOverrideMetaInfoV1& ProjectMetaInfoV1::permissionoverride() const {
-  // @@protoc_insertion_point(field_get:proto.ProjectMetaInfoV1.PermissionOverride)
-  return _internal_permissionoverride();
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::ProjectPermissionMetaInfoV1 >*
+ProjectMetaInfoV1::mutable_userpermissionoverride() {
+  // @@protoc_insertion_point(field_mutable_list:proto.ProjectMetaInfoV1.UserPermissionOverride)
+  return &_impl_.userpermissionoverride_;
 }
-inline void ProjectMetaInfoV1::unsafe_arena_set_allocated_permissionoverride(
-    ::proto::UserPermissionOverrideMetaInfoV1* permissionoverride) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permissionoverride_);
-  }
-  _impl_.permissionoverride_ = permissionoverride;
-  if (permissionoverride) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.ProjectMetaInfoV1.PermissionOverride)
+inline const ::proto::ProjectPermissionMetaInfoV1& ProjectMetaInfoV1::_internal_userpermissionoverride(int index) const {
+  return _impl_.userpermissionoverride_.Get(index);
 }
-inline ::proto::UserPermissionOverrideMetaInfoV1* ProjectMetaInfoV1::release_permissionoverride() {
-  
-  ::proto::UserPermissionOverrideMetaInfoV1* temp = _impl_.permissionoverride_;
-  _impl_.permissionoverride_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+inline const ::proto::ProjectPermissionMetaInfoV1& ProjectMetaInfoV1::userpermissionoverride(int index) const {
+  // @@protoc_insertion_point(field_get:proto.ProjectMetaInfoV1.UserPermissionOverride)
+  return _internal_userpermissionoverride(index);
 }
-inline ::proto::UserPermissionOverrideMetaInfoV1* ProjectMetaInfoV1::unsafe_arena_release_permissionoverride() {
-  // @@protoc_insertion_point(field_release:proto.ProjectMetaInfoV1.PermissionOverride)
-  
-  ::proto::UserPermissionOverrideMetaInfoV1* temp = _impl_.permissionoverride_;
-  _impl_.permissionoverride_ = nullptr;
-  return temp;
+inline ::proto::ProjectPermissionMetaInfoV1* ProjectMetaInfoV1::_internal_add_userpermissionoverride() {
+  return _impl_.userpermissionoverride_.Add();
 }
-inline ::proto::UserPermissionOverrideMetaInfoV1* ProjectMetaInfoV1::_internal_mutable_permissionoverride() {
-  
-  if (_impl_.permissionoverride_ == nullptr) {
-    auto* p = CreateMaybeMessage<::proto::UserPermissionOverrideMetaInfoV1>(GetArenaForAllocation());
-    _impl_.permissionoverride_ = p;
-  }
-  return _impl_.permissionoverride_;
+inline ::proto::ProjectPermissionMetaInfoV1* ProjectMetaInfoV1::add_userpermissionoverride() {
+  ::proto::ProjectPermissionMetaInfoV1* _add = _internal_add_userpermissionoverride();
+  // @@protoc_insertion_point(field_add:proto.ProjectMetaInfoV1.UserPermissionOverride)
+  return _add;
 }
-inline ::proto::UserPermissionOverrideMetaInfoV1* ProjectMetaInfoV1::mutable_permissionoverride() {
-  ::proto::UserPermissionOverrideMetaInfoV1* _msg = _internal_mutable_permissionoverride();
-  // @@protoc_insertion_point(field_mutable:proto.ProjectMetaInfoV1.PermissionOverride)
-  return _msg;
-}
-inline void ProjectMetaInfoV1::set_allocated_permissionoverride(::proto::UserPermissionOverrideMetaInfoV1* permissionoverride) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.permissionoverride_;
-  }
-  if (permissionoverride) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(permissionoverride);
-    if (message_arena != submessage_arena) {
-      permissionoverride = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, permissionoverride, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.permissionoverride_ = permissionoverride;
-  // @@protoc_insertion_point(field_set_allocated:proto.ProjectMetaInfoV1.PermissionOverride)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::ProjectPermissionMetaInfoV1 >&
+ProjectMetaInfoV1::userpermissionoverride() const {
+  // @@protoc_insertion_point(field_list:proto.ProjectMetaInfoV1.UserPermissionOverride)
+  return _impl_.userpermissionoverride_;
 }
 
 // string WorkMode = 9;
