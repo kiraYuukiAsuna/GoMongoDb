@@ -81,7 +81,7 @@ bool LoginWindow::doLogin(QString userName, QString password, bool slientMode) {
             AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eCachedPassword, password.toStdString());
 
             auto timestampeNow = std::chrono::system_clock::now();
-            std::chrono::seconds days(15);
+            std::chrono::days days(15);
             auto expiredTime = timestampeNow + days;
             auto seconds_since_epoch = expiredTime.time_since_epoch().count();
 

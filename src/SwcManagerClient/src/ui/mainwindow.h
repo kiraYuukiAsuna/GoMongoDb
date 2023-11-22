@@ -1,12 +1,9 @@
-//
-// Created by KiraY on 2023/11/18.
-//
-
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
-
+#include <QSplitter>
+#include "leftclientview.h"
+#include "rightclientview.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,7 +18,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    QSplitter* m_Splitter;
+    LeftClientView* m_LeftClientView;
+    RightClientView* m_RightClientView;
+
+
 };
-
-
-#endif //MAINWINDOW_H

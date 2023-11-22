@@ -70,6 +70,12 @@ set(PROJECT_SOURCES
         src/ui/loginwindow.ui
         src/framework/config/AppConfig.cpp
         src/framework/config/AppConfig.h
+        src/ui/leftclientview.cpp
+        src/ui/leftclientview.h
+        src/ui/leftclientview.ui
+        src/ui/rightclientview.cpp
+        src/ui/rightclientview.h
+        src/ui/rightclientview.ui
 
 )
 
