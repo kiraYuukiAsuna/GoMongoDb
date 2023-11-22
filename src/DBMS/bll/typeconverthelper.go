@@ -256,9 +256,66 @@ func SwcNodeDataV1DbmodelToProtobuf(dbmodelMessage *dbmodel.SwcNodeDataV1) *mess
 }
 
 func DailyStatisticsMetaInfoV1ProtobufToDbmodel(protoMessage *message.DailyStatisticsMetaInfoV1) *dbmodel.DailyStatisticsMetaInfoV1 {
+	var dbmodelMessage dbmodel.DailyStatisticsMetaInfoV1
+	if protoMessage.Base != nil {
+		dbmodelMessage.Base.Id, _ = primitive.ObjectIDFromHex(protoMessage.Base.XId)
+		dbmodelMessage.Base.Uuid = protoMessage.Base.Uuid
+		dbmodelMessage.Base.ApiVersion = protoMessage.Base.ApiVersion
+	}
 
+	dbmodelMessage.Name = protoMessage.Name
+	dbmodelMessage.Description = protoMessage.Description
+	dbmodelMessage.Day = protoMessage.Day
+
+	dbmodelMessage.CreatedProjectNumber = protoMessage.CreatedProjectNumber
+	dbmodelMessage.CreatedSwcNumber = protoMessage.CreatedSwcNumber
+	dbmodelMessage.CreateSwcNodeNumber = protoMessage.CreateSwcNodeNumber
+
+	dbmodelMessage.DeletedProjectNumber = protoMessage.DeletedProjectNumber
+	dbmodelMessage.DeletedSwcNumber = protoMessage.DeletedSwcNumber
+	dbmodelMessage.DeletedSwcNodeNumber = protoMessage.DeletedSwcNodeNumber
+
+	dbmodelMessage.ModifiedProjectNumber = protoMessage.ModifiedProjectNumber
+	dbmodelMessage.ModifiedSwcNumber = protoMessage.ModifiedSwcNumber
+	dbmodelMessage.ModifiedSwcNodeNumber = protoMessage.ModifiedSwcNodeNumber
+
+	dbmodelMessage.ProjectQueryNumber = protoMessage.ProjectQueryNumber
+	dbmodelMessage.SwcQueryNumber = protoMessage.SwcQueryNumber
+	dbmodelMessage.NodeQueryNumber = protoMessage.NodeQueryNumber
+
+	dbmodelMessage.ActiveUserNumber = protoMessage.ActiveUserNumber
+
+	return &dbmodelMessage
 }
 
 func DailyStatisticsMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.DailyStatisticsMetaInfoV1) *message.DailyStatisticsMetaInfoV1 {
+	var protoMessage message.DailyStatisticsMetaInfoV1
+	protoMessage.Base = &message.MetaInfoBase{}
+	protoMessage.Base.XId = dbmodelMessage.Base.Id.String()
+	protoMessage.Base.Uuid = dbmodelMessage.Base.Uuid
+	protoMessage.Base.ApiVersion = dbmodelMessage.Base.ApiVersion
 
+	protoMessage.Name = dbmodelMessage.Name
+	protoMessage.Description = dbmodelMessage.Description
+	protoMessage.Day = dbmodelMessage.Day
+
+	protoMessage.CreatedProjectNumber = dbmodelMessage.CreatedProjectNumber
+	protoMessage.CreatedSwcNumber = dbmodelMessage.CreatedSwcNumber
+	protoMessage.CreateSwcNodeNumber = dbmodelMessage.CreateSwcNodeNumber
+
+	protoMessage.DeletedProjectNumber = dbmodelMessage.DeletedProjectNumber
+	protoMessage.DeletedSwcNumber = dbmodelMessage.DeletedSwcNumber
+	protoMessage.DeletedSwcNodeNumber = dbmodelMessage.DeletedSwcNodeNumber
+
+	protoMessage.ModifiedProjectNumber = dbmodelMessage.ModifiedProjectNumber
+	protoMessage.ModifiedSwcNumber = dbmodelMessage.ModifiedSwcNumber
+	protoMessage.ModifiedSwcNodeNumber = dbmodelMessage.ModifiedSwcNodeNumber
+
+	protoMessage.ProjectQueryNumber = dbmodelMessage.ProjectQueryNumber
+	protoMessage.SwcQueryNumber = dbmodelMessage.SwcQueryNumber
+	protoMessage.NodeQueryNumber = dbmodelMessage.NodeQueryNumber
+
+	protoMessage.ActiveUserNumber = dbmodelMessage.ActiveUserNumber
+
+	return &protoMessage
 }

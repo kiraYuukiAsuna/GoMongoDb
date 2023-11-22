@@ -138,9 +138,10 @@ message GetSwcFullNodeDataRequest{
 
 message GetSwcNodeDataListByTimeAndUserRequest{
     UserMetaInfoV1 UserInfo = 1;
-    SwcMetaInfoV1 SwcNodeData = 2;
-    google.protobuf.Timestamp CreateTime = 3;
-    string UserUuid = 4;
+    SwcMetaInfoV1 SwcInfo = 2;
+    google.protobuf.Timestamp StartTime = 3;
+    google.protobuf.Timestamp EndTime = 4;
+    string UserUuid = 5;
 }
 
 message BackupFullDatabaseRequest{

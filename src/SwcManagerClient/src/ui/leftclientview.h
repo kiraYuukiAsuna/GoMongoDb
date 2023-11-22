@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
+class MainWindow;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class LeftClientView; }
@@ -15,12 +16,13 @@ class LeftClientView : public QWidget {
 Q_OBJECT
 
 public:
-    explicit LeftClientView(QWidget *parent = nullptr);
+    explicit LeftClientView(MainWindow *mainWindow);
     ~LeftClientView() override;
 
+    void clearAll();
     void getProjectMetaInfo();
     void getSwcMetaInfo();
-    void getDailyStatisticsMetaInfo();
+    void getAllDailyStatisticsMetaInfo();
 
 public slots:
     void onRefreshBtnClicked(bool checked);
@@ -28,6 +30,7 @@ private:
     Ui::LeftClientView *ui;
     QVBoxLayout* m_MainLayout;
     QHBoxLayout* m_ControlBtnLayout;
+    MainWindow* m_MainWindow;
 
     QPushButton* m_RefreshBtn;
 

@@ -14,10 +14,20 @@ MainWindow::MainWindow(QWidget *parent) :
     m_Splitter->addWidget(m_LeftClientView);
     m_Splitter->addWidget(m_RightClientView);
     m_Splitter->setSizes(QList<int>()<<100000000<<400000000);
+    m_Splitter->setCollapsible(0, false);
+    m_Splitter->setCollapsible(1, false);
 
     this->setCentralWidget(m_Splitter);
 }
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+LeftClientView &MainWindow::getLeftClientView() {
+    return *m_LeftClientView;
+}
+
+RightClientView &MainWindow::getRightClientView() {
+    return *m_RightClientView;
 }

@@ -16,6 +16,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
+    LeftClientView& getLeftClientView();
+    RightClientView& getRightClientView();
+
 private:
     Ui::MainWindow *ui;
 

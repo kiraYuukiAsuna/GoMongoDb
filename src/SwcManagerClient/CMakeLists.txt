@@ -78,6 +78,10 @@ set(PROJECT_SOURCES
         src/ui/rightclientview.ui
         src/framework/service/CachedProtoData.cpp
         src/framework/service/CachedProtoData.h
+        src/framework/TypeDef.cpp
+        src/framework/TypeDef.h
+        src/framework/service/WrappedCall.cpp
+        src/framework/service/WrappedCall.h
 
 )
 

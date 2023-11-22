@@ -4953,12 +4953,13 @@ class GetSwcNodeDataListByTimeAndUserRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kUserUuidFieldNumber = 4,
+    kUserUuidFieldNumber = 5,
     kUserInfoFieldNumber = 1,
-    kSwcNodeDataFieldNumber = 2,
-    kCreateTimeFieldNumber = 3,
+    kSwcInfoFieldNumber = 2,
+    kStartTimeFieldNumber = 3,
+    kEndTimeFieldNumber = 4,
   };
-  // string UserUuid = 4;
+  // string UserUuid = 5;
   void clear_useruuid();
   const std::string& useruuid() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -4990,41 +4991,59 @@ class GetSwcNodeDataListByTimeAndUserRequest final :
       ::proto::UserMetaInfoV1* userinfo);
   ::proto::UserMetaInfoV1* unsafe_arena_release_userinfo();
 
-  // .proto.SwcMetaInfoV1 SwcNodeData = 2;
-  bool has_swcnodedata() const;
+  // .proto.SwcMetaInfoV1 SwcInfo = 2;
+  bool has_swcinfo() const;
   private:
-  bool _internal_has_swcnodedata() const;
+  bool _internal_has_swcinfo() const;
   public:
-  void clear_swcnodedata();
-  const ::proto::SwcMetaInfoV1& swcnodedata() const;
-  PROTOBUF_NODISCARD ::proto::SwcMetaInfoV1* release_swcnodedata();
-  ::proto::SwcMetaInfoV1* mutable_swcnodedata();
-  void set_allocated_swcnodedata(::proto::SwcMetaInfoV1* swcnodedata);
+  void clear_swcinfo();
+  const ::proto::SwcMetaInfoV1& swcinfo() const;
+  PROTOBUF_NODISCARD ::proto::SwcMetaInfoV1* release_swcinfo();
+  ::proto::SwcMetaInfoV1* mutable_swcinfo();
+  void set_allocated_swcinfo(::proto::SwcMetaInfoV1* swcinfo);
   private:
-  const ::proto::SwcMetaInfoV1& _internal_swcnodedata() const;
-  ::proto::SwcMetaInfoV1* _internal_mutable_swcnodedata();
+  const ::proto::SwcMetaInfoV1& _internal_swcinfo() const;
+  ::proto::SwcMetaInfoV1* _internal_mutable_swcinfo();
   public:
-  void unsafe_arena_set_allocated_swcnodedata(
-      ::proto::SwcMetaInfoV1* swcnodedata);
-  ::proto::SwcMetaInfoV1* unsafe_arena_release_swcnodedata();
+  void unsafe_arena_set_allocated_swcinfo(
+      ::proto::SwcMetaInfoV1* swcinfo);
+  ::proto::SwcMetaInfoV1* unsafe_arena_release_swcinfo();
 
-  // .google.protobuf.Timestamp CreateTime = 3;
-  bool has_createtime() const;
+  // .google.protobuf.Timestamp StartTime = 3;
+  bool has_starttime() const;
   private:
-  bool _internal_has_createtime() const;
+  bool _internal_has_starttime() const;
   public:
-  void clear_createtime();
-  const ::PROTOBUF_NAMESPACE_ID::Timestamp& createtime() const;
-  PROTOBUF_NODISCARD ::PROTOBUF_NAMESPACE_ID::Timestamp* release_createtime();
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* mutable_createtime();
-  void set_allocated_createtime(::PROTOBUF_NAMESPACE_ID::Timestamp* createtime);
+  void clear_starttime();
+  const ::PROTOBUF_NAMESPACE_ID::Timestamp& starttime() const;
+  PROTOBUF_NODISCARD ::PROTOBUF_NAMESPACE_ID::Timestamp* release_starttime();
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* mutable_starttime();
+  void set_allocated_starttime(::PROTOBUF_NAMESPACE_ID::Timestamp* starttime);
   private:
-  const ::PROTOBUF_NAMESPACE_ID::Timestamp& _internal_createtime() const;
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_createtime();
+  const ::PROTOBUF_NAMESPACE_ID::Timestamp& _internal_starttime() const;
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_starttime();
   public:
-  void unsafe_arena_set_allocated_createtime(
-      ::PROTOBUF_NAMESPACE_ID::Timestamp* createtime);
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_createtime();
+  void unsafe_arena_set_allocated_starttime(
+      ::PROTOBUF_NAMESPACE_ID::Timestamp* starttime);
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_starttime();
+
+  // .google.protobuf.Timestamp EndTime = 4;
+  bool has_endtime() const;
+  private:
+  bool _internal_has_endtime() const;
+  public:
+  void clear_endtime();
+  const ::PROTOBUF_NAMESPACE_ID::Timestamp& endtime() const;
+  PROTOBUF_NODISCARD ::PROTOBUF_NAMESPACE_ID::Timestamp* release_endtime();
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* mutable_endtime();
+  void set_allocated_endtime(::PROTOBUF_NAMESPACE_ID::Timestamp* endtime);
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Timestamp& _internal_endtime() const;
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_endtime();
+  public:
+  void unsafe_arena_set_allocated_endtime(
+      ::PROTOBUF_NAMESPACE_ID::Timestamp* endtime);
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_endtime();
 
   // @@protoc_insertion_point(class_scope:proto.GetSwcNodeDataListByTimeAndUserRequest)
  private:
@@ -5036,8 +5055,9 @@ class GetSwcNodeDataListByTimeAndUserRequest final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr useruuid_;
     ::proto::UserMetaInfoV1* userinfo_;
-    ::proto::SwcMetaInfoV1* swcnodedata_;
-    ::PROTOBUF_NAMESPACE_ID::Timestamp* createtime_;
+    ::proto::SwcMetaInfoV1* swcinfo_;
+    ::PROTOBUF_NAMESPACE_ID::Timestamp* starttime_;
+    ::PROTOBUF_NAMESPACE_ID::Timestamp* endtime_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -10245,39 +10265,39 @@ inline void GetSwcNodeDataListByTimeAndUserRequest::set_allocated_userinfo(::pro
   // @@protoc_insertion_point(field_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.UserInfo)
 }
 
-// .proto.SwcMetaInfoV1 SwcNodeData = 2;
-inline bool GetSwcNodeDataListByTimeAndUserRequest::_internal_has_swcnodedata() const {
-  return this != internal_default_instance() && _impl_.swcnodedata_ != nullptr;
+// .proto.SwcMetaInfoV1 SwcInfo = 2;
+inline bool GetSwcNodeDataListByTimeAndUserRequest::_internal_has_swcinfo() const {
+  return this != internal_default_instance() && _impl_.swcinfo_ != nullptr;
 }
-inline bool GetSwcNodeDataListByTimeAndUserRequest::has_swcnodedata() const {
-  return _internal_has_swcnodedata();
+inline bool GetSwcNodeDataListByTimeAndUserRequest::has_swcinfo() const {
+  return _internal_has_swcinfo();
 }
-inline const ::proto::SwcMetaInfoV1& GetSwcNodeDataListByTimeAndUserRequest::_internal_swcnodedata() const {
-  const ::proto::SwcMetaInfoV1* p = _impl_.swcnodedata_;
+inline const ::proto::SwcMetaInfoV1& GetSwcNodeDataListByTimeAndUserRequest::_internal_swcinfo() const {
+  const ::proto::SwcMetaInfoV1* p = _impl_.swcinfo_;
   return p != nullptr ? *p : reinterpret_cast<const ::proto::SwcMetaInfoV1&>(
       ::proto::_SwcMetaInfoV1_default_instance_);
 }
-inline const ::proto::SwcMetaInfoV1& GetSwcNodeDataListByTimeAndUserRequest::swcnodedata() const {
-  // @@protoc_insertion_point(field_get:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcNodeData)
-  return _internal_swcnodedata();
+inline const ::proto::SwcMetaInfoV1& GetSwcNodeDataListByTimeAndUserRequest::swcinfo() const {
+  // @@protoc_insertion_point(field_get:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcInfo)
+  return _internal_swcinfo();
 }
-inline void GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_set_allocated_swcnodedata(
-    ::proto::SwcMetaInfoV1* swcnodedata) {
+inline void GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_set_allocated_swcinfo(
+    ::proto::SwcMetaInfoV1* swcinfo) {
   if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.swcnodedata_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.swcinfo_);
   }
-  _impl_.swcnodedata_ = swcnodedata;
-  if (swcnodedata) {
+  _impl_.swcinfo_ = swcinfo;
+  if (swcinfo) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcNodeData)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcInfo)
 }
-inline ::proto::SwcMetaInfoV1* GetSwcNodeDataListByTimeAndUserRequest::release_swcnodedata() {
+inline ::proto::SwcMetaInfoV1* GetSwcNodeDataListByTimeAndUserRequest::release_swcinfo() {
   
-  ::proto::SwcMetaInfoV1* temp = _impl_.swcnodedata_;
-  _impl_.swcnodedata_ = nullptr;
+  ::proto::SwcMetaInfoV1* temp = _impl_.swcinfo_;
+  _impl_.swcinfo_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
   temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -10289,80 +10309,80 @@ inline ::proto::SwcMetaInfoV1* GetSwcNodeDataListByTimeAndUserRequest::release_s
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::proto::SwcMetaInfoV1* GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_release_swcnodedata() {
-  // @@protoc_insertion_point(field_release:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcNodeData)
+inline ::proto::SwcMetaInfoV1* GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_release_swcinfo() {
+  // @@protoc_insertion_point(field_release:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcInfo)
   
-  ::proto::SwcMetaInfoV1* temp = _impl_.swcnodedata_;
-  _impl_.swcnodedata_ = nullptr;
+  ::proto::SwcMetaInfoV1* temp = _impl_.swcinfo_;
+  _impl_.swcinfo_ = nullptr;
   return temp;
 }
-inline ::proto::SwcMetaInfoV1* GetSwcNodeDataListByTimeAndUserRequest::_internal_mutable_swcnodedata() {
+inline ::proto::SwcMetaInfoV1* GetSwcNodeDataListByTimeAndUserRequest::_internal_mutable_swcinfo() {
   
-  if (_impl_.swcnodedata_ == nullptr) {
+  if (_impl_.swcinfo_ == nullptr) {
     auto* p = CreateMaybeMessage<::proto::SwcMetaInfoV1>(GetArenaForAllocation());
-    _impl_.swcnodedata_ = p;
+    _impl_.swcinfo_ = p;
   }
-  return _impl_.swcnodedata_;
+  return _impl_.swcinfo_;
 }
-inline ::proto::SwcMetaInfoV1* GetSwcNodeDataListByTimeAndUserRequest::mutable_swcnodedata() {
-  ::proto::SwcMetaInfoV1* _msg = _internal_mutable_swcnodedata();
-  // @@protoc_insertion_point(field_mutable:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcNodeData)
+inline ::proto::SwcMetaInfoV1* GetSwcNodeDataListByTimeAndUserRequest::mutable_swcinfo() {
+  ::proto::SwcMetaInfoV1* _msg = _internal_mutable_swcinfo();
+  // @@protoc_insertion_point(field_mutable:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcInfo)
   return _msg;
 }
-inline void GetSwcNodeDataListByTimeAndUserRequest::set_allocated_swcnodedata(::proto::SwcMetaInfoV1* swcnodedata) {
+inline void GetSwcNodeDataListByTimeAndUserRequest::set_allocated_swcinfo(::proto::SwcMetaInfoV1* swcinfo) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.swcnodedata_);
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.swcinfo_);
   }
-  if (swcnodedata) {
+  if (swcinfo) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
         ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(swcnodedata));
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(swcinfo));
     if (message_arena != submessage_arena) {
-      swcnodedata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, swcnodedata, submessage_arena);
+      swcinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, swcinfo, submessage_arena);
     }
     
   } else {
     
   }
-  _impl_.swcnodedata_ = swcnodedata;
-  // @@protoc_insertion_point(field_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcNodeData)
+  _impl_.swcinfo_ = swcinfo;
+  // @@protoc_insertion_point(field_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.SwcInfo)
 }
 
-// .google.protobuf.Timestamp CreateTime = 3;
-inline bool GetSwcNodeDataListByTimeAndUserRequest::_internal_has_createtime() const {
-  return this != internal_default_instance() && _impl_.createtime_ != nullptr;
+// .google.protobuf.Timestamp StartTime = 3;
+inline bool GetSwcNodeDataListByTimeAndUserRequest::_internal_has_starttime() const {
+  return this != internal_default_instance() && _impl_.starttime_ != nullptr;
 }
-inline bool GetSwcNodeDataListByTimeAndUserRequest::has_createtime() const {
-  return _internal_has_createtime();
+inline bool GetSwcNodeDataListByTimeAndUserRequest::has_starttime() const {
+  return _internal_has_starttime();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& GetSwcNodeDataListByTimeAndUserRequest::_internal_createtime() const {
-  const ::PROTOBUF_NAMESPACE_ID::Timestamp* p = _impl_.createtime_;
+inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& GetSwcNodeDataListByTimeAndUserRequest::_internal_starttime() const {
+  const ::PROTOBUF_NAMESPACE_ID::Timestamp* p = _impl_.starttime_;
   return p != nullptr ? *p : reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Timestamp&>(
       ::PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& GetSwcNodeDataListByTimeAndUserRequest::createtime() const {
-  // @@protoc_insertion_point(field_get:proto.GetSwcNodeDataListByTimeAndUserRequest.CreateTime)
-  return _internal_createtime();
+inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& GetSwcNodeDataListByTimeAndUserRequest::starttime() const {
+  // @@protoc_insertion_point(field_get:proto.GetSwcNodeDataListByTimeAndUserRequest.StartTime)
+  return _internal_starttime();
 }
-inline void GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_set_allocated_createtime(
-    ::PROTOBUF_NAMESPACE_ID::Timestamp* createtime) {
+inline void GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_set_allocated_starttime(
+    ::PROTOBUF_NAMESPACE_ID::Timestamp* starttime) {
   if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.createtime_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.starttime_);
   }
-  _impl_.createtime_ = createtime;
-  if (createtime) {
+  _impl_.starttime_ = starttime;
+  if (starttime) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.CreateTime)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.StartTime)
 }
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::release_createtime() {
+inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::release_starttime() {
   
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = _impl_.createtime_;
-  _impl_.createtime_ = nullptr;
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = _impl_.starttime_;
+  _impl_.starttime_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
   temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -10374,48 +10394,133 @@ inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserReques
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_release_createtime() {
-  // @@protoc_insertion_point(field_release:proto.GetSwcNodeDataListByTimeAndUserRequest.CreateTime)
+inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_release_starttime() {
+  // @@protoc_insertion_point(field_release:proto.GetSwcNodeDataListByTimeAndUserRequest.StartTime)
   
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = _impl_.createtime_;
-  _impl_.createtime_ = nullptr;
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = _impl_.starttime_;
+  _impl_.starttime_ = nullptr;
   return temp;
 }
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::_internal_mutable_createtime() {
+inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::_internal_mutable_starttime() {
   
-  if (_impl_.createtime_ == nullptr) {
+  if (_impl_.starttime_ == nullptr) {
     auto* p = CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::Timestamp>(GetArenaForAllocation());
-    _impl_.createtime_ = p;
+    _impl_.starttime_ = p;
   }
-  return _impl_.createtime_;
+  return _impl_.starttime_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::mutable_createtime() {
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* _msg = _internal_mutable_createtime();
-  // @@protoc_insertion_point(field_mutable:proto.GetSwcNodeDataListByTimeAndUserRequest.CreateTime)
+inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::mutable_starttime() {
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* _msg = _internal_mutable_starttime();
+  // @@protoc_insertion_point(field_mutable:proto.GetSwcNodeDataListByTimeAndUserRequest.StartTime)
   return _msg;
 }
-inline void GetSwcNodeDataListByTimeAndUserRequest::set_allocated_createtime(::PROTOBUF_NAMESPACE_ID::Timestamp* createtime) {
+inline void GetSwcNodeDataListByTimeAndUserRequest::set_allocated_starttime(::PROTOBUF_NAMESPACE_ID::Timestamp* starttime) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.createtime_);
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.starttime_);
   }
-  if (createtime) {
+  if (starttime) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
         ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(createtime));
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(starttime));
     if (message_arena != submessage_arena) {
-      createtime = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, createtime, submessage_arena);
+      starttime = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, starttime, submessage_arena);
     }
     
   } else {
     
   }
-  _impl_.createtime_ = createtime;
-  // @@protoc_insertion_point(field_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.CreateTime)
+  _impl_.starttime_ = starttime;
+  // @@protoc_insertion_point(field_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.StartTime)
 }
 
-// string UserUuid = 4;
+// .google.protobuf.Timestamp EndTime = 4;
+inline bool GetSwcNodeDataListByTimeAndUserRequest::_internal_has_endtime() const {
+  return this != internal_default_instance() && _impl_.endtime_ != nullptr;
+}
+inline bool GetSwcNodeDataListByTimeAndUserRequest::has_endtime() const {
+  return _internal_has_endtime();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& GetSwcNodeDataListByTimeAndUserRequest::_internal_endtime() const {
+  const ::PROTOBUF_NAMESPACE_ID::Timestamp* p = _impl_.endtime_;
+  return p != nullptr ? *p : reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      ::PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& GetSwcNodeDataListByTimeAndUserRequest::endtime() const {
+  // @@protoc_insertion_point(field_get:proto.GetSwcNodeDataListByTimeAndUserRequest.EndTime)
+  return _internal_endtime();
+}
+inline void GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_set_allocated_endtime(
+    ::PROTOBUF_NAMESPACE_ID::Timestamp* endtime) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.endtime_);
+  }
+  _impl_.endtime_ = endtime;
+  if (endtime) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.EndTime)
+}
+inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::release_endtime() {
+  
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = _impl_.endtime_;
+  _impl_.endtime_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::unsafe_arena_release_endtime() {
+  // @@protoc_insertion_point(field_release:proto.GetSwcNodeDataListByTimeAndUserRequest.EndTime)
+  
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = _impl_.endtime_;
+  _impl_.endtime_ = nullptr;
+  return temp;
+}
+inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::_internal_mutable_endtime() {
+  
+  if (_impl_.endtime_ == nullptr) {
+    auto* p = CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::Timestamp>(GetArenaForAllocation());
+    _impl_.endtime_ = p;
+  }
+  return _impl_.endtime_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::Timestamp* GetSwcNodeDataListByTimeAndUserRequest::mutable_endtime() {
+  ::PROTOBUF_NAMESPACE_ID::Timestamp* _msg = _internal_mutable_endtime();
+  // @@protoc_insertion_point(field_mutable:proto.GetSwcNodeDataListByTimeAndUserRequest.EndTime)
+  return _msg;
+}
+inline void GetSwcNodeDataListByTimeAndUserRequest::set_allocated_endtime(::PROTOBUF_NAMESPACE_ID::Timestamp* endtime) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.endtime_);
+  }
+  if (endtime) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(endtime));
+    if (message_arena != submessage_arena) {
+      endtime = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, endtime, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.endtime_ = endtime;
+  // @@protoc_insertion_point(field_set_allocated:proto.GetSwcNodeDataListByTimeAndUserRequest.EndTime)
+}
+
+// string UserUuid = 5;
 inline void GetSwcNodeDataListByTimeAndUserRequest::clear_useruuid() {
   _impl_.useruuid_.ClearToEmpty();
 }

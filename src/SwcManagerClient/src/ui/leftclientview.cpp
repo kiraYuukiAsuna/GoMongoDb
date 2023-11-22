@@ -1,15 +1,17 @@
 #include "leftclientview.h"
 
 #include <QMessageBox>
-
+#include "mainwindow.h"
 #include "ui_LeftClientView.h"
 #include "src/framework/service/CachedProtoData.h"
 #include "src/framework/service/RpcCall.h"
+#include "src/framework/TypeDef.h"
+#include "src/framework/service/WrappedCall.h"
 
-
-LeftClientView::LeftClientView(QWidget *parent) :
-    QWidget(parent), ui(new Ui::LeftClientView) {
+LeftClientView::LeftClientView(MainWindow* mainWindow) :
+    QWidget(mainWindow), ui(new Ui::LeftClientView) {
     ui->setupUi(this);
+    m_MainWindow = mainWindow;
 
     m_ControlBtnLayout = new QHBoxLayout;
 
@@ -21,29 +23,43 @@ LeftClientView::LeftClientView(QWidget *parent) :
 
     m_TreeWidget = new QTreeWidget(this);
     m_TreeWidget->setHeaderLabel("MetaInfo");
-
-    m_TopProjectItem = new QTreeWidgetItem(m_TreeWidget);
-    m_TopProjectItem->setText(0,"Project");
-
-    m_TopSwcItem= new QTreeWidgetItem(m_TreeWidget);
-    m_TopSwcItem->setText(0,"Swc");
-
-    m_TopDailyStatisticsItem= new QTreeWidgetItem(m_TreeWidget);
-    m_TopDailyStatisticsItem->setText(0,"DailyStatistics");
-
-
-    m_TreeWidget->addTopLevelItem(m_TopProjectItem);
-    m_TreeWidget->addTopLevelItem(m_TopSwcItem);
-    m_TreeWidget->addTopLevelItem(m_TopDailyStatisticsItem);
+    connect(m_TreeWidget,&QTreeWidget::itemDoubleClicked, this, [&](QTreeWidgetItem* item, int column){
+        if(column == 0){
+            if(item){
+                auto metaInfo = item->data(0,Qt::UserRole).value<LeftClientViewTreeWidgetMetaInfo>();
+                switch(metaInfo.type) {
+                    case MetaInfoType::eProjectContainer:
+                        break;
+                    case MetaInfoType::eProject: {
+                        m_MainWindow->getRightClientView().openProjectMetaInfo(metaInfo.name);
+                        break;
+                    }
+                    case MetaInfoType::eSwcContainer:
+                        break;
+                    case MetaInfoType::eSwc: {
+                        m_MainWindow->getRightClientView().openSwcMetaInfo(metaInfo.name);
+                        break;
+                    }
+                    case MetaInfoType::eDailyStatisticsContainer:
+                        break;
+                    case MetaInfoType::eDailyStatistics: {
+                        m_MainWindow->getRightClientView().openDailyStatisticsMetaInfo(metaInfo.name);
+                        break;
+                    }
+                }
+            }
+        }
+    });
 
     m_MainLayout = new QVBoxLayout(this);
     m_MainLayout->addLayout(m_ControlBtnLayout);
     m_MainLayout->addWidget(m_TreeWidget);
     this->setLayout(m_MainLayout);
 
+    clearAll();
     getProjectMetaInfo();
     getSwcMetaInfo();
-    getDailyStatisticsMetaInfo();
+    getAllDailyStatisticsMetaInfo();
 }
 
 LeftClientView::~LeftClientView() {
@@ -51,88 +67,85 @@ LeftClientView::~LeftClientView() {
 }
 
 void LeftClientView::getProjectMetaInfo() {
-    grpc::ClientContext context;
-    proto::GetAllProjectRequest request;
-    auto* userInfo = request.mutable_userinfo();
-    userInfo->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
-
-    auto& rpcCall = RpcCall::getInstance();
     proto::GetAllProjectResponse response;
-    auto status = rpcCall.Stub()->GetAllProject(&context, request, &response);
-    if(status.ok()){
-        if(response.status()) {
-            auto projectInfoList = response.mutable_projectinfo();
-            for(int i=0; i<projectInfoList->size();i++) {
-                auto& projectInfo = projectInfoList->Get(i);
-                auto* item = new QTreeWidgetItem;
-                item->setText(0,QString::fromStdString(projectInfo.name()));
-                m_TopProjectItem->addChild(item);
-            }
-        }else {
-            QMessageBox::warning(this,"Info","GetAllProjectMetaInfo Failed!" + QString::fromStdString(response.message()));
-        }
-
-    }else{
-        QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
+    WrappedCall::getAllProjectMetaInfo(response, this);
+    auto projectInfoList = response.mutable_projectinfo();
+    for(int i=0; i<projectInfoList->size();i++) {
+        auto& projectInfo = projectInfoList->Get(i);
+        auto* item = new QTreeWidgetItem;
+        item->setText(0,QString::fromStdString(projectInfo.name()));
+        LeftClientViewTreeWidgetMetaInfo metaInfo{};
+        metaInfo.type = MetaInfoType::eProject;
+        metaInfo.name = projectInfo.name();
+        item->setData(0,Qt::UserRole,QVariant::fromValue(metaInfo));
+        m_TopProjectItem->addChild(item);
     }
 }
 
 void LeftClientView::getSwcMetaInfo() {
-    grpc::ClientContext context;
-    proto::GetAllSwcMetaInfoRequest request;
-    auto* userInfo = request.mutable_userinfo();
-    userInfo->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
-
-    auto& rpcCall = RpcCall::getInstance();
     proto::GetAllSwcMetaInfoResponse response;
-    auto status = rpcCall.Stub()->GetAllSwcMetaInfo(&context, request, &response);
-    if(status.ok()){
-        if(response.status()) {
-            auto swcMetaInfo = response.mutable_swcinfo();
-            for(int i=0; i<swcMetaInfo->size();i++) {
-                auto& swcInfo = swcMetaInfo->Get(i);
-                auto* item = new QTreeWidgetItem;
-                item->setText(0,QString::fromStdString(swcInfo.name()));
-                m_TopSwcItem->addChild(item);
-            }
-        }else {
-            QMessageBox::warning(this,"Info","GetAllSwcMetaInfo Failed!" + QString::fromStdString(response.message()));
-        }
-
-    }else{
-        QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
+    WrappedCall::getAllSwcMetaInfo(response, this);
+    auto swcMetaInfo = response.mutable_swcinfo();
+    for(int i=0; i<swcMetaInfo->size();i++) {
+        auto& swcInfo = swcMetaInfo->Get(i);
+        auto* item = new QTreeWidgetItem;
+        item->setText(0,QString::fromStdString(swcInfo.name()));
+        LeftClientViewTreeWidgetMetaInfo metaInfo{};
+        metaInfo.type = MetaInfoType::eSwc;
+        metaInfo.name = swcInfo.name();
+        item->setData(0,Qt::UserRole,QVariant::fromValue(metaInfo));
+        m_TopSwcItem->addChild(item);
     }
 }
 
-void LeftClientView::getDailyStatisticsMetaInfo() {
-    grpc::ClientContext context;
-    proto::GetAllDailyStatisticsRequest request;
-    auto* userInfo = request.mutable_userinfo();
-    userInfo->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
-
-    auto& rpcCall = RpcCall::getInstance();
+void LeftClientView::getAllDailyStatisticsMetaInfo() {
     proto::GetAllDailyStatisticsResponse response;
-    auto status = rpcCall.Stub()->GetAllDailyStatistics(&context, request, &response);
-    if(status.ok()){
-        if(response.status()) {
-            auto dailyStatisticsMetaInfoList = response.mutable_dailystatisticsinfo();
-            for(int i=0; i<dailyStatisticsMetaInfoList->size();i++) {
-                auto& dailyStatisticsMetaInfo = dailyStatisticsMetaInfoList->Get(i);
-                auto* item = new QTreeWidgetItem;
-                item->setText(0,QString::fromStdString(dailyStatisticsMetaInfo.name()));
-                m_TopDailyStatisticsItem->addChild(item);
-            }
-        }else {
-            QMessageBox::warning(this,"Info","GetAllDailyStatistics Failed!" + QString::fromStdString(response.message()));
-        }
-
-    }else{
-        QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
+    WrappedCall::getAllDailyStatisticsMetaInfo(response, this);
+    auto dailyStatisticsMetaInfoList = response.mutable_dailystatisticsinfo();
+    for(int i=0; i<dailyStatisticsMetaInfoList->size();i++) {
+        auto& dailyStatisticsMetaInfo = dailyStatisticsMetaInfoList->Get(i);
+        auto* item = new QTreeWidgetItem;
+        item->setText(0,QString::fromStdString(dailyStatisticsMetaInfo.name()));
+        LeftClientViewTreeWidgetMetaInfo metaInfo{};
+        metaInfo.type = MetaInfoType::eDailyStatistics;
+        metaInfo.name = dailyStatisticsMetaInfo.name();
+        item->setData(0,Qt::UserRole,QVariant::fromValue(metaInfo));
+        m_TopDailyStatisticsItem->addChild(item);
     }
 }
 
 void LeftClientView::onRefreshBtnClicked(bool checked) {
+    clearAll();
     getProjectMetaInfo();
     getSwcMetaInfo();
-    getDailyStatisticsMetaInfo();
+    getAllDailyStatisticsMetaInfo();
+}
+
+void LeftClientView::clearAll() {
+    m_TreeWidget->clear();
+
+    m_TopProjectItem = new QTreeWidgetItem(m_TreeWidget);
+    m_TopProjectItem->setText(0,"Project");
+    LeftClientViewTreeWidgetMetaInfo metaInfoProject{};
+    metaInfoProject.type = MetaInfoType::eProjectContainer;
+    metaInfoProject.name = "Project";
+    m_TopProjectItem->setData(0,Qt::UserRole,QVariant::fromValue(metaInfoProject));
+
+    m_TopSwcItem= new QTreeWidgetItem(m_TreeWidget);
+    m_TopSwcItem->setText(0,"Swc");
+    LeftClientViewTreeWidgetMetaInfo metaInfoSwc{};
+    metaInfoSwc.type = MetaInfoType::eSwcContainer;
+    metaInfoProject.name = "Swc";
+    m_TopSwcItem->setData(0,Qt::UserRole,QVariant::fromValue(metaInfoSwc));
+
+    m_TopDailyStatisticsItem= new QTreeWidgetItem(m_TreeWidget);
+    m_TopDailyStatisticsItem->setText(0,"DailyStatistics");
+    LeftClientViewTreeWidgetMetaInfo metaInfoDailyStatistic{};
+    metaInfoDailyStatistic.type = MetaInfoType::eDailyStatisticsContainer;
+    metaInfoProject.name = "DailyStatistics";
+    m_TopDailyStatisticsItem->setData(0,Qt::UserRole,QVariant::fromValue(metaInfoDailyStatistic));
+
+    m_TreeWidget->addTopLevelItem(m_TopProjectItem);
+    m_TreeWidget->addTopLevelItem(m_TopSwcItem);
+    m_TreeWidget->addTopLevelItem(m_TopDailyStatisticsItem);
 }
