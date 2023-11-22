@@ -5,6 +5,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
+    setWindowState(Qt::WindowMaximized);
 
     m_Splitter = new QSplitter(this);
 
@@ -18,6 +19,23 @@ MainWindow::MainWindow(QWidget *parent) :
     m_Splitter->setCollapsible(1, false);
 
     this->setCentralWidget(m_Splitter);
+
+    auto menuBar = new QMenuBar(this);
+
+    auto* menuFile = new QMenu(menuBar);
+    // icon
+    menuFile->setTitle("File");
+    menuBar->addMenu(menuFile);
+
+    auto* menuImportSwcFile = new QAction(menuFile);
+    menuImportSwcFile->setText("Import Swc File");
+    menuFile->addAction(menuImportSwcFile);
+
+    auto* menuExportToSwcFile = new QAction(menuFile);
+    menuExportToSwcFile->setText("Import Swc File");
+    menuFile->addAction(menuExportToSwcFile);
+
+    setMenuBar(menuBar);
 }
 
 MainWindow::~MainWindow() {

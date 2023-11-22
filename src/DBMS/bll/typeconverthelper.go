@@ -134,13 +134,14 @@ func ProjectMetaInfoV1ProtobufToDbmodel(protoMessage *message.ProjectMetaInfoV1)
 
 	if protoMessage.UserPermissionOverride != nil {
 		for _, protoPermissionOverride := range protoMessage.UserPermissionOverride {
-			var dbmodelPermissionOverride dbmodel.ProjectPermissionMetaInfoV1
-			dbmodelPermissionOverride.ReadPerimissionQuery = protoPermissionOverride.ReadPerimissionQuery
-			dbmodelPermissionOverride.WritePermissionAddData = protoPermissionOverride.WritePermissionAddData
-			dbmodelPermissionOverride.WritePermissionModifyData = protoPermissionOverride.WritePermissionModifyData
-			dbmodelPermissionOverride.WritePermissionDeleteData = protoPermissionOverride.WritePermissionDeleteData
+			var projectPermissionOverride dbmodel.UserPermissionOverrideMetaInfoV1
+			projectPermissionOverride.Project.ReadPerimissionQuery = protoPermissionOverride.ProjectPermission.ReadPerimissionQuery
+			projectPermissionOverride.Project.WritePermissionAddData = protoPermissionOverride.ProjectPermission.WritePermissionAddData
+			projectPermissionOverride.Project.WritePermissionModifyData = protoPermissionOverride.ProjectPermission.WritePermissionModifyData
+			projectPermissionOverride.Project.WritePermissionDeleteData = protoPermissionOverride.ProjectPermission.WritePermissionDeleteData
+			projectPermissionOverride.UserName = protoPermissionOverride.UserName
 
-			dbmodelMessage.UserPermissionOverride = append(dbmodelMessage.UserPermissionOverride, dbmodelPermissionOverride)
+			dbmodelMessage.UserPermissionOverride = append(dbmodelMessage.UserPermissionOverride, projectPermissionOverride)
 		}
 	}
 
@@ -164,11 +165,12 @@ func ProjectMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.ProjectMetaInfoV
 	protoMessage.WorkMode = dbmodelMessage.WorkMode
 
 	for _, dbmodelPermissionOverride := range dbmodelMessage.UserPermissionOverride {
-		var protoPermissionOverride message.ProjectPermissionMetaInfoV1
-		protoPermissionOverride.ReadPerimissionQuery = dbmodelPermissionOverride.ReadPerimissionQuery
-		protoPermissionOverride.WritePermissionAddData = dbmodelPermissionOverride.WritePermissionAddData
-		protoPermissionOverride.WritePermissionModifyData = dbmodelPermissionOverride.WritePermissionModifyData
-		protoPermissionOverride.WritePermissionDeleteData = dbmodelPermissionOverride.WritePermissionDeleteData
+		var protoPermissionOverride message.UserPermissionOverrideMetaInfoV1
+		protoPermissionOverride.ProjectPermission.ReadPerimissionQuery = dbmodelPermissionOverride.Project.ReadPerimissionQuery
+		protoPermissionOverride.ProjectPermission.WritePermissionAddData = dbmodelPermissionOverride.Project.WritePermissionAddData
+		protoPermissionOverride.ProjectPermission.WritePermissionModifyData = dbmodelPermissionOverride.Project.WritePermissionModifyData
+		protoPermissionOverride.ProjectPermission.WritePermissionDeleteData = dbmodelPermissionOverride.Project.WritePermissionDeleteData
+		protoPermissionOverride.UserName = dbmodelPermissionOverride.UserName
 
 		protoMessage.UserPermissionOverride = append(protoMessage.UserPermissionOverride, &protoPermissionOverride)
 	}
@@ -184,9 +186,9 @@ func SwcMetaInfoV1ProtobufToDbmodel(protoMessage *message.SwcMetaInfoV1) *dbmode
 		dbmodelMessage.Base.ApiVersion = protoMessage.Base.ApiVersion
 	}
 
-	dbmodelMessage.Name = dbmodelMessage.Name
-	dbmodelMessage.Description = dbmodelMessage.Description
-	dbmodelMessage.Creator = dbmodelMessage.Creator
+	dbmodelMessage.Name = protoMessage.Name
+	dbmodelMessage.Description = protoMessage.Description
+	dbmodelMessage.Creator = protoMessage.Creator
 
 	if protoMessage.CreateTime != nil {
 		dbmodelMessage.CreateTime = protoMessage.CreateTime.AsTime()

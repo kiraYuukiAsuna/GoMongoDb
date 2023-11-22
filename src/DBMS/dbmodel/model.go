@@ -58,21 +58,21 @@ type PermissionGroupMetaInfoV1 struct {
 }
 
 type UserPermissionOverrideMetaInfoV1 struct {
-	Global  GlobalPermissionMetaInfoV1  `bson:"Global"`
-	Project ProjectPermissionMetaInfoV1 `bson:"Project"`
+	Project  ProjectPermissionMetaInfoV1 `bson:"Project"`
+	UserName string                      `bson:"UserName"`
 }
 
 type ProjectMetaInfoV1 struct {
 	Base MetaInfoBase `bson:"Base,inline"`
 
-	Name                   string                        `bson:"Name"`
-	Description            string                        `bson:"Description"`
-	Creator                string                        `bson:"Creator"`
-	CreateTime             time.Time                     `bson:"CreateTime"`
-	LastModifiedTime       time.Time                     `bson:"LastModifiedTime"`
-	SwcList                []string                      `bson:"SwcList"`
-	UserPermissionOverride []ProjectPermissionMetaInfoV1 `bson:"UserPermissionOverride"`
-	WorkMode               string                        `bson:"WorkMode"`
+	Name                   string                             `bson:"Name"`
+	Description            string                             `bson:"Description"`
+	Creator                string                             `bson:"Creator"`
+	CreateTime             time.Time                          `bson:"CreateTime"`
+	LastModifiedTime       time.Time                          `bson:"LastModifiedTime"`
+	SwcList                []string                           `bson:"SwcList"`
+	UserPermissionOverride []UserPermissionOverrideMetaInfoV1 `bson:"UserPermissionOverride"`
+	WorkMode               string                             `bson:"WorkMode"`
 }
 
 type SwcMetaInfoV1 struct {

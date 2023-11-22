@@ -4,6 +4,8 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 
+#include "src/framework/defination/TypeDef.h"
+
 class MainWindow;
 
 QT_BEGIN_NAMESPACE
@@ -22,6 +24,8 @@ public:
     void openDailyStatisticsMetaInfo(const std::string& dailyStatisticsName);
 
 private:
+    int findIfTabAlreadOpenned(const std::string& name, MetaInfoType metaInfoType);
+
     Ui::RightClientView *ui;
     QVBoxLayout* m_MainLayout;
     MainWindow *m_MainWindow;

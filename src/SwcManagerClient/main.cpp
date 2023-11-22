@@ -14,14 +14,12 @@
 int main(int argc, char *argv[]) {
     setbuf(stdout, nullptr);
 
-
-
     QApplication a(argc, argv);
 
-    QString fontPath = QString(R"(C:\Users\KiraY\Desktop\GoTest\src\SwcManagerClient\Resource\fonts\SourceHanSansCN\SourceHanSansCN-Regular.ttf)");
-    int loadedFontID = QFontDatabase::addApplicationFont(fontPath);
-    QStringList loadedFontFamilies = QFontDatabase::applicationFontFamilies(loadedFontID);
-    if (!loadedFontFamilies.empty()) {
+    const QString fontPath = QString(R"(:/fonts/SourceHanSansCN/SourceHanSansCN-Regular.ttf)");
+    const int loadedFontID = QFontDatabase::addApplicationFont(fontPath);
+    if (const QStringList loadedFontFamilies = QFontDatabase::applicationFontFamilies(loadedFontID);
+        !loadedFontFamilies.empty()) {
         const QString& sansCNFamily = loadedFontFamilies.at(0);
         QFont defaultFont = QApplication::font();
         defaultFont.setFamily(sansCNFamily);
@@ -29,9 +27,9 @@ int main(int argc, char *argv[]) {
         QApplication::setFont(defaultFont);
     }
 
-    QString appDir = qApp->applicationDirPath();
+    const QString appDir = QApplication::applicationDirPath();
     acss::QtAdvancedStylesheet styleManager;
-    styleManager.setStylesDirPath(R"(C:\Users\KiraY\Desktop\GoTest\src\SwcManagerClient\Resource\styles)");
+    styleManager.setStylesDirPath(R"(:/styles)");
     styleManager.setOutputDirPath(appDir + "/StylesOutput");
     styleManager.setCurrentStyle("qt_material_modified");
     styleManager.setCurrentTheme("light_blue");
@@ -47,8 +45,7 @@ int main(int argc, char *argv[]) {
 
     RpcCall::getInstance().initialize("127.0.0.1:8080");
 
-    LoginWindow loginWindow{};
-    if(loginWindow.exec() != QDialog::Accepted) {
+    if(LoginWindow loginWindow{}; loginWindow.exec() != QDialog::Accepted) {
         return -1;
     }
 

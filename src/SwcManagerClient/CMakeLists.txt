@@ -34,14 +34,12 @@ link_directories(
 )
 
 set(QRESOURCE
-    src/ui/mainwindow.ui
+        Resource/resources.qrc
 )
 
 set(PROJECT_HEADERS
         src/styles/acss_globals.h
         src/styles/QtAdvancedStylesheet.h
-
-        src/ui/mainwindow.h
 
 )
 
@@ -59,6 +57,8 @@ set(PROJECT_SOURCES
         ../Generated/Service/Service.grpc.pb.cc
         ../Generated/Service/Service.pb.cc
 
+        src/ui/mainwindow.h
+        src/ui/mainwindow.ui
         src/ui/mainwindow.cpp
         src/framework/service/RpcCall.cpp
         src/framework/service/RpcCall.h
@@ -78,10 +78,34 @@ set(PROJECT_SOURCES
         src/ui/rightclientview.ui
         src/framework/service/CachedProtoData.cpp
         src/framework/service/CachedProtoData.h
-        src/framework/TypeDef.cpp
-        src/framework/TypeDef.h
+        src/framework/defination/TypeDef.cpp
+        src/framework/defination/TypeDef.h
         src/framework/service/WrappedCall.cpp
         src/framework/service/WrappedCall.h
+        src/ui/editorprojectmetainfo.cpp
+        src/ui/editorprojectmetainfo.h
+        src/ui/editorprojectmetainfo.ui
+        src/ui/editorswcmetainfo.cpp
+        src/ui/editorswcmetainfo.h
+        src/ui/editorswcmetainfo.ui
+        src/ui/editordailystatisticsmetainfo.cpp
+        src/ui/editordailystatisticsmetainfo.h
+        src/ui/editordailystatisticsmetainfo.ui
+        src/ui/editorswcnodedata.cpp
+        src/ui/editorswcnodedata.h
+        src/ui/editorswcnodedata.ui
+        src/ui/editorusersettings.cpp
+        src/ui/editorusersettings.h
+        src/ui/editorusersettings.ui
+        src/ui/editoradminusermanager.cpp
+        src/ui/editoradminusermanager.h
+        src/ui/editoradminusermanager.ui
+        src/ui/editorpermissiongroup.cpp
+        src/ui/editorpermissiongroup.h
+        src/ui/editorpermissiongroup.ui
+        src/ui/EditorBase.cpp
+        src/ui/EditorBase.h
+        src/framework/defination/ImageDefination.h
 
 )
 

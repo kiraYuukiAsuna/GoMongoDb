@@ -395,7 +395,7 @@ struct GetSwcFullNodeDataRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetSwcFullNodeDataRequestDefaultTypeInternal _GetSwcFullNodeDataRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetSwcNodeDataListByTimeAndUserRequest::GetSwcNodeDataListByTimeAndUserRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.useruuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.userinfo_)*/nullptr
   , /*decltype(_impl_.swcinfo_)*/nullptr
   , /*decltype(_impl_.starttime_)*/nullptr
@@ -720,7 +720,7 @@ const uint32_t TableStruct_Message_2fRequest_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::proto::GetSwcNodeDataListByTimeAndUserRequest, _impl_.swcinfo_),
   PROTOBUF_FIELD_OFFSET(::proto::GetSwcNodeDataListByTimeAndUserRequest, _impl_.starttime_),
   PROTOBUF_FIELD_OFFSET(::proto::GetSwcNodeDataListByTimeAndUserRequest, _impl_.endtime_),
-  PROTOBUF_FIELD_OFFSET(::proto::GetSwcNodeDataListByTimeAndUserRequest, _impl_.useruuid_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetSwcNodeDataListByTimeAndUserRequest, _impl_.username_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::BackupFullDatabaseRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -918,7 +918,7 @@ const char descriptor_table_protodef_Message_2fRequest_2eproto[] PROTOBUF_SECTIO
   "Info\030\002 \001(\0132\024.proto.SwcMetaInfoV1\022-\n\tStar"
   "tTime\030\003 \001(\0132\032.google.protobuf.Timestamp\022"
   "+\n\007EndTime\030\004 \001(\0132\032.google.protobuf.Times"
-  "tamp\022\020\n\010UserUuid\030\005 \001(\t\"\220\001\n\031BackupFullDat"
+  "tamp\022\020\n\010UserName\030\005 \001(\t\"\220\001\n\031BackupFullDat"
   "abaseRequest\022\'\n\010UserInfo\030\001 \001(\0132\025.proto.U"
   "serMetaInfoV1\022\025\n\rInstantBackup\030\002 \001(\010\0223\n\017"
   "DelayBackupTime\030\003 \001(\0132\032.google.protobuf."
@@ -7447,7 +7447,7 @@ GetSwcNodeDataListByTimeAndUserRequest::GetSwcNodeDataListByTimeAndUserRequest(c
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   GetSwcNodeDataListByTimeAndUserRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.useruuid_){}
+      decltype(_impl_.username_){}
     , decltype(_impl_.userinfo_){nullptr}
     , decltype(_impl_.swcinfo_){nullptr}
     , decltype(_impl_.starttime_){nullptr}
@@ -7455,12 +7455,12 @@ GetSwcNodeDataListByTimeAndUserRequest::GetSwcNodeDataListByTimeAndUserRequest(c
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _impl_.useruuid_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.useruuid_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_useruuid().empty()) {
-    _this->_impl_.useruuid_.Set(from._internal_useruuid(), 
+  if (!from._internal_username().empty()) {
+    _this->_impl_.username_.Set(from._internal_username(), 
       _this->GetArenaForAllocation());
   }
   if (from._internal_has_userinfo()) {
@@ -7483,16 +7483,16 @@ inline void GetSwcNodeDataListByTimeAndUserRequest::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.useruuid_){}
+      decltype(_impl_.username_){}
     , decltype(_impl_.userinfo_){nullptr}
     , decltype(_impl_.swcinfo_){nullptr}
     , decltype(_impl_.starttime_){nullptr}
     , decltype(_impl_.endtime_){nullptr}
     , /*decltype(_impl_._cached_size_)*/{}
   };
-  _impl_.useruuid_.InitDefault();
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.useruuid_.Set("", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -7507,7 +7507,7 @@ GetSwcNodeDataListByTimeAndUserRequest::~GetSwcNodeDataListByTimeAndUserRequest(
 
 inline void GetSwcNodeDataListByTimeAndUserRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.useruuid_.Destroy();
+  _impl_.username_.Destroy();
   if (this != internal_default_instance()) delete _impl_.userinfo_;
   if (this != internal_default_instance()) delete _impl_.swcinfo_;
   if (this != internal_default_instance()) delete _impl_.starttime_;
@@ -7524,7 +7524,7 @@ void GetSwcNodeDataListByTimeAndUserRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.useruuid_.ClearToEmpty();
+  _impl_.username_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && _impl_.userinfo_ != nullptr) {
     delete _impl_.userinfo_;
   }
@@ -7582,13 +7582,13 @@ const char* GetSwcNodeDataListByTimeAndUserRequest::_InternalParse(const char* p
         } else
           goto handle_unusual;
         continue;
-      // string UserUuid = 5;
+      // string UserName = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
-          auto str = _internal_mutable_useruuid();
+          auto str = _internal_mutable_username();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "proto.GetSwcNodeDataListByTimeAndUserRequest.UserUuid"));
+          CHK_(::_pbi::VerifyUTF8(str, "proto.GetSwcNodeDataListByTimeAndUserRequest.UserName"));
         } else
           goto handle_unusual;
         continue;
@@ -7649,14 +7649,14 @@ uint8_t* GetSwcNodeDataListByTimeAndUserRequest::_InternalSerialize(
         _Internal::endtime(this).GetCachedSize(), target, stream);
   }
 
-  // string UserUuid = 5;
-  if (!this->_internal_useruuid().empty()) {
+  // string UserName = 5;
+  if (!this->_internal_username().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_useruuid().data(), static_cast<int>(this->_internal_useruuid().length()),
+      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "proto.GetSwcNodeDataListByTimeAndUserRequest.UserUuid");
+      "proto.GetSwcNodeDataListByTimeAndUserRequest.UserName");
     target = stream->WriteStringMaybeAliased(
-        5, this->_internal_useruuid(), target);
+        5, this->_internal_username(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7675,11 +7675,11 @@ size_t GetSwcNodeDataListByTimeAndUserRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string UserUuid = 5;
-  if (!this->_internal_useruuid().empty()) {
+  // string UserName = 5;
+  if (!this->_internal_username().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_useruuid());
+        this->_internal_username());
   }
 
   // .proto.UserMetaInfoV1 UserInfo = 1;
@@ -7728,8 +7728,8 @@ void GetSwcNodeDataListByTimeAndUserRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_useruuid().empty()) {
-    _this->_internal_set_useruuid(from._internal_useruuid());
+  if (!from._internal_username().empty()) {
+    _this->_internal_set_username(from._internal_username());
   }
   if (from._internal_has_userinfo()) {
     _this->_internal_mutable_userinfo()->::proto::UserMetaInfoV1::MergeFrom(
@@ -7767,8 +7767,8 @@ void GetSwcNodeDataListByTimeAndUserRequest::InternalSwap(GetSwcNodeDataListByTi
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.useruuid_, lhs_arena,
-      &other->_impl_.useruuid_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(GetSwcNodeDataListByTimeAndUserRequest, _impl_.endtime_)

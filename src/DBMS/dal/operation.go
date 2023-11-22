@@ -669,7 +669,8 @@ func QuerySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcDataV1,
 }
 
 func QuerySwcDataByUserAndTime(
-	swcMetaInfo dbmodel.SwcMetaInfoV1, userUuid string,
+	swcMetaInfo dbmodel.SwcMetaInfoV1,
+	userName string,
 	startTime time.Time,
 	endTime time.Time,
 	swcData *dbmodel.SwcDataV1,
@@ -679,7 +680,7 @@ func QuerySwcDataByUserAndTime(
 
 	filterInterface := bson.D{}
 
-	if userUuid == "" {
+	if userName == "" {
 		filterInterface = append(filterInterface, bson.E{Key: "$and",
 			Value: bson.A{
 				bson.M{"CreateTime": bson.M{"$gte": startTime}},
@@ -688,7 +689,7 @@ func QuerySwcDataByUserAndTime(
 	} else {
 		filterInterface = append(filterInterface, bson.E{Key: "$and",
 			Value: bson.A{
-				bson.M{"Creator": userUuid},
+				bson.M{"Creator": userName},
 				bson.M{"CreateTime": bson.M{"$gte": startTime}},
 				bson.M{"CreateTime": bson.M{"$lte": endTime}},
 			}})

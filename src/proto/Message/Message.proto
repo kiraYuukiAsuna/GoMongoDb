@@ -47,8 +47,8 @@ message PermissionGroupMetaInfoV1{
 }
 
 message UserPermissionOverrideMetaInfoV1{
-    GlobalPermissionMetaInfoV1 GlobalPermission = 1;
     ProjectPermissionMetaInfoV1 ProjectPermission = 2;
+    string UserName = 3;
 }
 
 message ProjectMetaInfoV1{
@@ -59,7 +59,7 @@ message ProjectMetaInfoV1{
     google.protobuf.Timestamp CreateTime = 5;
     google.protobuf.Timestamp LastModifiedTime = 6;
     repeated string SwcList = 7;
-    repeated ProjectPermissionMetaInfoV1 UserPermissionOverride = 8;
+    repeated UserPermissionOverrideMetaInfoV1 UserPermissionOverride = 8;
     string WorkMode = 9;
 }
 

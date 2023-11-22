@@ -5,7 +5,8 @@
 #include "ui_LeftClientView.h"
 #include "src/framework/service/CachedProtoData.h"
 #include "src/framework/service/RpcCall.h"
-#include "src/framework/TypeDef.h"
+#include "src/framework/defination/TypeDef.h"
+#include "src/framework/defination/ImageDefination.h"
 #include "src/framework/service/WrappedCall.h"
 
 LeftClientView::LeftClientView(MainWindow* mainWindow) :
@@ -46,6 +47,16 @@ LeftClientView::LeftClientView(MainWindow* mainWindow) :
                         m_MainWindow->getRightClientView().openDailyStatisticsMetaInfo(metaInfo.name);
                         break;
                     }
+                    case MetaInfoType::eUserMetaInfo:
+                        break;
+                    case MetaInfoType::ePermissionGroupMetaInfo:
+                        break;
+                    case MetaInfoType::eUserManagerMetaInfo:
+                        break;
+                    case MetaInfoType::eSwcData:
+                        break;
+                    case MetaInfoType::eUnknown:
+                        break;
                 }
             }
         }
@@ -74,6 +85,7 @@ void LeftClientView::getProjectMetaInfo() {
         auto& projectInfo = projectInfoList->Get(i);
         auto* item = new QTreeWidgetItem;
         item->setText(0,QString::fromStdString(projectInfo.name()));
+        item->setIcon(0,QIcon(Image::ImageProject));
         LeftClientViewTreeWidgetMetaInfo metaInfo{};
         metaInfo.type = MetaInfoType::eProject;
         metaInfo.name = projectInfo.name();
@@ -90,6 +102,7 @@ void LeftClientView::getSwcMetaInfo() {
         auto& swcInfo = swcMetaInfo->Get(i);
         auto* item = new QTreeWidgetItem;
         item->setText(0,QString::fromStdString(swcInfo.name()));
+        item->setIcon(0,QIcon(Image::ImageNode));
         LeftClientViewTreeWidgetMetaInfo metaInfo{};
         metaInfo.type = MetaInfoType::eSwc;
         metaInfo.name = swcInfo.name();
@@ -106,6 +119,7 @@ void LeftClientView::getAllDailyStatisticsMetaInfo() {
         auto& dailyStatisticsMetaInfo = dailyStatisticsMetaInfoList->Get(i);
         auto* item = new QTreeWidgetItem;
         item->setText(0,QString::fromStdString(dailyStatisticsMetaInfo.name()));
+        item->setIcon(0,QIcon(Image::ImageDaily));
         LeftClientViewTreeWidgetMetaInfo metaInfo{};
         metaInfo.type = MetaInfoType::eDailyStatistics;
         metaInfo.name = dailyStatisticsMetaInfo.name();
@@ -126,6 +140,7 @@ void LeftClientView::clearAll() {
 
     m_TopProjectItem = new QTreeWidgetItem(m_TreeWidget);
     m_TopProjectItem->setText(0,"Project");
+    m_TopProjectItem->setIcon(0,QIcon(Image::ImageProject));
     LeftClientViewTreeWidgetMetaInfo metaInfoProject{};
     metaInfoProject.type = MetaInfoType::eProjectContainer;
     metaInfoProject.name = "Project";
@@ -133,6 +148,7 @@ void LeftClientView::clearAll() {
 
     m_TopSwcItem= new QTreeWidgetItem(m_TreeWidget);
     m_TopSwcItem->setText(0,"Swc");
+    m_TopSwcItem->setIcon(0,QIcon(Image::ImageNode));
     LeftClientViewTreeWidgetMetaInfo metaInfoSwc{};
     metaInfoSwc.type = MetaInfoType::eSwcContainer;
     metaInfoProject.name = "Swc";
@@ -140,6 +156,7 @@ void LeftClientView::clearAll() {
 
     m_TopDailyStatisticsItem= new QTreeWidgetItem(m_TreeWidget);
     m_TopDailyStatisticsItem->setText(0,"DailyStatistics");
+    m_TopDailyStatisticsItem->setIcon(0,QIcon(Image::ImageDaily));
     LeftClientViewTreeWidgetMetaInfo metaInfoDailyStatistic{};
     metaInfoDailyStatistic.type = MetaInfoType::eDailyStatisticsContainer;
     metaInfoProject.name = "DailyStatistics";

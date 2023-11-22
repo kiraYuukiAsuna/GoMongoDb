@@ -383,13 +383,14 @@ func (D DBMSServerController) CreateProject(ctx context.Context, request *reques
 
 	if request.ProjectInfo.UserPermissionOverride != nil {
 		for _, protoPermissionOverride := range request.ProjectInfo.UserPermissionOverride {
-			var dbmodelPermissionOverride dbmodel.ProjectPermissionMetaInfoV1
-			dbmodelPermissionOverride.ReadPerimissionQuery = protoPermissionOverride.ReadPerimissionQuery
-			dbmodelPermissionOverride.WritePermissionAddData = protoPermissionOverride.WritePermissionAddData
-			dbmodelPermissionOverride.WritePermissionModifyData = protoPermissionOverride.WritePermissionModifyData
-			dbmodelPermissionOverride.WritePermissionDeleteData = protoPermissionOverride.WritePermissionDeleteData
+			var projectPermissionOverride dbmodel.UserPermissionOverrideMetaInfoV1
+			projectPermissionOverride.Project.ReadPerimissionQuery = protoPermissionOverride.ProjectPermission.ReadPerimissionQuery
+			projectPermissionOverride.Project.WritePermissionAddData = protoPermissionOverride.ProjectPermission.WritePermissionAddData
+			projectPermissionOverride.Project.WritePermissionModifyData = protoPermissionOverride.ProjectPermission.WritePermissionModifyData
+			projectPermissionOverride.Project.WritePermissionDeleteData = protoPermissionOverride.ProjectPermission.WritePermissionDeleteData
+			projectPermissionOverride.UserName = protoPermissionOverride.UserName
 
-			projectMetaInfo.UserPermissionOverride = append(projectMetaInfo.UserPermissionOverride, dbmodelPermissionOverride)
+			projectMetaInfo.UserPermissionOverride = append(projectMetaInfo.UserPermissionOverride, projectPermissionOverride)
 		}
 	}
 
@@ -776,7 +777,7 @@ func (D DBMSServerController) GetSwcNodeDataListByTimeAndUser(ctx context.Contex
 		startTime = time.Now()
 	}
 
-	result := dal.QuerySwcDataByUserAndTime(*swcMetaInfo, request.UserUuid, startTime, endTime, &dbmodelMessage, dal.GetDbInstance())
+	result := dal.QuerySwcDataByUserAndTime(*swcMetaInfo, request.UserName, startTime, endTime, &dbmodelMessage, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Get SwcDataByUserAndTime " + swcMetaInfo.Name)
 
