@@ -7,6 +7,7 @@
 #include "src/framework/config/AppConfig.h"
 #include <QTimer>
 #include <QTimerEvent>
+#include "src/framework/service/CachedProtoData.h"
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent), ui(new Ui::LoginWindow) {
@@ -88,18 +89,17 @@ bool LoginWindow::doLogin(QString userName, QString password, bool slientMode) {
             AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eAccountExpiredTime, std::to_string(seconds_since_epoch));
 
             AppConfig::getInstance().writeConfig();
+
+            CachedProtoData::getInstance().CachedUserMetaInfo = response.userinfo();
+
             accept();
             return true;
         }else {
-            if(!slientMode){
-                QMessageBox::warning(this,"Info","Login Failed!" + QString::fromStdString(response.message()));
-            }
+            QMessageBox::warning(this,"Info","Login Failed!" + QString::fromStdString(response.message()));
         }
 
     }else{
-        if(!slientMode) {
-            QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
-        }
+        QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
     }
     return false;
 }

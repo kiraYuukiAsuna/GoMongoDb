@@ -152,7 +152,7 @@ message DeleteSwcNodeDataResponse{
 message UpdateSwcNodeDataResponse{
     bool status = 1;
     string Message = 2;
-    SwcDataV1 SwcNodeData = 3;
+    SwcNodeDataV1 SwcNodeData = 3;
 }
 
 message GetSwcNodeDataResponse{

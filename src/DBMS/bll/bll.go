@@ -499,58 +499,292 @@ func (D DBMSServerController) GetAllProject(ctx context.Context, request *reques
 }
 
 func (D DBMSServerController) CreateSwc(ctx context.Context, request *request.CreateSwcRequest) (*response.CreateSwcResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+	swcMetaInfo.Base.Id = primitive.NewObjectID()
+	swcMetaInfo.Base.Uuid = uuid.NewString()
+	swcMetaInfo.Base.ApiVersion = "V1"
+	swcMetaInfo.Creator = userMetaInfo.Name
+	swcMetaInfo.LastModifiedTime = time.Now()
+	swcMetaInfo.CreateTime = time.Now()
+	swcMetaInfo.Name = request.SwcInfo.Name
+	swcMetaInfo.Description = request.SwcInfo.Description
+
+	result := dal.CreateSwc(*swcMetaInfo, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Create Swc " + swcMetaInfo.Name)
+		return &response.CreateSwcResponse{
+			Status:  true,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	} else {
+		return &response.CreateSwcResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
 }
 
 func (D DBMSServerController) DeleteSwc(ctx context.Context, request *request.DeleteSwcRequest) (*response.DeleteSwcResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	result := dal.DeleteSwc(*swcMetaInfo, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Delete Swc " + swcMetaInfo.Name)
+		return &response.DeleteSwcResponse{
+			Status:  true,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	} else {
+		return &response.DeleteSwcResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
 }
 
 func (D DBMSServerController) UpdateSwc(ctx context.Context, request *request.UpdateSwcRequest) (*response.UpdateSwcResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	result := dal.ModifySwc(*swcMetaInfo, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Update SwcMetaInfo " + swcMetaInfo.Name)
+		return &response.UpdateSwcResponse{
+			Status:  true,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	} else {
+		return &response.UpdateSwcResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
 }
 
 func (D DBMSServerController) GetSwcMetaInfo(ctx context.Context, request *request.GetSwcMetaInfoRequest) (*response.GetSwcMetaInfoResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	result := dal.QuerySwc(swcMetaInfo, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Query SwcMetaInfo " + swcMetaInfo.Name)
+		return &response.GetSwcMetaInfoResponse{
+			Status:  true,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	} else {
+		return &response.GetSwcMetaInfoResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
 }
 
 func (D DBMSServerController) GetAllSwcMetaInfo(ctx context.Context, request *request.GetAllSwcMetaInfoRequest) (*response.GetAllSwcMetaInfoResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+
+	var dbmodelMessage []dbmodel.SwcMetaInfoV1
+
+	var protoMessage []*message.SwcMetaInfoV1
+	result := dal.QueryAllSwc(&dbmodelMessage, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Query All SwcMetaInfo ")
+		for _, dbMessage := range dbmodelMessage {
+			protoMessage = append(protoMessage, SwcMetaInfoV1DbmodelToProtobuf(&dbMessage))
+		}
+		return &response.GetAllSwcMetaInfoResponse{
+			Status:  true,
+			Message: result.Message,
+			SwcInfo: protoMessage,
+		}, nil
+	} else {
+		return &response.GetAllSwcMetaInfoResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: protoMessage,
+		}, nil
+	}
 }
 
 func (D DBMSServerController) CreateSwcNodeData(ctx context.Context, request *request.CreateSwcNodeDataRequest) (*response.CreateSwcNodeDataResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	var swcData dbmodel.SwcDataV1
+	for _, swcNodeData := range request.SwcNodeData.SwcData {
+		swcData = append(swcData, *SwcNodeDataV1ProtobufToDbmodel(swcNodeData))
+	}
+
+	result := dal.CreateSwcData(*swcMetaInfo, swcData, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Create Swc " + swcMetaInfo.Name)
+		return &response.CreateSwcNodeDataResponse{
+			Status:      true,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	} else {
+		return &response.CreateSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
 }
 
 func (D DBMSServerController) DeleteSwcNodeData(ctx context.Context, request *request.DeleteSwcNodeDataRequest) (*response.DeleteSwcNodeDataResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	var swcData dbmodel.SwcDataV1
+	for _, swcNodeData := range request.SwcNodeData.SwcData {
+		swcData = append(swcData, *SwcNodeDataV1ProtobufToDbmodel(swcNodeData))
+	}
+
+	result := dal.DeleteSwcData(*swcMetaInfo, swcData, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Delete Swc " + swcMetaInfo.Name)
+		return &response.DeleteSwcNodeDataResponse{
+			Status:      true,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	} else {
+		return &response.DeleteSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
 }
 
 func (D DBMSServerController) UpdateSwcNodeData(ctx context.Context, request *request.UpdateSwcNodeDataRequest) (*response.UpdateSwcNodeDataResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	swcNodeData := SwcNodeDataV1ProtobufToDbmodel(request.SwcNodeData)
+	result := dal.ModifySwcData(*swcMetaInfo, *swcNodeData, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Update Swc " + swcMetaInfo.Name)
+		return &response.UpdateSwcNodeDataResponse{
+			Status:      true,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	} else {
+		return &response.UpdateSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
 }
 
 func (D DBMSServerController) GetSwcNodeData(ctx context.Context, request *request.GetSwcNodeDataRequest) (*response.GetSwcNodeDataResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	var dbmodelMessage dbmodel.SwcDataV1
+
+	var protoMessage message.SwcDataV1
+
+	for _, swcNodeData := range request.SwcNodeData.SwcData {
+		dbmodelMessage = append(dbmodelMessage, *SwcNodeDataV1ProtobufToDbmodel(swcNodeData))
+	}
+
+	result := dal.DeleteSwcData(*swcMetaInfo, dbmodelMessage, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Get SwcData " + swcMetaInfo.Name)
+
+		for _, swcNodeData := range dbmodelMessage {
+			protoMessage.SwcData = append(protoMessage.SwcData, SwcNodeDataV1DbmodelToProtobuf(&swcNodeData))
+		}
+
+		return &response.GetSwcNodeDataResponse{
+			Status:      true,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	} else {
+		return &response.GetSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	}
 }
 
 func (D DBMSServerController) GetSwcFullNodeData(ctx context.Context, request *request.GetSwcFullNodeDataRequest) (*response.GetSwcFullNodeDataResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	var dbmodelMessage dbmodel.SwcDataV1
+	var protoMessage message.SwcDataV1
+
+	result := dal.DeleteSwcData(*swcMetaInfo, dbmodelMessage, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Get SwcFullNodeData " + swcMetaInfo.Name)
+
+		for _, swcNodeData := range dbmodelMessage {
+			protoMessage.SwcData = append(protoMessage.SwcData, SwcNodeDataV1DbmodelToProtobuf(&swcNodeData))
+		}
+
+		return &response.GetSwcFullNodeDataResponse{
+			Status:      true,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	} else {
+		return &response.GetSwcFullNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	}
 }
 
 func (D DBMSServerController) GetSwcNodeDataListByTimeAndUser(ctx context.Context, request *request.GetSwcNodeDataListByTimeAndUserRequest) (*response.GetSwcNodeDataListByTimeAndUserResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	var dbmodelMessage dbmodel.SwcDataV1
+
+	var protoMessage message.SwcDataV1
+
+	for _, swcNodeData := range request.SwcNodeData.SwcData {
+		dbmodelMessage = append(dbmodelMessage, *SwcNodeDataV1ProtobufToDbmodel(swcNodeData))
+	}
+
+	result := dal.DeleteSwcData(*swcMetaInfo, dbmodelMessage, dal.GetDbInstance())
+	if result.Status {
+		fmt.Println("User " + request.UserInfo.Name + "Get SwcData " + swcMetaInfo.Name)
+
+		for _, swcNodeData := range dbmodelMessage {
+			protoMessage.SwcData = append(protoMessage.SwcData, SwcNodeDataV1DbmodelToProtobuf(&swcNodeData))
+		}
+
+		return &response.GetSwcNodeDataListByTimeAndUserResponse{
+			Status:      true,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	} else {
+		return &response.GetSwcNodeDataListByTimeAndUserResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	}
 }
 
 func (D DBMSServerController) BackupFullDatabase(ctx context.Context, request *request.BackupFullDatabaseRequest) (*response.BackupFullDatabaseResponse, error) {
@@ -559,8 +793,28 @@ func (D DBMSServerController) BackupFullDatabase(ctx context.Context, request *r
 }
 
 func (D DBMSServerController) CreateDailyStatistics(ctx context.Context, request *request.CreateDailyStatisticsRequest) (*response.CreateDailyStatisticsResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+
+	dailyStatisticsInfo := DailyStatisticsMetaInfoV1ProtobufToDbmodel(request.DailyStatisticsInfo)
+	dailyStatisticsInfo.Base.Id = primitive.NewObjectID()
+	dailyStatisticsInfo.Base.Uuid = uuid.NewString()
+	dailyStatisticsInfo.Base.ApiVersion = "V1"
+
+	result := dal.CreateDailyStatistics(*dailyStatisticsInfo, dal.GetDbInstance())
+	if result.Status == true {
+		fmt.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Created")
+		return &response.CreateDailyStatisticsResponse{
+			Status:              true,
+			Message:             result.Message,
+			DailyStatisticsInfo: DailyStatisticsMetaInfoV1DbmodelToProtobuf(dailyStatisticsInfo),
+		}, nil
+	} else {
+		return &response.CreateDailyStatisticsResponse{
+			Status:              false,
+			Message:             result.Message,
+			DailyStatisticsInfo: DailyStatisticsMetaInfoV1DbmodelToProtobuf(dailyStatisticsInfo),
+		}, nil
+	}
 }
 
 func (D DBMSServerController) DeleteDailyStatistics(ctx context.Context, request *request.DeleteDailyStatisticsRequest) (*response.DeleteDailyStatisticsResponse, error) {

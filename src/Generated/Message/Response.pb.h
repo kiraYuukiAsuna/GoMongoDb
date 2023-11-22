@@ -4705,23 +4705,23 @@ class UpdateSwcNodeDataResponse final :
   std::string* _internal_mutable_message();
   public:
 
-  // .proto.SwcDataV1 SwcNodeData = 3;
+  // .proto.SwcNodeDataV1 SwcNodeData = 3;
   bool has_swcnodedata() const;
   private:
   bool _internal_has_swcnodedata() const;
   public:
   void clear_swcnodedata();
-  const ::proto::SwcDataV1& swcnodedata() const;
-  PROTOBUF_NODISCARD ::proto::SwcDataV1* release_swcnodedata();
-  ::proto::SwcDataV1* mutable_swcnodedata();
-  void set_allocated_swcnodedata(::proto::SwcDataV1* swcnodedata);
+  const ::proto::SwcNodeDataV1& swcnodedata() const;
+  PROTOBUF_NODISCARD ::proto::SwcNodeDataV1* release_swcnodedata();
+  ::proto::SwcNodeDataV1* mutable_swcnodedata();
+  void set_allocated_swcnodedata(::proto::SwcNodeDataV1* swcnodedata);
   private:
-  const ::proto::SwcDataV1& _internal_swcnodedata() const;
-  ::proto::SwcDataV1* _internal_mutable_swcnodedata();
+  const ::proto::SwcNodeDataV1& _internal_swcnodedata() const;
+  ::proto::SwcNodeDataV1* _internal_mutable_swcnodedata();
   public:
   void unsafe_arena_set_allocated_swcnodedata(
-      ::proto::SwcDataV1* swcnodedata);
-  ::proto::SwcDataV1* unsafe_arena_release_swcnodedata();
+      ::proto::SwcNodeDataV1* swcnodedata);
+  ::proto::SwcNodeDataV1* unsafe_arena_release_swcnodedata();
 
   // bool status = 1;
   void clear_status();
@@ -4741,7 +4741,7 @@ class UpdateSwcNodeDataResponse final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
-    ::proto::SwcDataV1* swcnodedata_;
+    ::proto::SwcNodeDataV1* swcnodedata_;
     bool status_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -9950,24 +9950,24 @@ inline void UpdateSwcNodeDataResponse::set_allocated_message(std::string* messag
   // @@protoc_insertion_point(field_set_allocated:proto.UpdateSwcNodeDataResponse.Message)
 }
 
-// .proto.SwcDataV1 SwcNodeData = 3;
+// .proto.SwcNodeDataV1 SwcNodeData = 3;
 inline bool UpdateSwcNodeDataResponse::_internal_has_swcnodedata() const {
   return this != internal_default_instance() && _impl_.swcnodedata_ != nullptr;
 }
 inline bool UpdateSwcNodeDataResponse::has_swcnodedata() const {
   return _internal_has_swcnodedata();
 }
-inline const ::proto::SwcDataV1& UpdateSwcNodeDataResponse::_internal_swcnodedata() const {
-  const ::proto::SwcDataV1* p = _impl_.swcnodedata_;
-  return p != nullptr ? *p : reinterpret_cast<const ::proto::SwcDataV1&>(
-      ::proto::_SwcDataV1_default_instance_);
+inline const ::proto::SwcNodeDataV1& UpdateSwcNodeDataResponse::_internal_swcnodedata() const {
+  const ::proto::SwcNodeDataV1* p = _impl_.swcnodedata_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::SwcNodeDataV1&>(
+      ::proto::_SwcNodeDataV1_default_instance_);
 }
-inline const ::proto::SwcDataV1& UpdateSwcNodeDataResponse::swcnodedata() const {
+inline const ::proto::SwcNodeDataV1& UpdateSwcNodeDataResponse::swcnodedata() const {
   // @@protoc_insertion_point(field_get:proto.UpdateSwcNodeDataResponse.SwcNodeData)
   return _internal_swcnodedata();
 }
 inline void UpdateSwcNodeDataResponse::unsafe_arena_set_allocated_swcnodedata(
-    ::proto::SwcDataV1* swcnodedata) {
+    ::proto::SwcNodeDataV1* swcnodedata) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.swcnodedata_);
   }
@@ -9979,9 +9979,9 @@ inline void UpdateSwcNodeDataResponse::unsafe_arena_set_allocated_swcnodedata(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.UpdateSwcNodeDataResponse.SwcNodeData)
 }
-inline ::proto::SwcDataV1* UpdateSwcNodeDataResponse::release_swcnodedata() {
+inline ::proto::SwcNodeDataV1* UpdateSwcNodeDataResponse::release_swcnodedata() {
   
-  ::proto::SwcDataV1* temp = _impl_.swcnodedata_;
+  ::proto::SwcNodeDataV1* temp = _impl_.swcnodedata_;
   _impl_.swcnodedata_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -9994,27 +9994,27 @@ inline ::proto::SwcDataV1* UpdateSwcNodeDataResponse::release_swcnodedata() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::proto::SwcDataV1* UpdateSwcNodeDataResponse::unsafe_arena_release_swcnodedata() {
+inline ::proto::SwcNodeDataV1* UpdateSwcNodeDataResponse::unsafe_arena_release_swcnodedata() {
   // @@protoc_insertion_point(field_release:proto.UpdateSwcNodeDataResponse.SwcNodeData)
   
-  ::proto::SwcDataV1* temp = _impl_.swcnodedata_;
+  ::proto::SwcNodeDataV1* temp = _impl_.swcnodedata_;
   _impl_.swcnodedata_ = nullptr;
   return temp;
 }
-inline ::proto::SwcDataV1* UpdateSwcNodeDataResponse::_internal_mutable_swcnodedata() {
+inline ::proto::SwcNodeDataV1* UpdateSwcNodeDataResponse::_internal_mutable_swcnodedata() {
   
   if (_impl_.swcnodedata_ == nullptr) {
-    auto* p = CreateMaybeMessage<::proto::SwcDataV1>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::proto::SwcNodeDataV1>(GetArenaForAllocation());
     _impl_.swcnodedata_ = p;
   }
   return _impl_.swcnodedata_;
 }
-inline ::proto::SwcDataV1* UpdateSwcNodeDataResponse::mutable_swcnodedata() {
-  ::proto::SwcDataV1* _msg = _internal_mutable_swcnodedata();
+inline ::proto::SwcNodeDataV1* UpdateSwcNodeDataResponse::mutable_swcnodedata() {
+  ::proto::SwcNodeDataV1* _msg = _internal_mutable_swcnodedata();
   // @@protoc_insertion_point(field_mutable:proto.UpdateSwcNodeDataResponse.SwcNodeData)
   return _msg;
 }
-inline void UpdateSwcNodeDataResponse::set_allocated_swcnodedata(::proto::SwcDataV1* swcnodedata) {
+inline void UpdateSwcNodeDataResponse::set_allocated_swcnodedata(::proto::SwcNodeDataV1* swcnodedata) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.swcnodedata_);

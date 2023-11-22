@@ -979,38 +979,38 @@ const char descriptor_table_protodef_Message_2fResponse_2eproto[] PROTOBUF_SECTI
   "a\030\003 \001(\0132\020.proto.SwcDataV1\"c\n\031DeleteSwcNo"
   "deDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Messag"
   "e\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.Swc"
-  "DataV1\"c\n\031UpdateSwcNodeDataResponse\022\016\n\006s"
-  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeD"
-  "ata\030\003 \001(\0132\020.proto.SwcDataV1\"`\n\026GetSwcNod"
-  "eDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
-  "\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.SwcD"
-  "ataV1\"d\n\032GetSwcFullNodeDataResponse\022\016\n\006s"
-  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeD"
-  "ata\030\003 \001(\0132\020.proto.SwcDataV1\"q\n\'GetSwcNod"
-  "eDataListByTimeAndUserResponse\022\016\n\006status"
-  "\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeData\030\003"
-  " \001(\0132\020.proto.SwcDataV1\"\211\001\n\032BackupFullDat"
-  "abaseResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
-  "\030\002 \001(\t\022\025\n\rInstantBackup\030\003 \001(\010\0223\n\017DelayBa"
-  "ckupTime\030\004 \001(\0132\032.google.protobuf.Timesta"
-  "mp\"\177\n\035CreateDailyStatisticsResponse\022\016\n\006s"
-  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailySta"
-  "tisticsInfo\030\003 \001(\0132 .proto.DailyStatistic"
-  "sMetaInfoV1\"\177\n\035DeleteDailyStatisticsResp"
-  "onse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n"
-  "\023DailyStatisticsInfo\030\003 \001(\0132 .proto.Daily"
-  "StatisticsMetaInfoV1\"\177\n\035UpdateDailyStati"
-  "sticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
-  "\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001(\0132 .pr"
-  "oto.DailyStatisticsMetaInfoV1\"|\n\032GetDail"
-  "yStatisticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007M"
-  "essage\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001("
-  "\0132 .proto.DailyStatisticsMetaInfoV1\"\177\n\035G"
-  "etAllDailyStatisticsResponse\022\016\n\006status\030\001"
-  " \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatistics"
-  "Info\030\003 \003(\0132 .proto.DailyStatisticsMetaIn"
-  "foV1B\037Z\035DBMS/Generated/proto/responseP\000b"
-  "\006proto3"
+  "DataV1\"g\n\031UpdateSwcNodeDataResponse\022\016\n\006s"
+  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022)\n\013SwcNodeD"
+  "ata\030\003 \001(\0132\024.proto.SwcNodeDataV1\"`\n\026GetSw"
+  "cNodeDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
+  "sage\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto."
+  "SwcDataV1\"d\n\032GetSwcFullNodeDataResponse\022"
+  "\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcN"
+  "odeData\030\003 \001(\0132\020.proto.SwcDataV1\"q\n\'GetSw"
+  "cNodeDataListByTimeAndUserResponse\022\016\n\006st"
+  "atus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeDa"
+  "ta\030\003 \001(\0132\020.proto.SwcDataV1\"\211\001\n\032BackupFul"
+  "lDatabaseResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
+  "sage\030\002 \001(\t\022\025\n\rInstantBackup\030\003 \001(\010\0223\n\017Del"
+  "ayBackupTime\030\004 \001(\0132\032.google.protobuf.Tim"
+  "estamp\"\177\n\035CreateDailyStatisticsResponse\022"
+  "\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023Dail"
+  "yStatisticsInfo\030\003 \001(\0132 .proto.DailyStati"
+  "sticsMetaInfoV1\"\177\n\035DeleteDailyStatistics"
+  "Response\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001("
+  "\t\022=\n\023DailyStatisticsInfo\030\003 \001(\0132 .proto.D"
+  "ailyStatisticsMetaInfoV1\"\177\n\035UpdateDailyS"
+  "tatisticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
+  "sage\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001(\0132"
+  " .proto.DailyStatisticsMetaInfoV1\"|\n\032Get"
+  "DailyStatisticsResponse\022\016\n\006status\030\001 \001(\010\022"
+  "\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030"
+  "\003 \001(\0132 .proto.DailyStatisticsMetaInfoV1\""
+  "\177\n\035GetAllDailyStatisticsResponse\022\016\n\006stat"
+  "us\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatis"
+  "ticsInfo\030\003 \003(\0132 .proto.DailyStatisticsMe"
+  "taInfoV1B\037Z\035DBMS/Generated/proto/respons"
+  "eP\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_2eproto_deps[2] = {
   &::descriptor_table_Message_2fMessage_2eproto,
@@ -1018,7 +1018,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_
 };
 static ::_pbi::once_flag descriptor_table_Message_2fResponse_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2fResponse_2eproto = {
-    false, false, 3727, descriptor_table_protodef_Message_2fResponse_2eproto,
+    false, false, 3731, descriptor_table_protodef_Message_2fResponse_2eproto,
     "Message/Response.proto",
     &descriptor_table_Message_2fResponse_2eproto_once, descriptor_table_Message_2fResponse_2eproto_deps, 2, 34,
     schemas, file_default_instances, TableStruct_Message_2fResponse_2eproto::offsets,
@@ -7641,10 +7641,10 @@ void DeleteSwcNodeDataResponse::InternalSwap(DeleteSwcNodeDataResponse* other) {
 
 class UpdateSwcNodeDataResponse::_Internal {
  public:
-  static const ::proto::SwcDataV1& swcnodedata(const UpdateSwcNodeDataResponse* msg);
+  static const ::proto::SwcNodeDataV1& swcnodedata(const UpdateSwcNodeDataResponse* msg);
 };
 
-const ::proto::SwcDataV1&
+const ::proto::SwcNodeDataV1&
 UpdateSwcNodeDataResponse::_Internal::swcnodedata(const UpdateSwcNodeDataResponse* msg) {
   return *msg->_impl_.swcnodedata_;
 }
@@ -7679,7 +7679,7 @@ UpdateSwcNodeDataResponse::UpdateSwcNodeDataResponse(const UpdateSwcNodeDataResp
       _this->GetArenaForAllocation());
   }
   if (from._internal_has_swcnodedata()) {
-    _this->_impl_.swcnodedata_ = new ::proto::SwcDataV1(*from._impl_.swcnodedata_);
+    _this->_impl_.swcnodedata_ = new ::proto::SwcNodeDataV1(*from._impl_.swcnodedata_);
   }
   _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:proto.UpdateSwcNodeDataResponse)
@@ -7759,7 +7759,7 @@ const char* UpdateSwcNodeDataResponse::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // .proto.SwcDataV1 SwcNodeData = 3;
+      // .proto.SwcNodeDataV1 SwcNodeData = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_swcnodedata(), ptr);
@@ -7812,7 +7812,7 @@ uint8_t* UpdateSwcNodeDataResponse::_InternalSerialize(
         2, this->_internal_message(), target);
   }
 
-  // .proto.SwcDataV1 SwcNodeData = 3;
+  // .proto.SwcNodeDataV1 SwcNodeData = 3;
   if (this->_internal_has_swcnodedata()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::swcnodedata(this),
@@ -7842,7 +7842,7 @@ size_t UpdateSwcNodeDataResponse::ByteSizeLong() const {
         this->_internal_message());
   }
 
-  // .proto.SwcDataV1 SwcNodeData = 3;
+  // .proto.SwcNodeDataV1 SwcNodeData = 3;
   if (this->_internal_has_swcnodedata()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -7876,7 +7876,7 @@ void UpdateSwcNodeDataResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_m
     _this->_internal_set_message(from._internal_message());
   }
   if (from._internal_has_swcnodedata()) {
-    _this->_internal_mutable_swcnodedata()->::proto::SwcDataV1::MergeFrom(
+    _this->_internal_mutable_swcnodedata()->::proto::SwcNodeDataV1::MergeFrom(
         from._internal_swcnodedata());
   }
   if (from._internal_status() != 0) {

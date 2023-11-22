@@ -122,7 +122,7 @@ message DeleteSwcNodeDataRequest{
 message UpdateSwcNodeDataRequest{
     UserMetaInfoV1 UserInfo = 1;
     SwcMetaInfoV1 SwcInfo = 2;
-    SwcDataV1 SwcNodeData = 3;
+    SwcNodeDataV1 SwcNodeData = 3;
 }
 
 message GetSwcNodeDataRequest{

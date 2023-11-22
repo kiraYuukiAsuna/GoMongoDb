@@ -76,6 +76,8 @@ set(PROJECT_SOURCES
         src/ui/rightclientview.cpp
         src/ui/rightclientview.h
         src/ui/rightclientview.ui
+        src/framework/service/CachedProtoData.cpp
+        src/framework/service/CachedProtoData.h
 
 )
 

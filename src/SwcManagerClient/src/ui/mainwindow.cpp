@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    m_Splitter = new QSplitter;
+    m_Splitter = new QSplitter(this);
 
     m_LeftClientView = new LeftClientView(this);
     m_RightClientView = new RightClientView(this);

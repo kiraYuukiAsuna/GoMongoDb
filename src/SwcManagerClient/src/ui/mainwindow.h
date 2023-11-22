@@ -23,5 +23,4 @@ private:
     LeftClientView* m_LeftClientView;
     RightClientView* m_RightClientView;
 
-
 };

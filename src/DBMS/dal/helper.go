@@ -96,10 +96,10 @@ func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) 
 				ReadPerimissionQuery:         true,
 			},
 			Project: dbmodel.ProjectPermissionMetaInfoV1{
-				WritePermission_AddData:    true,
-				WritePermission_ModifyData: true,
-				WritePermission_DeleteData: true,
-				ReadPerimission_Query:      true,
+				WritePermissionAddData:    true,
+				WritePermissionModifyData: true,
+				WritePermissionDeleteData: true,
+				ReadPerimissionQuery:      true,
 			},
 		}
 

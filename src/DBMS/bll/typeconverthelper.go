@@ -177,9 +177,88 @@ func ProjectMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.ProjectMetaInfoV
 }
 
 func SwcMetaInfoV1ProtobufToDbmodel(protoMessage *message.SwcMetaInfoV1) *dbmodel.SwcMetaInfoV1 {
+	var dbmodelMessage dbmodel.SwcMetaInfoV1
+	if protoMessage.Base != nil {
+		dbmodelMessage.Base.Id, _ = primitive.ObjectIDFromHex(protoMessage.Base.XId)
+		dbmodelMessage.Base.Uuid = protoMessage.Base.Uuid
+		dbmodelMessage.Base.ApiVersion = protoMessage.Base.ApiVersion
+	}
 
+	dbmodelMessage.Name = dbmodelMessage.Name
+	dbmodelMessage.Description = dbmodelMessage.Description
+	dbmodelMessage.Creator = dbmodelMessage.Creator
+
+	if protoMessage.CreateTime != nil {
+		dbmodelMessage.CreateTime = protoMessage.CreateTime.AsTime()
+	}
+	if protoMessage.LastModifiedTime != nil {
+		dbmodelMessage.LastModifiedTime = protoMessage.LastModifiedTime.AsTime()
+	}
+
+	return &dbmodelMessage
 }
 
 func SwcMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.SwcMetaInfoV1) *message.SwcMetaInfoV1 {
+	var protoMessage message.SwcMetaInfoV1
+	protoMessage.Base = &message.MetaInfoBase{}
+	protoMessage.Base.XId = dbmodelMessage.Base.Id.String()
+	protoMessage.Base.Uuid = dbmodelMessage.Base.Uuid
+	protoMessage.Base.ApiVersion = dbmodelMessage.Base.ApiVersion
+
+	protoMessage.Name = dbmodelMessage.Name
+	protoMessage.Description = dbmodelMessage.Description
+	protoMessage.Creator = dbmodelMessage.Creator
+
+	protoMessage.CreateTime = timestamppb.New(dbmodelMessage.CreateTime)
+	protoMessage.LastModifiedTime = timestamppb.New(dbmodelMessage.LastModifiedTime)
+
+	return &protoMessage
+}
+
+func SwcNodeDataV1ProtobufToDbmodel(protoMessage *message.SwcNodeDataV1) *dbmodel.SwcNodeDataV1 {
+	var dbmodelMessage dbmodel.SwcNodeDataV1
+	if protoMessage.Base != nil {
+		dbmodelMessage.Base.Id, _ = primitive.ObjectIDFromHex(protoMessage.Base.XId)
+		dbmodelMessage.Base.Uuid = protoMessage.Base.Uuid
+		dbmodelMessage.Base.ApiVersion = protoMessage.Base.ApiVersion
+	}
+	dbmodelMessage.Creator = protoMessage.Creator
+	if protoMessage.CreateTime != nil {
+		dbmodelMessage.CreateTime = protoMessage.CreateTime.AsTime()
+	}
+	if protoMessage.LastModifiedTime != nil {
+		dbmodelMessage.LastModifiedTime = protoMessage.LastModifiedTime.AsTime()
+	}
+	dbmodelMessage.AnnotatorUserUuid = protoMessage.AnnotatorUserUuid
+	dbmodelMessage.CheckerUserUuid = protoMessage.CheckerUserUuid
+	dbmodelMessage.SwcData = protoMessage.SwcData
+
+	return &dbmodelMessage
+}
+
+func SwcNodeDataV1DbmodelToProtobuf(dbmodelMessage *dbmodel.SwcNodeDataV1) *message.SwcNodeDataV1 {
+	var protoMessage message.SwcNodeDataV1
+	protoMessage.Base = &message.MetaInfoBase{}
+	protoMessage.Base.XId = dbmodelMessage.Base.Id.String()
+	protoMessage.Base.Uuid = dbmodelMessage.Base.Uuid
+	protoMessage.Base.ApiVersion = dbmodelMessage.Base.ApiVersion
+
+	protoMessage.Creator = dbmodelMessage.Creator
+
+	protoMessage.CreateTime = timestamppb.New(dbmodelMessage.CreateTime)
+	protoMessage.LastModifiedTime = timestamppb.New(dbmodelMessage.LastModifiedTime)
+
+	protoMessage.AnnotatorUserUuid = dbmodelMessage.AnnotatorUserUuid
+	protoMessage.CheckerUserUuid = dbmodelMessage.CheckerUserUuid
+	protoMessage.SwcData = dbmodelMessage.SwcData
+
+	return &protoMessage
+}
+
+func DailyStatisticsMetaInfoV1ProtobufToDbmodel(protoMessage *message.DailyStatisticsMetaInfoV1) *dbmodel.DailyStatisticsMetaInfoV1 {
+
+}
+
+func DailyStatisticsMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.DailyStatisticsMetaInfoV1) *message.DailyStatisticsMetaInfoV1 {
 
 }
