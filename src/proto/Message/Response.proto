@@ -62,7 +62,7 @@ message GetUserPermissionGroupResponse{
 message GetPermissionGroupResponse{
     bool status = 1;
     string Message = 2;
-    PermissionGroupMetaInfoV1 PermissionGroupList = 3;
+    PermissionGroupMetaInfoV1 PermissionGroup = 3;
 }
 
 message GetAllPermissionGroupResponse{

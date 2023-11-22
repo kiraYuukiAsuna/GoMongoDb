@@ -74,10 +74,10 @@ struct GlobalPermissionMetaInfoV1DefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GlobalPermissionMetaInfoV1DefaultTypeInternal _GlobalPermissionMetaInfoV1_default_instance_;
 PROTOBUF_CONSTEXPR ProjectPermissionMetaInfoV1::ProjectPermissionMetaInfoV1(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.writepermission_adddata_)*/false
-  , /*decltype(_impl_.writepermission_modifydata_)*/false
-  , /*decltype(_impl_.writepermission_deletedata_)*/false
-  , /*decltype(_impl_.readperimission_query_)*/false
+    /*decltype(_impl_.writepermissionadddata_)*/false
+  , /*decltype(_impl_.writepermissionmodifydata_)*/false
+  , /*decltype(_impl_.writepermissiondeletedata_)*/false
+  , /*decltype(_impl_.readperimissionquery_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ProjectPermissionMetaInfoV1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR ProjectPermissionMetaInfoV1DefaultTypeInternal()
@@ -122,6 +122,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR ProjectMetaInfoV1::ProjectMetaInfoV1(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.swclist_)*/{}
+  , /*decltype(_impl_.userpermissionoverride_)*/{}
   , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.description_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.creator_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -129,7 +130,6 @@ PROTOBUF_CONSTEXPR ProjectMetaInfoV1::ProjectMetaInfoV1(
   , /*decltype(_impl_.base_)*/nullptr
   , /*decltype(_impl_.createtime_)*/nullptr
   , /*decltype(_impl_.lastmodifiedtime_)*/nullptr
-  , /*decltype(_impl_.permissionoverride_)*/nullptr
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ProjectMetaInfoV1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR ProjectMetaInfoV1DefaultTypeInternal()
@@ -264,10 +264,10 @@ const uint32_t TableStruct_Message_2fMessage_2eproto::offsets[] PROTOBUF_SECTION
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::proto::ProjectPermissionMetaInfoV1, _impl_.writepermission_adddata_),
-  PROTOBUF_FIELD_OFFSET(::proto::ProjectPermissionMetaInfoV1, _impl_.writepermission_modifydata_),
-  PROTOBUF_FIELD_OFFSET(::proto::ProjectPermissionMetaInfoV1, _impl_.writepermission_deletedata_),
-  PROTOBUF_FIELD_OFFSET(::proto::ProjectPermissionMetaInfoV1, _impl_.readperimission_query_),
+  PROTOBUF_FIELD_OFFSET(::proto::ProjectPermissionMetaInfoV1, _impl_.writepermissionadddata_),
+  PROTOBUF_FIELD_OFFSET(::proto::ProjectPermissionMetaInfoV1, _impl_.writepermissionmodifydata_),
+  PROTOBUF_FIELD_OFFSET(::proto::ProjectPermissionMetaInfoV1, _impl_.writepermissiondeletedata_),
+  PROTOBUF_FIELD_OFFSET(::proto::ProjectPermissionMetaInfoV1, _impl_.readperimissionquery_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::PermissionGroupMetaInfoV1, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -300,7 +300,7 @@ const uint32_t TableStruct_Message_2fMessage_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::proto::ProjectMetaInfoV1, _impl_.createtime_),
   PROTOBUF_FIELD_OFFSET(::proto::ProjectMetaInfoV1, _impl_.lastmodifiedtime_),
   PROTOBUF_FIELD_OFFSET(::proto::ProjectMetaInfoV1, _impl_.swclist_),
-  PROTOBUF_FIELD_OFFSET(::proto::ProjectMetaInfoV1, _impl_.permissionoverride_),
+  PROTOBUF_FIELD_OFFSET(::proto::ProjectMetaInfoV1, _impl_.userpermissionoverride_),
   PROTOBUF_FIELD_OFFSET(::proto::ProjectMetaInfoV1, _impl_.workmode_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::SwcMetaInfoV1, _internal_metadata_),
@@ -400,61 +400,61 @@ const char descriptor_table_protodef_Message_2fMessage_2eproto[] PROTOBUF_SECTIO
   "rmissionCreateProject\030\001 \001(\010\022$\n\034WritePerm"
   "issionModifyProject\030\002 \001(\010\022$\n\034WritePermis"
   "sionDeleteProject\030\003 \001(\010\022\034\n\024ReadPerimissi"
-  "onQuery\030\004 \001(\010\"\245\001\n\033ProjectPermissionMetaI"
-  "nfoV1\022\037\n\027WritePermission_AddData\030\001 \001(\010\022\""
-  "\n\032WritePermission_ModifyData\030\002 \001(\010\022\"\n\032Wr"
-  "itePermission_DeleteData\030\003 \001(\010\022\035\n\025ReadPe"
-  "rimission_Query\030\004 \001(\010\"\335\001\n\031PermissionGrou"
-  "pMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaIn"
-  "foBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Description\030\003 \001("
-  "\t\022;\n\020GlobalPermission\030\004 \001(\0132!.proto.Glob"
-  "alPermissionMetaInfoV1\022=\n\021ProjectPermiss"
-  "ion\030\005 \001(\0132\".proto.ProjectPermissionMetaI"
-  "nfoV1\"\236\001\n UserPermissionOverrideMetaInfo"
-  "V1\022;\n\020GlobalPermission\030\001 \001(\0132!.proto.Glo"
-  "balPermissionMetaInfoV1\022=\n\021ProjectPermis"
-  "sion\030\002 \001(\0132\".proto.ProjectPermissionMeta"
-  "InfoV1\"\270\002\n\021ProjectMetaInfoV1\022!\n\004Base\030\001 \001"
-  "(\0132\023.proto.MetaInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n"
-  "\013Description\030\003 \001(\t\022\017\n\007Creator\030\004 \001(\t\022.\n\nC"
-  "reateTime\030\005 \001(\0132\032.google.protobuf.Timest"
-  "amp\0224\n\020LastModifiedTime\030\006 \001(\0132\032.google.p"
-  "rotobuf.Timestamp\022\017\n\007SwcList\030\007 \003(\t\022C\n\022Pe"
-  "rmissionOverride\030\010 \001(\0132\'.proto.UserPermi"
-  "ssionOverrideMetaInfoV1\022\020\n\010WorkMode\030\t \001("
-  "\t\"\314\001\n\rSwcMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.prot"
-  "o.MetaInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Descript"
-  "ion\030\003 \001(\t\022\017\n\007Creator\030\004 \001(\t\022.\n\nCreateTime"
-  "\030\005 \001(\0132\032.google.protobuf.Timestamp\0224\n\020La"
-  "stModifiedTime\030\006 \001(\0132\032.google.protobuf.T"
-  "imestamp\"\356\001\n\rSwcNodeDataV1\022!\n\004Base\030\001 \001(\013"
-  "2\023.proto.MetaInfoBase\022\017\n\007SwcData\030\002 \001(\t\022\017"
-  "\n\007Creator\030\003 \001(\t\022.\n\nCreateTime\030\004 \001(\0132\032.go"
-  "ogle.protobuf.Timestamp\0224\n\020LastModifiedT"
-  "ime\030\005 \001(\0132\032.google.protobuf.Timestamp\022\031\n"
-  "\021AnnotatorUserUuid\030\006 \001(\t\022\027\n\017CheckerUserU"
-  "uid\030\007 \001(\t\"2\n\tSwcDataV1\022%\n\007SwcData\030\001 \003(\0132"
-  "\024.proto.SwcNodeDataV1\"\331\003\n\031DailyStatistic"
-  "sMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaIn"
-  "foBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Description\030\003 \001("
-  "\t\022\013\n\003Day\030\004 \001(\t\022\034\n\024CreatedProjectNumber\030\005"
-  " \001(\005\022\030\n\020CreatedSwcNumber\030\006 \001(\005\022\033\n\023Create"
-  "SwcNodeNumber\030\007 \001(\005\022\034\n\024DeletedProjectNum"
-  "ber\030\010 \001(\005\022\030\n\020DeletedSwcNumber\030\t \001(\005\022\034\n\024D"
-  "eletedSwcNodeNumber\030\n \001(\005\022\035\n\025ModifiedPro"
-  "jectNumber\030\013 \001(\005\022\031\n\021ModifiedSwcNumber\030\014 "
-  "\001(\005\022\035\n\025ModifiedSwcNodeNumber\030\r \001(\005\022\032\n\022Pr"
-  "ojectQueryNumber\030\016 \001(\005\022\026\n\016SwcQueryNumber"
-  "\030\017 \001(\005\022\027\n\017NodeQueryNumber\030\020 \001(\005\022\030\n\020Activ"
-  "eUserNumber\030\021 \001(\005B\036Z\034DBMS/Generated/prot"
-  "o/messageP\000b\006proto3"
+  "onQuery\030\004 \001(\010\"\241\001\n\033ProjectPermissionMetaI"
+  "nfoV1\022\036\n\026WritePermissionAddData\030\001 \001(\010\022!\n"
+  "\031WritePermissionModifyData\030\002 \001(\010\022!\n\031Writ"
+  "ePermissionDeleteData\030\003 \001(\010\022\034\n\024ReadPerim"
+  "issionQuery\030\004 \001(\010\"\335\001\n\031PermissionGroupMet"
+  "aInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaInfoBa"
+  "se\022\014\n\004Name\030\002 \001(\t\022\023\n\013Description\030\003 \001(\t\022;\n"
+  "\020GlobalPermission\030\004 \001(\0132!.proto.GlobalPe"
+  "rmissionMetaInfoV1\022=\n\021ProjectPermission\030"
+  "\005 \001(\0132\".proto.ProjectPermissionMetaInfoV"
+  "1\"\236\001\n UserPermissionOverrideMetaInfoV1\022;"
+  "\n\020GlobalPermission\030\001 \001(\0132!.proto.GlobalP"
+  "ermissionMetaInfoV1\022=\n\021ProjectPermission"
+  "\030\002 \001(\0132\".proto.ProjectPermissionMetaInfo"
+  "V1\"\267\002\n\021ProjectMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023"
+  ".proto.MetaInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Des"
+  "cription\030\003 \001(\t\022\017\n\007Creator\030\004 \001(\t\022.\n\nCreat"
+  "eTime\030\005 \001(\0132\032.google.protobuf.Timestamp\022"
+  "4\n\020LastModifiedTime\030\006 \001(\0132\032.google.proto"
+  "buf.Timestamp\022\017\n\007SwcList\030\007 \003(\t\022B\n\026UserPe"
+  "rmissionOverride\030\010 \003(\0132\".proto.ProjectPe"
+  "rmissionMetaInfoV1\022\020\n\010WorkMode\030\t \001(\t\"\314\001\n"
+  "\rSwcMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto.Met"
+  "aInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Description\030\003"
+  " \001(\t\022\017\n\007Creator\030\004 \001(\t\022.\n\nCreateTime\030\005 \001("
+  "\0132\032.google.protobuf.Timestamp\0224\n\020LastMod"
+  "ifiedTime\030\006 \001(\0132\032.google.protobuf.Timest"
+  "amp\"\356\001\n\rSwcNodeDataV1\022!\n\004Base\030\001 \001(\0132\023.pr"
+  "oto.MetaInfoBase\022\017\n\007SwcData\030\002 \001(\t\022\017\n\007Cre"
+  "ator\030\003 \001(\t\022.\n\nCreateTime\030\004 \001(\0132\032.google."
+  "protobuf.Timestamp\0224\n\020LastModifiedTime\030\005"
+  " \001(\0132\032.google.protobuf.Timestamp\022\031\n\021Anno"
+  "tatorUserUuid\030\006 \001(\t\022\027\n\017CheckerUserUuid\030\007"
+  " \001(\t\"2\n\tSwcDataV1\022%\n\007SwcData\030\001 \003(\0132\024.pro"
+  "to.SwcNodeDataV1\"\331\003\n\031DailyStatisticsMeta"
+  "InfoV1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaInfoBas"
+  "e\022\014\n\004Name\030\002 \001(\t\022\023\n\013Description\030\003 \001(\t\022\013\n\003"
+  "Day\030\004 \001(\t\022\034\n\024CreatedProjectNumber\030\005 \001(\005\022"
+  "\030\n\020CreatedSwcNumber\030\006 \001(\005\022\033\n\023CreateSwcNo"
+  "deNumber\030\007 \001(\005\022\034\n\024DeletedProjectNumber\030\010"
+  " \001(\005\022\030\n\020DeletedSwcNumber\030\t \001(\005\022\034\n\024Delete"
+  "dSwcNodeNumber\030\n \001(\005\022\035\n\025ModifiedProjectN"
+  "umber\030\013 \001(\005\022\031\n\021ModifiedSwcNumber\030\014 \001(\005\022\035"
+  "\n\025ModifiedSwcNodeNumber\030\r \001(\005\022\032\n\022Project"
+  "QueryNumber\030\016 \001(\005\022\026\n\016SwcQueryNumber\030\017 \001("
+  "\005\022\027\n\017NodeQueryNumber\030\020 \001(\005\022\030\n\020ActiveUser"
+  "Number\030\021 \001(\005B\036Z\034DBMS/Generated/proto/mes"
+  "sageP\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fMessage_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Message_2fMessage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2fMessage_2eproto = {
-    false, false, 2419, descriptor_table_protodef_Message_2fMessage_2eproto,
+    false, false, 2414, descriptor_table_protodef_Message_2fMessage_2eproto,
     "Message/Message.proto",
     &descriptor_table_Message_2fMessage_2eproto_once, descriptor_table_Message_2fMessage_2eproto_deps, 1, 11,
     schemas, file_default_instances, TableStruct_Message_2fMessage_2eproto::offsets,
@@ -1589,16 +1589,16 @@ ProjectPermissionMetaInfoV1::ProjectPermissionMetaInfoV1(const ProjectPermission
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   ProjectPermissionMetaInfoV1* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.writepermission_adddata_){}
-    , decltype(_impl_.writepermission_modifydata_){}
-    , decltype(_impl_.writepermission_deletedata_){}
-    , decltype(_impl_.readperimission_query_){}
+      decltype(_impl_.writepermissionadddata_){}
+    , decltype(_impl_.writepermissionmodifydata_){}
+    , decltype(_impl_.writepermissiondeletedata_){}
+    , decltype(_impl_.readperimissionquery_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.writepermission_adddata_, &from._impl_.writepermission_adddata_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.readperimission_query_) -
-    reinterpret_cast<char*>(&_impl_.writepermission_adddata_)) + sizeof(_impl_.readperimission_query_));
+  ::memcpy(&_impl_.writepermissionadddata_, &from._impl_.writepermissionadddata_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.readperimissionquery_) -
+    reinterpret_cast<char*>(&_impl_.writepermissionadddata_)) + sizeof(_impl_.readperimissionquery_));
   // @@protoc_insertion_point(copy_constructor:proto.ProjectPermissionMetaInfoV1)
 }
 
@@ -1607,10 +1607,10 @@ inline void ProjectPermissionMetaInfoV1::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.writepermission_adddata_){false}
-    , decltype(_impl_.writepermission_modifydata_){false}
-    , decltype(_impl_.writepermission_deletedata_){false}
-    , decltype(_impl_.readperimission_query_){false}
+      decltype(_impl_.writepermissionadddata_){false}
+    , decltype(_impl_.writepermissionmodifydata_){false}
+    , decltype(_impl_.writepermissiondeletedata_){false}
+    , decltype(_impl_.readperimissionquery_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1638,9 +1638,9 @@ void ProjectPermissionMetaInfoV1::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.writepermission_adddata_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.readperimission_query_) -
-      reinterpret_cast<char*>(&_impl_.writepermission_adddata_)) + sizeof(_impl_.readperimission_query_));
+  ::memset(&_impl_.writepermissionadddata_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.readperimissionquery_) -
+      reinterpret_cast<char*>(&_impl_.writepermissionadddata_)) + sizeof(_impl_.readperimissionquery_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1650,34 +1650,34 @@ const char* ProjectPermissionMetaInfoV1::_InternalParse(const char* ptr, ::_pbi:
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // bool WritePermission_AddData = 1;
+      // bool WritePermissionAddData = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.writepermission_adddata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.writepermissionadddata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool WritePermission_ModifyData = 2;
+      // bool WritePermissionModifyData = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.writepermission_modifydata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.writepermissionmodifydata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool WritePermission_DeleteData = 3;
+      // bool WritePermissionDeleteData = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.writepermission_deletedata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.writepermissiondeletedata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool ReadPerimission_Query = 4;
+      // bool ReadPerimissionQuery = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.readperimission_query_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.readperimissionquery_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1711,28 +1711,28 @@ uint8_t* ProjectPermissionMetaInfoV1::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bool WritePermission_AddData = 1;
-  if (this->_internal_writepermission_adddata() != 0) {
+  // bool WritePermissionAddData = 1;
+  if (this->_internal_writepermissionadddata() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_writepermission_adddata(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_writepermissionadddata(), target);
   }
 
-  // bool WritePermission_ModifyData = 2;
-  if (this->_internal_writepermission_modifydata() != 0) {
+  // bool WritePermissionModifyData = 2;
+  if (this->_internal_writepermissionmodifydata() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_writepermission_modifydata(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_writepermissionmodifydata(), target);
   }
 
-  // bool WritePermission_DeleteData = 3;
-  if (this->_internal_writepermission_deletedata() != 0) {
+  // bool WritePermissionDeleteData = 3;
+  if (this->_internal_writepermissiondeletedata() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_writepermission_deletedata(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_writepermissiondeletedata(), target);
   }
 
-  // bool ReadPerimission_Query = 4;
-  if (this->_internal_readperimission_query() != 0) {
+  // bool ReadPerimissionQuery = 4;
+  if (this->_internal_readperimissionquery() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_readperimission_query(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_readperimissionquery(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1751,23 +1751,23 @@ size_t ProjectPermissionMetaInfoV1::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bool WritePermission_AddData = 1;
-  if (this->_internal_writepermission_adddata() != 0) {
+  // bool WritePermissionAddData = 1;
+  if (this->_internal_writepermissionadddata() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool WritePermission_ModifyData = 2;
-  if (this->_internal_writepermission_modifydata() != 0) {
+  // bool WritePermissionModifyData = 2;
+  if (this->_internal_writepermissionmodifydata() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool WritePermission_DeleteData = 3;
-  if (this->_internal_writepermission_deletedata() != 0) {
+  // bool WritePermissionDeleteData = 3;
+  if (this->_internal_writepermissiondeletedata() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool ReadPerimission_Query = 4;
-  if (this->_internal_readperimission_query() != 0) {
+  // bool ReadPerimissionQuery = 4;
+  if (this->_internal_readperimissionquery() != 0) {
     total_size += 1 + 1;
   }
 
@@ -1789,17 +1789,17 @@ void ProjectPermissionMetaInfoV1::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_writepermission_adddata() != 0) {
-    _this->_internal_set_writepermission_adddata(from._internal_writepermission_adddata());
+  if (from._internal_writepermissionadddata() != 0) {
+    _this->_internal_set_writepermissionadddata(from._internal_writepermissionadddata());
   }
-  if (from._internal_writepermission_modifydata() != 0) {
-    _this->_internal_set_writepermission_modifydata(from._internal_writepermission_modifydata());
+  if (from._internal_writepermissionmodifydata() != 0) {
+    _this->_internal_set_writepermissionmodifydata(from._internal_writepermissionmodifydata());
   }
-  if (from._internal_writepermission_deletedata() != 0) {
-    _this->_internal_set_writepermission_deletedata(from._internal_writepermission_deletedata());
+  if (from._internal_writepermissiondeletedata() != 0) {
+    _this->_internal_set_writepermissiondeletedata(from._internal_writepermissiondeletedata());
   }
-  if (from._internal_readperimission_query() != 0) {
-    _this->_internal_set_readperimission_query(from._internal_readperimission_query());
+  if (from._internal_readperimissionquery() != 0) {
+    _this->_internal_set_readperimissionquery(from._internal_readperimissionquery());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1819,11 +1819,11 @@ void ProjectPermissionMetaInfoV1::InternalSwap(ProjectPermissionMetaInfoV1* othe
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ProjectPermissionMetaInfoV1, _impl_.readperimission_query_)
-      + sizeof(ProjectPermissionMetaInfoV1::_impl_.readperimission_query_)
-      - PROTOBUF_FIELD_OFFSET(ProjectPermissionMetaInfoV1, _impl_.writepermission_adddata_)>(
-          reinterpret_cast<char*>(&_impl_.writepermission_adddata_),
-          reinterpret_cast<char*>(&other->_impl_.writepermission_adddata_));
+      PROTOBUF_FIELD_OFFSET(ProjectPermissionMetaInfoV1, _impl_.readperimissionquery_)
+      + sizeof(ProjectPermissionMetaInfoV1::_impl_.readperimissionquery_)
+      - PROTOBUF_FIELD_OFFSET(ProjectPermissionMetaInfoV1, _impl_.writepermissionadddata_)>(
+          reinterpret_cast<char*>(&_impl_.writepermissionadddata_),
+          reinterpret_cast<char*>(&other->_impl_.writepermissionadddata_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ProjectPermissionMetaInfoV1::GetMetadata() const {
@@ -2460,7 +2460,6 @@ class ProjectMetaInfoV1::_Internal {
   static const ::proto::MetaInfoBase& base(const ProjectMetaInfoV1* msg);
   static const ::PROTOBUF_NAMESPACE_ID::Timestamp& createtime(const ProjectMetaInfoV1* msg);
   static const ::PROTOBUF_NAMESPACE_ID::Timestamp& lastmodifiedtime(const ProjectMetaInfoV1* msg);
-  static const ::proto::UserPermissionOverrideMetaInfoV1& permissionoverride(const ProjectMetaInfoV1* msg);
 };
 
 const ::proto::MetaInfoBase&
@@ -2474,10 +2473,6 @@ ProjectMetaInfoV1::_Internal::createtime(const ProjectMetaInfoV1* msg) {
 const ::PROTOBUF_NAMESPACE_ID::Timestamp&
 ProjectMetaInfoV1::_Internal::lastmodifiedtime(const ProjectMetaInfoV1* msg) {
   return *msg->_impl_.lastmodifiedtime_;
-}
-const ::proto::UserPermissionOverrideMetaInfoV1&
-ProjectMetaInfoV1::_Internal::permissionoverride(const ProjectMetaInfoV1* msg) {
-  return *msg->_impl_.permissionoverride_;
 }
 void ProjectMetaInfoV1::clear_createtime() {
   if (GetArenaForAllocation() == nullptr && _impl_.createtime_ != nullptr) {
@@ -2502,6 +2497,7 @@ ProjectMetaInfoV1::ProjectMetaInfoV1(const ProjectMetaInfoV1& from)
   ProjectMetaInfoV1* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.swclist_){from._impl_.swclist_}
+    , decltype(_impl_.userpermissionoverride_){from._impl_.userpermissionoverride_}
     , decltype(_impl_.name_){}
     , decltype(_impl_.description_){}
     , decltype(_impl_.creator_){}
@@ -2509,7 +2505,6 @@ ProjectMetaInfoV1::ProjectMetaInfoV1(const ProjectMetaInfoV1& from)
     , decltype(_impl_.base_){nullptr}
     , decltype(_impl_.createtime_){nullptr}
     , decltype(_impl_.lastmodifiedtime_){nullptr}
-    , decltype(_impl_.permissionoverride_){nullptr}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -2554,9 +2549,6 @@ ProjectMetaInfoV1::ProjectMetaInfoV1(const ProjectMetaInfoV1& from)
   if (from._internal_has_lastmodifiedtime()) {
     _this->_impl_.lastmodifiedtime_ = new ::PROTOBUF_NAMESPACE_ID::Timestamp(*from._impl_.lastmodifiedtime_);
   }
-  if (from._internal_has_permissionoverride()) {
-    _this->_impl_.permissionoverride_ = new ::proto::UserPermissionOverrideMetaInfoV1(*from._impl_.permissionoverride_);
-  }
   // @@protoc_insertion_point(copy_constructor:proto.ProjectMetaInfoV1)
 }
 
@@ -2566,6 +2558,7 @@ inline void ProjectMetaInfoV1::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.swclist_){arena}
+    , decltype(_impl_.userpermissionoverride_){arena}
     , decltype(_impl_.name_){}
     , decltype(_impl_.description_){}
     , decltype(_impl_.creator_){}
@@ -2573,7 +2566,6 @@ inline void ProjectMetaInfoV1::SharedCtor(
     , decltype(_impl_.base_){nullptr}
     , decltype(_impl_.createtime_){nullptr}
     , decltype(_impl_.lastmodifiedtime_){nullptr}
-    , decltype(_impl_.permissionoverride_){nullptr}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
@@ -2606,6 +2598,7 @@ ProjectMetaInfoV1::~ProjectMetaInfoV1() {
 inline void ProjectMetaInfoV1::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.swclist_.~RepeatedPtrField();
+  _impl_.userpermissionoverride_.~RepeatedPtrField();
   _impl_.name_.Destroy();
   _impl_.description_.Destroy();
   _impl_.creator_.Destroy();
@@ -2613,7 +2606,6 @@ inline void ProjectMetaInfoV1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.base_;
   if (this != internal_default_instance()) delete _impl_.createtime_;
   if (this != internal_default_instance()) delete _impl_.lastmodifiedtime_;
-  if (this != internal_default_instance()) delete _impl_.permissionoverride_;
 }
 
 void ProjectMetaInfoV1::SetCachedSize(int size) const {
@@ -2627,6 +2619,7 @@ void ProjectMetaInfoV1::Clear() {
   (void) cached_has_bits;
 
   _impl_.swclist_.Clear();
+  _impl_.userpermissionoverride_.Clear();
   _impl_.name_.ClearToEmpty();
   _impl_.description_.ClearToEmpty();
   _impl_.creator_.ClearToEmpty();
@@ -2643,10 +2636,6 @@ void ProjectMetaInfoV1::Clear() {
     delete _impl_.lastmodifiedtime_;
   }
   _impl_.lastmodifiedtime_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && _impl_.permissionoverride_ != nullptr) {
-    delete _impl_.permissionoverride_;
-  }
-  _impl_.permissionoverride_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2725,11 +2714,16 @@ const char* ProjectMetaInfoV1::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // .proto.UserPermissionOverrideMetaInfoV1 PermissionOverride = 8;
+      // repeated .proto.ProjectPermissionMetaInfoV1 UserPermissionOverride = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
-          ptr = ctx->ParseMessage(_internal_mutable_permissionoverride(), ptr);
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_userpermissionoverride(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -2833,11 +2827,12 @@ uint8_t* ProjectMetaInfoV1::_InternalSerialize(
     target = stream->WriteString(7, s, target);
   }
 
-  // .proto.UserPermissionOverrideMetaInfoV1 PermissionOverride = 8;
-  if (this->_internal_has_permissionoverride()) {
+  // repeated .proto.ProjectPermissionMetaInfoV1 UserPermissionOverride = 8;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_userpermissionoverride_size()); i < n; i++) {
+    const auto& repfield = this->_internal_userpermissionoverride(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(8, _Internal::permissionoverride(this),
-        _Internal::permissionoverride(this).GetCachedSize(), target, stream);
+        InternalWriteMessage(8, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // string WorkMode = 9;
@@ -2872,6 +2867,13 @@ size_t ProjectMetaInfoV1::ByteSizeLong() const {
   for (int i = 0, n = _impl_.swclist_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       _impl_.swclist_.Get(i));
+  }
+
+  // repeated .proto.ProjectPermissionMetaInfoV1 UserPermissionOverride = 8;
+  total_size += 1UL * this->_internal_userpermissionoverride_size();
+  for (const auto& msg : this->_impl_.userpermissionoverride_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // string Name = 2;
@@ -2923,13 +2925,6 @@ size_t ProjectMetaInfoV1::ByteSizeLong() const {
         *_impl_.lastmodifiedtime_);
   }
 
-  // .proto.UserPermissionOverrideMetaInfoV1 PermissionOverride = 8;
-  if (this->_internal_has_permissionoverride()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.permissionoverride_);
-  }
-
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -2949,6 +2944,7 @@ void ProjectMetaInfoV1::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   (void) cached_has_bits;
 
   _this->_impl_.swclist_.MergeFrom(from._impl_.swclist_);
+  _this->_impl_.userpermissionoverride_.MergeFrom(from._impl_.userpermissionoverride_);
   if (!from._internal_name().empty()) {
     _this->_internal_set_name(from._internal_name());
   }
@@ -2973,10 +2969,6 @@ void ProjectMetaInfoV1::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
     _this->_internal_mutable_lastmodifiedtime()->::PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(
         from._internal_lastmodifiedtime());
   }
-  if (from._internal_has_permissionoverride()) {
-    _this->_internal_mutable_permissionoverride()->::proto::UserPermissionOverrideMetaInfoV1::MergeFrom(
-        from._internal_permissionoverride());
-  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2997,6 +2989,7 @@ void ProjectMetaInfoV1::InternalSwap(ProjectMetaInfoV1* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.swclist_.InternalSwap(&other->_impl_.swclist_);
+  _impl_.userpermissionoverride_.InternalSwap(&other->_impl_.userpermissionoverride_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.name_, lhs_arena,
       &other->_impl_.name_, rhs_arena
@@ -3014,8 +3007,8 @@ void ProjectMetaInfoV1::InternalSwap(ProjectMetaInfoV1* other) {
       &other->_impl_.workmode_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ProjectMetaInfoV1, _impl_.permissionoverride_)
-      + sizeof(ProjectMetaInfoV1::_impl_.permissionoverride_)
+      PROTOBUF_FIELD_OFFSET(ProjectMetaInfoV1, _impl_.lastmodifiedtime_)
+      + sizeof(ProjectMetaInfoV1::_impl_.lastmodifiedtime_)
       - PROTOBUF_FIELD_OFFSET(ProjectMetaInfoV1, _impl_.base_)>(
           reinterpret_cast<char*>(&_impl_.base_),
           reinterpret_cast<char*>(&other->_impl_.base_));

@@ -1928,7 +1928,7 @@ class GetPermissionGroupResponse final :
 
   enum : int {
     kMessageFieldNumber = 2,
-    kPermissionGroupListFieldNumber = 3,
+    kPermissionGroupFieldNumber = 3,
     kStatusFieldNumber = 1,
   };
   // string Message = 2;
@@ -1945,23 +1945,23 @@ class GetPermissionGroupResponse final :
   std::string* _internal_mutable_message();
   public:
 
-  // .proto.PermissionGroupMetaInfoV1 PermissionGroupList = 3;
-  bool has_permissiongrouplist() const;
+  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
+  bool has_permissiongroup() const;
   private:
-  bool _internal_has_permissiongrouplist() const;
+  bool _internal_has_permissiongroup() const;
   public:
-  void clear_permissiongrouplist();
-  const ::proto::PermissionGroupMetaInfoV1& permissiongrouplist() const;
-  PROTOBUF_NODISCARD ::proto::PermissionGroupMetaInfoV1* release_permissiongrouplist();
-  ::proto::PermissionGroupMetaInfoV1* mutable_permissiongrouplist();
-  void set_allocated_permissiongrouplist(::proto::PermissionGroupMetaInfoV1* permissiongrouplist);
+  void clear_permissiongroup();
+  const ::proto::PermissionGroupMetaInfoV1& permissiongroup() const;
+  PROTOBUF_NODISCARD ::proto::PermissionGroupMetaInfoV1* release_permissiongroup();
+  ::proto::PermissionGroupMetaInfoV1* mutable_permissiongroup();
+  void set_allocated_permissiongroup(::proto::PermissionGroupMetaInfoV1* permissiongroup);
   private:
-  const ::proto::PermissionGroupMetaInfoV1& _internal_permissiongrouplist() const;
-  ::proto::PermissionGroupMetaInfoV1* _internal_mutable_permissiongrouplist();
+  const ::proto::PermissionGroupMetaInfoV1& _internal_permissiongroup() const;
+  ::proto::PermissionGroupMetaInfoV1* _internal_mutable_permissiongroup();
   public:
-  void unsafe_arena_set_allocated_permissiongrouplist(
-      ::proto::PermissionGroupMetaInfoV1* permissiongrouplist);
-  ::proto::PermissionGroupMetaInfoV1* unsafe_arena_release_permissiongrouplist();
+  void unsafe_arena_set_allocated_permissiongroup(
+      ::proto::PermissionGroupMetaInfoV1* permissiongroup);
+  ::proto::PermissionGroupMetaInfoV1* unsafe_arena_release_permissiongroup();
 
   // bool status = 1;
   void clear_status();
@@ -1981,7 +1981,7 @@ class GetPermissionGroupResponse final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
-    ::proto::PermissionGroupMetaInfoV1* permissiongrouplist_;
+    ::proto::PermissionGroupMetaInfoV1* permissiongroup_;
     bool status_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -7709,39 +7709,39 @@ inline void GetPermissionGroupResponse::set_allocated_message(std::string* messa
   // @@protoc_insertion_point(field_set_allocated:proto.GetPermissionGroupResponse.Message)
 }
 
-// .proto.PermissionGroupMetaInfoV1 PermissionGroupList = 3;
-inline bool GetPermissionGroupResponse::_internal_has_permissiongrouplist() const {
-  return this != internal_default_instance() && _impl_.permissiongrouplist_ != nullptr;
+// .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
+inline bool GetPermissionGroupResponse::_internal_has_permissiongroup() const {
+  return this != internal_default_instance() && _impl_.permissiongroup_ != nullptr;
 }
-inline bool GetPermissionGroupResponse::has_permissiongrouplist() const {
-  return _internal_has_permissiongrouplist();
+inline bool GetPermissionGroupResponse::has_permissiongroup() const {
+  return _internal_has_permissiongroup();
 }
-inline const ::proto::PermissionGroupMetaInfoV1& GetPermissionGroupResponse::_internal_permissiongrouplist() const {
-  const ::proto::PermissionGroupMetaInfoV1* p = _impl_.permissiongrouplist_;
+inline const ::proto::PermissionGroupMetaInfoV1& GetPermissionGroupResponse::_internal_permissiongroup() const {
+  const ::proto::PermissionGroupMetaInfoV1* p = _impl_.permissiongroup_;
   return p != nullptr ? *p : reinterpret_cast<const ::proto::PermissionGroupMetaInfoV1&>(
       ::proto::_PermissionGroupMetaInfoV1_default_instance_);
 }
-inline const ::proto::PermissionGroupMetaInfoV1& GetPermissionGroupResponse::permissiongrouplist() const {
-  // @@protoc_insertion_point(field_get:proto.GetPermissionGroupResponse.PermissionGroupList)
-  return _internal_permissiongrouplist();
+inline const ::proto::PermissionGroupMetaInfoV1& GetPermissionGroupResponse::permissiongroup() const {
+  // @@protoc_insertion_point(field_get:proto.GetPermissionGroupResponse.PermissionGroup)
+  return _internal_permissiongroup();
 }
-inline void GetPermissionGroupResponse::unsafe_arena_set_allocated_permissiongrouplist(
-    ::proto::PermissionGroupMetaInfoV1* permissiongrouplist) {
+inline void GetPermissionGroupResponse::unsafe_arena_set_allocated_permissiongroup(
+    ::proto::PermissionGroupMetaInfoV1* permissiongroup) {
   if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permissiongrouplist_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permissiongroup_);
   }
-  _impl_.permissiongrouplist_ = permissiongrouplist;
-  if (permissiongrouplist) {
+  _impl_.permissiongroup_ = permissiongroup;
+  if (permissiongroup) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetPermissionGroupResponse.PermissionGroupList)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetPermissionGroupResponse.PermissionGroup)
 }
-inline ::proto::PermissionGroupMetaInfoV1* GetPermissionGroupResponse::release_permissiongrouplist() {
+inline ::proto::PermissionGroupMetaInfoV1* GetPermissionGroupResponse::release_permissiongroup() {
   
-  ::proto::PermissionGroupMetaInfoV1* temp = _impl_.permissiongrouplist_;
-  _impl_.permissiongrouplist_ = nullptr;
+  ::proto::PermissionGroupMetaInfoV1* temp = _impl_.permissiongroup_;
+  _impl_.permissiongroup_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
   temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -7753,45 +7753,45 @@ inline ::proto::PermissionGroupMetaInfoV1* GetPermissionGroupResponse::release_p
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::proto::PermissionGroupMetaInfoV1* GetPermissionGroupResponse::unsafe_arena_release_permissiongrouplist() {
-  // @@protoc_insertion_point(field_release:proto.GetPermissionGroupResponse.PermissionGroupList)
+inline ::proto::PermissionGroupMetaInfoV1* GetPermissionGroupResponse::unsafe_arena_release_permissiongroup() {
+  // @@protoc_insertion_point(field_release:proto.GetPermissionGroupResponse.PermissionGroup)
   
-  ::proto::PermissionGroupMetaInfoV1* temp = _impl_.permissiongrouplist_;
-  _impl_.permissiongrouplist_ = nullptr;
+  ::proto::PermissionGroupMetaInfoV1* temp = _impl_.permissiongroup_;
+  _impl_.permissiongroup_ = nullptr;
   return temp;
 }
-inline ::proto::PermissionGroupMetaInfoV1* GetPermissionGroupResponse::_internal_mutable_permissiongrouplist() {
+inline ::proto::PermissionGroupMetaInfoV1* GetPermissionGroupResponse::_internal_mutable_permissiongroup() {
   
-  if (_impl_.permissiongrouplist_ == nullptr) {
+  if (_impl_.permissiongroup_ == nullptr) {
     auto* p = CreateMaybeMessage<::proto::PermissionGroupMetaInfoV1>(GetArenaForAllocation());
-    _impl_.permissiongrouplist_ = p;
+    _impl_.permissiongroup_ = p;
   }
-  return _impl_.permissiongrouplist_;
+  return _impl_.permissiongroup_;
 }
-inline ::proto::PermissionGroupMetaInfoV1* GetPermissionGroupResponse::mutable_permissiongrouplist() {
-  ::proto::PermissionGroupMetaInfoV1* _msg = _internal_mutable_permissiongrouplist();
-  // @@protoc_insertion_point(field_mutable:proto.GetPermissionGroupResponse.PermissionGroupList)
+inline ::proto::PermissionGroupMetaInfoV1* GetPermissionGroupResponse::mutable_permissiongroup() {
+  ::proto::PermissionGroupMetaInfoV1* _msg = _internal_mutable_permissiongroup();
+  // @@protoc_insertion_point(field_mutable:proto.GetPermissionGroupResponse.PermissionGroup)
   return _msg;
 }
-inline void GetPermissionGroupResponse::set_allocated_permissiongrouplist(::proto::PermissionGroupMetaInfoV1* permissiongrouplist) {
+inline void GetPermissionGroupResponse::set_allocated_permissiongroup(::proto::PermissionGroupMetaInfoV1* permissiongroup) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permissiongrouplist_);
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permissiongroup_);
   }
-  if (permissiongrouplist) {
+  if (permissiongroup) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
         ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(permissiongrouplist));
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(permissiongroup));
     if (message_arena != submessage_arena) {
-      permissiongrouplist = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, permissiongrouplist, submessage_arena);
+      permissiongroup = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, permissiongroup, submessage_arena);
     }
     
   } else {
     
   }
-  _impl_.permissiongrouplist_ = permissiongrouplist;
-  // @@protoc_insertion_point(field_set_allocated:proto.GetPermissionGroupResponse.PermissionGroupList)
+  _impl_.permissiongroup_ = permissiongroup;
+  // @@protoc_insertion_point(field_set_allocated:proto.GetPermissionGroupResponse.PermissionGroup)
 }
 
 // -------------------------------------------------------------------
