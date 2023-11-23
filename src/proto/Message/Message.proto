@@ -20,7 +20,6 @@ message UserMetaInfoV1{
     google.protobuf.Timestamp CreateTime = 5;
     bytes HeadPhotoBinData = 6;
     string UserPermissionGroup = 7;
-    string OnlineStatus = 8;
 }
 
 message GlobalPermissionMetaInfoV1{

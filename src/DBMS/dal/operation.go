@@ -141,11 +141,11 @@ func QueryAllProject(projectMetaInfoList *[]dbmodel.ProjectMetaInfoV1, databaseI
 		if err != nil && err != io.EOF {
 			return ReturnWrapper{false, err.Error()}
 		}
-		output, err := json.MarshalIndent(result, "", "    ")
+		_, err = json.MarshalIndent(result, "", "    ")
 		if err != nil {
 			return ReturnWrapper{false, "Query all Project failed!"}
 		}
-		fmt.Printf("%s\n", output)
+		//fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all Project Success"}
 }
@@ -243,11 +243,11 @@ func QueryAllUser(userMetaInfoList *[]dbmodel.UserMetaInfoV1, databaseInfo Mongo
 		if err != nil && err != io.EOF {
 			return ReturnWrapper{false, err.Error()}
 		}
-		output, err := json.MarshalIndent(result, "", "    ")
+		_, err = json.MarshalIndent(result, "", "    ")
 		if err != nil {
 			return ReturnWrapper{false, "Query all user failed!"}
 		}
-		fmt.Printf("%s\n", output)
+		//fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all user Success"}
 }
@@ -345,11 +345,11 @@ func QueryAllPermissionGroup(permissionGroupList *[]dbmodel.PermissionGroupMetaI
 		if err != nil && err != io.EOF {
 			return ReturnWrapper{false, err.Error()}
 		}
-		output, err := json.MarshalIndent(result, "", "    ")
+		_, err = json.MarshalIndent(result, "", "    ")
 		if err != nil {
 			return ReturnWrapper{false, "Query all PermissionGroup failed!"}
 		}
-		fmt.Printf("%s\n", output)
+		//fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all PermissionGroup Success"}
 }
@@ -447,11 +447,11 @@ func QueryAllSwc(swcMetaInfoList *[]dbmodel.SwcMetaInfoV1, databaseInfo MongoDbD
 		if err != nil && err != io.EOF {
 			return ReturnWrapper{false, err.Error()}
 		}
-		output, err := json.MarshalIndent(result, "", "    ")
+		_, err = json.MarshalIndent(result, "", "    ")
 		if err != nil {
 			return ReturnWrapper{false, "Query all swc failed!"}
 		}
-		fmt.Printf("%s\n", output)
+		//fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all swc Success"}
 }
@@ -549,11 +549,11 @@ func QueryAllDailyStatistics(dailyStatisticsList *[]dbmodel.DailyStatisticsMetaI
 		if err != nil && err != io.EOF {
 			return ReturnWrapper{false, err.Error()}
 		}
-		output, err := json.MarshalIndent(result, "", "    ")
+		_, err = json.MarshalIndent(result, "", "    ")
 		if err != nil {
 			return ReturnWrapper{false, "Query all DailyStatistics failed!"}
 		}
-		fmt.Printf("%s\n", output)
+		//fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all DailyStatistics Success"}
 }
@@ -659,11 +659,11 @@ func QuerySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcDataV1,
 		if err != nil && err != io.EOF {
 			return ReturnWrapper{false, err.Error()}
 		}
-		output, err := json.MarshalIndent(result, "", "    ")
+		_, err = json.MarshalIndent(result, "", "    ")
 		if err != nil {
 			return ReturnWrapper{false, "Query many node failed!"}
 		}
-		fmt.Printf("%s\n", output)
+		//fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query many node Success"}
 }
@@ -709,11 +709,11 @@ func QuerySwcDataByUserAndTime(
 		if err != nil && err != io.EOF {
 			return ReturnWrapper{false, err.Error()}
 		}
-		output, err := json.MarshalIndent(result, "", "    ")
+		_, err = json.MarshalIndent(result, "", "    ")
 		if err != nil {
 			return ReturnWrapper{false, "QuerySwcDataByUserAndTime failed!"}
 		}
-		fmt.Printf("%s\n", output)
+		//fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "QuerySwcDataByUserAndTime Success"}
 }
@@ -740,11 +740,11 @@ func QueryAllSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcData
 		if err != nil && err != io.EOF {
 			return ReturnWrapper{false, err.Error()}
 		}
-		output, err := json.MarshalIndent(result, "", "    ")
+		_, err = json.MarshalIndent(result, "", "    ")
 		if err != nil {
 			return ReturnWrapper{false, "Query many node failed!"}
 		}
-		fmt.Printf("%s\n", output)
+		//fmt.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query many node Success"}
 }

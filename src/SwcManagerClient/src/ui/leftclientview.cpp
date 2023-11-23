@@ -8,6 +8,7 @@
 #include "src/framework/defination/TypeDef.h"
 #include "src/framework/defination/ImageDefination.h"
 #include "src/framework/service/WrappedCall.h"
+#include "src/ui/editorusersettings.h"
 
 LeftClientView::LeftClientView(MainWindow* mainWindow) :
     QWidget(mainWindow), ui(new Ui::LeftClientView) {
@@ -16,10 +17,19 @@ LeftClientView::LeftClientView(MainWindow* mainWindow) :
 
     m_ControlBtnLayout = new QHBoxLayout;
 
+    m_UserSettingBtn = new QPushButton(this);
+    m_UserSettingBtn->setText("User Settings");
+
+    connect(m_UserSettingBtn,&QPushButton::clicked,this,[&](bool checked){
+        EditorUserSettings editorUserSettings;
+        editorUserSettings.exec();
+    });
+
     m_RefreshBtn = new QPushButton(this);
     m_RefreshBtn->setText("Refresh");
     connect(m_RefreshBtn,&QPushButton::clicked,this,&LeftClientView::onRefreshBtnClicked);
 
+    m_ControlBtnLayout->addWidget(m_UserSettingBtn);
     m_ControlBtnLayout->addWidget(m_RefreshBtn);
 
     m_TreeWidget = new QTreeWidget(this);

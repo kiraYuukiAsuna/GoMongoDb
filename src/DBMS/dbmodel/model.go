@@ -28,7 +28,6 @@ type UserMetaInfoV1 struct {
 	CreateTime          time.Time     `bson:"CreateTime"`
 	HeadPhotoBinData    *bytes.Buffer `bson:"HeadPhotoBinData"`
 	UserPermissionGroup string        `bson:"UserPermissionGroup"`
-	OnlineStatus        string        `bson:"OnlineStatus"`
 }
 
 type GlobalPermissionMetaInfoV1 struct {

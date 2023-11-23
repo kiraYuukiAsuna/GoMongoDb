@@ -1,7 +1,6 @@
 package main
 
 import (
-	"DBMS/UnitTest"
 	"DBMS/apihandler"
 	"DBMS/bll"
 	"github.com/gin-gonic/gin"
@@ -10,16 +9,18 @@ import (
 
 func main() {
 	bll.Initialize()
+	bll.CronAutoSaveDailyStatistics()
+	bll.CronHeartBeatRefresh()
 	bll.NewGrpcServer()
 	return
 
-	UnitTest.InitializeDb()
-	UnitTest.TestUserInfo()
-	UnitTest.TestProjectInfo()
-	UnitTest.TestPermissionGroupInfo()
-	UnitTest.TestSwcInfo()
-	UnitTest.TestDailyStatisticsInfo()
-	UnitTest.TestSwcData()
+	//UnitTest.InitializeDb()
+	//UnitTest.TestUserInfo()
+	//UnitTest.TestProjectInfo()
+	//UnitTest.TestPermissionGroupInfo()
+	//UnitTest.TestSwcInfo()
+	//UnitTest.TestDailyStatisticsInfo()
+	//UnitTest.TestSwcData()
 
 	return
 

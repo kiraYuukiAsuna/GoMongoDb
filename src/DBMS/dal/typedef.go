@@ -39,3 +39,8 @@ const (
 	PermissionGroupNormalUser  string = "NormalUser"
 	PermissionGroupGuest       string = "Guest"
 )
+
+const (
+	DefaultAdminSystemUserName     string = "DefaultAdminSystemUserName"
+	DefaultAdminSystemUserPassword string = "DefaultAdminSystemUserPassword"
+)

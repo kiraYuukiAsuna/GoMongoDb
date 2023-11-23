@@ -32,6 +32,7 @@ private:
     QHBoxLayout* m_ControlBtnLayout;
     MainWindow* m_MainWindow;
 
+    QPushButton* m_UserSettingBtn;
     QPushButton* m_RefreshBtn;
 
     QTreeWidget* m_TreeWidget;

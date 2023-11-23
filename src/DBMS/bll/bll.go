@@ -15,10 +15,6 @@ import (
 	"time"
 )
 
-var OnlineUserList dbmodel.UserMetaInfoV1
-
-var DailyStatisticsData dbmodel.DailyStatisticsMetaInfoV1
-
 type DBMSServerController struct {
 	service.UnimplementedDBMSServer
 }
@@ -32,7 +28,7 @@ func (D DBMSServerController) CreateUser(ctx context.Context, request *request.C
 	userMetaInfo.Name = request.UserInfo.Name
 	userMetaInfo.Password = request.UserInfo.Password
 	userMetaInfo.Description = request.UserInfo.Description
-	userMetaInfo.UserPermissionGroup = "default"
+	userMetaInfo.UserPermissionGroup = dal.PermissionGroupDefault
 	userMetaInfo.CreateTime = time.Now()
 	userMetaInfo.HeadPhotoBinData = bytes.NewBuffer(request.UserInfo.HeadPhotoBinData)
 
@@ -56,6 +52,15 @@ func (D DBMSServerController) CreateUser(ctx context.Context, request *request.C
 func (D DBMSServerController) DeleteUser(ctx context.Context, request *request.DeleteUserRequest) (*response.DeleteUserResponse, error) {
 	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.DeleteUserResponse{
+			Status:   false,
+			Message:  result.Message,
+			UserInfo: UserMetaInfoV1DbmodelToProtobuf(userMetaInfo),
+		}, nil
+	}
+
 	if userMetaInfo.UserPermissionGroup != dal.PermissionGroupAdmin {
 		return &response.DeleteUserResponse{
 			Status:   false,
@@ -64,7 +69,7 @@ func (D DBMSServerController) DeleteUser(ctx context.Context, request *request.D
 		}, nil
 	}
 
-	result := dal.DeleteUser(*userMetaInfo, dal.GetDbInstance())
+	result = dal.DeleteUser(*userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("User " + request.UserInfo.Name + " Deleted")
 		return &response.DeleteUserResponse{
@@ -158,6 +163,20 @@ func (D DBMSServerController) UserLogin(ctx context.Context, request *request.Us
 	if result.Status == true {
 		if userMetaInfo.Password == request.Password {
 			fmt.Println("User " + request.UserName + " Login")
+
+			bFind := false
+			for _, onlineUserInfo := range OnlineUserInfoCache {
+				if userMetaInfo.Name == onlineUserInfo.UserInfo.Name {
+					bFind = true
+				}
+			}
+			if !bFind {
+				DailyStatisticsInfo.ActiveUserNumber += 1
+				OnlineUserInfoCache = append(OnlineUserInfoCache,
+					OnlineUserInfo{userMetaInfo, false, time.Now().Add(30 * time.Second)})
+				fmt.Println("User " + userMetaInfo.Name + " HeartBeat Init")
+			}
+
 			return &response.UserLoginResponse{
 				Status:   true,
 				Message:  result.Message,
@@ -189,6 +208,17 @@ func (D DBMSServerController) UserLogout(ctx context.Context, request *request.U
 	if result.Status == true {
 		if userMetaInfo.Password == request.UserInfo.Password {
 			fmt.Println("User " + request.UserInfo.Name + " Logout")
+
+			for idx, onlineUserInfo := range OnlineUserInfoCache {
+				if userMetaInfo.Name == onlineUserInfo.UserInfo.Name {
+					onlineUserInfo.expired = true
+					DailyStatisticsInfo.ActiveUserNumber -= 1
+					OnlineUserInfoCache = append(OnlineUserInfoCache[:idx], OnlineUserInfoCache[idx+1:]...)
+					fmt.Println("User " + onlineUserInfo.UserInfo.Name + " HeaatBeat Close")
+					break
+				}
+			}
+
 			return &response.UserLogoutResponse{
 				Status:  true,
 				Message: result.Message,
@@ -210,6 +240,25 @@ func (D DBMSServerController) UserOnlineHeartBeatNotifications(ctx context.Conte
 	if result.Status == true {
 		if userMetaInfo.Password == notification.UserInfo.Password {
 			fmt.Println("User " + notification.UserInfo.Name + " OnlineHeartBeatNotifications")
+
+			bFind := false
+			var idx int
+			var onlineUserInfo OnlineUserInfo
+			for idx, onlineUserInfo = range OnlineUserInfoCache {
+				if userMetaInfo.Name == onlineUserInfo.UserInfo.Name {
+					bFind = true
+				}
+			}
+			if bFind {
+				OnlineUserInfoCache[idx].LastHeartBeatTime = time.Now().Add(30 * time.Second)
+				fmt.Println("User " + onlineUserInfo.UserInfo.Name + " HeartBeat Refresh")
+			} else {
+				DailyStatisticsInfo.ActiveUserNumber += 1
+				OnlineUserInfoCache = append(OnlineUserInfoCache,
+					OnlineUserInfo{userMetaInfo, false, time.Now().Add(30 * time.Second)})
+				fmt.Println("User " + userMetaInfo.Name + " HeartBeat Init by HeartBeat Notification")
+			}
+
 			return &response.UserOnlineHeartBeatResponse{
 				Status:  true,
 				Message: result.Message,
@@ -359,6 +408,7 @@ func (D DBMSServerController) CreateProject(ctx context.Context, request *reques
 	}
 
 	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
 	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
 	if result.Status == false {
 		return &response.CreateProjectResponse{
@@ -406,6 +456,7 @@ func (D DBMSServerController) CreateProject(ctx context.Context, request *reques
 	result = dal.CreateProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("Project " + request.ProjectInfo.Name + " Created")
+		DailyStatisticsInfo.CreatedProjectNumber += 1
 		return &response.CreateProjectResponse{
 			Status:      true,
 			Message:     result.Message,
@@ -434,6 +485,7 @@ func (D DBMSServerController) DeleteProject(ctx context.Context, request *reques
 	}
 
 	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
 	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
 	if result.Status == false {
 		return &response.DeleteProjectResponse{
@@ -454,6 +506,7 @@ func (D DBMSServerController) DeleteProject(ctx context.Context, request *reques
 	result = dal.DeleteProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("Project " + request.ProjectInfo.Name + " Deleted")
+		DailyStatisticsInfo.DeletedProjectNumber += 1
 		return &response.DeleteProjectResponse{
 			Status:      true,
 			Message:     result.Message,
@@ -482,6 +535,7 @@ func (D DBMSServerController) UpdateProject(ctx context.Context, request *reques
 	}
 
 	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
 	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
 	if result.Status == false {
 		return &response.UpdateProjectResponse{
@@ -502,6 +556,7 @@ func (D DBMSServerController) UpdateProject(ctx context.Context, request *reques
 	result = dal.ModifyProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("Project " + request.UserInfo.Name + " Updated")
+		DailyStatisticsInfo.ModifiedProjectNumber += 1
 		return &response.UpdateProjectResponse{
 			Status:      true,
 			Message:     result.Message,
@@ -517,12 +572,41 @@ func (D DBMSServerController) UpdateProject(ctx context.Context, request *reques
 }
 
 func (D DBMSServerController) GetProject(ctx context.Context, request *request.GetProjectRequest) (*response.GetProjectResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	projectMetaInfo := ProjectMetaInfoV1ProtobufToDbmodel(request.ProjectInfo)
 
-	result := dal.QueryProject(projectMetaInfo, dal.GetDbInstance())
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetProjectResponse{
+			Status:      false,
+			Message:     result.Message,
+			ProjectInfo: request.ProjectInfo,
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetProjectResponse{
+			Status:      false,
+			Message:     result.Message,
+			ProjectInfo: request.ProjectInfo,
+		}, nil
+	}
+
+	if permissionGroup.Global.ReadPerimissionQuery == false {
+		return &response.GetProjectResponse{
+			Status:      false,
+			Message:     "You don't have permission to access this project",
+			ProjectInfo: request.ProjectInfo,
+		}, nil
+	}
+
+	result = dal.QueryProject(projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("Project " + request.UserInfo.Name + " Get")
+		DailyStatisticsInfo.ProjectQueryNumber += 1
 		return &response.GetProjectResponse{
 			Status:      true,
 			Message:     result.Message,
@@ -546,6 +630,7 @@ func (D DBMSServerController) GetAllProject(ctx context.Context, request *reques
 	result := dal.QueryAllProject(&projectMetaInfoList, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("User " + request.UserInfo.Name + " Try Get AllProject")
+		DailyStatisticsInfo.ProjectQueryNumber += 1
 		for _, projectMetaInfo := range projectMetaInfoList {
 			protoMessage = append(protoMessage, ProjectMetaInfoV1DbmodelToProtobuf(&projectMetaInfo))
 		}
@@ -566,6 +651,35 @@ func (D DBMSServerController) GetAllProject(ctx context.Context, request *reques
 func (D DBMSServerController) CreateSwc(ctx context.Context, request *request.CreateSwcRequest) (*response.CreateSwcResponse, error) {
 	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.CreateSwcResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.CreateSwcResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
+
+	if permissionGroup.Project.WritePermissionAddData == false {
+		return &response.CreateSwcResponse{
+			Status:  false,
+			Message: "You don't have permission to create swc node!",
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
+
 	swcMetaInfo.Base.Id = primitive.NewObjectID()
 	swcMetaInfo.Base.Uuid = uuid.NewString()
 	swcMetaInfo.Base.ApiVersion = "V1"
@@ -575,9 +689,10 @@ func (D DBMSServerController) CreateSwc(ctx context.Context, request *request.Cr
 	swcMetaInfo.Name = request.SwcInfo.Name
 	swcMetaInfo.Description = request.SwcInfo.Description
 
-	result := dal.CreateSwc(*swcMetaInfo, dal.GetDbInstance())
+	result = dal.CreateSwc(*swcMetaInfo, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + "Create Swc " + swcMetaInfo.Name)
+		DailyStatisticsInfo.CreatedSwcNumber += 1
 		return &response.CreateSwcResponse{
 			Status:  true,
 			Message: result.Message,
@@ -593,12 +708,41 @@ func (D DBMSServerController) CreateSwc(ctx context.Context, request *request.Cr
 }
 
 func (D DBMSServerController) DeleteSwc(ctx context.Context, request *request.DeleteSwcRequest) (*response.DeleteSwcResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
 
-	result := dal.DeleteSwc(*swcMetaInfo, dal.GetDbInstance())
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.DeleteSwcResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.DeleteSwcResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
+
+	if permissionGroup.Project.WritePermissionDeleteData == false {
+		return &response.DeleteSwcResponse{
+			Status:  false,
+			Message: "You don't have permission to create swc!",
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
+
+	result = dal.DeleteSwc(*swcMetaInfo, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + "Delete Swc " + swcMetaInfo.Name)
+		DailyStatisticsInfo.DeletedSwcNumber += 1
 		return &response.DeleteSwcResponse{
 			Status:  true,
 			Message: result.Message,
@@ -614,12 +758,41 @@ func (D DBMSServerController) DeleteSwc(ctx context.Context, request *request.De
 }
 
 func (D DBMSServerController) UpdateSwc(ctx context.Context, request *request.UpdateSwcRequest) (*response.UpdateSwcResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
 
-	result := dal.ModifySwc(*swcMetaInfo, dal.GetDbInstance())
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.UpdateSwcResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.UpdateSwcResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
+
+	if permissionGroup.Project.WritePermissionModifyData == false {
+		return &response.UpdateSwcResponse{
+			Status:  false,
+			Message: "You don't have permission to modify swc!",
+			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+		}, nil
+	}
+
+	result = dal.ModifySwc(*swcMetaInfo, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + "Update SwcMetaInfo " + swcMetaInfo.Name)
+		DailyStatisticsInfo.ModifiedSwcNumber += 1
 		return &response.UpdateSwcResponse{
 			Status:  true,
 			Message: result.Message,
@@ -635,12 +808,41 @@ func (D DBMSServerController) UpdateSwc(ctx context.Context, request *request.Up
 }
 
 func (D DBMSServerController) GetSwcMetaInfo(ctx context.Context, request *request.GetSwcMetaInfoRequest) (*response.GetSwcMetaInfoResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
 
-	result := dal.QuerySwc(swcMetaInfo, dal.GetDbInstance())
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetSwcMetaInfoResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: request.SwcInfo,
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetSwcMetaInfoResponse{
+			Status:  false,
+			Message: result.Message,
+			SwcInfo: request.SwcInfo,
+		}, nil
+	}
+
+	if permissionGroup.Global.ReadPerimissionQuery == false {
+		return &response.GetSwcMetaInfoResponse{
+			Status:  false,
+			Message: "You don't have permission to access this swc",
+			SwcInfo: request.SwcInfo,
+		}, nil
+	}
+
+	result = dal.QuerySwc(swcMetaInfo, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Query SwcMetaInfo " + swcMetaInfo.Name)
+		DailyStatisticsInfo.SwcQueryNumber += 1
 		return &response.GetSwcMetaInfoResponse{
 			Status:  true,
 			Message: result.Message,
@@ -682,17 +884,45 @@ func (D DBMSServerController) GetAllSwcMetaInfo(ctx context.Context, request *re
 }
 
 func (D DBMSServerController) CreateSwcNodeData(ctx context.Context, request *request.CreateSwcNodeDataRequest) (*response.CreateSwcNodeDataResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.CreateSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.CreateSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
+
+	if permissionGroup.Project.WritePermissionAddData == false {
+		return &response.CreateSwcNodeDataResponse{
+			Status:      false,
+			Message:     "You don't have permission to create swc node!",
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
 
 	var swcData dbmodel.SwcDataV1
 	for _, swcNodeData := range request.SwcNodeData.SwcData {
 		swcData = append(swcData, *SwcNodeDataV1ProtobufToDbmodel(swcNodeData))
 	}
-
-	result := dal.CreateSwcData(*swcMetaInfo, swcData, dal.GetDbInstance())
+	result = dal.CreateSwcData(*swcMetaInfo, swcData, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Create Swc " + swcMetaInfo.Name)
+		fmt.Println("User " + request.UserInfo.Name + " Create Swc node " + swcMetaInfo.Name)
+		DailyStatisticsInfo.CreateSwcNodeNumber += 1
 		return &response.CreateSwcNodeDataResponse{
 			Status:      true,
 			Message:     result.Message,
@@ -708,17 +938,46 @@ func (D DBMSServerController) CreateSwcNodeData(ctx context.Context, request *re
 }
 
 func (D DBMSServerController) DeleteSwcNodeData(ctx context.Context, request *request.DeleteSwcNodeDataRequest) (*response.DeleteSwcNodeDataResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.DeleteSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.DeleteSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
+
+	if permissionGroup.Project.WritePermissionDeleteData == false {
+		return &response.DeleteSwcNodeDataResponse{
+			Status:      false,
+			Message:     "You don't have permission to delete swc node!",
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
 
 	var swcData dbmodel.SwcDataV1
 	for _, swcNodeData := range request.SwcNodeData.SwcData {
 		swcData = append(swcData, *SwcNodeDataV1ProtobufToDbmodel(swcNodeData))
 	}
 
-	result := dal.DeleteSwcData(*swcMetaInfo, swcData, dal.GetDbInstance())
+	result = dal.DeleteSwcData(*swcMetaInfo, swcData, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Delete Swc " + swcMetaInfo.Name)
+		DailyStatisticsInfo.DeletedSwcNodeNumber += 1
 		return &response.DeleteSwcNodeDataResponse{
 			Status:      true,
 			Message:     result.Message,
@@ -734,13 +993,42 @@ func (D DBMSServerController) DeleteSwcNodeData(ctx context.Context, request *re
 }
 
 func (D DBMSServerController) UpdateSwcNodeData(ctx context.Context, request *request.UpdateSwcNodeDataRequest) (*response.UpdateSwcNodeDataResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
 
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.UpdateSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.UpdateSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
+
+	if permissionGroup.Project.WritePermissionModifyData == false {
+		return &response.UpdateSwcNodeDataResponse{
+			Status:      false,
+			Message:     "You don't have permission to modify swc node!",
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
+
 	swcNodeData := SwcNodeDataV1ProtobufToDbmodel(request.SwcNodeData)
-	result := dal.ModifySwcData(*swcMetaInfo, *swcNodeData, dal.GetDbInstance())
+	result = dal.ModifySwcData(*swcMetaInfo, *swcNodeData, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Update Swc " + swcMetaInfo.Name)
+		DailyStatisticsInfo.ModifiedSwcNodeNumber += 1
 		return &response.UpdateSwcNodeDataResponse{
 			Status:      true,
 			Message:     result.Message,
@@ -756,8 +1044,36 @@ func (D DBMSServerController) UpdateSwcNodeData(ctx context.Context, request *re
 }
 
 func (D DBMSServerController) GetSwcNodeData(ctx context.Context, request *request.GetSwcNodeDataRequest) (*response.GetSwcNodeDataResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
+
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetSwcNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
+
+	if permissionGroup.Project.ReadPerimissionQuery == false {
+		return &response.GetSwcNodeDataResponse{
+			Status:      false,
+			Message:     "You don't have permission to access this swc node",
+			SwcNodeData: request.SwcNodeData,
+		}, nil
+	}
 
 	var dbmodelMessage dbmodel.SwcDataV1
 
@@ -767,9 +1083,11 @@ func (D DBMSServerController) GetSwcNodeData(ctx context.Context, request *reque
 		dbmodelMessage = append(dbmodelMessage, *SwcNodeDataV1ProtobufToDbmodel(swcNodeData))
 	}
 
-	result := dal.DeleteSwcData(*swcMetaInfo, dbmodelMessage, dal.GetDbInstance())
+	result = dal.DeleteSwcData(*swcMetaInfo, dbmodelMessage, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Get SwcData " + swcMetaInfo.Name)
+
+		DailyStatisticsInfo.NodeQueryNumber += 1
 
 		for _, swcNodeData := range dbmodelMessage {
 			protoMessage.SwcData = append(protoMessage.SwcData, SwcNodeDataV1DbmodelToProtobuf(&swcNodeData))
@@ -790,16 +1108,44 @@ func (D DBMSServerController) GetSwcNodeData(ctx context.Context, request *reque
 }
 
 func (D DBMSServerController) GetSwcFullNodeData(ctx context.Context, request *request.GetSwcFullNodeDataRequest) (*response.GetSwcFullNodeDataResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
 
 	var dbmodelMessage dbmodel.SwcDataV1
 	var protoMessage message.SwcDataV1
 
-	result := dal.DeleteSwcData(*swcMetaInfo, dbmodelMessage, dal.GetDbInstance())
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetSwcFullNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetSwcFullNodeDataResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	}
+
+	if permissionGroup.Project.ReadPerimissionQuery == false {
+		return &response.GetSwcFullNodeDataResponse{
+			Status:      false,
+			Message:     "You don't have permission to access this full swc node data!",
+			SwcNodeData: &protoMessage,
+		}, nil
+	}
+
+	result = dal.DeleteSwcData(*swcMetaInfo, dbmodelMessage, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Get SwcFullNodeData " + swcMetaInfo.Name)
-
+		DailyStatisticsInfo.NodeQueryNumber += 1
 		for _, swcNodeData := range dbmodelMessage {
 			protoMessage.SwcData = append(protoMessage.SwcData, SwcNodeDataV1DbmodelToProtobuf(&swcNodeData))
 		}
@@ -819,11 +1165,39 @@ func (D DBMSServerController) GetSwcFullNodeData(ctx context.Context, request *r
 }
 
 func (D DBMSServerController) GetSwcNodeDataListByTimeAndUser(ctx context.Context, request *request.GetSwcNodeDataListByTimeAndUserRequest) (*response.GetSwcNodeDataListByTimeAndUserResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	swcMetaInfo := SwcMetaInfoV1ProtobufToDbmodel(request.SwcInfo)
 
 	var dbmodelMessage dbmodel.SwcDataV1
 	var protoMessage message.SwcDataV1
+
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetSwcNodeDataListByTimeAndUserResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	permissionGroup.Name = userMetaInfo.UserPermissionGroup
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.GetSwcNodeDataListByTimeAndUserResponse{
+			Status:      false,
+			Message:     result.Message,
+			SwcNodeData: &protoMessage,
+		}, nil
+	}
+
+	if permissionGroup.Project.ReadPerimissionQuery == false {
+		return &response.GetSwcNodeDataListByTimeAndUserResponse{
+			Status:      false,
+			Message:     "You don't have permission to access the swc node data!",
+			SwcNodeData: &protoMessage,
+		}, nil
+	}
 
 	var startTime time.Time
 	var endTime time.Time
@@ -840,9 +1214,10 @@ func (D DBMSServerController) GetSwcNodeDataListByTimeAndUser(ctx context.Contex
 		startTime = time.Now()
 	}
 
-	result := dal.QuerySwcDataByUserAndTime(*swcMetaInfo, request.UserName, startTime, endTime, &dbmodelMessage, dal.GetDbInstance())
+	result = dal.QuerySwcDataByUserAndTime(*swcMetaInfo, request.UserName, startTime, endTime, &dbmodelMessage, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Get SwcDataByUserAndTime " + swcMetaInfo.Name)
+		DailyStatisticsInfo.NodeQueryNumber += 1
 
 		for _, swcNodeData := range dbmodelMessage {
 			protoMessage.SwcData = append(protoMessage.SwcData, SwcNodeDataV1DbmodelToProtobuf(&swcNodeData))
@@ -920,10 +1295,27 @@ func (D DBMSServerController) CreateDailyStatistics(ctx context.Context, request
 }
 
 func (D DBMSServerController) DeleteDailyStatistics(ctx context.Context, request *request.DeleteDailyStatisticsRequest) (*response.DeleteDailyStatisticsResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	dailyStatisticsInfo := DailyStatisticsMetaInfoV1ProtobufToDbmodel(request.DailyStatisticsInfo)
 
-	result := dal.DeleteDailyStatistics(*dailyStatisticsInfo, dal.GetDbInstance())
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.DeleteDailyStatisticsResponse{
+			Status:              false,
+			Message:             result.Message,
+			DailyStatisticsInfo: request.DailyStatisticsInfo,
+		}, nil
+	}
+
+	if userMetaInfo.UserPermissionGroup != dal.PermissionGroupAdmin {
+		return &response.DeleteDailyStatisticsResponse{
+			Status:              false,
+			Message:             "You don't have permission to delete this DailyStatistics!",
+			DailyStatisticsInfo: request.DailyStatisticsInfo,
+		}, nil
+	}
+
+	result = dal.DeleteDailyStatistics(*dailyStatisticsInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Delete")
 		return &response.DeleteDailyStatisticsResponse{

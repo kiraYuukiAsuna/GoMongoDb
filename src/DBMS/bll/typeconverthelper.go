@@ -21,7 +21,6 @@ func UserMetaInfoV1ProtobufToDbmodel(protoMessage *message.UserMetaInfoV1) *dbmo
 	dbmodelMessage.Password = protoMessage.Password
 	dbmodelMessage.Description = protoMessage.Description
 	dbmodelMessage.UserPermissionGroup = protoMessage.UserPermissionGroup
-	dbmodelMessage.OnlineStatus = protoMessage.OnlineStatus
 
 	if protoMessage.CreateTime != nil {
 		dbmodelMessage.CreateTime = protoMessage.CreateTime.AsTime()

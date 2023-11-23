@@ -1,12 +1,7 @@
-//
-// Created by KiraY on 2023/11/22.
-//
-
-#ifndef EDITORUSERSETTINGS_H
-#define EDITORUSERSETTINGS_H
+#pragma once
 
 #include <QWidget>
-
+#include <QDialog>
 #include "EditorBase.h"
 
 
@@ -14,7 +9,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class EditorUserSettings; }
 QT_END_NAMESPACE
 
-class EditorUserSettings : public QWidget,public EditorBase{
+class EditorUserSettings : public QDialog, public EditorBase{
 Q_OBJECT
 
 public:
@@ -22,15 +17,15 @@ public:
     ~EditorUserSettings() override;
 
     virtual std::string getName() {
-        return "";
+        return "EditorUserSettings";
     }
 
     virtual MetaInfoType getMetaInfoType() {
         return MetaInfoType::eUserMetaInfo;
     }
+
+    void getUserMetaInfo();
+
 private:
     Ui::EditorUserSettings *ui;
 };
-
-
-#endif //EDITORUSERSETTINGS_H
