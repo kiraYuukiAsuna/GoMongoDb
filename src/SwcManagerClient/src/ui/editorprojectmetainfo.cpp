@@ -38,6 +38,13 @@ void EditorProjectMetaInfo::refresh(proto::GetProjectResponse& response) {
     ui->Dsecription->setText(QString::fromStdString(m_ProjectMetaInfo.description()));
     
     ui->SwcList->clear();
+
+    std::string stylesheet = std::string("QListWidget::indicator:checked{image:url(")
+                            + Image::ImageCheckBoxChecked + ");}" +
+                                "QListWidget::indicator:unchecked{image:url(" +
+                                    Image::ImageCheckBoxUnchecked+");}";
+    ui->SwcList->setStyleSheet(QString::fromStdString(stylesheet));
+
     proto::GetAllSwcMetaInfoResponse responseAllSwc;
     WrappedCall::getAllSwcMetaInfo(responseAllSwc, this);
     for (int i = 0; i < responseAllSwc.swcinfo_size(); i++) {

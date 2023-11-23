@@ -12,6 +12,13 @@ ViewCreateProject::ViewCreateProject(QWidget* parent) : QDialog(parent), ui(new 
     setWindowIcon(QIcon(Image::ImageProject));
 
     ui->listWidget->clear();
+
+    std::string stylesheet = std::string("QListWidget::indicator:checked{image:url(")
+                                + Image::ImageCheckBoxChecked + ");}" +
+                                    "QListWidget::indicator:unchecked{image:url(" +
+                                        Image::ImageCheckBoxUnchecked+");}";
+    ui->listWidget->setStyleSheet(QString::fromStdString(stylesheet));
+
     proto::GetAllSwcMetaInfoResponse responseAllSwc;
     WrappedCall::getAllSwcMetaInfo(responseAllSwc, this);
     for (int i = 0; i < responseAllSwc.swcinfo_size(); i++) {

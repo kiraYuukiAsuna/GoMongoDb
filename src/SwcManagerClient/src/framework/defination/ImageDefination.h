@@ -17,5 +17,7 @@ namespace Image {
     inline const char* ImageDefaultUserHeadPhoto = ":/images/defaultuserheadphoto.png";
     inline const char* ImageRefresh = ":/images/refresh.png";
     inline const char* ImageFileOpen = ":/images/file-open.png";
+    inline const char* ImageCheckBoxUnchecked = ":/images/checkbox-unchecked.png";
+    inline const char* ImageCheckBoxChecked = ":/images/checkbox-checked.png";
 
 }

@@ -105,5 +105,8 @@
         <file>images/defaultuserheadphoto.png</file>
         <file>images/refresh.png</file>
         <file>images/file-open.png</file>
+        <file>images/checkbox-unchecked.png</file>
+        <file>images/checkbox-checked.png</file>
+
     </qresource>
 </RCC>
