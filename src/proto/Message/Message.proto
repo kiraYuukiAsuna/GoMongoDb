@@ -46,8 +46,8 @@ message PermissionGroupMetaInfoV1{
 }
 
 message UserPermissionOverrideMetaInfoV1{
-    ProjectPermissionMetaInfoV1 ProjectPermission = 2;
-    string UserName = 3;
+    ProjectPermissionMetaInfoV1 ProjectPermission = 1;
+    string UserName = 2;
 }
 
 message ProjectMetaInfoV1{

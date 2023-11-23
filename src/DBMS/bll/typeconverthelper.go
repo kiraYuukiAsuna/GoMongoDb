@@ -134,6 +134,7 @@ func ProjectMetaInfoV1ProtobufToDbmodel(protoMessage *message.ProjectMetaInfoV1)
 	if protoMessage.UserPermissionOverride != nil {
 		for _, protoPermissionOverride := range protoMessage.UserPermissionOverride {
 			var projectPermissionOverride dbmodel.UserPermissionOverrideMetaInfoV1
+			projectPermissionOverride.Project = dbmodel.ProjectPermissionMetaInfoV1{}
 			projectPermissionOverride.Project.ReadPerimissionQuery = protoPermissionOverride.ProjectPermission.ReadPerimissionQuery
 			projectPermissionOverride.Project.WritePermissionAddData = protoPermissionOverride.ProjectPermission.WritePermissionAddData
 			projectPermissionOverride.Project.WritePermissionModifyData = protoPermissionOverride.ProjectPermission.WritePermissionModifyData
@@ -165,6 +166,7 @@ func ProjectMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.ProjectMetaInfoV
 
 	for _, dbmodelPermissionOverride := range dbmodelMessage.UserPermissionOverride {
 		var protoPermissionOverride message.UserPermissionOverrideMetaInfoV1
+		protoPermissionOverride.ProjectPermission = &message.ProjectPermissionMetaInfoV1{}
 		protoPermissionOverride.ProjectPermission.ReadPerimissionQuery = dbmodelPermissionOverride.Project.ReadPerimissionQuery
 		protoPermissionOverride.ProjectPermission.WritePermissionAddData = dbmodelPermissionOverride.Project.WritePermissionAddData
 		protoPermissionOverride.ProjectPermission.WritePermissionModifyData = dbmodelPermissionOverride.Project.WritePermissionModifyData

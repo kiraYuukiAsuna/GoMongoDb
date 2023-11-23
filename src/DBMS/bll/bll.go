@@ -156,6 +156,13 @@ func (D DBMSServerController) GetAllUser(ctx context.Context, request *request.G
 }
 
 func (D DBMSServerController) UserLogin(ctx context.Context, request *request.UserLoginRequest) (*response.UserLoginResponse, error) {
+	if request == nil {
+		return &response.UserLoginResponse{
+			Status:   false,
+			Message:  "Request is nil",
+			UserInfo: nil,
+		}, nil
+	}
 	var userMetaInfo dbmodel.UserMetaInfoV1
 	userMetaInfo.Name = request.UserName
 
@@ -201,6 +208,13 @@ func (D DBMSServerController) UserLogin(ctx context.Context, request *request.Us
 }
 
 func (D DBMSServerController) UserLogout(ctx context.Context, request *request.UserLogoutRequest) (*response.UserLogoutResponse, error) {
+	if request == nil {
+		return &response.UserLogoutResponse{
+			Status:  false,
+			Message: "Request is nil",
+		}, nil
+	}
+
 	var userMetaInfo dbmodel.UserMetaInfoV1
 	userMetaInfo.Name = request.UserInfo.Name
 
@@ -233,6 +247,13 @@ func (D DBMSServerController) UserLogout(ctx context.Context, request *request.U
 }
 
 func (D DBMSServerController) UserOnlineHeartBeatNotifications(ctx context.Context, notification *request.UserOnlineHeartBeatNotification) (*response.UserOnlineHeartBeatResponse, error) {
+	if notification == nil {
+		return &response.UserOnlineHeartBeatResponse{
+			Status:  false,
+			Message: "Request is nil",
+		}, nil
+	}
+
 	var userMetaInfo dbmodel.UserMetaInfoV1
 	userMetaInfo.Name = notification.UserInfo.Name
 
@@ -432,26 +453,12 @@ func (D DBMSServerController) CreateProject(ctx context.Context, request *reques
 
 	projectMetaInfo.Name = request.ProjectInfo.Name
 	projectMetaInfo.Description = request.ProjectInfo.Description
-	projectMetaInfo.Creator = request.ProjectInfo.Creator
+	projectMetaInfo.Creator = request.UserInfo.Name
 
 	projectMetaInfo.CreateTime = time.Now()
 	projectMetaInfo.LastModifiedTime = time.Now()
-	projectMetaInfo.SwcList = []string{}
 
 	projectMetaInfo.WorkMode = request.ProjectInfo.WorkMode
-
-	if request.ProjectInfo.UserPermissionOverride != nil {
-		for _, protoPermissionOverride := range request.ProjectInfo.UserPermissionOverride {
-			var projectPermissionOverride dbmodel.UserPermissionOverrideMetaInfoV1
-			projectPermissionOverride.Project.ReadPerimissionQuery = protoPermissionOverride.ProjectPermission.ReadPerimissionQuery
-			projectPermissionOverride.Project.WritePermissionAddData = protoPermissionOverride.ProjectPermission.WritePermissionAddData
-			projectPermissionOverride.Project.WritePermissionModifyData = protoPermissionOverride.ProjectPermission.WritePermissionModifyData
-			projectPermissionOverride.Project.WritePermissionDeleteData = protoPermissionOverride.ProjectPermission.WritePermissionDeleteData
-			projectPermissionOverride.UserName = protoPermissionOverride.UserName
-
-			projectMetaInfo.UserPermissionOverride = append(projectMetaInfo.UserPermissionOverride, projectPermissionOverride)
-		}
-	}
 
 	result = dal.CreateProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
