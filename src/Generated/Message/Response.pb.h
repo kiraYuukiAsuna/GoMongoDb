@@ -2296,7 +2296,6 @@ class ChangeUserPermissionGroupResponse final :
 
   enum : int {
     kMessageFieldNumber = 2,
-    kPermissionGroupFieldNumber = 3,
     kStatusFieldNumber = 1,
   };
   // string Message = 2;
@@ -2312,24 +2311,6 @@ class ChangeUserPermissionGroupResponse final :
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
   std::string* _internal_mutable_message();
   public:
-
-  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
-  bool has_permissiongroup() const;
-  private:
-  bool _internal_has_permissiongroup() const;
-  public:
-  void clear_permissiongroup();
-  const ::proto::PermissionGroupMetaInfoV1& permissiongroup() const;
-  PROTOBUF_NODISCARD ::proto::PermissionGroupMetaInfoV1* release_permissiongroup();
-  ::proto::PermissionGroupMetaInfoV1* mutable_permissiongroup();
-  void set_allocated_permissiongroup(::proto::PermissionGroupMetaInfoV1* permissiongroup);
-  private:
-  const ::proto::PermissionGroupMetaInfoV1& _internal_permissiongroup() const;
-  ::proto::PermissionGroupMetaInfoV1* _internal_mutable_permissiongroup();
-  public:
-  void unsafe_arena_set_allocated_permissiongroup(
-      ::proto::PermissionGroupMetaInfoV1* permissiongroup);
-  ::proto::PermissionGroupMetaInfoV1* unsafe_arena_release_permissiongroup();
 
   // bool status = 1;
   void clear_status();
@@ -2349,7 +2330,6 @@ class ChangeUserPermissionGroupResponse final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
-    ::proto::PermissionGroupMetaInfoV1* permissiongroup_;
     bool status_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -7977,91 +7957,6 @@ inline void ChangeUserPermissionGroupResponse::set_allocated_message(std::string
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:proto.ChangeUserPermissionGroupResponse.Message)
-}
-
-// .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
-inline bool ChangeUserPermissionGroupResponse::_internal_has_permissiongroup() const {
-  return this != internal_default_instance() && _impl_.permissiongroup_ != nullptr;
-}
-inline bool ChangeUserPermissionGroupResponse::has_permissiongroup() const {
-  return _internal_has_permissiongroup();
-}
-inline const ::proto::PermissionGroupMetaInfoV1& ChangeUserPermissionGroupResponse::_internal_permissiongroup() const {
-  const ::proto::PermissionGroupMetaInfoV1* p = _impl_.permissiongroup_;
-  return p != nullptr ? *p : reinterpret_cast<const ::proto::PermissionGroupMetaInfoV1&>(
-      ::proto::_PermissionGroupMetaInfoV1_default_instance_);
-}
-inline const ::proto::PermissionGroupMetaInfoV1& ChangeUserPermissionGroupResponse::permissiongroup() const {
-  // @@protoc_insertion_point(field_get:proto.ChangeUserPermissionGroupResponse.PermissionGroup)
-  return _internal_permissiongroup();
-}
-inline void ChangeUserPermissionGroupResponse::unsafe_arena_set_allocated_permissiongroup(
-    ::proto::PermissionGroupMetaInfoV1* permissiongroup) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permissiongroup_);
-  }
-  _impl_.permissiongroup_ = permissiongroup;
-  if (permissiongroup) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.ChangeUserPermissionGroupResponse.PermissionGroup)
-}
-inline ::proto::PermissionGroupMetaInfoV1* ChangeUserPermissionGroupResponse::release_permissiongroup() {
-  
-  ::proto::PermissionGroupMetaInfoV1* temp = _impl_.permissiongroup_;
-  _impl_.permissiongroup_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::proto::PermissionGroupMetaInfoV1* ChangeUserPermissionGroupResponse::unsafe_arena_release_permissiongroup() {
-  // @@protoc_insertion_point(field_release:proto.ChangeUserPermissionGroupResponse.PermissionGroup)
-  
-  ::proto::PermissionGroupMetaInfoV1* temp = _impl_.permissiongroup_;
-  _impl_.permissiongroup_ = nullptr;
-  return temp;
-}
-inline ::proto::PermissionGroupMetaInfoV1* ChangeUserPermissionGroupResponse::_internal_mutable_permissiongroup() {
-  
-  if (_impl_.permissiongroup_ == nullptr) {
-    auto* p = CreateMaybeMessage<::proto::PermissionGroupMetaInfoV1>(GetArenaForAllocation());
-    _impl_.permissiongroup_ = p;
-  }
-  return _impl_.permissiongroup_;
-}
-inline ::proto::PermissionGroupMetaInfoV1* ChangeUserPermissionGroupResponse::mutable_permissiongroup() {
-  ::proto::PermissionGroupMetaInfoV1* _msg = _internal_mutable_permissiongroup();
-  // @@protoc_insertion_point(field_mutable:proto.ChangeUserPermissionGroupResponse.PermissionGroup)
-  return _msg;
-}
-inline void ChangeUserPermissionGroupResponse::set_allocated_permissiongroup(::proto::PermissionGroupMetaInfoV1* permissiongroup) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permissiongroup_);
-  }
-  if (permissiongroup) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(permissiongroup));
-    if (message_arena != submessage_arena) {
-      permissiongroup = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, permissiongroup, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.permissiongroup_ = permissiongroup;
-  // @@protoc_insertion_point(field_set_allocated:proto.ChangeUserPermissionGroupResponse.PermissionGroup)
 }
 
 // -------------------------------------------------------------------

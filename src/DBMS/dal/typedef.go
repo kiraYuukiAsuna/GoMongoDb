@@ -31,3 +31,11 @@ const (
 	DefaultSwcDataBaseName string = "SwcDataBase"
 	DevSwcDataBaseName     string = "DevSwcDataBase"
 )
+
+const (
+	PermissionGroupAdmin       string = "Admin"
+	PermissionGroupDefault     string = "Default"
+	PermissionGroupGroupLeader string = "GroupLeader"
+	PermissionGroupNormalUser  string = "NormalUser"
+	PermissionGroupGuest       string = "Guest"
+)

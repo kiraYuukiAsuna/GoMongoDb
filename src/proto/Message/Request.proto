@@ -56,7 +56,8 @@ message GetAllPermissionGroupRequest{
 
 message ChangeUserPermissionGroupRequest{
     UserMetaInfoV1 UserInfo = 1;
-    PermissionGroupMetaInfoV1 PermissionGroup = 2;
+    UserMetaInfoV1 TargetUserInfo = 2;
+    PermissionGroupMetaInfoV1 PermissionGroup = 3;
 }
 
 message CreateProjectRequest{

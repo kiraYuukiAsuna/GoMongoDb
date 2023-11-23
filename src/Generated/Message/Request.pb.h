@@ -2082,7 +2082,8 @@ class ChangeUserPermissionGroupRequest final :
 
   enum : int {
     kUserInfoFieldNumber = 1,
-    kPermissionGroupFieldNumber = 2,
+    kTargetUserInfoFieldNumber = 2,
+    kPermissionGroupFieldNumber = 3,
   };
   // .proto.UserMetaInfoV1 UserInfo = 1;
   bool has_userinfo() const;
@@ -2102,7 +2103,25 @@ class ChangeUserPermissionGroupRequest final :
       ::proto::UserMetaInfoV1* userinfo);
   ::proto::UserMetaInfoV1* unsafe_arena_release_userinfo();
 
-  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 2;
+  // .proto.UserMetaInfoV1 TargetUserInfo = 2;
+  bool has_targetuserinfo() const;
+  private:
+  bool _internal_has_targetuserinfo() const;
+  public:
+  void clear_targetuserinfo();
+  const ::proto::UserMetaInfoV1& targetuserinfo() const;
+  PROTOBUF_NODISCARD ::proto::UserMetaInfoV1* release_targetuserinfo();
+  ::proto::UserMetaInfoV1* mutable_targetuserinfo();
+  void set_allocated_targetuserinfo(::proto::UserMetaInfoV1* targetuserinfo);
+  private:
+  const ::proto::UserMetaInfoV1& _internal_targetuserinfo() const;
+  ::proto::UserMetaInfoV1* _internal_mutable_targetuserinfo();
+  public:
+  void unsafe_arena_set_allocated_targetuserinfo(
+      ::proto::UserMetaInfoV1* targetuserinfo);
+  ::proto::UserMetaInfoV1* unsafe_arena_release_targetuserinfo();
+
+  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
   bool has_permissiongroup() const;
   private:
   bool _internal_has_permissiongroup() const;
@@ -2129,6 +2148,7 @@ class ChangeUserPermissionGroupRequest final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::proto::UserMetaInfoV1* userinfo_;
+    ::proto::UserMetaInfoV1* targetuserinfo_;
     ::proto::PermissionGroupMetaInfoV1* permissiongroup_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -7311,7 +7331,92 @@ inline void ChangeUserPermissionGroupRequest::set_allocated_userinfo(::proto::Us
   // @@protoc_insertion_point(field_set_allocated:proto.ChangeUserPermissionGroupRequest.UserInfo)
 }
 
-// .proto.PermissionGroupMetaInfoV1 PermissionGroup = 2;
+// .proto.UserMetaInfoV1 TargetUserInfo = 2;
+inline bool ChangeUserPermissionGroupRequest::_internal_has_targetuserinfo() const {
+  return this != internal_default_instance() && _impl_.targetuserinfo_ != nullptr;
+}
+inline bool ChangeUserPermissionGroupRequest::has_targetuserinfo() const {
+  return _internal_has_targetuserinfo();
+}
+inline const ::proto::UserMetaInfoV1& ChangeUserPermissionGroupRequest::_internal_targetuserinfo() const {
+  const ::proto::UserMetaInfoV1* p = _impl_.targetuserinfo_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::UserMetaInfoV1&>(
+      ::proto::_UserMetaInfoV1_default_instance_);
+}
+inline const ::proto::UserMetaInfoV1& ChangeUserPermissionGroupRequest::targetuserinfo() const {
+  // @@protoc_insertion_point(field_get:proto.ChangeUserPermissionGroupRequest.TargetUserInfo)
+  return _internal_targetuserinfo();
+}
+inline void ChangeUserPermissionGroupRequest::unsafe_arena_set_allocated_targetuserinfo(
+    ::proto::UserMetaInfoV1* targetuserinfo) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.targetuserinfo_);
+  }
+  _impl_.targetuserinfo_ = targetuserinfo;
+  if (targetuserinfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.ChangeUserPermissionGroupRequest.TargetUserInfo)
+}
+inline ::proto::UserMetaInfoV1* ChangeUserPermissionGroupRequest::release_targetuserinfo() {
+  
+  ::proto::UserMetaInfoV1* temp = _impl_.targetuserinfo_;
+  _impl_.targetuserinfo_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::UserMetaInfoV1* ChangeUserPermissionGroupRequest::unsafe_arena_release_targetuserinfo() {
+  // @@protoc_insertion_point(field_release:proto.ChangeUserPermissionGroupRequest.TargetUserInfo)
+  
+  ::proto::UserMetaInfoV1* temp = _impl_.targetuserinfo_;
+  _impl_.targetuserinfo_ = nullptr;
+  return temp;
+}
+inline ::proto::UserMetaInfoV1* ChangeUserPermissionGroupRequest::_internal_mutable_targetuserinfo() {
+  
+  if (_impl_.targetuserinfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::UserMetaInfoV1>(GetArenaForAllocation());
+    _impl_.targetuserinfo_ = p;
+  }
+  return _impl_.targetuserinfo_;
+}
+inline ::proto::UserMetaInfoV1* ChangeUserPermissionGroupRequest::mutable_targetuserinfo() {
+  ::proto::UserMetaInfoV1* _msg = _internal_mutable_targetuserinfo();
+  // @@protoc_insertion_point(field_mutable:proto.ChangeUserPermissionGroupRequest.TargetUserInfo)
+  return _msg;
+}
+inline void ChangeUserPermissionGroupRequest::set_allocated_targetuserinfo(::proto::UserMetaInfoV1* targetuserinfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.targetuserinfo_);
+  }
+  if (targetuserinfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(targetuserinfo));
+    if (message_arena != submessage_arena) {
+      targetuserinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, targetuserinfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.targetuserinfo_ = targetuserinfo;
+  // @@protoc_insertion_point(field_set_allocated:proto.ChangeUserPermissionGroupRequest.TargetUserInfo)
+}
+
+// .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
 inline bool ChangeUserPermissionGroupRequest::_internal_has_permissiongroup() const {
   return this != internal_default_instance() && _impl_.permissiongroup_ != nullptr;
 }

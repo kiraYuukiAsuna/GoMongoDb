@@ -56,6 +56,14 @@ func (D DBMSServerController) CreateUser(ctx context.Context, request *request.C
 func (D DBMSServerController) DeleteUser(ctx context.Context, request *request.DeleteUserRequest) (*response.DeleteUserResponse, error) {
 	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 
+	if userMetaInfo.UserPermissionGroup != dal.PermissionGroupAdmin {
+		return &response.DeleteUserResponse{
+			Status:   false,
+			Message:  "You don't have permission to delete user!",
+			UserInfo: UserMetaInfoV1DbmodelToProtobuf(userMetaInfo),
+		}, nil
+	}
+
 	result := dal.DeleteUser(*userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("User " + request.UserInfo.Name + " Deleted")
@@ -185,20 +193,13 @@ func (D DBMSServerController) UserLogout(ctx context.Context, request *request.U
 				Status:  true,
 				Message: result.Message,
 			}, nil
-		} else {
-			userMetaInfo.Password = ""
-			return &response.UserLogoutResponse{
-				Status:  false,
-				Message: result.Message,
-			}, nil
 		}
-	} else {
-		userMetaInfo.Password = ""
-		return &response.UserLogoutResponse{
-			Status:  false,
-			Message: result.Message,
-		}, nil
 	}
+	userMetaInfo.Password = ""
+	return &response.UserLogoutResponse{
+		Status:  false,
+		Message: result.Message,
+	}, nil
 }
 
 func (D DBMSServerController) UserOnlineHeartBeatNotifications(ctx context.Context, notification *request.UserOnlineHeartBeatNotification) (*response.UserOnlineHeartBeatResponse, error) {
@@ -213,20 +214,13 @@ func (D DBMSServerController) UserOnlineHeartBeatNotifications(ctx context.Conte
 				Status:  true,
 				Message: result.Message,
 			}, nil
-		} else {
-			userMetaInfo.Password = ""
-			return &response.UserOnlineHeartBeatResponse{
-				Status:  false,
-				Message: result.Message,
-			}, nil
 		}
-	} else {
-		userMetaInfo.Password = ""
-		return &response.UserOnlineHeartBeatResponse{
-			Status:  false,
-			Message: result.Message,
-		}, nil
 	}
+	userMetaInfo.Password = ""
+	return &response.UserOnlineHeartBeatResponse{
+		Status:  false,
+		Message: result.Message,
+	}, nil
 }
 
 func (D DBMSServerController) GetUserPermissionGroup(ctx context.Context, request *request.GetUserPermissionGroupRequest) (*response.GetUserPermissionGroupResponse, error) {
@@ -245,21 +239,14 @@ func (D DBMSServerController) GetUserPermissionGroup(ctx context.Context, reques
 				Message:         result.Message,
 				PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(&permissionGroupMetaInfo),
 			}, nil
-		} else {
-			return &response.GetUserPermissionGroupResponse{
-				Status:          false,
-				Message:         result.Message,
-				PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(&permissionGroupMetaInfo),
-			}, nil
 		}
 
-	} else {
-		return &response.GetUserPermissionGroupResponse{
-			Status:          false,
-			Message:         result.Message,
-			PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(&permissionGroupMetaInfo),
-		}, nil
 	}
+	return &response.GetUserPermissionGroupResponse{
+		Status:          false,
+		Message:         result.Message,
+		PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(&permissionGroupMetaInfo),
+	}, nil
 }
 
 func (D DBMSServerController) GetPermissionGroup(ctx context.Context, request *request.GetPermissionGroupRequest) (*response.GetPermissionGroupResponse, error) {
@@ -277,21 +264,14 @@ func (D DBMSServerController) GetPermissionGroup(ctx context.Context, request *r
 				Message:         result.Message,
 				PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(permissionGroupMetaInfo),
 			}, nil
-		} else {
-			return &response.GetPermissionGroupResponse{
-				Status:          false,
-				Message:         result.Message,
-				PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(permissionGroupMetaInfo),
-			}, nil
 		}
 
-	} else {
-		return &response.GetPermissionGroupResponse{
-			Status:          false,
-			Message:         result.Message,
-			PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(permissionGroupMetaInfo),
-		}, nil
 	}
+	return &response.GetPermissionGroupResponse{
+		Status:          false,
+		Message:         result.Message,
+		PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(permissionGroupMetaInfo),
+	}, nil
 }
 
 func GetAllPermissionGroup(ctx context.Context, request *request.GetAllPermissionGroupRequest) (*response.GetAllPermissionGroupResponse, error) {
@@ -313,60 +293,89 @@ func GetAllPermissionGroup(ctx context.Context, request *request.GetAllPermissio
 				Message:             result.Message,
 				PermissionGroupList: protoMessage,
 			}, nil
-		} else {
-			return &response.GetAllPermissionGroupResponse{
-				Status:              false,
-				Message:             result.Message,
-				PermissionGroupList: protoMessage,
-			}, nil
 		}
 
-	} else {
-		return &response.GetAllPermissionGroupResponse{
-			Status:              false,
-			Message:             result.Message,
-			PermissionGroupList: protoMessage,
-		}, nil
 	}
+	return &response.GetAllPermissionGroupResponse{
+		Status:              false,
+		Message:             result.Message,
+		PermissionGroupList: protoMessage,
+	}, nil
 }
 
 func (D DBMSServerController) ChangeUserPermissionGroup(ctx context.Context, request *request.ChangeUserPermissionGroupRequest) (*response.ChangeUserPermissionGroupResponse, error) {
 	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
-
-	var permissionGroupMetaInfo dbmodel.PermissionGroupMetaInfoV1
+	targetUserMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.TargetUserInfo)
 
 	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
-		permissionGroupMetaInfo.Name = userMetaInfo.UserPermissionGroup
-		result = dal.QueryPermissionGroup(&permissionGroupMetaInfo, dal.GetDbInstance())
-		if result.Status == true {
-			fmt.Println("User " + request.UserInfo.Name + " GetUserPermissionGroup")
+		if userMetaInfo.UserPermissionGroup != dal.PermissionGroupAdmin {
 			return &response.ChangeUserPermissionGroupResponse{
-				Status:          true,
-				Message:         result.Message,
-				PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(&permissionGroupMetaInfo),
-			}, nil
-		} else {
-			return &response.ChangeUserPermissionGroupResponse{
-				Status:          false,
-				Message:         result.Message,
-				PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(&permissionGroupMetaInfo),
+				Status:  false,
+				Message: "You don't have permission to change user group!",
 			}, nil
 		}
 
-	} else {
-		return &response.ChangeUserPermissionGroupResponse{
-			Status:          false,
-			Message:         result.Message,
-			PermissionGroup: PermissionGroupMetaInfoV1DbmodelToProtobuf(&permissionGroupMetaInfo),
-		}, nil
+		var permissionGroupMetaInfo dbmodel.PermissionGroupMetaInfoV1
+
+		result = dal.QueryUser(targetUserMetaInfo, dal.GetDbInstance())
+		if result.Status == true {
+			permissionGroupMetaInfo.Name = targetUserMetaInfo.UserPermissionGroup
+			result = dal.QueryPermissionGroup(&permissionGroupMetaInfo, dal.GetDbInstance())
+			if result.Status == true {
+				result = dal.ModifyUser(*targetUserMetaInfo, dal.GetDbInstance())
+
+				fmt.Println("User " + request.UserInfo.Name + " Changed PermissionGroup")
+				return &response.ChangeUserPermissionGroupResponse{
+					Status:  true,
+					Message: result.Message,
+				}, nil
+			} else {
+				return &response.ChangeUserPermissionGroupResponse{
+					Status:  false,
+					Message: result.Message,
+				}, nil
+			}
+
+		}
 	}
+	return &response.ChangeUserPermissionGroupResponse{
+		Status:  false,
+		Message: result.Message,
+	}, nil
 }
 
 func (D DBMSServerController) CreateProject(ctx context.Context, request *request.CreateProjectRequest) (*response.CreateProjectResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
-
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	projectMetaInfo := ProjectMetaInfoV1ProtobufToDbmodel(request.ProjectInfo)
+
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.CreateProjectResponse{
+			Status:      false,
+			Message:     result.Message,
+			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.CreateProjectResponse{
+			Status:      false,
+			Message:     result.Message,
+			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
+		}, nil
+	}
+
+	if permissionGroup.Global.WritePermissionCreateProject == false {
+		return &response.CreateProjectResponse{
+			Status:      false,
+			Message:     "You don't have permission to create project!",
+			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
+		}, nil
+	}
+
 	projectMetaInfo.Base.Id = primitive.NewObjectID()
 	projectMetaInfo.Base.Uuid = uuid.NewString()
 	projectMetaInfo.Base.ApiVersion = "V1"
@@ -394,7 +403,7 @@ func (D DBMSServerController) CreateProject(ctx context.Context, request *reques
 		}
 	}
 
-	result := dal.CreateProject(*projectMetaInfo, dal.GetDbInstance())
+	result = dal.CreateProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("Project " + request.ProjectInfo.Name + " Created")
 		return &response.CreateProjectResponse{
@@ -412,10 +421,37 @@ func (D DBMSServerController) CreateProject(ctx context.Context, request *reques
 }
 
 func (D DBMSServerController) DeleteProject(ctx context.Context, request *request.DeleteProjectRequest) (*response.DeleteProjectResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	projectMetaInfo := ProjectMetaInfoV1ProtobufToDbmodel(request.ProjectInfo)
 
-	result := dal.DeleteProject(*projectMetaInfo, dal.GetDbInstance())
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.DeleteProjectResponse{
+			Status:      false,
+			Message:     result.Message,
+			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.DeleteProjectResponse{
+			Status:      false,
+			Message:     result.Message,
+			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
+		}, nil
+	}
+
+	if permissionGroup.Global.WritePermissionDeleteProject == false {
+		return &response.DeleteProjectResponse{
+			Status:      false,
+			Message:     "You don't have permission to create project!",
+			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
+		}, nil
+	}
+
+	result = dal.DeleteProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("Project " + request.ProjectInfo.Name + " Deleted")
 		return &response.DeleteProjectResponse{
@@ -433,10 +469,37 @@ func (D DBMSServerController) DeleteProject(ctx context.Context, request *reques
 }
 
 func (D DBMSServerController) UpdateProject(ctx context.Context, request *request.UpdateProjectRequest) (*response.UpdateProjectResponse, error) {
-	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
+	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 	projectMetaInfo := ProjectMetaInfoV1ProtobufToDbmodel(request.ProjectInfo)
 
-	result := dal.ModifyProject(*projectMetaInfo, dal.GetDbInstance())
+	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.UpdateProjectResponse{
+			Status:      false,
+			Message:     result.Message,
+			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
+		}, nil
+	}
+
+	var permissionGroup dbmodel.PermissionGroupMetaInfoV1
+	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
+	if result.Status == false {
+		return &response.UpdateProjectResponse{
+			Status:      false,
+			Message:     result.Message,
+			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
+		}, nil
+	}
+
+	if permissionGroup.Global.WritePermissionModifyProject == false {
+		return &response.UpdateProjectResponse{
+			Status:      false,
+			Message:     "You don't have permission to create project!",
+			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
+		}, nil
+	}
+
+	result = dal.ModifyProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("Project " + request.UserInfo.Name + " Updated")
 		return &response.UpdateProjectResponse{

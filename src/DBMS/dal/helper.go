@@ -81,13 +81,13 @@ func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) 
 			log.Fatal(err)
 		}
 
-		var permissionGroup = dbmodel.PermissionGroupMetaInfoV1{
+		var permissionGroupAdmin = dbmodel.PermissionGroupMetaInfoV1{
 			Base: dbmodel.MetaInfoBase{
 				Id:         primitive.NewObjectID(),
 				ApiVersion: "V1",
 				Uuid:       uuid.NewString(),
 			},
-			Name:        "Admin",
+			Name:        PermissionGroupAdmin,
 			Description: "Admin Permission Group",
 			Global: dbmodel.GlobalPermissionMetaInfoV1{
 				WritePermissionCreateProject: true,
@@ -102,8 +102,99 @@ func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) 
 				ReadPerimissionQuery:      true,
 			},
 		}
+		CreatePermissionGroup(permissionGroupAdmin, dbInfo)
 
-		CreatePermissionGroup(permissionGroup, dbInfo)
+		var permissionGroupDefault = dbmodel.PermissionGroupMetaInfoV1{
+			Base: dbmodel.MetaInfoBase{
+				Id:         primitive.NewObjectID(),
+				ApiVersion: "V1",
+				Uuid:       uuid.NewString(),
+			},
+			Name:        PermissionGroupDefault,
+			Description: "Default Permission Group",
+			Global: dbmodel.GlobalPermissionMetaInfoV1{
+				WritePermissionCreateProject: false,
+				WritePermissionModifyProject: false,
+				WritePermissionDeleteProject: false,
+				ReadPerimissionQuery:         true,
+			},
+			Project: dbmodel.ProjectPermissionMetaInfoV1{
+				WritePermissionAddData:    true,
+				WritePermissionModifyData: true,
+				WritePermissionDeleteData: true,
+				ReadPerimissionQuery:      true,
+			},
+		}
+		CreatePermissionGroup(permissionGroupDefault, dbInfo)
+
+		var permissionGroupGroupLeader = dbmodel.PermissionGroupMetaInfoV1{
+			Base: dbmodel.MetaInfoBase{
+				Id:         primitive.NewObjectID(),
+				ApiVersion: "V1",
+				Uuid:       uuid.NewString(),
+			},
+			Name:        PermissionGroupGroupLeader,
+			Description: "GroupLeader Permission Group",
+			Global: dbmodel.GlobalPermissionMetaInfoV1{
+				WritePermissionCreateProject: true,
+				WritePermissionModifyProject: true,
+				WritePermissionDeleteProject: true,
+				ReadPerimissionQuery:         true,
+			},
+			Project: dbmodel.ProjectPermissionMetaInfoV1{
+				WritePermissionAddData:    true,
+				WritePermissionModifyData: true,
+				WritePermissionDeleteData: true,
+				ReadPerimissionQuery:      true,
+			},
+		}
+		CreatePermissionGroup(permissionGroupGroupLeader, dbInfo)
+
+		var permissionGroupGroupNormalUser = dbmodel.PermissionGroupMetaInfoV1{
+			Base: dbmodel.MetaInfoBase{
+				Id:         primitive.NewObjectID(),
+				ApiVersion: "V1",
+				Uuid:       uuid.NewString(),
+			},
+			Name:        PermissionGroupNormalUser,
+			Description: "NormalUser Permission Group",
+			Global: dbmodel.GlobalPermissionMetaInfoV1{
+				WritePermissionCreateProject: false,
+				WritePermissionModifyProject: false,
+				WritePermissionDeleteProject: false,
+				ReadPerimissionQuery:         true,
+			},
+			Project: dbmodel.ProjectPermissionMetaInfoV1{
+				WritePermissionAddData:    true,
+				WritePermissionModifyData: true,
+				WritePermissionDeleteData: true,
+				ReadPerimissionQuery:      true,
+			},
+		}
+		CreatePermissionGroup(permissionGroupGroupNormalUser, dbInfo)
+
+		var permissionGroupGroupGuest = dbmodel.PermissionGroupMetaInfoV1{
+			Base: dbmodel.MetaInfoBase{
+				Id:         primitive.NewObjectID(),
+				ApiVersion: "V1",
+				Uuid:       uuid.NewString(),
+			},
+			Name:        PermissionGroupGuest,
+			Description: "Guest Permission Group",
+			Global: dbmodel.GlobalPermissionMetaInfoV1{
+				WritePermissionCreateProject: false,
+				WritePermissionModifyProject: false,
+				WritePermissionDeleteProject: false,
+				ReadPerimissionQuery:         true,
+			},
+			Project: dbmodel.ProjectPermissionMetaInfoV1{
+				WritePermissionAddData:    false,
+				WritePermissionModifyData: false,
+				WritePermissionDeleteData: false,
+				ReadPerimissionQuery:      true,
+			},
+		}
+		CreatePermissionGroup(permissionGroupGroupGuest, dbInfo)
 
 		err = dbInfo.MetaInfoDb.CreateCollection(context.TODO(), dbmodel.SwcMetaInfoCollectionString)
 		if err != nil {

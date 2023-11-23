@@ -187,7 +187,6 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR ChangeUserPermissionGroupResponse::ChangeUserPermissionGroupResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.permissiongroup_)*/nullptr
   , /*decltype(_impl_.status_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ChangeUserPermissionGroupResponseDefaultTypeInternal {
@@ -641,7 +640,6 @@ const uint32_t TableStruct_Message_2fResponse_2eproto::offsets[] PROTOBUF_SECTIO
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::proto::ChangeUserPermissionGroupResponse, _impl_.status_),
   PROTOBUF_FIELD_OFFSET(::proto::ChangeUserPermissionGroupResponse, _impl_.message_),
-  PROTOBUF_FIELD_OFFSET(::proto::ChangeUserPermissionGroupResponse, _impl_.permissiongroup_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::CreateProjectResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -855,28 +853,28 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 79, -1, -1, sizeof(::proto::GetPermissionGroupResponse)},
   { 88, -1, -1, sizeof(::proto::GetAllPermissionGroupResponse)},
   { 97, -1, -1, sizeof(::proto::ChangeUserPermissionGroupResponse)},
-  { 106, -1, -1, sizeof(::proto::CreateProjectResponse)},
-  { 115, -1, -1, sizeof(::proto::DeleteProjectResponse)},
-  { 124, -1, -1, sizeof(::proto::UpdateProjectResponse)},
-  { 133, -1, -1, sizeof(::proto::GetProjectResponse)},
-  { 142, -1, -1, sizeof(::proto::GetAllProjectResponse)},
-  { 151, -1, -1, sizeof(::proto::CreateSwcResponse)},
-  { 160, -1, -1, sizeof(::proto::DeleteSwcResponse)},
-  { 169, -1, -1, sizeof(::proto::UpdateSwcResponse)},
-  { 178, -1, -1, sizeof(::proto::GetSwcMetaInfoResponse)},
-  { 187, -1, -1, sizeof(::proto::GetAllSwcMetaInfoResponse)},
-  { 196, -1, -1, sizeof(::proto::CreateSwcNodeDataResponse)},
-  { 205, -1, -1, sizeof(::proto::DeleteSwcNodeDataResponse)},
-  { 214, -1, -1, sizeof(::proto::UpdateSwcNodeDataResponse)},
-  { 223, -1, -1, sizeof(::proto::GetSwcNodeDataResponse)},
-  { 232, -1, -1, sizeof(::proto::GetSwcFullNodeDataResponse)},
-  { 241, -1, -1, sizeof(::proto::GetSwcNodeDataListByTimeAndUserResponse)},
-  { 250, -1, -1, sizeof(::proto::BackupFullDatabaseResponse)},
-  { 260, -1, -1, sizeof(::proto::CreateDailyStatisticsResponse)},
-  { 269, -1, -1, sizeof(::proto::DeleteDailyStatisticsResponse)},
-  { 278, -1, -1, sizeof(::proto::UpdateDailyStatisticsResponse)},
-  { 287, -1, -1, sizeof(::proto::GetDailyStatisticsResponse)},
-  { 296, -1, -1, sizeof(::proto::GetAllDailyStatisticsResponse)},
+  { 105, -1, -1, sizeof(::proto::CreateProjectResponse)},
+  { 114, -1, -1, sizeof(::proto::DeleteProjectResponse)},
+  { 123, -1, -1, sizeof(::proto::UpdateProjectResponse)},
+  { 132, -1, -1, sizeof(::proto::GetProjectResponse)},
+  { 141, -1, -1, sizeof(::proto::GetAllProjectResponse)},
+  { 150, -1, -1, sizeof(::proto::CreateSwcResponse)},
+  { 159, -1, -1, sizeof(::proto::DeleteSwcResponse)},
+  { 168, -1, -1, sizeof(::proto::UpdateSwcResponse)},
+  { 177, -1, -1, sizeof(::proto::GetSwcMetaInfoResponse)},
+  { 186, -1, -1, sizeof(::proto::GetAllSwcMetaInfoResponse)},
+  { 195, -1, -1, sizeof(::proto::CreateSwcNodeDataResponse)},
+  { 204, -1, -1, sizeof(::proto::DeleteSwcNodeDataResponse)},
+  { 213, -1, -1, sizeof(::proto::UpdateSwcNodeDataResponse)},
+  { 222, -1, -1, sizeof(::proto::GetSwcNodeDataResponse)},
+  { 231, -1, -1, sizeof(::proto::GetSwcFullNodeDataResponse)},
+  { 240, -1, -1, sizeof(::proto::GetSwcNodeDataListByTimeAndUserResponse)},
+  { 249, -1, -1, sizeof(::proto::BackupFullDatabaseResponse)},
+  { 259, -1, -1, sizeof(::proto::CreateDailyStatisticsResponse)},
+  { 268, -1, -1, sizeof(::proto::DeleteDailyStatisticsResponse)},
+  { 277, -1, -1, sizeof(::proto::UpdateDailyStatisticsResponse)},
+  { 286, -1, -1, sizeof(::proto::GetDailyStatisticsResponse)},
+  { 295, -1, -1, sizeof(::proto::GetAllDailyStatisticsResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -945,72 +943,70 @@ const char descriptor_table_protodef_Message_2fResponse_2eproto[] PROTOBUF_SECTI
   ".PermissionGroupMetaInfoV1\"\177\n\035GetAllPerm"
   "issionGroupResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007M"
   "essage\030\002 \001(\t\022=\n\023PermissionGroupList\030\003 \003("
-  "\0132 .proto.PermissionGroupMetaInfoV1\"\177\n!C"
+  "\0132 .proto.PermissionGroupMetaInfoV1\"D\n!C"
   "hangeUserPermissionGroupResponse\022\016\n\006stat"
-  "us\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\0229\n\017PermissionG"
-  "roup\030\003 \001(\0132 .proto.PermissionGroupMetaIn"
-  "foV1\"g\n\025CreateProjectResponse\022\016\n\006status\030"
-  "\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022-\n\013ProjectInfo\030\003 "
-  "\001(\0132\030.proto.ProjectMetaInfoV1\"g\n\025DeleteP"
-  "rojectResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Messag"
-  "e\030\002 \001(\t\022-\n\013ProjectInfo\030\003 \001(\0132\030.proto.Pro"
-  "jectMetaInfoV1\"g\n\025UpdateProjectResponse\022"
-  "\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022-\n\013Proj"
-  "ectInfo\030\003 \001(\0132\030.proto.ProjectMetaInfoV1\""
-  "d\n\022GetProjectResponse\022\016\n\006status\030\001 \001(\010\022\017\n"
-  "\007Message\030\002 \001(\t\022-\n\013ProjectInfo\030\003 \001(\0132\030.pr"
-  "oto.ProjectMetaInfoV1\"g\n\025GetAllProjectRe"
-  "sponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022"
-  "-\n\013ProjectInfo\030\003 \003(\0132\030.proto.ProjectMeta"
-  "InfoV1\"[\n\021CreateSwcResponse\022\016\n\006status\030\001 "
-  "\001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007SwcInfo\030\003 \001(\0132\024."
-  "proto.SwcMetaInfoV1\"[\n\021DeleteSwcResponse"
-  "\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007Swc"
-  "Info\030\003 \001(\0132\024.proto.SwcMetaInfoV1\"[\n\021Upda"
-  "teSwcResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
-  "\030\002 \001(\t\022%\n\007SwcInfo\030\003 \001(\0132\024.proto.SwcMetaI"
-  "nfoV1\"`\n\026GetSwcMetaInfoResponse\022\016\n\006statu"
-  "s\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007SwcInfo\030\003 \001("
-  "\0132\024.proto.SwcMetaInfoV1\"c\n\031GetAllSwcMeta"
+  "us\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\"g\n\025CreateProje"
+  "ctResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 "
+  "\001(\t\022-\n\013ProjectInfo\030\003 \001(\0132\030.proto.Project"
+  "MetaInfoV1\"g\n\025DeleteProjectResponse\022\016\n\006s"
+  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022-\n\013ProjectI"
+  "nfo\030\003 \001(\0132\030.proto.ProjectMetaInfoV1\"g\n\025U"
+  "pdateProjectResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007"
+  "Message\030\002 \001(\t\022-\n\013ProjectInfo\030\003 \001(\0132\030.pro"
+  "to.ProjectMetaInfoV1\"d\n\022GetProjectRespon"
+  "se\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022-\n\013P"
+  "rojectInfo\030\003 \001(\0132\030.proto.ProjectMetaInfo"
+  "V1\"g\n\025GetAllProjectResponse\022\016\n\006status\030\001 "
+  "\001(\010\022\017\n\007Message\030\002 \001(\t\022-\n\013ProjectInfo\030\003 \003("
+  "\0132\030.proto.ProjectMetaInfoV1\"[\n\021CreateSwc"
+  "Response\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001("
+  "\t\022%\n\007SwcInfo\030\003 \001(\0132\024.proto.SwcMetaInfoV1"
+  "\"[\n\021DeleteSwcResponse\022\016\n\006status\030\001 \001(\010\022\017\n"
+  "\007Message\030\002 \001(\t\022%\n\007SwcInfo\030\003 \001(\0132\024.proto."
+  "SwcMetaInfoV1\"[\n\021UpdateSwcResponse\022\016\n\006st"
+  "atus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007SwcInfo\030\003"
+  " \001(\0132\024.proto.SwcMetaInfoV1\"`\n\026GetSwcMeta"
   "InfoResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030"
-  "\002 \001(\t\022%\n\007SwcInfo\030\003 \003(\0132\024.proto.SwcMetaIn"
-  "foV1\"c\n\031CreateSwcNodeDataResponse\022\016\n\006sta"
-  "tus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeDat"
-  "a\030\003 \001(\0132\020.proto.SwcDataV1\"c\n\031DeleteSwcNo"
+  "\002 \001(\t\022%\n\007SwcInfo\030\003 \001(\0132\024.proto.SwcMetaIn"
+  "foV1\"c\n\031GetAllSwcMetaInfoResponse\022\016\n\006sta"
+  "tus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007SwcInfo\030\003 "
+  "\003(\0132\024.proto.SwcMetaInfoV1\"c\n\031CreateSwcNo"
   "deDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Messag"
   "e\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.Swc"
-  "DataV1\"g\n\031UpdateSwcNodeDataResponse\022\016\n\006s"
-  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022)\n\013SwcNodeD"
-  "ata\030\003 \001(\0132\024.proto.SwcNodeDataV1\"`\n\026GetSw"
-  "cNodeDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
-  "sage\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto."
-  "SwcDataV1\"d\n\032GetSwcFullNodeDataResponse\022"
-  "\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcN"
-  "odeData\030\003 \001(\0132\020.proto.SwcDataV1\"q\n\'GetSw"
-  "cNodeDataListByTimeAndUserResponse\022\016\n\006st"
-  "atus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeDa"
-  "ta\030\003 \001(\0132\020.proto.SwcDataV1\"\211\001\n\032BackupFul"
-  "lDatabaseResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
-  "sage\030\002 \001(\t\022\025\n\rInstantBackup\030\003 \001(\010\0223\n\017Del"
-  "ayBackupTime\030\004 \001(\0132\032.google.protobuf.Tim"
-  "estamp\"\177\n\035CreateDailyStatisticsResponse\022"
-  "\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023Dail"
-  "yStatisticsInfo\030\003 \001(\0132 .proto.DailyStati"
-  "sticsMetaInfoV1\"\177\n\035DeleteDailyStatistics"
-  "Response\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001("
-  "\t\022=\n\023DailyStatisticsInfo\030\003 \001(\0132 .proto.D"
-  "ailyStatisticsMetaInfoV1\"\177\n\035UpdateDailyS"
-  "tatisticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mes"
-  "sage\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001(\0132"
-  " .proto.DailyStatisticsMetaInfoV1\"|\n\032Get"
-  "DailyStatisticsResponse\022\016\n\006status\030\001 \001(\010\022"
-  "\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030"
-  "\003 \001(\0132 .proto.DailyStatisticsMetaInfoV1\""
-  "\177\n\035GetAllDailyStatisticsResponse\022\016\n\006stat"
-  "us\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatis"
-  "ticsInfo\030\003 \003(\0132 .proto.DailyStatisticsMe"
-  "taInfoV1B\037Z\035DBMS/Generated/proto/respons"
-  "eP\000b\006proto3"
+  "DataV1\"c\n\031DeleteSwcNodeDataResponse\022\016\n\006s"
+  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeD"
+  "ata\030\003 \001(\0132\020.proto.SwcDataV1\"g\n\031UpdateSwc"
+  "NodeDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mess"
+  "age\030\002 \001(\t\022)\n\013SwcNodeData\030\003 \001(\0132\024.proto.S"
+  "wcNodeDataV1\"`\n\026GetSwcNodeDataResponse\022\016"
+  "\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNo"
+  "deData\030\003 \001(\0132\020.proto.SwcDataV1\"d\n\032GetSwc"
+  "FullNodeDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007"
+  "Message\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.pro"
+  "to.SwcDataV1\"q\n\'GetSwcNodeDataListByTime"
+  "AndUserResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Messa"
+  "ge\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.Sw"
+  "cDataV1\"\211\001\n\032BackupFullDatabaseResponse\022\016"
+  "\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022\025\n\rInsta"
+  "ntBackup\030\003 \001(\010\0223\n\017DelayBackupTime\030\004 \001(\0132"
+  "\032.google.protobuf.Timestamp\"\177\n\035CreateDai"
+  "lyStatisticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007"
+  "Message\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001"
+  "(\0132 .proto.DailyStatisticsMetaInfoV1\"\177\n\035"
+  "DeleteDailyStatisticsResponse\022\016\n\006status\030"
+  "\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatistic"
+  "sInfo\030\003 \001(\0132 .proto.DailyStatisticsMetaI"
+  "nfoV1\"\177\n\035UpdateDailyStatisticsResponse\022\016"
+  "\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023Daily"
+  "StatisticsInfo\030\003 \001(\0132 .proto.DailyStatis"
+  "ticsMetaInfoV1\"|\n\032GetDailyStatisticsResp"
+  "onse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n"
+  "\023DailyStatisticsInfo\030\003 \001(\0132 .proto.Daily"
+  "StatisticsMetaInfoV1\"\177\n\035GetAllDailyStati"
+  "sticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
+  "\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \003(\0132 .pr"
+  "oto.DailyStatisticsMetaInfoV1B\037Z\035DBMS/Ge"
+  "nerated/proto/responseP\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_2eproto_deps[2] = {
   &::descriptor_table_Message_2fMessage_2eproto,
@@ -1018,7 +1014,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_
 };
 static ::_pbi::once_flag descriptor_table_Message_2fResponse_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2fResponse_2eproto = {
-    false, false, 3731, descriptor_table_protodef_Message_2fResponse_2eproto,
+    false, false, 3672, descriptor_table_protodef_Message_2fResponse_2eproto,
     "Message/Response.proto",
     &descriptor_table_Message_2fResponse_2eproto_once, descriptor_table_Message_2fResponse_2eproto_deps, 2, 34,
     schemas, file_default_instances, TableStruct_Message_2fResponse_2eproto::offsets,
@@ -4005,19 +4001,8 @@ void GetAllPermissionGroupResponse::InternalSwap(GetAllPermissionGroupResponse* 
 
 class ChangeUserPermissionGroupResponse::_Internal {
  public:
-  static const ::proto::PermissionGroupMetaInfoV1& permissiongroup(const ChangeUserPermissionGroupResponse* msg);
 };
 
-const ::proto::PermissionGroupMetaInfoV1&
-ChangeUserPermissionGroupResponse::_Internal::permissiongroup(const ChangeUserPermissionGroupResponse* msg) {
-  return *msg->_impl_.permissiongroup_;
-}
-void ChangeUserPermissionGroupResponse::clear_permissiongroup() {
-  if (GetArenaForAllocation() == nullptr && _impl_.permissiongroup_ != nullptr) {
-    delete _impl_.permissiongroup_;
-  }
-  _impl_.permissiongroup_ = nullptr;
-}
 ChangeUserPermissionGroupResponse::ChangeUserPermissionGroupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -4029,7 +4014,6 @@ ChangeUserPermissionGroupResponse::ChangeUserPermissionGroupResponse(const Chang
   ChangeUserPermissionGroupResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
-    , decltype(_impl_.permissiongroup_){nullptr}
     , decltype(_impl_.status_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -4042,9 +4026,6 @@ ChangeUserPermissionGroupResponse::ChangeUserPermissionGroupResponse(const Chang
     _this->_impl_.message_.Set(from._internal_message(), 
       _this->GetArenaForAllocation());
   }
-  if (from._internal_has_permissiongroup()) {
-    _this->_impl_.permissiongroup_ = new ::proto::PermissionGroupMetaInfoV1(*from._impl_.permissiongroup_);
-  }
   _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:proto.ChangeUserPermissionGroupResponse)
 }
@@ -4055,7 +4036,6 @@ inline void ChangeUserPermissionGroupResponse::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
-    , decltype(_impl_.permissiongroup_){nullptr}
     , decltype(_impl_.status_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -4077,7 +4057,6 @@ ChangeUserPermissionGroupResponse::~ChangeUserPermissionGroupResponse() {
 inline void ChangeUserPermissionGroupResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.message_.Destroy();
-  if (this != internal_default_instance()) delete _impl_.permissiongroup_;
 }
 
 void ChangeUserPermissionGroupResponse::SetCachedSize(int size) const {
@@ -4091,10 +4070,6 @@ void ChangeUserPermissionGroupResponse::Clear() {
   (void) cached_has_bits;
 
   _impl_.message_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && _impl_.permissiongroup_ != nullptr) {
-    delete _impl_.permissiongroup_;
-  }
-  _impl_.permissiongroup_ = nullptr;
   _impl_.status_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -4120,14 +4095,6 @@ const char* ChangeUserPermissionGroupResponse::_InternalParse(const char* ptr, :
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "proto.ChangeUserPermissionGroupResponse.Message"));
-        } else
-          goto handle_unusual;
-        continue;
-      // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_permissiongroup(), ptr);
-          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -4176,13 +4143,6 @@ uint8_t* ChangeUserPermissionGroupResponse::_InternalSerialize(
         2, this->_internal_message(), target);
   }
 
-  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
-  if (this->_internal_has_permissiongroup()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::permissiongroup(this),
-        _Internal::permissiongroup(this).GetCachedSize(), target, stream);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4204,13 +4164,6 @@ size_t ChangeUserPermissionGroupResponse::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_message());
-  }
-
-  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 3;
-  if (this->_internal_has_permissiongroup()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.permissiongroup_);
   }
 
   // bool status = 1;
@@ -4239,10 +4192,6 @@ void ChangeUserPermissionGroupResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Messa
   if (!from._internal_message().empty()) {
     _this->_internal_set_message(from._internal_message());
   }
-  if (from._internal_has_permissiongroup()) {
-    _this->_internal_mutable_permissiongroup()->::proto::PermissionGroupMetaInfoV1::MergeFrom(
-        from._internal_permissiongroup());
-  }
   if (from._internal_status() != 0) {
     _this->_internal_set_status(from._internal_status());
   }
@@ -4269,12 +4218,7 @@ void ChangeUserPermissionGroupResponse::InternalSwap(ChangeUserPermissionGroupRe
       &_impl_.message_, lhs_arena,
       &other->_impl_.message_, rhs_arena
   );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChangeUserPermissionGroupResponse, _impl_.status_)
-      + sizeof(ChangeUserPermissionGroupResponse::_impl_.status_)
-      - PROTOBUF_FIELD_OFFSET(ChangeUserPermissionGroupResponse, _impl_.permissiongroup_)>(
-          reinterpret_cast<char*>(&_impl_.permissiongroup_),
-          reinterpret_cast<char*>(&other->_impl_.permissiongroup_));
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ChangeUserPermissionGroupResponse::GetMetadata() const {
