@@ -4,6 +4,7 @@
 #include <QSplitter>
 #include "leftclientview.h"
 #include "rightclientview.h"
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +22,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QTimer* m_HeartBeatTimer;
 
     QSplitter* m_Splitter;
     LeftClientView* m_LeftClientView;

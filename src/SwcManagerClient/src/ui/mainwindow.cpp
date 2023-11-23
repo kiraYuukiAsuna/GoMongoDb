@@ -1,7 +1,16 @@
+#include <QMessageBox>
+#include <QTimer>
+
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
 #include "src/framework/defination/ImageDefination.h"
+#include <QTimer>
+#include <grpcpp/client_context.h>
+#include <Message/Request.pb.h>
+#include <Message/Response.pb.h>
 
+#include "src/framework/service/CachedProtoData.h"
+#include "src/framework/service/RpcCall.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -40,6 +49,23 @@ MainWindow::MainWindow(QWidget *parent) :
     menuFile->addAction(menuExportToSwcFile);
 
     setMenuBar(menuBar);
+
+    m_HeartBeatTimer = new QTimer;
+    m_HeartBeatTimer->setInterval(15000);
+    connect(m_HeartBeatTimer,&QTimer::timeout,this,[&]() {
+        proto::UserOnlineHeartBeatNotification notification;
+        notification.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+        notification.set_heartbeattime(std::chrono::system_clock::now().time_since_epoch().count());
+        proto::UserOnlineHeartBeatResponse response;
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->UserOnlineHeartBeatNotifications(&context,notification,&response);
+        if(status.ok()) {
+
+        }else {
+            QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
+        }
+    });
+    m_HeartBeatTimer->start();
 }
 
 MainWindow::~MainWindow() {

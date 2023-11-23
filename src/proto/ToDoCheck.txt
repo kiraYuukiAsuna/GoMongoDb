@@ -2,8 +2,6 @@
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
     rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
 
-    !!! rpc UserOnlineHeartBeatNotifications(UserOnlineHeartBeatNotification) returns (UserOnlineHeartBeatResponse){}       
-
     rpc GetUserPermissionGroup(GetUserPermissionGroupRequest) returns (GetUserPermissionGroupResponse){}
     rpc GetPermissionGroup(GetPermissionGroupRequest) returns (GetPermissionGroupResponse){}
     rpc GetAllPermissionGroup(GetAllPermissionGroupRequest) returns (GetAllPermissionGroupResponse){}
@@ -14,12 +12,15 @@
     rpc CreateSwc(CreateSwcRequest) returns (CreateSwcResponse){}
     rpc DeleteSwc(DeleteSwcRequest) returns (DeleteSwcResponse){}
     rpc UpdateSwc(UpdateSwcRequest) returns (UpdateSwcResponse){}
+
     rpc CreateSwcNodeData(CreateSwcNodeDataRequest) returns (CreateSwcNodeDataResponse){}
     rpc DeleteSwcNodeData(DeleteSwcNodeDataRequest) returns (DeleteSwcNodeDataResponse){}
     rpc UpdateSwcNodeData(UpdateSwcNodeDataRequest) returns (UpdateSwcNodeDataResponse){}
     rpc GetSwcNodeData(GetSwcNodeDataRequest) returns (GetSwcNodeDataResponse){}
     rpc GetSwcFullNodeData(GetSwcFullNodeDataRequest) returns (GetSwcFullNodeDataResponse){}
     rpc GetSwcNodeDataListByTimeAndUser(GetSwcNodeDataListByTimeAndUserRequest) returns (GetSwcNodeDataListByTimeAndUserResponse){}
+    
     rpc BackupFullDatabase(BackupFullDatabaseRequest) returns (BackupFullDatabaseResponse){}
+    
     rpc DeleteDailyStatistics(DeleteDailyStatisticsRequest) returns (DeleteDailyStatisticsResponse){}
     rpc UpdateDailyStatistics(UpdateDailyStatisticsRequest) returns (UpdateDailyStatisticsResponse){}
