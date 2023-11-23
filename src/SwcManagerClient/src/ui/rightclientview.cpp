@@ -14,11 +14,14 @@ RightClientView::RightClientView(MainWindow *mainWindow) :
     m_MainWindow = mainWindow;
 
     m_TabWidget = new QTabWidget(this);
+    m_TabWidget->setTabsClosable(true);
+    connect(m_TabWidget,&QTabWidget::tabCloseRequested,this,[&](int index) {
+        m_TabWidget->removeTab(index);
+    });
 
     m_MainLayout = new QVBoxLayout(this);
     m_MainLayout->addWidget(m_TabWidget);
     this->setLayout(m_MainLayout);
-
 
 }
 

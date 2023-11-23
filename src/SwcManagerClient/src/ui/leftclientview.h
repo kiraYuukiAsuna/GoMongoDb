@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QToolButton>
 
 class MainWindow;
 
@@ -26,13 +27,18 @@ public:
 
 public slots:
     void onRefreshBtnClicked(bool checked);
+    void customTreeWidgetContentMenu(const QPoint& pos);
+
 private:
+    void refreshTree();
+
     Ui::LeftClientView *ui;
     QVBoxLayout* m_MainLayout;
     QHBoxLayout* m_ControlBtnLayout;
     MainWindow* m_MainWindow;
 
     QPushButton* m_UserSettingBtn;
+    QToolButton* m_AccountBtn;
     QPushButton* m_RefreshBtn;
 
     QTreeWidget* m_TreeWidget;

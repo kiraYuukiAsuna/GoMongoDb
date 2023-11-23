@@ -1,10 +1,13 @@
 #include "editordailystatisticsmetainfo.h"
 #include "ui_EditorDailyStatisticsMetaInfo.h"
+#include "src/framework/defination/ImageDefination.h"
 
 
 EditorDailyStatisticsMetaInfo::EditorDailyStatisticsMetaInfo(proto::GetDailyStatisticsResponse& response, QWidget *parent) :
     QWidget(parent), ui(new Ui::EditorDailyStatisticsMetaInfo) {
     ui->setupUi(this);
+    setWindowIcon(QIcon(Image::ImageDaily));
+
     m_DailyStatisticsMetaInfo.CopyFrom(response.dailystatisticsinfo());
 
     ui->Id->setText(QString::fromStdString(m_DailyStatisticsMetaInfo.base()._id()));

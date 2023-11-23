@@ -1,6 +1,9 @@
 #include "leftclientview.h"
 
 #include <QMessageBox>
+
+#include "MainWindow.h"
+#include "MainWindow.h"
 #include "mainwindow.h"
 #include "ui_LeftClientView.h"
 #include "src/framework/service/CachedProtoData.h"
@@ -9,9 +12,12 @@
 #include "src/framework/defination/ImageDefination.h"
 #include "src/framework/service/WrappedCall.h"
 #include "src/ui/editorusersettings.h"
+#include <QMenu>
 
-LeftClientView::LeftClientView(MainWindow* mainWindow) :
-    QWidget(mainWindow), ui(new Ui::LeftClientView) {
+#include "viewcreateproject.h"
+#include "src/framework/config/AppConfig.h"
+
+LeftClientView::LeftClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui(new Ui::LeftClientView) {
     ui->setupUi(this);
     m_MainWindow = mainWindow;
 
@@ -19,26 +25,63 @@ LeftClientView::LeftClientView(MainWindow* mainWindow) :
 
     m_UserSettingBtn = new QPushButton(this);
     m_UserSettingBtn->setText("User Settings");
+    m_UserSettingBtn->setIcon(QIcon(Image::ImageUser));
 
-    connect(m_UserSettingBtn,&QPushButton::clicked,this,[&](bool checked){
+    connect(m_UserSettingBtn, &QPushButton::clicked, this, [&](bool checked) {
         EditorUserSettings editorUserSettings;
         editorUserSettings.exec();
     });
 
+    m_AccountBtn = new QToolButton(this);
+    m_AccountBtn->setPopupMode(QToolButton::InstantPopup);
+    m_AccountBtn->setText("Account");
+    m_AccountBtn->setIcon(QIcon(Image::ImageDefaultUserHeadPhoto));
+    auto* logoutAction = new QAction(this);
+    logoutAction->setText("Logout");
+    connect(logoutAction, &QAction::triggered, this, [&](bool checked) {
+        auto btn = QMessageBox::information(this, "Warning",
+                                            "Are you sure to logout? Please save all your work before logout!",
+                                            QMessageBox::StandardButton::Ok,
+                                            QMessageBox::StandardButton::Cancel);
+        if (btn == QMessageBox::StandardButton::Ok) {
+            proto::UserLogoutRequest request;
+            request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+            proto::UserLogoutResponse response;
+
+            grpc::ClientContext context;
+            auto status = RpcCall::getInstance().Stub()->UserLogout(&context,request,&response);
+            if(status.ok()) {
+                if(response.status()) {
+                    AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eCachedUserName, "");
+                    AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eCachedPassword, "");
+                    AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eAccountExpiredTime, "");
+                    AppConfig::getInstance().writeConfig();
+
+                    qApp->exit(RestartCode);
+                }
+                QMessageBox::critical(this,"Error",QString::fromStdString(response.message()));
+            }
+            QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
+        }
+    });
+    m_AccountBtn->addAction(logoutAction);
+
     m_RefreshBtn = new QPushButton(this);
     m_RefreshBtn->setText("Refresh");
-    connect(m_RefreshBtn,&QPushButton::clicked,this,&LeftClientView::onRefreshBtnClicked);
+    m_RefreshBtn->setIcon(QIcon(Image::ImageRefresh));
+    connect(m_RefreshBtn, &QPushButton::clicked, this, &LeftClientView::onRefreshBtnClicked);
 
+    m_ControlBtnLayout->addWidget(m_AccountBtn);
     m_ControlBtnLayout->addWidget(m_UserSettingBtn);
     m_ControlBtnLayout->addWidget(m_RefreshBtn);
 
     m_TreeWidget = new QTreeWidget(this);
     m_TreeWidget->setHeaderLabel("MetaInfo");
-    connect(m_TreeWidget,&QTreeWidget::itemDoubleClicked, this, [&](QTreeWidgetItem* item, int column){
-        if(column == 0){
-            if(item){
-                auto metaInfo = item->data(0,Qt::UserRole).value<LeftClientViewTreeWidgetMetaInfo>();
-                switch(metaInfo.type) {
+    connect(m_TreeWidget, &QTreeWidget::itemDoubleClicked, this, [&](QTreeWidgetItem* item, int column) {
+        if (column == 0) {
+            if (item) {
+                auto metaInfo = item->data(0, Qt::UserRole).value<LeftClientViewTreeWidgetItemMetaInfo>();
+                switch (metaInfo.type) {
                     case MetaInfoType::eProjectContainer:
                         break;
                     case MetaInfoType::eProject: {
@@ -72,15 +115,15 @@ LeftClientView::LeftClientView(MainWindow* mainWindow) :
         }
     });
 
+    m_TreeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_TreeWidget, &QTreeWidget::customContextMenuRequested, this, &LeftClientView::customTreeWidgetContentMenu);
+
     m_MainLayout = new QVBoxLayout(this);
     m_MainLayout->addLayout(m_ControlBtnLayout);
     m_MainLayout->addWidget(m_TreeWidget);
     this->setLayout(m_MainLayout);
 
-    clearAll();
-    getProjectMetaInfo();
-    getSwcMetaInfo();
-    getAllDailyStatisticsMetaInfo();
+    refreshTree();
 }
 
 LeftClientView::~LeftClientView() {
@@ -91,15 +134,15 @@ void LeftClientView::getProjectMetaInfo() {
     proto::GetAllProjectResponse response;
     WrappedCall::getAllProjectMetaInfo(response, this);
     auto projectInfoList = response.mutable_projectinfo();
-    for(int i=0; i<projectInfoList->size();i++) {
-        auto& projectInfo = projectInfoList->Get(i);
+    for (int i = 0; i < projectInfoList->size(); i++) {
+        auto&projectInfo = projectInfoList->Get(i);
         auto* item = new QTreeWidgetItem;
-        item->setText(0,QString::fromStdString(projectInfo.name()));
-        item->setIcon(0,QIcon(Image::ImageProject));
-        LeftClientViewTreeWidgetMetaInfo metaInfo{};
+        item->setText(0, QString::fromStdString(projectInfo.name()));
+        item->setIcon(0, QIcon(Image::ImageProject));
+        LeftClientViewTreeWidgetItemMetaInfo metaInfo{};
         metaInfo.type = MetaInfoType::eProject;
         metaInfo.name = projectInfo.name();
-        item->setData(0,Qt::UserRole,QVariant::fromValue(metaInfo));
+        item->setData(0, Qt::UserRole, QVariant::fromValue(metaInfo));
         m_TopProjectItem->addChild(item);
     }
 }
@@ -108,15 +151,15 @@ void LeftClientView::getSwcMetaInfo() {
     proto::GetAllSwcMetaInfoResponse response;
     WrappedCall::getAllSwcMetaInfo(response, this);
     auto swcMetaInfo = response.mutable_swcinfo();
-    for(int i=0; i<swcMetaInfo->size();i++) {
-        auto& swcInfo = swcMetaInfo->Get(i);
+    for (int i = 0; i < swcMetaInfo->size(); i++) {
+        auto&swcInfo = swcMetaInfo->Get(i);
         auto* item = new QTreeWidgetItem;
-        item->setText(0,QString::fromStdString(swcInfo.name()));
-        item->setIcon(0,QIcon(Image::ImageNode));
-        LeftClientViewTreeWidgetMetaInfo metaInfo{};
+        item->setText(0, QString::fromStdString(swcInfo.name()));
+        item->setIcon(0, QIcon(Image::ImageNode));
+        LeftClientViewTreeWidgetItemMetaInfo metaInfo{};
         metaInfo.type = MetaInfoType::eSwc;
         metaInfo.name = swcInfo.name();
-        item->setData(0,Qt::UserRole,QVariant::fromValue(metaInfo));
+        item->setData(0, Qt::UserRole, QVariant::fromValue(metaInfo));
         m_TopSwcItem->addChild(item);
     }
 }
@@ -125,20 +168,169 @@ void LeftClientView::getAllDailyStatisticsMetaInfo() {
     proto::GetAllDailyStatisticsResponse response;
     WrappedCall::getAllDailyStatisticsMetaInfo(response, this);
     auto dailyStatisticsMetaInfoList = response.mutable_dailystatisticsinfo();
-    for(int i=0; i<dailyStatisticsMetaInfoList->size();i++) {
-        auto& dailyStatisticsMetaInfo = dailyStatisticsMetaInfoList->Get(i);
+    for (int i = 0; i < dailyStatisticsMetaInfoList->size(); i++) {
+        auto&dailyStatisticsMetaInfo = dailyStatisticsMetaInfoList->Get(i);
         auto* item = new QTreeWidgetItem;
-        item->setText(0,QString::fromStdString(dailyStatisticsMetaInfo.name()));
-        item->setIcon(0,QIcon(Image::ImageDaily));
-        LeftClientViewTreeWidgetMetaInfo metaInfo{};
+        item->setText(0, QString::fromStdString(dailyStatisticsMetaInfo.name()));
+        item->setIcon(0, QIcon(Image::ImageDaily));
+        LeftClientViewTreeWidgetItemMetaInfo metaInfo{};
         metaInfo.type = MetaInfoType::eDailyStatistics;
         metaInfo.name = dailyStatisticsMetaInfo.name();
-        item->setData(0,Qt::UserRole,QVariant::fromValue(metaInfo));
+        item->setData(0, Qt::UserRole, QVariant::fromValue(metaInfo));
         m_TopDailyStatisticsItem->addChild(item);
     }
 }
 
 void LeftClientView::onRefreshBtnClicked(bool checked) {
+    refreshTree();
+}
+
+void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
+    auto* curItem = m_TreeWidget->currentItem();
+    if (!curItem) {
+        return;
+    }
+
+    auto data = curItem->data(0, Qt::UserRole).value<LeftClientViewTreeWidgetItemMetaInfo>();
+
+    auto* popMenu = new QMenu(this);
+
+    auto* MenuCreateProject = new QAction(this);
+    MenuCreateProject->setText("Create Project");
+    MenuCreateProject->setIcon(QIcon(Image::ImageCreate));
+    connect(MenuCreateProject,&QAction::triggered,this,[&](bool checked) {
+        ViewCreateProject view;
+        if(view.exec() == QDialog::Accepted) {
+            refreshTree();
+        }
+    });
+
+    auto* MenuDeleteProject = new QAction(this);
+    MenuDeleteProject->setText("Delete Project");
+    MenuDeleteProject->setIcon(QIcon(Image::ImageDelete));
+    connect(MenuDeleteProject,&QAction::triggered,this,[&](bool checked) {
+        auto result = QMessageBox::information(this,"Warning","Are you sure to delete this project? This operation cannot be revert!",
+            QMessageBox::StandardButton::Ok,QMessageBox::StandardButton::Cancel);
+        if(result == QMessageBox::StandardButton::Ok) {
+            if(data.type == MetaInfoType::eProject) {
+                proto::DeleteProjectRequest request;
+                request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+                request.mutable_projectinfo()->set_name(curItem->text(0).toStdString());
+
+                proto::DeleteProjectResponse response;
+                grpc::ClientContext context;
+                auto status = RpcCall::getInstance().Stub()->DeleteProject(&context,request,&response);
+                if(status.ok()) {
+                    if(response.status()) {
+                        QMessageBox::information(this,"Info","Delete Project successfully!");
+                        refreshTree();
+                    }else {
+                        QMessageBox::critical(this,"Error",QString::fromStdString(response.message()));
+                    }
+                }else{
+                    QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
+                }
+            }
+        }
+    });
+
+    auto* MenuEditProject = new QAction(this);
+    MenuEditProject->setText("Edit Project");
+    MenuEditProject->setIcon(QIcon(Image::ImageEdit));
+    connect(MenuEditProject,&QAction::triggered,this,[&](bool checked) {
+
+    });
+
+    auto* MenuImportSwcFile = new QAction(this);
+    MenuImportSwcFile->setText("Import Swc File");
+    MenuImportSwcFile->setIcon(QIcon(Image::ImageImport));
+    connect(MenuImportSwcFile,&QAction::triggered,this,[&](bool checked) {
+
+    });
+
+    auto* MenuExportToSwcFile = new QAction(this);
+    MenuExportToSwcFile->setText("Export Swc File");
+    MenuExportToSwcFile->setIcon(QIcon(Image::ImageExport));
+    connect(MenuExportToSwcFile,&QAction::triggered,this,[&](bool checked) {
+
+    });
+
+    auto* MenuCreateSwc = new QAction(this);
+    MenuCreateSwc->setText("Create Swc");
+    MenuCreateSwc->setIcon(QIcon(Image::ImageCreate));
+    connect(MenuCreateSwc,&QAction::triggered,this,[&](bool checked) {
+
+    });
+
+    auto* MenuDeleteSwc = new QAction(this);
+    MenuDeleteSwc->setText("Delete Swc");
+    MenuDeleteSwc->setIcon(QIcon(Image::ImageDelete));
+    connect(MenuDeleteSwc,&QAction::triggered,this,[&](bool checked) {
+
+    });
+
+    auto* MenuEditSwc = new QAction(this);
+    MenuEditSwc->setText("Edit Swc");
+    MenuEditSwc->setIcon(QIcon(Image::ImageEdit));
+    connect(MenuEditSwc,&QAction::triggered,this,[&](bool checked) {
+
+    });
+
+    auto* MenuDeleteDailyStatistics = new QAction(this);
+    MenuDeleteDailyStatistics->setText("Delete DailyStatistics");
+    MenuDeleteDailyStatistics->setIcon(QIcon(Image::ImageDelete));
+    connect(MenuDeleteDailyStatistics,&QAction::triggered,this,[&](bool checked) {
+
+    });
+
+    switch (data.type) {
+        case MetaInfoType::eProjectContainer: {
+            popMenu->addAction(MenuCreateProject);
+            break;
+        }
+        case MetaInfoType::eProject: {
+            popMenu->addAction(MenuEditProject);
+            popMenu->addSeparator();
+            popMenu->addAction(MenuDeleteProject);
+            break;
+        }
+        case MetaInfoType::eSwcContainer: {
+            popMenu->addAction(MenuImportSwcFile);
+            popMenu->addAction(MenuExportToSwcFile);
+            popMenu->addSeparator();
+            popMenu->addAction(MenuCreateSwc);
+            break;
+        }
+        case MetaInfoType::eSwc: {
+            popMenu->addAction(MenuEditSwc);
+            popMenu->addSeparator();
+            popMenu->addAction(MenuDeleteSwc);
+            break;
+        }
+        case MetaInfoType::eDailyStatisticsContainer:
+            break;
+        case MetaInfoType::eDailyStatistics:
+            popMenu->addAction(MenuDeleteDailyStatistics);
+            break;
+        case MetaInfoType::eUserMetaInfo:
+            break;
+        case MetaInfoType::ePermissionGroupMetaInfo:
+            break;
+        case MetaInfoType::eUserManagerMetaInfo:
+            break;
+        case MetaInfoType::eSwcData:
+            break;
+        case MetaInfoType::eUnknown:
+            break;
+    }
+
+    auto* triggeredAction = popMenu->exec(QCursor::pos());
+    if (!triggeredAction) {
+        return;
+    }
+}
+
+void LeftClientView::refreshTree() {
     clearAll();
     getProjectMetaInfo();
     getSwcMetaInfo();
@@ -149,28 +341,28 @@ void LeftClientView::clearAll() {
     m_TreeWidget->clear();
 
     m_TopProjectItem = new QTreeWidgetItem(m_TreeWidget);
-    m_TopProjectItem->setText(0,"Project");
-    m_TopProjectItem->setIcon(0,QIcon(Image::ImageProject));
-    LeftClientViewTreeWidgetMetaInfo metaInfoProject{};
+    m_TopProjectItem->setText(0, "Project");
+    m_TopProjectItem->setIcon(0, QIcon(Image::ImageProject));
+    LeftClientViewTreeWidgetItemMetaInfo metaInfoProject{};
     metaInfoProject.type = MetaInfoType::eProjectContainer;
     metaInfoProject.name = "Project";
-    m_TopProjectItem->setData(0,Qt::UserRole,QVariant::fromValue(metaInfoProject));
+    m_TopProjectItem->setData(0, Qt::UserRole, QVariant::fromValue(metaInfoProject));
 
-    m_TopSwcItem= new QTreeWidgetItem(m_TreeWidget);
-    m_TopSwcItem->setText(0,"Swc");
-    m_TopSwcItem->setIcon(0,QIcon(Image::ImageNode));
-    LeftClientViewTreeWidgetMetaInfo metaInfoSwc{};
+    m_TopSwcItem = new QTreeWidgetItem(m_TreeWidget);
+    m_TopSwcItem->setText(0, "Swc");
+    m_TopSwcItem->setIcon(0, QIcon(Image::ImageNode));
+    LeftClientViewTreeWidgetItemMetaInfo metaInfoSwc{};
     metaInfoSwc.type = MetaInfoType::eSwcContainer;
     metaInfoProject.name = "Swc";
-    m_TopSwcItem->setData(0,Qt::UserRole,QVariant::fromValue(metaInfoSwc));
+    m_TopSwcItem->setData(0, Qt::UserRole, QVariant::fromValue(metaInfoSwc));
 
-    m_TopDailyStatisticsItem= new QTreeWidgetItem(m_TreeWidget);
-    m_TopDailyStatisticsItem->setText(0,"DailyStatistics");
-    m_TopDailyStatisticsItem->setIcon(0,QIcon(Image::ImageDaily));
-    LeftClientViewTreeWidgetMetaInfo metaInfoDailyStatistic{};
+    m_TopDailyStatisticsItem = new QTreeWidgetItem(m_TreeWidget);
+    m_TopDailyStatisticsItem->setText(0, "DailyStatistics");
+    m_TopDailyStatisticsItem->setIcon(0, QIcon(Image::ImageDaily));
+    LeftClientViewTreeWidgetItemMetaInfo metaInfoDailyStatistic{};
     metaInfoDailyStatistic.type = MetaInfoType::eDailyStatisticsContainer;
     metaInfoProject.name = "DailyStatistics";
-    m_TopDailyStatisticsItem->setData(0,Qt::UserRole,QVariant::fromValue(metaInfoDailyStatistic));
+    m_TopDailyStatisticsItem->setData(0, Qt::UserRole, QVariant::fromValue(metaInfoDailyStatistic));
 
     m_TreeWidget->addTopLevelItem(m_TopProjectItem);
     m_TreeWidget->addTopLevelItem(m_TopSwcItem);

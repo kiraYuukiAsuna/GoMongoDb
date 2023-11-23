@@ -10,8 +10,9 @@
 EditorUserSettings::EditorUserSettings(QWidget *parent) :
         QDialog(parent), ui(new Ui::EditorUserSettings) {
     ui->setupUi(this);
+    setWindowIcon(QIcon(Image::ImageUser));
 
-    ui->ChangeHeadPhoto->setIcon(QIcon(Image::ImageProject));
+    ui->ChangeHeadPhoto->setIcon(QIcon(Image::ImageEdit));
     connect(ui->ChangeHeadPhoto,&QPushButton::clicked,this,[&](){
 
     });

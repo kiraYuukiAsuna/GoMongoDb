@@ -7,6 +7,8 @@
 #include "src/framework/config/AppConfig.h"
 #include <QTimer>
 #include <QTimerEvent>
+
+#include "src/framework/defination/ImageDefination.h"
 #include "src/framework/service/CachedProtoData.h"
 
 LoginWindow::LoginWindow(QWidget *parent) :
@@ -18,6 +20,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
 
     connect(ui->loginBtn,&QPushButton::clicked, this, &LoginWindow::onLoginBtnClicked);
     connect(ui->registerBtn, &QPushButton::clicked, this, &LoginWindow::onRegisterBtnClicked);
+
+    ui->label->setPixmap(QPixmap::fromImage(QImage(Image::ImageUser).scaled({32,32})));
+    ui->label_2->setPixmap(QPixmap::fromImage(QImage(Image::ImagePassword).scaled({32,32})));
 
     static QTimer timer;
     connect(&timer,&QTimer::timeout,this,[&]() {
@@ -48,11 +53,11 @@ void LoginWindow::verifyCachedAccount() {
 }
 
 void LoginWindow::onLoginBtnClicked(bool checked) {
-    if(ui->userNameEditor->text().isEmpty()) {
+    if(ui->userNameEditor->text().trimmed().isEmpty()) {
         QMessageBox::warning(this,"Error","User Name cannot be empty!");
         return;
     }
-    if(ui->passwordEditor->text().isEmpty()) {
+    if(ui->passwordEditor->text().trimmed().isEmpty()) {
         QMessageBox::warning(this,"Error","Password cannot be empty!");
         return;
     }

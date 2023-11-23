@@ -2,7 +2,7 @@
 #include <QPushButton>
 #include <iostream>
 #include <QFontDatabase>
-
+#include <QProcess>
 #include "grpcpp/grpcpp.h"
 #include "Service/Service.grpc.pb.h"
 #include "src/styles/QtAdvancedStylesheet.h"
@@ -10,6 +10,7 @@
 #include "src/ui/LoginWindow.h"
 #include "src/framework/service/RpcCall.h"
 #include "src/framework/config/AppConfig.h"
+#include "src/framework/defination/ImageDefination.h"
 
 int main(int argc, char *argv[]) {
     setbuf(stdout, nullptr);
@@ -40,6 +41,8 @@ int main(int argc, char *argv[]) {
     // connect(&advancedStyleSheet, SIGNAL(stylesheetChanged()), this,
     //     SLOT(onStyleManagerStylesheetChanged()));
 
+    qApp->setWindowIcon(QIcon(Image::ImageAppIcon));
+
     AppConfig::getInstance().initialize("AppConfig.json");
     AppConfig::getInstance().readConfig();
 
@@ -53,5 +56,8 @@ int main(int argc, char *argv[]) {
     mainwindow.resize(1920/2, 1080/2);
     mainwindow.show();
 
-    return QApplication::exec();
+    auto exitCode = QApplication::exec();
+    if(exitCode == RestartCode) {
+        QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+    }
 }

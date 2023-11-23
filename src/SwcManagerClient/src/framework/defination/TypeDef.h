@@ -15,8 +15,11 @@ enum class MetaInfoType{
     eUnknown
 };
 
-struct LeftClientViewTreeWidgetMetaInfo{
+struct LeftClientViewTreeWidgetItemMetaInfo{
     MetaInfoType type;
     std::string name;
 };
-Q_DECLARE_METATYPE(LeftClientViewTreeWidgetMetaInfo)
+Q_DECLARE_METATYPE(LeftClientViewTreeWidgetItemMetaInfo)
+
+inline constexpr int RestartCode = 773;
+

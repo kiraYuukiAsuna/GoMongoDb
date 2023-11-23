@@ -1251,10 +1251,10 @@ class UserPermissionOverrideMetaInfoV1 final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kUserNameFieldNumber = 3,
-    kProjectPermissionFieldNumber = 2,
+    kUserNameFieldNumber = 2,
+    kProjectPermissionFieldNumber = 1,
   };
-  // string UserName = 3;
+  // string UserName = 2;
   void clear_username();
   const std::string& username() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -1268,7 +1268,7 @@ class UserPermissionOverrideMetaInfoV1 final :
   std::string* _internal_mutable_username();
   public:
 
-  // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 2;
+  // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 1;
   bool has_projectpermission() const;
   private:
   bool _internal_has_projectpermission() const;
@@ -3755,7 +3755,7 @@ inline void PermissionGroupMetaInfoV1::set_allocated_projectpermission(::proto::
 
 // UserPermissionOverrideMetaInfoV1
 
-// .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 2;
+// .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 1;
 inline bool UserPermissionOverrideMetaInfoV1::_internal_has_projectpermission() const {
   return this != internal_default_instance() && _impl_.projectpermission_ != nullptr;
 }
@@ -3845,7 +3845,7 @@ inline void UserPermissionOverrideMetaInfoV1::set_allocated_projectpermission(::
   // @@protoc_insertion_point(field_set_allocated:proto.UserPermissionOverrideMetaInfoV1.ProjectPermission)
 }
 
-// string UserName = 3;
+// string UserName = 2;
 inline void UserPermissionOverrideMetaInfoV1::clear_username() {
   _impl_.username_.ClearToEmpty();
 }

@@ -92,5 +92,18 @@
         <file>images/daily.png</file>
         <file>images/node.png</file>
         <file>images/project.png</file>
+        <file>images/delete.png</file>
+        <file>images/edit.png</file>
+        <file>images/appicon.png</file>
+        <file>images/create.png</file>
+        <file>images/export.png</file>
+        <file>images/import.png</file>
+        <file>images/password.png</file>
+        <file>images/user.png</file>
+        <file>images/userpermission.png</file>
+        <file>images/createuser.png</file>
+        <file>images/defaultuserheadphoto.png</file>
+        <file>images/refresh.png</file>
+        <file>images/file-open.png</file>
     </qresource>
 </RCC>

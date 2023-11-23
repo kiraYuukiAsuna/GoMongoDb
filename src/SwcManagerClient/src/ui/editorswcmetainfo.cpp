@@ -9,11 +9,13 @@
 #include <Message/Response.pb.h>
 
 #include "ui_EditorSwcMetaInfo.h"
+#include "src/framework/defination/ImageDefination.h"
 
 
 EditorSwcMetaInfo::EditorSwcMetaInfo(proto::GetSwcMetaInfoResponse& response, QWidget *parent) :
     QWidget(parent), ui(new Ui::EditorSwcMetaInfo) {
     ui->setupUi(this);
+    setWindowIcon(QIcon(Image::ImageNode));
 
     m_SwcMetaInfo.CopyFrom(response.swcinfo());
 

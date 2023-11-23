@@ -106,6 +106,21 @@ set(PROJECT_SOURCES
         src/ui/EditorBase.cpp
         src/ui/EditorBase.h
         src/framework/defination/ImageDefination.h
+        src/ui/viewcreateproject.cpp
+        src/ui/viewcreateproject.h
+        src/ui/viewcreateproject.ui
+        src/ui/viewcreateswc.cpp
+        src/ui/viewcreateswc.h
+        src/ui/viewcreateswc.ui
+        src/ui/editorswcnode.cpp
+        src/ui/editorswcnode.h
+        src/ui/editorswcnode.ui
+        src/ui/vieweportswctofile.cpp
+        src/ui/vieweportswctofile.h
+        src/ui/vieweportswctofile.ui
+        src/ui/viewimportswcfromfile.cpp
+        src/ui/viewimportswcfromfile.h
+        src/ui/viewimportswcfromfile.ui
 
 )
 

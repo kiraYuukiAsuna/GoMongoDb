@@ -72,4 +72,25 @@ public:
         return false;
     }
 
+    static bool getAllUserMetaInfo(proto::GetAllUserResponse& response, QWidget* parent){
+        grpc::ClientContext context;
+        proto::GetAllUserRequest request;
+        auto* userInfo = request.mutable_userinfo();
+        userInfo->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+
+        auto& rpcCall = RpcCall::getInstance();
+        auto status = rpcCall.Stub()->GetAllUser(&context, request, &response);
+        if(status.ok()){
+            if(response.status()) {
+                return true;
+            }else {
+                QMessageBox::warning(parent,"Info","GetAllUserMetaInfo Failed!" + QString::fromStdString(response.message()));
+            }
+
+        }else{
+            QMessageBox::critical(parent,"Error",QString::fromStdString(status.error_message()));
+        }
+        return false;
+    }
+
 };

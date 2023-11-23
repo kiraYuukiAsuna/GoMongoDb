@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
+#include "src/framework/defination/ImageDefination.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -25,14 +26,17 @@ MainWindow::MainWindow(QWidget *parent) :
     auto* menuFile = new QMenu(menuBar);
     // icon
     menuFile->setTitle("File");
+    menuFile->setIcon(QIcon(Image::ImageFileOpen));
     menuBar->addMenu(menuFile);
 
     auto* menuImportSwcFile = new QAction(menuFile);
     menuImportSwcFile->setText("Import Swc File");
+    menuImportSwcFile->setIcon(QIcon(Image::ImageImport));
     menuFile->addAction(menuImportSwcFile);
 
     auto* menuExportToSwcFile = new QAction(menuFile);
-    menuExportToSwcFile->setText("Import Swc File");
+    menuExportToSwcFile->setText("Export Swc File");
+    menuExportToSwcFile->setIcon(QIcon(Image::ImageExport));
     menuFile->addAction(menuExportToSwcFile);
 
     setMenuBar(menuBar);

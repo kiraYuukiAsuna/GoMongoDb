@@ -408,9 +408,9 @@ const char descriptor_table_protodef_Message_2fMessage_2eproto[] PROTOBUF_SECTIO
   "\0132!.proto.GlobalPermissionMetaInfoV1\022=\n\021"
   "ProjectPermission\030\005 \001(\0132\".proto.ProjectP"
   "ermissionMetaInfoV1\"s\n UserPermissionOve"
-  "rrideMetaInfoV1\022=\n\021ProjectPermission\030\002 \001"
+  "rrideMetaInfoV1\022=\n\021ProjectPermission\030\001 \001"
   "(\0132\".proto.ProjectPermissionMetaInfoV1\022\020"
-  "\n\010UserName\030\003 \001(\t\"\274\002\n\021ProjectMetaInfoV1\022!"
+  "\n\010UserName\030\002 \001(\t\"\274\002\n\021ProjectMetaInfoV1\022!"
   "\n\004Base\030\001 \001(\0132\023.proto.MetaInfoBase\022\014\n\004Nam"
   "e\030\002 \001(\t\022\023\n\013Description\030\003 \001(\t\022\017\n\007Creator\030"
   "\004 \001(\t\022.\n\nCreateTime\030\005 \001(\0132\032.google.proto"
@@ -2254,17 +2254,17 @@ const char* UserPermissionOverrideMetaInfoV1::_InternalParse(const char* ptr, ::
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+      // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_projectpermission(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // string UserName = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // string UserName = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_username();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -2301,21 +2301,21 @@ uint8_t* UserPermissionOverrideMetaInfoV1::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 2;
+  // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 1;
   if (this->_internal_has_projectpermission()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::projectpermission(this),
+      InternalWriteMessage(1, _Internal::projectpermission(this),
         _Internal::projectpermission(this).GetCachedSize(), target, stream);
   }
 
-  // string UserName = 3;
+  // string UserName = 2;
   if (!this->_internal_username().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "proto.UserPermissionOverrideMetaInfoV1.UserName");
     target = stream->WriteStringMaybeAliased(
-        3, this->_internal_username(), target);
+        2, this->_internal_username(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2334,14 +2334,14 @@ size_t UserPermissionOverrideMetaInfoV1::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string UserName = 3;
+  // string UserName = 2;
   if (!this->_internal_username().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_username());
   }
 
-  // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 2;
+  // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 1;
   if (this->_internal_has_projectpermission()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(

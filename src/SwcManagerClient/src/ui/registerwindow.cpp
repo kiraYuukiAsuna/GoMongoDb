@@ -1,9 +1,3 @@
-//
-// Created by KiraY on 2023/11/20.
-//
-
-// You may need to build the project (run Qt uic code generator) to get "ui_RegisterWindow.h" resolved
-
 #include "registerwindow.h"
 
 #include <QMessageBox>
@@ -11,18 +5,22 @@
 #include <Message/Request.pb.h>
 
 #include "ui_RegisterWindow.h"
+#include "src/framework/defination/ImageDefination.h"
 #include "src/framework/service/RpcCall.h"
 
 
 RegisterWindow::RegisterWindow(QWidget *parent) :
     QDialog(parent), ui(new Ui::RegisterWindow) {
     ui->setupUi(this);
-
+    this->setWindowIcon(QIcon(Image::ImageCreateUser));
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowMaximizeButtonHint);
     this->setFixedSize(this->size());
 
     connect(ui->registerBtn,&QPushButton::clicked, this, &RegisterWindow::onRegisterBtnClicked);
 
+    ui->label->setPixmap(QPixmap::fromImage(QImage(Image::ImageCreateUser).scaled({32,32})));
+    ui->label_2->setPixmap(QPixmap::fromImage(QImage(Image::ImagePassword).scaled({32,32})));
+    ui->label_3->setPixmap(QPixmap::fromImage(QImage(Image::ImagePassword).scaled({32,32})));
 
 }
 
@@ -31,11 +29,11 @@ RegisterWindow::~RegisterWindow() {
 }
 
 void RegisterWindow::onRegisterBtnClicked(bool checked) {
-    if(ui->userNameEditor->text().isEmpty()) {
+    if(ui->userNameEditor->text().trimmed().isEmpty()) {
         QMessageBox::warning(this,"Error","User Name cannot be empty!");
         return;
     }
-    if(ui->passwordEditor->text().isEmpty() || ui->repeatPasswordEditor->text().isEmpty()) {
+    if(ui->passwordEditor->text().trimmed().isEmpty() || ui->repeatPasswordEditor->text().trimmed().isEmpty()) {
         QMessageBox::warning(this,"Error","Password cannot be empty!");
         return;
     }
