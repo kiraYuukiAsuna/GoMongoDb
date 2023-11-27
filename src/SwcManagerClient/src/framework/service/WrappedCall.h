@@ -93,4 +93,63 @@ public:
         return false;
     }
 
+    static bool getProjectMetaInfoByName(const std::string& projectName, proto::GetProjectResponse& response, QWidget* parent) {
+        proto::GetProjectRequest request;
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+        request.mutable_projectinfo()->set_name(projectName);
+
+        grpc::ClientContext context;
+        auto result = RpcCall::getInstance().Stub()->GetProject(&context, request,&response);
+        if(result.ok()){
+            if(response.status()) {
+                return true;
+            }else {
+                QMessageBox::warning(parent,"Info","GetProjectMetaInfo Failed!" + QString::fromStdString(response.message()));
+            }
+        }else{
+            QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
+        }
+        return false;
+    }
+
+    static bool getSwcMetaInfoByName(const std::string& swcName, proto::GetSwcMetaInfoResponse& response, QWidget* parent){
+        proto::GetSwcMetaInfoRequest request;
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+        request.mutable_swcinfo()->set_name(swcName);
+
+
+        grpc::ClientContext context;
+        auto result = RpcCall::getInstance().Stub()->GetSwcMetaInfo(&context, request,&response);
+        if(result.ok()){
+            if(response.status()) {
+                return true;
+            }else {
+                QMessageBox::warning(parent,"Info","GetSwcMetaInfo Failed!" + QString::fromStdString(response.message()));
+            }
+
+        }else{
+            QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
+        }
+        return false;
+    }
+
+    static bool getDailyStatisticsmMetaInfoByName(const std::string& dailyStatisticsName, proto::GetDailyStatisticsResponse& response, QWidget* parent) {
+        proto::GetDailyStatisticsRequest request;
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+        request.mutable_dailystatisticsinfo()->set_name(dailyStatisticsName);
+
+        grpc::ClientContext context;
+        auto result = RpcCall::getInstance().Stub()->GetDailyStatistics(&context, request,&response);
+        if(result.ok()){
+            if(response.status()) {
+                return true;
+            }else {
+                QMessageBox::warning(parent,"Info","GetSwcMetaInfo Failed!" + QString::fromStdString(response.message()));
+            }
+
+        }else{
+            QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
+        }
+    }
+
 };

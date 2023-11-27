@@ -176,7 +176,7 @@
      <item row="15" column="0">
       <widget class="QLabel" name="label_16">
        <property name="text">
-        <string>ProjectQ uery Number:</string>
+        <string>Project Query Number:</string>
        </property>
       </widget>
      </item>

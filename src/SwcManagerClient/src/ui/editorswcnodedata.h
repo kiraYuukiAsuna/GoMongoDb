@@ -1,12 +1,7 @@
-//
-// Created by KiraY on 2023/11/22.
-//
-
-#ifndef EDITORSWCNODEDATA_H
-#define EDITORSWCNODEDATA_H
+#pragma once
 
 #include <QWidget>
-
+#include "../Generated/Message/Message.pb.h"
 #include "EditorBase.h"
 
 
@@ -18,7 +13,7 @@ class EditorSwcNodeData : public QWidget, public EditorBase{
 Q_OBJECT
 
 public:
-    explicit EditorSwcNodeData(QWidget *parent = nullptr);
+    explicit EditorSwcNodeData(const std::string& swcName, QWidget *parent = nullptr);
     ~EditorSwcNodeData() override;
 
     virtual std::string getName() {
@@ -29,8 +24,11 @@ public:
         return MetaInfoType::eSwcData;
     }
 private:
+    void getSwcNodeData();
+
+    proto::SwcMetaInfoV1 m_SwcMetaInfo;
+    std::string m_SwcName;
+
     Ui::EditorSwcNodeData *ui;
 };
 
-
-#endif //EDITORSWCNODEDATA_H

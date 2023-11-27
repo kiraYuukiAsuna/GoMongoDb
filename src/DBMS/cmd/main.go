@@ -10,7 +10,7 @@ import (
 func main() {
 	bll.Initialize()
 	bll.CronAutoSaveDailyStatistics()
-	bll.CronHeartBeatRefresh()
+	bll.CronHeartBeatValidationAndRefresh()
 	bll.NewGrpcServer()
 	return
 
