@@ -1,7 +1,6 @@
 package dbmodel
 
 import (
-	"bytes"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
@@ -21,13 +20,13 @@ type MetaInfoBase struct {
 }
 
 type UserMetaInfoV1 struct {
-	Base                MetaInfoBase  `bson:"Base,inline"`
-	Name                string        `bson:"Name"`
-	Password            string        `bson:"Password"`
-	Description         string        `bson:"Description"`
-	CreateTime          time.Time     `bson:"CreateTime"`
-	HeadPhotoBinData    *bytes.Buffer `bson:"HeadPhotoBinData"`
-	UserPermissionGroup string        `bson:"UserPermissionGroup"`
+	Base                MetaInfoBase `bson:"Base,inline"`
+	Name                string       `bson:"Name"`
+	Password            string       `bson:"Password"`
+	Description         string       `bson:"Description"`
+	CreateTime          time.Time    `bson:"CreateTime"`
+	HeadPhotoBinData    []byte       `bson:"HeadPhotoBinData"`
+	UserPermissionGroup string       `bson:"UserPermissionGroup"`
 }
 
 type GlobalPermissionMetaInfoV1 struct {

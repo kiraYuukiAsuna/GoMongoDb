@@ -1,4 +1,7 @@
 #include <QMessageBox>
+#include <QBuffer>
+#include <QFileDialog>
+#include <QStandardPaths>
 #include "editorusersettings.h"
 #include "ui_EditorUserSettings.h"
 #include "Service//Service.pb.h"
@@ -14,9 +17,62 @@ EditorUserSettings::EditorUserSettings(QWidget *parent) :
 
     ui->ChangeHeadPhoto->setIcon(QIcon(Image::ImageEdit));
     connect(ui->ChangeHeadPhoto,&QPushButton::clicked,this,[&](){
-
+        QFileDialog dialog;
+        dialog.setWindowTitle("Select your head photo");
+        dialog.setDirectory(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+        dialog.setNameFilter(tr("File(*.png)"));
+        dialog.setFileMode(QFileDialog::ExistingFile);
+        dialog.setViewMode(QFileDialog::Detail);
+        if(dialog.exec()){
+            if(dialog.selectedFiles().size() < 1){
+                return;
+            }
+            QString fileName = dialog.selectedFiles()[0];
+            QPixmap pixmap;
+            pixmap.load(fileName);
+            ui->HeadPhoto->setPixmap(pixmap);
+        }
     });
+    connect(ui->CancelBtn,&QPushButton::clicked,this,[&](){
+        reject();
+    });
+    connect(ui->OKBtn,&QPushButton::clicked,this,[&](){
+        proto::UpdateUserRequest request;
+        proto::UpdateUserResponse response;
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
 
+        if(ui->Description->text().trimmed().isEmpty()){
+            QMessageBox::warning(this,"Error","Description cannot be empty!");
+            return;
+        }
+        request.mutable_userinfo()->set_description(ui->Description->text().trimmed().toStdString());
+
+        if(ui->Password->text().trimmed().isEmpty()){
+            QMessageBox::warning(this,"Error","Password cannot be empty!");
+            return;
+        }
+        request.mutable_userinfo()->set_password(ui->Password->text().trimmed().toStdString());
+
+        QBuffer buffer;
+        if(buffer.open(QIODevice::WriteOnly)){
+            ui->HeadPhoto->pixmap().save(&buffer,"png");
+            request.mutable_userinfo()->set_headphotobindata(QByteArray(buffer.data()).toStdString());
+        }
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->UpdateUser(&context,request,&response);
+        if(status.ok()){
+            if(response.status()){
+                CachedProtoData::getInstance().CachedUserMetaInfo.CopyFrom(response.userinfo());
+                QMessageBox::information(this,"Notice","Update user info success!");
+                accept();
+            }else{
+                QMessageBox::critical(this,"Error",QString::fromStdString(response.message()));
+            }
+        }else{
+            QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
+        }
+    });
     getUserMetaInfo();
 }
 
@@ -37,16 +93,24 @@ void EditorUserSettings::getUserMetaInfo() {
         CachedProtoData::getInstance().CachedUserMetaInfo.CopyFrom(response.userinfo());
 
         ui->Id->setText(QString::fromStdString(response.userinfo().base()._id()));
+        ui->Id->setReadOnly(true);
         ui->Uuid->setText(QString::fromStdString(response.userinfo().base().uuid()));
+        ui->Uuid->setReadOnly(true);
         ui->ApiVersion->setText(QString::fromStdString(response.userinfo().base().apiversion()));
+        ui->ApiVersion->setReadOnly(true);
         ui->Name->setText(QString::fromStdString(response.userinfo().name()));
+        ui->Name->setReadOnly(true);
         ui->Description->setText(QString::fromStdString(response.userinfo().description()));
         ui->Password->setText(QString::fromStdString(response.userinfo().password()));
         ui->CreateTime->setDateTime(QDateTime::fromSecsSinceEpoch(response.userinfo().createtime().seconds()));
+        ui->CreateTime->setReadOnly(true);
         QPixmap pixmap;
-        pixmap.loadFromData(QByteArray::fromStdString(response.userinfo().headphotobindata()));
+        auto rawdata = response.userinfo().headphotobindata();
+        auto data = QByteArray::fromStdString(rawdata);
+        pixmap.loadFromData(data);
         ui->HeadPhoto->setPixmap(pixmap);
         ui->PermissionGroup->setText(QString::fromStdString(response.userinfo().userpermissiongroup()));
+        ui->PermissionGroup->setReadOnly(true);
 
     }else{
         QMessageBox::critical(this,"Error",QString::fromStdString(result.error_message()));

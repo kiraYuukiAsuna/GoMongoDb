@@ -3,7 +3,6 @@ package bll
 import (
 	"DBMS/Generated/proto/message"
 	"DBMS/dbmodel"
-	"bytes"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
@@ -27,7 +26,7 @@ func UserMetaInfoV1ProtobufToDbmodel(protoMessage *message.UserMetaInfoV1) *dbmo
 	}
 
 	if protoMessage.HeadPhotoBinData != nil {
-		dbmodelMessage.HeadPhotoBinData = bytes.NewBuffer(protoMessage.HeadPhotoBinData)
+		dbmodelMessage.HeadPhotoBinData = protoMessage.HeadPhotoBinData
 	}
 
 	return &dbmodelMessage
@@ -36,7 +35,7 @@ func UserMetaInfoV1ProtobufToDbmodel(protoMessage *message.UserMetaInfoV1) *dbmo
 func UserMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.UserMetaInfoV1) *message.UserMetaInfoV1 {
 	var protoMessage message.UserMetaInfoV1
 	protoMessage.Base = &message.MetaInfoBase{}
-	protoMessage.Base.XId = dbmodelMessage.Base.Id.String()
+	protoMessage.Base.XId = dbmodelMessage.Base.Id.Hex()
 	protoMessage.Base.Uuid = dbmodelMessage.Base.Uuid
 	protoMessage.Base.ApiVersion = dbmodelMessage.Base.ApiVersion
 
@@ -46,7 +45,7 @@ func UserMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.UserMetaInfoV1) *me
 	protoMessage.UserPermissionGroup = dbmodelMessage.UserPermissionGroup
 	protoMessage.CreateTime = timestamppb.New(dbmodelMessage.CreateTime)
 	if dbmodelMessage.HeadPhotoBinData != nil {
-		protoMessage.HeadPhotoBinData = dbmodelMessage.HeadPhotoBinData.Bytes()
+		protoMessage.HeadPhotoBinData = dbmodelMessage.HeadPhotoBinData
 	}
 
 	return &protoMessage
@@ -82,7 +81,7 @@ func PermissionGroupMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.Permissi
 	var protoMessage message.PermissionGroupMetaInfoV1
 
 	protoMessage.Base = &message.MetaInfoBase{}
-	protoMessage.Base.XId = dbmodelMessage.Base.Id.String()
+	protoMessage.Base.XId = dbmodelMessage.Base.Id.Hex()
 	protoMessage.Base.Uuid = dbmodelMessage.Base.Uuid
 	protoMessage.Base.ApiVersion = dbmodelMessage.Base.ApiVersion
 
@@ -151,7 +150,7 @@ func ProjectMetaInfoV1ProtobufToDbmodel(protoMessage *message.ProjectMetaInfoV1)
 func ProjectMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.ProjectMetaInfoV1) *message.ProjectMetaInfoV1 {
 	var protoMessage message.ProjectMetaInfoV1
 	protoMessage.Base = &message.MetaInfoBase{}
-	protoMessage.Base.XId = dbmodelMessage.Base.Id.String()
+	protoMessage.Base.XId = dbmodelMessage.Base.Id.Hex()
 	protoMessage.Base.Uuid = dbmodelMessage.Base.Uuid
 	protoMessage.Base.ApiVersion = dbmodelMessage.Base.ApiVersion
 
@@ -204,7 +203,7 @@ func SwcMetaInfoV1ProtobufToDbmodel(protoMessage *message.SwcMetaInfoV1) *dbmode
 func SwcMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.SwcMetaInfoV1) *message.SwcMetaInfoV1 {
 	var protoMessage message.SwcMetaInfoV1
 	protoMessage.Base = &message.MetaInfoBase{}
-	protoMessage.Base.XId = dbmodelMessage.Base.Id.String()
+	protoMessage.Base.XId = dbmodelMessage.Base.Id.Hex()
 	protoMessage.Base.Uuid = dbmodelMessage.Base.Uuid
 	protoMessage.Base.ApiVersion = dbmodelMessage.Base.ApiVersion
 
@@ -242,7 +241,7 @@ func SwcNodeDataV1ProtobufToDbmodel(protoMessage *message.SwcNodeDataV1) *dbmode
 func SwcNodeDataV1DbmodelToProtobuf(dbmodelMessage *dbmodel.SwcNodeDataV1) *message.SwcNodeDataV1 {
 	var protoMessage message.SwcNodeDataV1
 	protoMessage.Base = &message.MetaInfoBase{}
-	protoMessage.Base.XId = dbmodelMessage.Base.Id.String()
+	protoMessage.Base.XId = dbmodelMessage.Base.Id.Hex()
 	protoMessage.Base.Uuid = dbmodelMessage.Base.Uuid
 	protoMessage.Base.ApiVersion = dbmodelMessage.Base.ApiVersion
 
@@ -294,7 +293,7 @@ func DailyStatisticsMetaInfoV1ProtobufToDbmodel(protoMessage *message.DailyStati
 func DailyStatisticsMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.DailyStatisticsMetaInfoV1) *message.DailyStatisticsMetaInfoV1 {
 	var protoMessage message.DailyStatisticsMetaInfoV1
 	protoMessage.Base = &message.MetaInfoBase{}
-	protoMessage.Base.XId = dbmodelMessage.Base.Id.String()
+	protoMessage.Base.XId = dbmodelMessage.Base.Id.Hex()
 	protoMessage.Base.Uuid = dbmodelMessage.Base.Uuid
 	protoMessage.Base.ApiVersion = dbmodelMessage.Base.ApiVersion
 

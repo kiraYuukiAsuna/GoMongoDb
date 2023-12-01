@@ -7,7 +7,6 @@ import (
 	"DBMS/Generated/proto/service"
 	"DBMS/dal"
 	"DBMS/dbmodel"
-	"bytes"
 	"context"
 	"fmt"
 	"github.com/google/uuid"
@@ -30,7 +29,7 @@ func (D DBMSServerController) CreateUser(ctx context.Context, request *request.C
 	userMetaInfo.Description = request.UserInfo.Description
 	userMetaInfo.UserPermissionGroup = dal.PermissionGroupDefault
 	userMetaInfo.CreateTime = time.Now()
-	userMetaInfo.HeadPhotoBinData = bytes.NewBuffer(request.UserInfo.HeadPhotoBinData)
+	userMetaInfo.HeadPhotoBinData = request.UserInfo.HeadPhotoBinData
 
 	result := dal.CreateUser(*userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
@@ -505,7 +504,7 @@ func (D DBMSServerController) DeleteProject(ctx context.Context, request *reques
 	if permissionGroup.Global.WritePermissionDeleteProject == false {
 		return &response.DeleteProjectResponse{
 			Status:      false,
-			Message:     "You don't have permission to create project!",
+			Message:     "You don't have permission to delete project!",
 			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
 		}, nil
 	}
