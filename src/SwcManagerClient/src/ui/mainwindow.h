@@ -23,6 +23,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QTimer* m_HeartBeatTimer;
+    QTimer* m_OnlineStatusTimer;
 
     QSplitter* m_Splitter;
     LeftClientView* m_LeftClientView;

@@ -9,6 +9,7 @@ public:
     }
 
     proto::UserMetaInfoV1 CachedUserMetaInfo;
+    bool OnlineStatus = false;
 
 private:
     CachedProtoData();

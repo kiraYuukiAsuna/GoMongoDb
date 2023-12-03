@@ -27,15 +27,29 @@ LeftClientView::LeftClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui
     m_UserSettingBtn->setText("User Settings");
     m_UserSettingBtn->setIcon(QIcon(Image::ImageUser));
 
+    auto rawHeadPhotoBinData = CachedProtoData::getInstance().CachedUserMetaInfo.headphotobindata();
+    auto headPhotoBinData = QByteArray::fromStdString(rawHeadPhotoBinData);
+
     connect(m_UserSettingBtn, &QPushButton::clicked, this, [&](bool checked) {
-        EditorUserSettings editorUserSettings;
+        EditorUserSettings editorUserSettings(this);
         editorUserSettings.exec();
     });
 
     m_AccountBtn = new QToolButton(this);
     m_AccountBtn->setPopupMode(QToolButton::InstantPopup);
     m_AccountBtn->setText("Account");
-    m_AccountBtn->setIcon(QIcon(Image::ImageDefaultUserHeadPhoto));
+    m_AccountBtn->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    m_AccountBtn->setIconSize({32,32});
+
+    if(headPhotoBinData.size() > 0) {
+        QPixmap pixmap;
+        pixmap.loadFromData(headPhotoBinData);
+        pixmap = pixmap.scaled(QSize(128,128),Qt::KeepAspectRatioByExpanding);
+        m_AccountBtn->setIcon(pixmap);
+    }else {
+        m_AccountBtn->setIcon(QIcon(Image::ImageDefaultUserHeadPhoto));
+    }
+
     auto* logoutAction = new QAction(this);
     logoutAction->setText("Logout");
     connect(logoutAction, &QAction::triggered, this, [&](bool checked) {
@@ -367,4 +381,16 @@ void LeftClientView::clearAll() {
     m_TreeWidget->addTopLevelItem(m_TopProjectItem);
     m_TreeWidget->addTopLevelItem(m_TopSwcItem);
     m_TreeWidget->addTopLevelItem(m_TopDailyStatisticsItem);
+
+    auto rawHeadPhotoBinData = CachedProtoData::getInstance().CachedUserMetaInfo.headphotobindata();
+    auto headPhotoBinData = QByteArray::fromStdString(rawHeadPhotoBinData);
+
+    if(headPhotoBinData.size() > 0) {
+        QPixmap pixmap;
+        pixmap.loadFromData(headPhotoBinData);
+        pixmap = pixmap.scaled(QSize(128,128),Qt::KeepAspectRatioByExpanding);
+        m_AccountBtn->setIcon(pixmap);
+    }else {
+        m_AccountBtn->setIcon(QIcon(Image::ImageDefaultUserHeadPhoto));
+    }
 }

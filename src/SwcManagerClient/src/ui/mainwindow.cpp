@@ -60,12 +60,22 @@ MainWindow::MainWindow(QWidget *parent) :
         grpc::ClientContext context;
         auto status = RpcCall::getInstance().Stub()->UserOnlineHeartBeatNotifications(&context,notification,&response);
         if(status.ok()) {
-
+            CachedProtoData::getInstance().OnlineStatus = true;
         }else {
             QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
         }
     });
     m_HeartBeatTimer->start();
+
+    m_OnlineStatusTimer = new QTimer;
+    m_OnlineStatusTimer->setInterval(30000);
+    connect(m_OnlineStatusTimer,&QTimer::timeout,this,[&]() {
+        if(!CachedProtoData::getInstance().OnlineStatus) {
+            QMessageBox::critical(this,"Error","Timeout! You may have disconnected from server!");
+        }
+        CachedProtoData::getInstance().OnlineStatus = false;
+    });
+    m_OnlineStatusTimer->start();
 }
 
 MainWindow::~MainWindow() {

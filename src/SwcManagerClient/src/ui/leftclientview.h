@@ -24,14 +24,13 @@ public:
     void getProjectMetaInfo();
     void getSwcMetaInfo();
     void getAllDailyStatisticsMetaInfo();
+    void refreshTree();
 
 public slots:
     void onRefreshBtnClicked(bool checked);
     void customTreeWidgetContentMenu(const QPoint& pos);
 
 private:
-    void refreshTree();
-
     Ui::LeftClientView *ui;
     QVBoxLayout* m_MainLayout;
     QHBoxLayout* m_ControlBtnLayout;

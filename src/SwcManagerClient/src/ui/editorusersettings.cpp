@@ -9,11 +9,13 @@
 #include "src/framework/service/RpcCall.h"
 #include "src/framework/service/CachedProtoData.h"
 #include "src/framework/defination/ImageDefination.h"
+#include "leftclientview.h"
 
-EditorUserSettings::EditorUserSettings(QWidget *parent) :
-        QDialog(parent), ui(new Ui::EditorUserSettings) {
+EditorUserSettings::EditorUserSettings(LeftClientView *leftClientView) :
+        QDialog(leftClientView), ui(new Ui::EditorUserSettings) {
     ui->setupUi(this);
     setWindowIcon(QIcon(Image::ImageUser));
+    m_LeftClientView = leftClientView;
 
     ui->ChangeHeadPhoto->setIcon(QIcon(Image::ImageEdit));
     connect(ui->ChangeHeadPhoto,&QPushButton::clicked,this,[&](){
@@ -30,6 +32,7 @@ EditorUserSettings::EditorUserSettings(QWidget *parent) :
             QString fileName = dialog.selectedFiles()[0];
             QPixmap pixmap;
             pixmap.load(fileName);
+            pixmap = pixmap.scaled(QSize(128,128),Qt::KeepAspectRatioByExpanding);
             ui->HeadPhoto->setPixmap(pixmap);
         }
     });
@@ -65,6 +68,7 @@ EditorUserSettings::EditorUserSettings(QWidget *parent) :
             if(response.status()){
                 CachedProtoData::getInstance().CachedUserMetaInfo.CopyFrom(response.userinfo());
                 QMessageBox::information(this,"Notice","Update user info success!");
+                m_LeftClientView->refreshTree();
                 accept();
             }else{
                 QMessageBox::critical(this,"Error",QString::fromStdString(response.message()));
@@ -108,6 +112,7 @@ void EditorUserSettings::getUserMetaInfo() {
         auto rawdata = response.userinfo().headphotobindata();
         auto data = QByteArray::fromStdString(rawdata);
         pixmap.loadFromData(data);
+        pixmap = pixmap.scaled(QSize(128,128),Qt::KeepAspectRatioByExpanding);
         ui->HeadPhoto->setPixmap(pixmap);
         ui->PermissionGroup->setText(QString::fromStdString(response.userinfo().userpermissiongroup()));
         ui->PermissionGroup->setReadOnly(true);

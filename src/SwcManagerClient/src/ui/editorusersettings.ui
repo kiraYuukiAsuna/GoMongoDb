@@ -110,6 +110,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLabel" name="HeadPhoto">
+         <property name="maximumSize">
+          <size>
+           <width>512</width>
+           <height>512</height>
+          </size>
+         </property>
          <property name="text">
           <string/>
          </property>
