@@ -1,10 +1,6 @@
-//
-// Created by KiraY on 2023/11/23.
-//
+#pragma once
 
-#ifndef VIEWCREATESWC_H
-#define VIEWCREATESWC_H
-
+#include <QDialog>
 #include <QWidget>
 
 
@@ -12,7 +8,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class ViewCreateSwc; }
 QT_END_NAMESPACE
 
-class ViewCreateSwc : public QWidget {
+class ViewCreateSwc : public QDialog {
 Q_OBJECT
 
 public:
@@ -22,6 +18,3 @@ public:
 private:
     Ui::ViewCreateSwc *ui;
 };
-
-
-#endif //VIEWCREATESWC_H

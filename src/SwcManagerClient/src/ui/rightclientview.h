@@ -20,8 +20,16 @@ public:
     ~RightClientView() override;
 
     void openProjectMetaInfo(const std::string& projectName);
+    void closeWithoutSavingProject(const std::string& projectName);
+    void refreshProjectMetaInfo(const std::string& projectName);
     void openSwcMetaInfo(const std::string& swcName);
+    void closeWithoutSavingSwc(const std::string& swcName);
+    void refreshSwcMetaInfo(const std::string& swcName);
     void openDailyStatisticsMetaInfo(const std::string& dailyStatisticsName);
+    void closeWithoutSavingDailyStatistics(const std::string& dailyStatisticsName);
+    void refreshDailyStatisticsMetaInfo(const std::string& dailyStatisticsName);
+
+    void refreshAllOpenedProjectMetaInfo();
 
 private:
     int findIfTabAlreadOpenned(const std::string& name, MetaInfoType metaInfoType);

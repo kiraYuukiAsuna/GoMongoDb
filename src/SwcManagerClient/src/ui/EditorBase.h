@@ -14,4 +14,6 @@ public:
         return "";
     }
 
+    virtual bool save() = 0;
+
 };

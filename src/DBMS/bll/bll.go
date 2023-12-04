@@ -554,7 +554,7 @@ func (D DBMSServerController) UpdateProject(ctx context.Context, request *reques
 	if permissionGroup.Global.WritePermissionModifyProject == false {
 		return &response.UpdateProjectResponse{
 			Status:      false,
-			Message:     "You don't have permission to create project!",
+			Message:     "You don't have permission to update project!",
 			ProjectInfo: ProjectMetaInfoV1DbmodelToProtobuf(projectMetaInfo),
 		}, nil
 	}
@@ -746,6 +746,24 @@ func (D DBMSServerController) DeleteSwc(ctx context.Context, request *request.De
 	}
 
 	result = dal.DeleteSwc(*swcMetaInfo, dal.GetDbInstance())
+
+	var projectMetaInfoList []dbmodel.ProjectMetaInfoV1
+	dal.QueryAllProject(&projectMetaInfoList, dal.GetDbInstance())
+	for _, projectMetaInfo := range projectMetaInfoList {
+		var bFind = false
+		for idx, swcValue := range projectMetaInfo.SwcList {
+			if swcValue == swcMetaInfo.Name {
+				projectMetaInfo.SwcList = append(projectMetaInfo.SwcList[:idx], projectMetaInfo.SwcList[idx:]...)
+				bFind = true
+				dal.ModifyProject(projectMetaInfo, dal.GetDbInstance())
+				break
+			}
+			if bFind {
+				break
+			}
+		}
+	}
+
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + "Delete Swc " + swcMetaInfo.Name)
 		DailyStatisticsInfo.DeletedSwcNumber += 1

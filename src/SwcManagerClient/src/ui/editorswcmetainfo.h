@@ -25,6 +25,10 @@ public:
         return MetaInfoType::eSwc;
     }
 
+    bool save() override;
+
+    void refresh(proto::GetSwcMetaInfoResponse& response);
+
 private:
     Ui::EditorSwcMetaInfo *ui;
 
