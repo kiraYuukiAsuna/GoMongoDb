@@ -1,18 +1,20 @@
-//
-// Created by KiraY on 2023/11/23.
-//
-
-// You may need to build the project (run Qt uic code generator) to get "ui_EditorSwcNode.h" resolved
-
 #include "editorswcnode.h"
 #include "ui_EditorSwcNode.h"
 
 
-EditorSwcNode::EditorSwcNode(QWidget *parent) :
+EditorSwcNode::EditorSwcNode(proto::GetSwcNodeDataResponse& response, QWidget *parent) :
     QWidget(parent), ui(new Ui::EditorSwcNode) {
     ui->setupUi(this);
+
+    refresh(response);
 }
 
 EditorSwcNode::~EditorSwcNode() {
     delete ui;
+}
+
+void EditorSwcNode::refresh(proto::GetSwcNodeDataResponse& response) {
+    for(int i=0;i<response.swcnodedata().swcdata_size();i++) {
+
+    }
 }
