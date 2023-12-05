@@ -150,6 +150,7 @@ public:
         }else{
             QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
         }
+        return false;
     }
 
 };

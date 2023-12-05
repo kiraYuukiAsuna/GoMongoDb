@@ -29,6 +29,12 @@ func InitializeDb() {
 	databaseInstance := dal.ConnectToDataBase(connectionInfo, dal.DefaultMetaInfoDataBaseName, dal.DefaultSwcDataBaseName)
 
 	dal.SetDbInstance(databaseInstance)
+
+	var defaultAdminSystemUser dbmodel.UserMetaInfoV1
+	defaultAdminSystemUser.Name = dal.DefaultAdminSystemUserName
+	defaultAdminSystemUser.Password = dal.DefaultAdminSystemUserPassword
+
+	dal.CreateUser(defaultAdminSystemUser, dal.GetDbInstance())
 }
 
 func TestUserInfo() {

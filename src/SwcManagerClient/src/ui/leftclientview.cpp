@@ -13,8 +13,10 @@
 #include "src/framework/service/WrappedCall.h"
 #include "src/ui/editorusersettings.h"
 #include <QMenu>
+#include <ui_ViewCreateSwc.h>
 
 #include "viewcreateproject.h"
+#include "viewcreateswc.h"
 #include "src/framework/config/AppConfig.h"
 
 LeftClientView::LeftClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui(new Ui::LeftClientView) {
@@ -237,6 +239,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
                 if(status.ok()) {
                     if(response.status()) {
                         QMessageBox::information(this,"Info","Delete Project successfully!");
+                        m_MainWindow->getRightClientView().closeWithoutSavingProject(data.name);
                         refreshTree();
                     }else {
                         QMessageBox::critical(this,"Error",QString::fromStdString(response.message()));
@@ -252,7 +255,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     MenuEditProject->setText("Edit Project");
     MenuEditProject->setIcon(QIcon(Image::ImageEdit));
     connect(MenuEditProject,&QAction::triggered,this,[&](bool checked) {
-
+        m_MainWindow->getRightClientView().openProjectMetaInfo(data.name);
     });
 
     auto* MenuImportSwcFile = new QAction(this);
@@ -273,28 +276,85 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     MenuCreateSwc->setText("Create Swc");
     MenuCreateSwc->setIcon(QIcon(Image::ImageCreate));
     connect(MenuCreateSwc,&QAction::triggered,this,[&](bool checked) {
-
+        ViewCreateSwc view;
+        if(view.exec() == QDialog::Accepted) {
+            refreshTree();
+        }
     });
 
     auto* MenuDeleteSwc = new QAction(this);
     MenuDeleteSwc->setText("Delete Swc");
     MenuDeleteSwc->setIcon(QIcon(Image::ImageDelete));
     connect(MenuDeleteSwc,&QAction::triggered,this,[&](bool checked) {
+        auto result = QMessageBox::information(this,"Warning","Are you sure to delete this Swc? This operation cannot be revert!",
+                   QMessageBox::StandardButton::Ok,QMessageBox::StandardButton::Cancel);
+               if(result == QMessageBox::StandardButton::Ok) {
+                   if(data.type == MetaInfoType::eSwc) {
+                       proto::DeleteSwcRequest request;
+                       request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+                       request.mutable_swcinfo()->set_name(curItem->text(0).toStdString());
 
+                       proto::DeleteSwcResponse response;
+                       grpc::ClientContext context;
+                       auto status = RpcCall::getInstance().Stub()->DeleteSwc(&context,request,&response);
+                       if(status.ok()) {
+                           if(response.status()) {
+                               QMessageBox::information(this,"Info","Delete Swc successfully!");
+                               m_MainWindow->getRightClientView().closeWithoutSavingSwc(data.name);
+                               m_MainWindow->getRightClientView().refreshAllOpenedProjectMetaInfo();
+                               refreshTree();
+                           }else {
+                               QMessageBox::critical(this,"Error",QString::fromStdString(response.message()));
+                           }
+                       }else{
+                           QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
+                       }
+                   }
+               }
     });
 
     auto* MenuEditSwc = new QAction(this);
     MenuEditSwc->setText("Edit Swc");
     MenuEditSwc->setIcon(QIcon(Image::ImageEdit));
     connect(MenuEditSwc,&QAction::triggered,this,[&](bool checked) {
-
+        m_MainWindow->getRightClientView().openSwcMetaInfo(data.name);
     });
 
     auto* MenuDeleteDailyStatistics = new QAction(this);
     MenuDeleteDailyStatistics->setText("Delete DailyStatistics");
     MenuDeleteDailyStatistics->setIcon(QIcon(Image::ImageDelete));
     connect(MenuDeleteDailyStatistics,&QAction::triggered,this,[&](bool checked) {
+        auto result = QMessageBox::information(this,"Warning","Are you sure to delete this DailyStatistics? This operation cannot be revert!",
+                  QMessageBox::StandardButton::Ok,QMessageBox::StandardButton::Cancel);
+              if(result == QMessageBox::StandardButton::Ok) {
+                  if(data.type == MetaInfoType::eDailyStatistics) {
+                      proto::DeleteDailyStatisticsRequest request;
+                      request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+                      request.mutable_dailystatisticsinfo()->set_name(curItem->text(0).toStdString());
 
+                      proto::DeleteDailyStatisticsResponse response;
+                      grpc::ClientContext context;
+                      auto status = RpcCall::getInstance().Stub()->DeleteDailyStatistics(&context,request,&response);
+                      if(status.ok()) {
+                          if(response.status()) {
+                              QMessageBox::information(this,"Info","Delete DailyStatistics successfully!");
+                              m_MainWindow->getRightClientView().closeWithoutSavingDailyStatistics(data.name);
+                              refreshTree();
+                          }else {
+                              QMessageBox::critical(this,"Error",QString::fromStdString(response.message()));
+                          }
+                      }else{
+                          QMessageBox::critical(this,"Error",QString::fromStdString(status.error_message()));
+                      }
+                  }
+              }
+    });
+
+    auto* MenuEditDailyStatistics = new QAction(this);
+    MenuEditDailyStatistics->setText("Edit DailyStatistics");
+    MenuEditDailyStatistics->setIcon(QIcon(Image::ImageDelete));
+    connect(MenuEditDailyStatistics,&QAction::triggered,this,[&](bool checked) {
+        m_MainWindow->getRightClientView().openDailyStatisticsMetaInfo(data.name);
     });
 
     switch (data.type) {
@@ -324,6 +384,8 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
         case MetaInfoType::eDailyStatisticsContainer:
             break;
         case MetaInfoType::eDailyStatistics:
+            popMenu->addAction(MenuEditDailyStatistics);
+            popMenu->addSeparator();
             popMenu->addAction(MenuDeleteDailyStatistics);
             break;
         case MetaInfoType::eUserMetaInfo:

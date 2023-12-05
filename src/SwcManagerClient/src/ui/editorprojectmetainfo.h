@@ -1,9 +1,11 @@
 #pragma once
 
 #include <QWidget>
+#include <Message/Request.pb.h>
 #include <Message/Response.pb.h>
 
 #include "EditorBase.h"
+#include "src/framework/service/CachedProtoData.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -25,7 +27,10 @@ public:
         return MetaInfoType::eProject;
     }
 
+    bool save() override;
+
     void refresh(proto::GetProjectResponse& response);
+
 private:
     Ui::EditorProjectMetaInfo *ui;
 

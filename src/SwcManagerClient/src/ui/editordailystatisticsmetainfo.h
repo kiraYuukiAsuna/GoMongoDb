@@ -25,6 +25,11 @@ public:
     MetaInfoType getMetaInfoType() override {
         return MetaInfoType::eDailyStatistics;
     }
+
+    void refresh(proto::GetDailyStatisticsResponse& response);
+
+    virtual bool save();
+
 private:
     Ui::EditorDailyStatisticsMetaInfo *ui;
     proto::DailyStatisticsMetaInfoV1 m_DailyStatisticsMetaInfo;

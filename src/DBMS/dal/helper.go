@@ -81,12 +81,6 @@ func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) 
 			log.Fatal(err)
 		}
 
-		var defaultAdminSystemUser dbmodel.UserMetaInfoV1
-		defaultAdminSystemUser.Name = DefaultAdminSystemUserName
-		defaultAdminSystemUser.Password = DefaultAdminSystemUserPassword
-
-		CreateUser(defaultAdminSystemUser, GetDbInstance())
-
 		var permissionGroupAdmin = dbmodel.PermissionGroupMetaInfoV1{
 			Base: dbmodel.MetaInfoBase{
 				Id:         primitive.NewObjectID(),

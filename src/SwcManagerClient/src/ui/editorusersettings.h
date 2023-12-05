@@ -17,12 +17,16 @@ public:
     explicit EditorUserSettings(LeftClientView *leftClientView);
     ~EditorUserSettings() override;
 
-    virtual std::string getName() {
+    std::string getName() override {
         return "EditorUserSettings";
     }
 
-    virtual MetaInfoType getMetaInfoType() {
+    MetaInfoType getMetaInfoType() override {
         return MetaInfoType::eUserMetaInfo;
+    }
+
+    bool save() override {
+        return false;
     }
 
     void getUserMetaInfo();
