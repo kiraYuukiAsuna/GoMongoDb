@@ -11,6 +11,8 @@ import (
 )
 
 func Initialize() {
+	dal.InitializeNewDataBaseIfNotExist(dal.DefaultMetaInfoDataBaseName, dal.DefaultSwcDataBaseName)
+
 	var createInfo dal.MongoDbConnectionCreateInfo
 	createInfo.Host = config.AppConfig.MongodbIP
 	createInfo.Port = config.AppConfig.MongodbPort

@@ -55,7 +55,7 @@ func InitializeNewDataBaseIfNotExist(metaInfoDataBaseName string, swcDataBaseNam
 		}
 	}
 	if databaseMetaInfoExists && !deleteIfExist {
-		log.Fatalf("Database %s exists! Check your database!\n", metaInfoDataBaseName)
+		log.Printf("Database %s exists! Do not create a new one!\n", metaInfoDataBaseName)
 
 	} else {
 		if databaseMetaInfoExists && deleteIfExist {

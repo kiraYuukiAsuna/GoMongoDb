@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
     AppConfig::getInstance().initialize("AppConfig.json");
     AppConfig::getInstance().readConfig();
 
-    RpcCall::getInstance().initialize("192.168.247.129:8088");
+    RpcCall::getInstance().initialize("127.0.0.1:8088");
 
     if(LoginWindow loginWindow{}; loginWindow.exec() != QDialog::Accepted) {
         return -1;
