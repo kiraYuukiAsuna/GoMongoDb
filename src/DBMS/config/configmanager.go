@@ -24,6 +24,8 @@ func SetDafaultAppConfig() {
 	AppConfig.GrpcPort = 8088
 	AppConfig.MongodbIP = "127.0.0.1"
 	AppConfig.MongodbPort = 27017
+	AppConfig.MongodbUser = "defaultuser"
+	AppConfig.MongodbPassword = "defaultpassword"
 }
 
 func ReadConfig() bool {
