@@ -2,10 +2,12 @@ package bll
 
 import (
 	"DBMS/Generated/proto/service"
+	"DBMS/config"
 	"DBMS/dal"
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"strconv"
 )
 
 func Initialize() {
@@ -26,7 +28,8 @@ func Initialize() {
 }
 
 func NewGrpcServer() {
-	listener, err := net.Listen("tcp", "127.0.0.1:8080")
+	address := config.AppConfig.IP + ":" + strconv.Itoa(int(config.AppConfig.Port))
+	listener, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatal(err)
 	}

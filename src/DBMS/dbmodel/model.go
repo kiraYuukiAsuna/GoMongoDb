@@ -78,18 +78,33 @@ type SwcMetaInfoV1 struct {
 	Name             string       `bson:"Name"`
 	Description      string       `bson:"Description"`
 	Creator          string       `bson:"Creator"`
+	SwcType          string       `bson:"SwcType"`
 	CreateTime       time.Time    `bson:"CreateTime"`
 	LastModifiedTime time.Time    `bson:"LastModifiedTime"`
 }
 
+type SwcNodeInternalDataV1 struct {
+	N             int32   `bson:"n"`
+	Type          int32   `bson:"type"`
+	X             float32 `bson:"x"`
+	Y             float32 `bson:"y"`
+	Z             float32 `bson:"z"`
+	Radius        float32 `bson:"radius"`
+	Parent        int32   `bson:"parent"`
+	Seg_id        int32   `bson:"seg_id"`
+	Level         int32   `bson:"level"`
+	Mode          int32   `bson:"mode"`
+	Timestamp     int32   `bson:"timestamp"`
+	Feature_value int32   `bson:"feature_value"`
+}
+
 type SwcNodeDataV1 struct {
-	Base              MetaInfoBase `bson:"Base,inline"`
-	SwcData           string       `bson:"SwcData"` // replace with actually content def
-	Creator           string       `bson:"Creator"`
-	CreateTime        time.Time    `bson:"CreateTime"`
-	LastModifiedTime  time.Time    `bson:"LastModifiedTime"`
-	AnnotatorUserUuid string       `bson:"AnnotatorUserUuid"`
-	CheckerUserUuid   string       `bson:"CheckerUserUuid"`
+	Base                MetaInfoBase          `bson:"Base,inline"`
+	SwcNodeInternalData SwcNodeInternalDataV1 `bson:"SwcData"`
+	Creator             string                `bson:"Creator"`
+	CreateTime          time.Time             `bson:"CreateTime"`
+	LastModifiedTime    time.Time             `bson:"LastModifiedTime"`
+	CheckerUserUuid     string                `bson:"CheckerUserUuid"`
 }
 
 type SwcDataV1 = []SwcNodeDataV1

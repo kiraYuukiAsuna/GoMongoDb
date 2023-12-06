@@ -189,6 +189,7 @@ func SwcMetaInfoV1ProtobufToDbmodel(protoMessage *message.SwcMetaInfoV1) *dbmode
 	dbmodelMessage.Name = protoMessage.Name
 	dbmodelMessage.Description = protoMessage.Description
 	dbmodelMessage.Creator = protoMessage.Creator
+	dbmodelMessage.SwcType = protoMessage.SwcType
 
 	if protoMessage.CreateTime != nil {
 		dbmodelMessage.CreateTime = protoMessage.CreateTime.AsTime()
@@ -210,6 +211,7 @@ func SwcMetaInfoV1DbmodelToProtobuf(dbmodelMessage *dbmodel.SwcMetaInfoV1) *mess
 	protoMessage.Name = dbmodelMessage.Name
 	protoMessage.Description = dbmodelMessage.Description
 	protoMessage.Creator = dbmodelMessage.Creator
+	protoMessage.SwcType = dbmodelMessage.SwcType
 
 	protoMessage.CreateTime = timestamppb.New(dbmodelMessage.CreateTime)
 	protoMessage.LastModifiedTime = timestamppb.New(dbmodelMessage.LastModifiedTime)
@@ -231,9 +233,22 @@ func SwcNodeDataV1ProtobufToDbmodel(protoMessage *message.SwcNodeDataV1) *dbmode
 	if protoMessage.LastModifiedTime != nil {
 		dbmodelMessage.LastModifiedTime = protoMessage.LastModifiedTime.AsTime()
 	}
-	dbmodelMessage.AnnotatorUserUuid = protoMessage.AnnotatorUserUuid
 	dbmodelMessage.CheckerUserUuid = protoMessage.CheckerUserUuid
-	dbmodelMessage.SwcData = protoMessage.SwcData
+
+	if protoMessage.SwcNodeInternalData != nil {
+		dbmodelMessage.SwcNodeInternalData.N = protoMessage.SwcNodeInternalData.N
+		dbmodelMessage.SwcNodeInternalData.Type = protoMessage.SwcNodeInternalData.Type
+		dbmodelMessage.SwcNodeInternalData.X = protoMessage.SwcNodeInternalData.X
+		dbmodelMessage.SwcNodeInternalData.Y = protoMessage.SwcNodeInternalData.Y
+		dbmodelMessage.SwcNodeInternalData.Z = protoMessage.SwcNodeInternalData.Z
+		dbmodelMessage.SwcNodeInternalData.Radius = protoMessage.SwcNodeInternalData.Radius
+		dbmodelMessage.SwcNodeInternalData.Parent = protoMessage.SwcNodeInternalData.Parent
+		dbmodelMessage.SwcNodeInternalData.Seg_id = protoMessage.SwcNodeInternalData.SegId
+		dbmodelMessage.SwcNodeInternalData.Level = protoMessage.SwcNodeInternalData.Level
+		dbmodelMessage.SwcNodeInternalData.Mode = protoMessage.SwcNodeInternalData.Mode
+		dbmodelMessage.SwcNodeInternalData.Timestamp = protoMessage.SwcNodeInternalData.Timestamp
+		dbmodelMessage.SwcNodeInternalData.Feature_value = protoMessage.SwcNodeInternalData.FeatureValue
+	}
 
 	return &dbmodelMessage
 }
@@ -250,9 +265,21 @@ func SwcNodeDataV1DbmodelToProtobuf(dbmodelMessage *dbmodel.SwcNodeDataV1) *mess
 	protoMessage.CreateTime = timestamppb.New(dbmodelMessage.CreateTime)
 	protoMessage.LastModifiedTime = timestamppb.New(dbmodelMessage.LastModifiedTime)
 
-	protoMessage.AnnotatorUserUuid = dbmodelMessage.AnnotatorUserUuid
 	protoMessage.CheckerUserUuid = dbmodelMessage.CheckerUserUuid
-	protoMessage.SwcData = dbmodelMessage.SwcData
+
+	protoMessage.SwcNodeInternalData = &message.SwcNodeInternalDataV1{}
+	protoMessage.SwcNodeInternalData.N = dbmodelMessage.SwcNodeInternalData.N
+	protoMessage.SwcNodeInternalData.Type = dbmodelMessage.SwcNodeInternalData.Type
+	protoMessage.SwcNodeInternalData.X = dbmodelMessage.SwcNodeInternalData.X
+	protoMessage.SwcNodeInternalData.Y = dbmodelMessage.SwcNodeInternalData.Y
+	protoMessage.SwcNodeInternalData.Z = dbmodelMessage.SwcNodeInternalData.Z
+	protoMessage.SwcNodeInternalData.Radius = dbmodelMessage.SwcNodeInternalData.Radius
+	protoMessage.SwcNodeInternalData.Parent = dbmodelMessage.SwcNodeInternalData.Parent
+	protoMessage.SwcNodeInternalData.SegId = dbmodelMessage.SwcNodeInternalData.Seg_id
+	protoMessage.SwcNodeInternalData.Level = dbmodelMessage.SwcNodeInternalData.Level
+	protoMessage.SwcNodeInternalData.Mode = dbmodelMessage.SwcNodeInternalData.Mode
+	protoMessage.SwcNodeInternalData.Timestamp = dbmodelMessage.SwcNodeInternalData.Timestamp
+	protoMessage.SwcNodeInternalData.FeatureValue = dbmodelMessage.SwcNodeInternalData.Feature_value
 
 	return &protoMessage
 }

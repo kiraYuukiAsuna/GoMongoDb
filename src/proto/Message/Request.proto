@@ -111,13 +111,13 @@ message GetAllSwcMetaInfoRequest{
 message CreateSwcNodeDataRequest{
     UserMetaInfoV1 UserInfo = 1;
     SwcMetaInfoV1 SwcInfo = 2;
-    SwcDataV1 SwcNodeData = 3;
+    SwcDataV1 SwcData = 3;
 }
 
 message DeleteSwcNodeDataRequest{
     UserMetaInfoV1 UserInfo = 1;
     SwcMetaInfoV1 SwcInfo = 2;
-    SwcDataV1 SwcNodeData = 3;
+    SwcDataV1 SwcData = 3;
 }
 
 message UpdateSwcNodeDataRequest{

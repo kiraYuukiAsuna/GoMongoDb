@@ -32,7 +32,7 @@ LeftClientView::LeftClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui
     auto rawHeadPhotoBinData = CachedProtoData::getInstance().CachedUserMetaInfo.headphotobindata();
     auto headPhotoBinData = QByteArray::fromStdString(rawHeadPhotoBinData);
 
-    connect(m_UserSettingBtn, &QPushButton::clicked, this, [&](bool checked) {
+    connect(m_UserSettingBtn, &QPushButton::clicked, this, [this](bool checked) {
         EditorUserSettings editorUserSettings(this);
         editorUserSettings.exec();
     });
@@ -54,7 +54,7 @@ LeftClientView::LeftClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui
 
     auto* logoutAction = new QAction(this);
     logoutAction->setText("Logout");
-    connect(logoutAction, &QAction::triggered, this, [&](bool checked) {
+    connect(logoutAction, &QAction::triggered, this, [this](bool checked) {
         auto btn = QMessageBox::information(this, "Warning",
                                             "Are you sure to logout? Please save all your work before logout!",
                                             QMessageBox::StandardButton::Ok,
@@ -93,7 +93,7 @@ LeftClientView::LeftClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui
 
     m_TreeWidget = new QTreeWidget(this);
     m_TreeWidget->setHeaderLabel("MetaInfo");
-    connect(m_TreeWidget, &QTreeWidget::itemDoubleClicked, this, [&](QTreeWidgetItem* item, int column) {
+    connect(m_TreeWidget, &QTreeWidget::itemDoubleClicked, this, [this](QTreeWidgetItem* item, int column) {
         if (column == 0) {
             if (item) {
                 auto metaInfo = item->data(0, Qt::UserRole).value<LeftClientViewTreeWidgetItemMetaInfo>();
@@ -214,7 +214,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     auto* MenuCreateProject = new QAction(this);
     MenuCreateProject->setText("Create Project");
     MenuCreateProject->setIcon(QIcon(Image::ImageCreate));
-    connect(MenuCreateProject,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuCreateProject,&QAction::triggered,this,[this](bool checked) {
         ViewCreateProject view;
         if(view.exec() == QDialog::Accepted) {
             refreshTree();
@@ -224,7 +224,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     auto* MenuDeleteProject = new QAction(this);
     MenuDeleteProject->setText("Delete Project");
     MenuDeleteProject->setIcon(QIcon(Image::ImageDelete));
-    connect(MenuDeleteProject,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuDeleteProject,&QAction::triggered,this,[this,data,curItem](bool checked) {
         auto result = QMessageBox::information(this,"Warning","Are you sure to delete this project? This operation cannot be revert!",
             QMessageBox::StandardButton::Ok,QMessageBox::StandardButton::Cancel);
         if(result == QMessageBox::StandardButton::Ok) {
@@ -254,28 +254,28 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     auto* MenuEditProject = new QAction(this);
     MenuEditProject->setText("Edit Project");
     MenuEditProject->setIcon(QIcon(Image::ImageEdit));
-    connect(MenuEditProject,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuEditProject,&QAction::triggered,this,[this,data](bool checked) {
         m_MainWindow->getRightClientView().openProjectMetaInfo(data.name);
     });
 
     auto* MenuImportSwcFile = new QAction(this);
     MenuImportSwcFile->setText("Import Swc File");
     MenuImportSwcFile->setIcon(QIcon(Image::ImageImport));
-    connect(MenuImportSwcFile,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuImportSwcFile,&QAction::triggered,this,[this](bool checked) {
 
     });
 
     auto* MenuExportToSwcFile = new QAction(this);
     MenuExportToSwcFile->setText("Export Swc File");
     MenuExportToSwcFile->setIcon(QIcon(Image::ImageExport));
-    connect(MenuExportToSwcFile,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuExportToSwcFile,&QAction::triggered,this,[this](bool checked) {
 
     });
 
     auto* MenuCreateSwc = new QAction(this);
     MenuCreateSwc->setText("Create Swc");
     MenuCreateSwc->setIcon(QIcon(Image::ImageCreate));
-    connect(MenuCreateSwc,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuCreateSwc,&QAction::triggered,this,[this](bool checked) {
         ViewCreateSwc view;
         if(view.exec() == QDialog::Accepted) {
             refreshTree();
@@ -285,7 +285,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     auto* MenuDeleteSwc = new QAction(this);
     MenuDeleteSwc->setText("Delete Swc");
     MenuDeleteSwc->setIcon(QIcon(Image::ImageDelete));
-    connect(MenuDeleteSwc,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuDeleteSwc,&QAction::triggered,this,[this,data,curItem](bool checked) {
         auto result = QMessageBox::information(this,"Warning","Are you sure to delete this Swc? This operation cannot be revert!",
                    QMessageBox::StandardButton::Ok,QMessageBox::StandardButton::Cancel);
                if(result == QMessageBox::StandardButton::Ok) {
@@ -316,14 +316,21 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     auto* MenuEditSwc = new QAction(this);
     MenuEditSwc->setText("Edit Swc");
     MenuEditSwc->setIcon(QIcon(Image::ImageEdit));
-    connect(MenuEditSwc,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuEditSwc,&QAction::triggered,this,[this,data](bool checked) {
         m_MainWindow->getRightClientView().openSwcMetaInfo(data.name);
+    });
+
+    auto* MenuEditSwcNodeData = new QAction(this);
+    MenuEditSwcNodeData->setText("Edit SwcNodeData");
+    MenuEditSwcNodeData->setIcon(QIcon(Image::ImageEdit));
+    connect(MenuEditSwcNodeData,&QAction::triggered,this,[this,data](bool checked) {
+        m_MainWindow->getRightClientView().openSwcNodeData(data.name);
     });
 
     auto* MenuDeleteDailyStatistics = new QAction(this);
     MenuDeleteDailyStatistics->setText("Delete DailyStatistics");
     MenuDeleteDailyStatistics->setIcon(QIcon(Image::ImageDelete));
-    connect(MenuDeleteDailyStatistics,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuDeleteDailyStatistics,&QAction::triggered,this,[this,data,curItem](bool checked) {
         auto result = QMessageBox::information(this,"Warning","Are you sure to delete this DailyStatistics? This operation cannot be revert!",
                   QMessageBox::StandardButton::Ok,QMessageBox::StandardButton::Cancel);
               if(result == QMessageBox::StandardButton::Ok) {
@@ -353,7 +360,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     auto* MenuEditDailyStatistics = new QAction(this);
     MenuEditDailyStatistics->setText("Edit DailyStatistics");
     MenuEditDailyStatistics->setIcon(QIcon(Image::ImageDelete));
-    connect(MenuEditDailyStatistics,&QAction::triggered,this,[&](bool checked) {
+    connect(MenuEditDailyStatistics,&QAction::triggered,this,[this,data](bool checked) {
         m_MainWindow->getRightClientView().openDailyStatisticsMetaInfo(data.name);
     });
 
@@ -377,6 +384,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
         }
         case MetaInfoType::eSwc: {
             popMenu->addAction(MenuEditSwc);
+            popMenu->addAction(MenuEditSwcNodeData);
             popMenu->addSeparator();
             popMenu->addAction(MenuDeleteSwc);
             break;

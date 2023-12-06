@@ -11,11 +11,11 @@
 ViewCreateSwc::ViewCreateSwc(QWidget* parent) : QDialog(parent), ui(new Ui::ViewCreateSwc) {
     ui->setupUi(this);
 
-    connect(ui->CancelBtn, &QPushButton::clicked, this, [&]() {
+    connect(ui->CancelBtn, &QPushButton::clicked, this, [this]() {
         reject();
     });
 
-    connect(ui->OKBtn, &QPushButton::clicked, this, [&]() {
+    connect(ui->OKBtn, &QPushButton::clicked, this, [this]() {
         proto::CreateSwcRequest request;
         proto::CreateSwcResponse response;
         grpc::ClientContext context;

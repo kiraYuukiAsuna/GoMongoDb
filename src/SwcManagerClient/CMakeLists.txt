@@ -91,9 +91,9 @@ set(PROJECT_SOURCES
         src/ui/editordailystatisticsmetainfo.cpp
         src/ui/editordailystatisticsmetainfo.h
         src/ui/editordailystatisticsmetainfo.ui
-        src/ui/editorswcnodedata.cpp
-        src/ui/editorswcnodedata.h
-        src/ui/editorswcnodedata.ui
+        src/ui/viewswcnodedata.cpp
+        src/ui/viewswcnodedata.h
+        src/ui/viewswcnodedata.ui
         src/ui/editorusersettings.cpp
         src/ui/editorusersettings.h
         src/ui/editorusersettings.ui

@@ -25,7 +25,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->label_2->setPixmap(QPixmap::fromImage(QImage(Image::ImagePassword).scaled({32,32})));
 
     static QTimer timer;
-    connect(&timer,&QTimer::timeout,this,[&]() {
+    connect(&timer,&QTimer::timeout,this,[this]() {
         verifyCachedAccount();
     });
     timer.setSingleShot(true);

@@ -559,6 +559,8 @@ func (D DBMSServerController) UpdateProject(ctx context.Context, request *reques
 		}, nil
 	}
 
+	projectMetaInfo.LastModifiedTime = time.Now()
+
 	result = dal.ModifyProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		fmt.Println("Project " + request.UserInfo.Name + " Updated")
@@ -694,6 +696,7 @@ func (D DBMSServerController) CreateSwc(ctx context.Context, request *request.Cr
 	swcMetaInfo.CreateTime = time.Now()
 	swcMetaInfo.Name = request.SwcInfo.Name
 	swcMetaInfo.Description = request.SwcInfo.Description
+	swcMetaInfo.SwcType = request.SwcInfo.SwcType
 
 	result = dal.CreateSwc(*swcMetaInfo, dal.GetDbInstance())
 	if result.Status {
@@ -813,9 +816,11 @@ func (D DBMSServerController) UpdateSwc(ctx context.Context, request *request.Up
 		}, nil
 	}
 
+	swcMetaInfo.LastModifiedTime = time.Now()
+
 	result = dal.ModifySwc(*swcMetaInfo, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + "Update SwcMetaInfo " + swcMetaInfo.Name)
+		fmt.Println("User " + request.UserInfo.Name + " Update SwcMetaInfo " + swcMetaInfo.Name)
 		DailyStatisticsInfo.ModifiedSwcNumber += 1
 		return &response.UpdateSwcResponse{
 			Status:  true,
@@ -914,9 +919,9 @@ func (D DBMSServerController) CreateSwcNodeData(ctx context.Context, request *re
 	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
 	if result.Status == false {
 		return &response.CreateSwcNodeDataResponse{
-			Status:      false,
-			Message:     result.Message,
-			SwcNodeData: request.SwcNodeData,
+			Status:  false,
+			Message: result.Message,
+			SwcData: request.SwcData,
 		}, nil
 	}
 
@@ -925,38 +930,49 @@ func (D DBMSServerController) CreateSwcNodeData(ctx context.Context, request *re
 	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
 	if result.Status == false {
 		return &response.CreateSwcNodeDataResponse{
-			Status:      false,
-			Message:     result.Message,
-			SwcNodeData: request.SwcNodeData,
+			Status:  false,
+			Message: result.Message,
+			SwcData: request.SwcData,
 		}, nil
 	}
 
 	if permissionGroup.Project.WritePermissionAddData == false {
 		return &response.CreateSwcNodeDataResponse{
-			Status:      false,
-			Message:     "You don't have permission to create swc node!",
-			SwcNodeData: request.SwcNodeData,
+			Status:  false,
+			Message: "You don't have permission to create swc node!",
+			SwcData: request.SwcData,
 		}, nil
 	}
 
 	var swcData dbmodel.SwcDataV1
-	for _, swcNodeData := range request.SwcNodeData.SwcData {
+	for _, swcNodeData := range request.SwcData.SwcData {
 		swcData = append(swcData, *SwcNodeDataV1ProtobufToDbmodel(swcNodeData))
 	}
+
+	for idx := range swcData {
+		swcData[idx].Creator = userMetaInfo.Name
+		swcData[idx].Base.Id = primitive.NewObjectID()
+		swcData[idx].Base.Uuid = uuid.NewString()
+		swcData[idx].Base.ApiVersion = "V1"
+		swcData[idx].CreateTime = time.Now()
+		swcData[idx].LastModifiedTime = time.Now()
+		swcData[idx].CheckerUserUuid = ""
+	}
+
 	result = dal.CreateSwcData(*swcMetaInfo, swcData, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Create Swc node " + swcMetaInfo.Name)
 		DailyStatisticsInfo.CreateSwcNodeNumber += 1
 		return &response.CreateSwcNodeDataResponse{
-			Status:      true,
-			Message:     result.Message,
-			SwcNodeData: request.SwcNodeData,
+			Status:  true,
+			Message: result.Message,
+			SwcData: request.SwcData,
 		}, nil
 	} else {
 		return &response.CreateSwcNodeDataResponse{
-			Status:      false,
-			Message:     result.Message,
-			SwcNodeData: request.SwcNodeData,
+			Status:  false,
+			Message: result.Message,
+			SwcData: request.SwcData,
 		}, nil
 	}
 }
@@ -968,9 +984,9 @@ func (D DBMSServerController) DeleteSwcNodeData(ctx context.Context, request *re
 	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
 	if result.Status == false {
 		return &response.DeleteSwcNodeDataResponse{
-			Status:      false,
-			Message:     result.Message,
-			SwcNodeData: request.SwcNodeData,
+			Status:  false,
+			Message: result.Message,
+			SwcData: request.SwcData,
 		}, nil
 	}
 
@@ -979,22 +995,22 @@ func (D DBMSServerController) DeleteSwcNodeData(ctx context.Context, request *re
 	result = dal.QueryPermissionGroup(&permissionGroup, dal.GetDbInstance())
 	if result.Status == false {
 		return &response.DeleteSwcNodeDataResponse{
-			Status:      false,
-			Message:     result.Message,
-			SwcNodeData: request.SwcNodeData,
+			Status:  false,
+			Message: result.Message,
+			SwcData: request.SwcData,
 		}, nil
 	}
 
 	if permissionGroup.Project.WritePermissionDeleteData == false {
 		return &response.DeleteSwcNodeDataResponse{
-			Status:      false,
-			Message:     "You don't have permission to delete swc node!",
-			SwcNodeData: request.SwcNodeData,
+			Status:  false,
+			Message: "You don't have permission to delete swc node!",
+			SwcData: request.SwcData,
 		}, nil
 	}
 
 	var swcData dbmodel.SwcDataV1
-	for _, swcNodeData := range request.SwcNodeData.SwcData {
+	for _, swcNodeData := range request.SwcData.SwcData {
 		swcData = append(swcData, *SwcNodeDataV1ProtobufToDbmodel(swcNodeData))
 	}
 
@@ -1003,15 +1019,15 @@ func (D DBMSServerController) DeleteSwcNodeData(ctx context.Context, request *re
 		fmt.Println("User " + request.UserInfo.Name + " Delete Swc " + swcMetaInfo.Name)
 		DailyStatisticsInfo.DeletedSwcNodeNumber += 1
 		return &response.DeleteSwcNodeDataResponse{
-			Status:      true,
-			Message:     result.Message,
-			SwcNodeData: request.SwcNodeData,
+			Status:  true,
+			Message: result.Message,
+			SwcData: request.SwcData,
 		}, nil
 	} else {
 		return &response.DeleteSwcNodeDataResponse{
-			Status:      false,
-			Message:     result.Message,
-			SwcNodeData: request.SwcNodeData,
+			Status:  false,
+			Message: result.Message,
+			SwcData: request.SwcData,
 		}, nil
 	}
 }
@@ -1049,6 +1065,9 @@ func (D DBMSServerController) UpdateSwcNodeData(ctx context.Context, request *re
 	}
 
 	swcNodeData := SwcNodeDataV1ProtobufToDbmodel(request.SwcNodeData)
+	swcMetaInfo.LastModifiedTime = time.Now()
+	swcNodeData.LastModifiedTime = time.Now()
+
 	result = dal.ModifySwcData(*swcMetaInfo, *swcNodeData, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Update Swc " + swcMetaInfo.Name)
@@ -1166,7 +1185,7 @@ func (D DBMSServerController) GetSwcFullNodeData(ctx context.Context, request *r
 		}, nil
 	}
 
-	result = dal.DeleteSwcData(*swcMetaInfo, dbmodelMessage, dal.GetDbInstance())
+	result = dal.QueryAllSwcData(*swcMetaInfo, &dbmodelMessage, dal.GetDbInstance())
 	if result.Status {
 		fmt.Println("User " + request.UserInfo.Name + " Get SwcFullNodeData " + swcMetaInfo.Name)
 		DailyStatisticsInfo.NodeQueryNumber += 1
