@@ -1,6 +1,7 @@
 package UnitTest
 
 import (
+	"DBMS/config"
 	"DBMS/dal"
 	"DBMS/dbmodel"
 	"fmt"
@@ -12,12 +13,12 @@ import (
 
 func InitializeDb() {
 	// create db
-	dal.InitializeNewDataBase(dal.DefaultMetaInfoDataBaseName, dal.DefaultSwcDataBaseName)
+	dal.InitializeNewDataBaseIfNotExist(dal.DefaultMetaInfoDataBaseName, dal.DefaultSwcDataBaseName)
 
 	// init db
 	var createInfo dal.MongoDbConnectionCreateInfo
-	createInfo.Host = "127.0.0.1"
-	createInfo.Port = 27017
+	createInfo.Host = config.AppConfig.MongodbIP
+	createInfo.Port = config.AppConfig.MongodbPort
 	createInfo.User = ""
 	createInfo.Password = ""
 	connectionInfo := dal.ConnectToMongoDb(createInfo)

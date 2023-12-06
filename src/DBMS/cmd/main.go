@@ -35,9 +35,8 @@ func main() {
 		})
 	})
 
-	r.GET("/InitializeNewDataBase", apihandler.InitializeNewDataBaseHandler)
+	r.GET("/InitializeNewDataBaseIfNotExist", apihandler.InitializeNewDataBaseIfNotExistHandler)
 	r.GET("/CreateUser", apihandler.CreateUserHandler)
-	r.GET("/OneTimeInitialize", apihandler.OneTimeInitializeHandler)
 
 	err := r.Run("0.0.0.0:8088")
 	if err != nil {

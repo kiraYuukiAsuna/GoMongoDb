@@ -1,6 +1,7 @@
 package dal
 
 import (
+	"DBMS/config"
 	"DBMS/dbmodel"
 	"context"
 	"github.com/google/uuid"
@@ -20,10 +21,10 @@ func GetDbInstance() MongoDbDataBaseInfo {
 	return g_MongoDbDataBaseInfo
 }
 
-func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) {
+func InitializeNewDataBaseIfNotExist(metaInfoDataBaseName string, swcDataBaseName string) {
 	createInfo := MongoDbConnectionCreateInfo{
-		Host:     "127.0.0.1",
-		Port:     27017,
+		Host:     config.AppConfig.MongodbIP,
+		Port:     config.AppConfig.MongodbPort,
 		User:     "defaultuser",
 		Password: "defaultpassword",
 	}
@@ -39,25 +40,25 @@ func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) 
 	dbInfo.SwcDb = connectionInfo.Client.Database(swcDataBaseName)
 
 	var deleteIfExist bool
-	deleteIfExist = true
+	deleteIfExist = false
 
 	databaseNames, err := connectionInfo.Client.ListDatabaseNames(context.TODO(), bson.M{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	databaseExists1 := false
+	databaseMetaInfoExists := false
 	for _, dbName := range databaseNames {
 		if dbName == metaInfoDataBaseName {
-			databaseExists1 = true
+			databaseMetaInfoExists = true
 			break
 		}
 	}
-	if databaseExists1 && !deleteIfExist {
+	if databaseMetaInfoExists && !deleteIfExist {
 		log.Fatalf("Database %s exists! Check your database!\n", metaInfoDataBaseName)
 
 	} else {
-		if databaseExists1 && deleteIfExist {
+		if databaseMetaInfoExists && deleteIfExist {
 			err := dbInfo.MetaInfoDb.Drop(context.TODO())
 			if err != nil {
 				log.Fatal("Delete exist meta info database failed")
@@ -208,17 +209,17 @@ func InitializeNewDataBase(metaInfoDataBaseName string, swcDataBaseName string) 
 		}
 	}
 
-	databaseExists2 := false
+	databaseSwcDataExists := false
 	for _, dbName := range databaseNames {
 		if dbName == swcDataBaseName {
-			databaseExists2 = true
+			databaseSwcDataExists = true
 			break
 		}
 	}
-	if databaseExists2 && !deleteIfExist {
-		log.Fatalf("Database %s exists! Check your database!\n", swcDataBaseName)
+	if databaseSwcDataExists && !deleteIfExist {
+		log.Printf("Database %s exists! Do not create a new one!\n", swcDataBaseName)
 	} else {
-		if databaseExists2 && deleteIfExist {
+		if databaseSwcDataExists && deleteIfExist {
 			err := dbInfo.SwcDb.Drop(context.TODO())
 			if err != nil {
 				log.Fatal("Delete exist swc database failed")
