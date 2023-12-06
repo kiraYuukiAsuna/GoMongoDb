@@ -39,8 +39,8 @@ func main() {
 	r.GET("/CreateUser", apihandler.CreateUserHandler)
 	r.GET("/OneTimeInitialize", apihandler.OneTimeInitializeHandler)
 
-	err := r.Run()
+	err := r.Run("0.0.0.0:8088")
 	if err != nil {
 		return
-	} // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	}
 }
