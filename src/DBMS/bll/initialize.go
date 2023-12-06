@@ -12,8 +12,8 @@ import (
 
 func Initialize() {
 	var createInfo dal.MongoDbConnectionCreateInfo
-	createInfo.Host = "127.0.0.1"
-	createInfo.Port = 27017
+	createInfo.Host = config.AppConfig.MongodbIP
+	createInfo.Port = config.AppConfig.MongodbPort
 	createInfo.User = ""
 	createInfo.Password = ""
 	connectionInfo := dal.ConnectToMongoDb(createInfo)
@@ -28,7 +28,7 @@ func Initialize() {
 }
 
 func NewGrpcServer() {
-	address := config.AppConfig.IP + ":" + strconv.Itoa(int(config.AppConfig.Port))
+	address := config.AppConfig.GrpcIP + ":" + strconv.Itoa(int(config.AppConfig.GrpcPort))
 	listener, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatal(err)

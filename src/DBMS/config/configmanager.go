@@ -5,18 +5,23 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strconv"
 )
 
 type Config struct {
-	IP   string
-	Port int32
+	GrpcIP      string
+	GrpcPort    int32
+	MongodbIP   string
+	MongodbPort int32
 }
 
 var AppConfig Config
 
 func SetDafaultAppConfig() {
-	AppConfig.IP = "127.0.0.1"
-	AppConfig.Port = 8088
+	AppConfig.GrpcIP = "127.0.0.1"
+	AppConfig.GrpcPort = 8088
+	AppConfig.MongodbIP = "127.0.0.1"
+	AppConfig.MongodbPort = 27017
 }
 
 func ReadConfig() bool {
@@ -43,6 +48,11 @@ func ReadConfig() bool {
 			os.Exit(-1)
 		}
 	}(jsonFile)
+
+	fmt.Println("GrpcIP:" + AppConfig.GrpcIP)
+	fmt.Println("GrpcPort:" + strconv.Itoa(int(AppConfig.GrpcPort)))
+	fmt.Println("MongodbIP:" + AppConfig.MongodbIP)
+	fmt.Println("MongodbPort:" + strconv.Itoa(int(AppConfig.MongodbPort)))
 
 	return true
 }
