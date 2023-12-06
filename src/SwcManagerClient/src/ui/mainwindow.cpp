@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_HeartBeatTimer = new QTimer;
     m_HeartBeatTimer->setInterval(15000);
-    connect(m_HeartBeatTimer,&QTimer::timeout,this,[&]() {
+    connect(m_HeartBeatTimer,&QTimer::timeout,this,[this]() {
         proto::UserOnlineHeartBeatNotification notification;
         notification.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
         notification.set_heartbeattime(std::chrono::system_clock::now().time_since_epoch().count());
@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_OnlineStatusTimer = new QTimer;
     m_OnlineStatusTimer->setInterval(30000);
-    connect(m_OnlineStatusTimer,&QTimer::timeout,this,[&]() {
+    connect(m_OnlineStatusTimer,&QTimer::timeout,this,[this]() {
         if(!CachedProtoData::getInstance().OnlineStatus) {
             QMessageBox::critical(this,"Error","Timeout! You may have disconnected from server!");
         }

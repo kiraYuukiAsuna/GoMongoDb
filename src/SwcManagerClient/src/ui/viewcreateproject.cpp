@@ -68,11 +68,11 @@ ViewCreateProject::ViewCreateProject(QWidget* parent) : QDialog(parent), ui(new 
     }
     ui->tableWidget->resizeColumnsToContents();
 
-    connect(ui->CancelBtn, &QPushButton::clicked, this, [&]() {
+    connect(ui->CancelBtn, &QPushButton::clicked, this, [this]() {
         reject();
     });
 
-    connect(ui->OKBtn, &QPushButton::clicked, this, [&]() {
+    connect(ui->OKBtn, &QPushButton::clicked, this, [this,parent]() {
         if (ui->Name->text().trimmed().isEmpty()) {
             QMessageBox::information(this, "Warning", "Project Name Cannot be null!");
             return;

@@ -153,4 +153,83 @@ public:
         return false;
     }
 
+    static bool getSwcFullNodeData(const std::string& swcName, proto::GetSwcFullNodeDataResponse& response, QWidget* parent) {
+        proto::GetSwcFullNodeDataRequest request;
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+        request.mutable_swcinfo()->set_name(swcName);
+
+        grpc::ClientContext context;
+        auto result = RpcCall::getInstance().Stub()->GetSwcFullNodeData(&context, request,&response);
+        if(result.ok()){
+            if(response.status()) {
+                return true;
+            }else {
+                QMessageBox::warning(parent,"Info","GetSwcFullNodeData Failed!" + QString::fromStdString(response.message()));
+            }
+
+        }else{
+            QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
+        }
+        return false;
+    }
+
+    static bool addSwcNodeData(const std::string& swcName, proto::SwcDataV1& swcData, proto::CreateSwcNodeDataResponse& response, QWidget* parent) {
+        proto::CreateSwcNodeDataRequest request;
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+        request.mutable_swcinfo()->set_name(swcName);
+        request.mutable_swcdata()->CopyFrom(swcData);
+
+        grpc::ClientContext context;
+        auto result = RpcCall::getInstance().Stub()->CreateSwcNodeData(&context, request,&response);
+        if(result.ok()){
+            if(response.status()) {
+                return true;
+            }else {
+                QMessageBox::warning(parent,"Info","CreateSwcNodeData Failed!" + QString::fromStdString(response.message()));
+            }
+        }else{
+            QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
+        }
+        return false;
+    }
+
+    static bool modifySwcNodeData(const std::string& swcName, proto::SwcNodeDataV1& swcNodeData, proto::UpdateSwcNodeDataResponse & response, QWidget* parent) {
+        proto::UpdateSwcNodeDataRequest request;
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+        request.mutable_swcinfo()->set_name(swcName);
+        request.mutable_swcnodedata()->CopyFrom(swcNodeData);
+
+        grpc::ClientContext context;
+        auto result = RpcCall::getInstance().Stub()->UpdateSwcNodeData(&context, request,&response);
+        if(result.ok()){
+            if(response.status()) {
+                return true;
+            }else {
+                QMessageBox::warning(parent,"Info","UpdateSwcNodeData Failed!" + QString::fromStdString(response.message()));
+            }
+        }else{
+            QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
+        }
+        return false;
+    }
+
+    static bool deleteSwcNodeData(const std::string& swcName, proto::SwcDataV1& swcData, proto::DeleteSwcNodeDataResponse& response, QWidget* parent) {
+        proto::DeleteSwcNodeDataRequest request;
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+        request.mutable_swcinfo()->set_name(swcName);
+        request.mutable_swcdata()->CopyFrom(swcData);
+
+        grpc::ClientContext context;
+        auto result = RpcCall::getInstance().Stub()->DeleteSwcNodeData(&context, request,&response);
+        if(result.ok()){
+            if(response.status()) {
+                return true;
+            }else {
+                QMessageBox::warning(parent,"Info","DeleteSwcNodeData Failed!" + QString::fromStdString(response.message()));
+            }
+        }else{
+            QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
+        }
+        return false;
+    }
 };

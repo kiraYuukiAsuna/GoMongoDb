@@ -4,11 +4,14 @@ import (
 	"DBMS/UnitTest"
 	"DBMS/apihandler"
 	"DBMS/bll"
+	"DBMS/config"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func main() {
+	config.SetDafaultAppConfig()
+	config.ReadConfig()
 	bll.Initialize()
 	bll.CronAutoSaveDailyStatistics()
 	bll.CronHeartBeatValidationAndRefresh()

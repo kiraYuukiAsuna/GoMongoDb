@@ -351,7 +351,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR CreateSwcNodeDataResponse::CreateSwcNodeDataResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.swcnodedata_)*/nullptr
+  , /*decltype(_impl_.swcdata_)*/nullptr
   , /*decltype(_impl_.status_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CreateSwcNodeDataResponseDefaultTypeInternal {
@@ -366,7 +366,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR DeleteSwcNodeDataResponse::DeleteSwcNodeDataResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.swcnodedata_)*/nullptr
+  , /*decltype(_impl_.swcdata_)*/nullptr
   , /*decltype(_impl_.status_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct DeleteSwcNodeDataResponseDefaultTypeInternal {
@@ -738,7 +738,7 @@ const uint32_t TableStruct_Message_2fResponse_2eproto::offsets[] PROTOBUF_SECTIO
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::proto::CreateSwcNodeDataResponse, _impl_.status_),
   PROTOBUF_FIELD_OFFSET(::proto::CreateSwcNodeDataResponse, _impl_.message_),
-  PROTOBUF_FIELD_OFFSET(::proto::CreateSwcNodeDataResponse, _impl_.swcnodedata_),
+  PROTOBUF_FIELD_OFFSET(::proto::CreateSwcNodeDataResponse, _impl_.swcdata_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::DeleteSwcNodeDataResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -747,7 +747,7 @@ const uint32_t TableStruct_Message_2fResponse_2eproto::offsets[] PROTOBUF_SECTIO
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::proto::DeleteSwcNodeDataResponse, _impl_.status_),
   PROTOBUF_FIELD_OFFSET(::proto::DeleteSwcNodeDataResponse, _impl_.message_),
-  PROTOBUF_FIELD_OFFSET(::proto::DeleteSwcNodeDataResponse, _impl_.swcnodedata_),
+  PROTOBUF_FIELD_OFFSET(::proto::DeleteSwcNodeDataResponse, _impl_.swcdata_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::UpdateSwcNodeDataResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -970,43 +970,43 @@ const char descriptor_table_protodef_Message_2fResponse_2eproto[] PROTOBUF_SECTI
   "\002 \001(\t\022%\n\007SwcInfo\030\003 \001(\0132\024.proto.SwcMetaIn"
   "foV1\"c\n\031GetAllSwcMetaInfoResponse\022\016\n\006sta"
   "tus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\007SwcInfo\030\003 "
-  "\003(\0132\024.proto.SwcMetaInfoV1\"c\n\031CreateSwcNo"
+  "\003(\0132\024.proto.SwcMetaInfoV1\"_\n\031CreateSwcNo"
   "deDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Messag"
-  "e\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.Swc"
-  "DataV1\"c\n\031DeleteSwcNodeDataResponse\022\016\n\006s"
-  "tatus\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeD"
-  "ata\030\003 \001(\0132\020.proto.SwcDataV1\"g\n\031UpdateSwc"
-  "NodeDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Mess"
-  "age\030\002 \001(\t\022)\n\013SwcNodeData\030\003 \001(\0132\024.proto.S"
-  "wcNodeDataV1\"`\n\026GetSwcNodeDataResponse\022\016"
-  "\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNo"
-  "deData\030\003 \001(\0132\020.proto.SwcDataV1\"d\n\032GetSwc"
-  "FullNodeDataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007"
-  "Message\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.pro"
-  "to.SwcDataV1\"q\n\'GetSwcNodeDataListByTime"
-  "AndUserResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Messa"
-  "ge\030\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.Sw"
-  "cDataV1\"\211\001\n\032BackupFullDatabaseResponse\022\016"
-  "\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022\025\n\rInsta"
-  "ntBackup\030\003 \001(\010\0223\n\017DelayBackupTime\030\004 \001(\0132"
-  "\032.google.protobuf.Timestamp\"\177\n\035CreateDai"
-  "lyStatisticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007"
-  "Message\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001"
-  "(\0132 .proto.DailyStatisticsMetaInfoV1\"\177\n\035"
-  "DeleteDailyStatisticsResponse\022\016\n\006status\030"
-  "\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatistic"
-  "sInfo\030\003 \001(\0132 .proto.DailyStatisticsMetaI"
-  "nfoV1\"\177\n\035UpdateDailyStatisticsResponse\022\016"
-  "\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023Daily"
-  "StatisticsInfo\030\003 \001(\0132 .proto.DailyStatis"
-  "ticsMetaInfoV1\"|\n\032GetDailyStatisticsResp"
-  "onse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n"
-  "\023DailyStatisticsInfo\030\003 \001(\0132 .proto.Daily"
-  "StatisticsMetaInfoV1\"\177\n\035GetAllDailyStati"
-  "sticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message"
-  "\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \003(\0132 .pr"
-  "oto.DailyStatisticsMetaInfoV1B\037Z\035DBMS/Ge"
-  "nerated/proto/responseP\000b\006proto3"
+  "e\030\002 \001(\t\022!\n\007SwcData\030\003 \001(\0132\020.proto.SwcData"
+  "V1\"_\n\031DeleteSwcNodeDataResponse\022\016\n\006statu"
+  "s\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022!\n\007SwcData\030\003 \001("
+  "\0132\020.proto.SwcDataV1\"g\n\031UpdateSwcNodeData"
+  "Response\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001("
+  "\t\022)\n\013SwcNodeData\030\003 \001(\0132\024.proto.SwcNodeDa"
+  "taV1\"`\n\026GetSwcNodeDataResponse\022\016\n\006status"
+  "\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022%\n\013SwcNodeData\030\003"
+  " \001(\0132\020.proto.SwcDataV1\"d\n\032GetSwcFullNode"
+  "DataResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030"
+  "\002 \001(\t\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.SwcDa"
+  "taV1\"q\n\'GetSwcNodeDataListByTimeAndUserR"
+  "esponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t"
+  "\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.SwcDataV1\""
+  "\211\001\n\032BackupFullDatabaseResponse\022\016\n\006status"
+  "\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022\025\n\rInstantBackup"
+  "\030\003 \001(\010\0223\n\017DelayBackupTime\030\004 \001(\0132\032.google"
+  ".protobuf.Timestamp\"\177\n\035CreateDailyStatis"
+  "ticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030"
+  "\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 \001(\0132 .pro"
+  "to.DailyStatisticsMetaInfoV1\"\177\n\035DeleteDa"
+  "ilyStatisticsResponse\022\016\n\006status\030\001 \001(\010\022\017\n"
+  "\007Message\030\002 \001(\t\022=\n\023DailyStatisticsInfo\030\003 "
+  "\001(\0132 .proto.DailyStatisticsMetaInfoV1\"\177\n"
+  "\035UpdateDailyStatisticsResponse\022\016\n\006status"
+  "\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailyStatisti"
+  "csInfo\030\003 \001(\0132 .proto.DailyStatisticsMeta"
+  "InfoV1\"|\n\032GetDailyStatisticsResponse\022\016\n\006"
+  "status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022=\n\023DailySt"
+  "atisticsInfo\030\003 \001(\0132 .proto.DailyStatisti"
+  "csMetaInfoV1\"\177\n\035GetAllDailyStatisticsRes"
+  "ponse\022\016\n\006status\030\001 \001(\010\022\017\n\007Message\030\002 \001(\t\022="
+  "\n\023DailyStatisticsInfo\030\003 \003(\0132 .proto.Dail"
+  "yStatisticsMetaInfoV1B\037Z\035DBMS/Generated/"
+  "proto/responseP\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_2eproto_deps[2] = {
   &::descriptor_table_Message_2fMessage_2eproto,
@@ -1014,7 +1014,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_
 };
 static ::_pbi::once_flag descriptor_table_Message_2fResponse_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2fResponse_2eproto = {
-    false, false, 3672, descriptor_table_protodef_Message_2fResponse_2eproto,
+    false, false, 3664, descriptor_table_protodef_Message_2fResponse_2eproto,
     "Message/Response.proto",
     &descriptor_table_Message_2fResponse_2eproto_once, descriptor_table_Message_2fResponse_2eproto_deps, 2, 34,
     schemas, file_default_instances, TableStruct_Message_2fResponse_2eproto::offsets,
@@ -7021,18 +7021,18 @@ void GetAllSwcMetaInfoResponse::InternalSwap(GetAllSwcMetaInfoResponse* other) {
 
 class CreateSwcNodeDataResponse::_Internal {
  public:
-  static const ::proto::SwcDataV1& swcnodedata(const CreateSwcNodeDataResponse* msg);
+  static const ::proto::SwcDataV1& swcdata(const CreateSwcNodeDataResponse* msg);
 };
 
 const ::proto::SwcDataV1&
-CreateSwcNodeDataResponse::_Internal::swcnodedata(const CreateSwcNodeDataResponse* msg) {
-  return *msg->_impl_.swcnodedata_;
+CreateSwcNodeDataResponse::_Internal::swcdata(const CreateSwcNodeDataResponse* msg) {
+  return *msg->_impl_.swcdata_;
 }
-void CreateSwcNodeDataResponse::clear_swcnodedata() {
-  if (GetArenaForAllocation() == nullptr && _impl_.swcnodedata_ != nullptr) {
-    delete _impl_.swcnodedata_;
+void CreateSwcNodeDataResponse::clear_swcdata() {
+  if (GetArenaForAllocation() == nullptr && _impl_.swcdata_ != nullptr) {
+    delete _impl_.swcdata_;
   }
-  _impl_.swcnodedata_ = nullptr;
+  _impl_.swcdata_ = nullptr;
 }
 CreateSwcNodeDataResponse::CreateSwcNodeDataResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -7045,7 +7045,7 @@ CreateSwcNodeDataResponse::CreateSwcNodeDataResponse(const CreateSwcNodeDataResp
   CreateSwcNodeDataResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
-    , decltype(_impl_.swcnodedata_){nullptr}
+    , decltype(_impl_.swcdata_){nullptr}
     , decltype(_impl_.status_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -7058,8 +7058,8 @@ CreateSwcNodeDataResponse::CreateSwcNodeDataResponse(const CreateSwcNodeDataResp
     _this->_impl_.message_.Set(from._internal_message(), 
       _this->GetArenaForAllocation());
   }
-  if (from._internal_has_swcnodedata()) {
-    _this->_impl_.swcnodedata_ = new ::proto::SwcDataV1(*from._impl_.swcnodedata_);
+  if (from._internal_has_swcdata()) {
+    _this->_impl_.swcdata_ = new ::proto::SwcDataV1(*from._impl_.swcdata_);
   }
   _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:proto.CreateSwcNodeDataResponse)
@@ -7071,7 +7071,7 @@ inline void CreateSwcNodeDataResponse::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
-    , decltype(_impl_.swcnodedata_){nullptr}
+    , decltype(_impl_.swcdata_){nullptr}
     , decltype(_impl_.status_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -7093,7 +7093,7 @@ CreateSwcNodeDataResponse::~CreateSwcNodeDataResponse() {
 inline void CreateSwcNodeDataResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.message_.Destroy();
-  if (this != internal_default_instance()) delete _impl_.swcnodedata_;
+  if (this != internal_default_instance()) delete _impl_.swcdata_;
 }
 
 void CreateSwcNodeDataResponse::SetCachedSize(int size) const {
@@ -7107,10 +7107,10 @@ void CreateSwcNodeDataResponse::Clear() {
   (void) cached_has_bits;
 
   _impl_.message_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && _impl_.swcnodedata_ != nullptr) {
-    delete _impl_.swcnodedata_;
+  if (GetArenaForAllocation() == nullptr && _impl_.swcdata_ != nullptr) {
+    delete _impl_.swcdata_;
   }
-  _impl_.swcnodedata_ = nullptr;
+  _impl_.swcdata_ = nullptr;
   _impl_.status_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -7139,10 +7139,10 @@ const char* CreateSwcNodeDataResponse::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // .proto.SwcDataV1 SwcNodeData = 3;
+      // .proto.SwcDataV1 SwcData = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_swcnodedata(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_swcdata(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7192,11 +7192,11 @@ uint8_t* CreateSwcNodeDataResponse::_InternalSerialize(
         2, this->_internal_message(), target);
   }
 
-  // .proto.SwcDataV1 SwcNodeData = 3;
-  if (this->_internal_has_swcnodedata()) {
+  // .proto.SwcDataV1 SwcData = 3;
+  if (this->_internal_has_swcdata()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::swcnodedata(this),
-        _Internal::swcnodedata(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(3, _Internal::swcdata(this),
+        _Internal::swcdata(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7222,11 +7222,11 @@ size_t CreateSwcNodeDataResponse::ByteSizeLong() const {
         this->_internal_message());
   }
 
-  // .proto.SwcDataV1 SwcNodeData = 3;
-  if (this->_internal_has_swcnodedata()) {
+  // .proto.SwcDataV1 SwcData = 3;
+  if (this->_internal_has_swcdata()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.swcnodedata_);
+        *_impl_.swcdata_);
   }
 
   // bool status = 1;
@@ -7255,9 +7255,9 @@ void CreateSwcNodeDataResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_m
   if (!from._internal_message().empty()) {
     _this->_internal_set_message(from._internal_message());
   }
-  if (from._internal_has_swcnodedata()) {
-    _this->_internal_mutable_swcnodedata()->::proto::SwcDataV1::MergeFrom(
-        from._internal_swcnodedata());
+  if (from._internal_has_swcdata()) {
+    _this->_internal_mutable_swcdata()->::proto::SwcDataV1::MergeFrom(
+        from._internal_swcdata());
   }
   if (from._internal_status() != 0) {
     _this->_internal_set_status(from._internal_status());
@@ -7288,9 +7288,9 @@ void CreateSwcNodeDataResponse::InternalSwap(CreateSwcNodeDataResponse* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(CreateSwcNodeDataResponse, _impl_.status_)
       + sizeof(CreateSwcNodeDataResponse::_impl_.status_)
-      - PROTOBUF_FIELD_OFFSET(CreateSwcNodeDataResponse, _impl_.swcnodedata_)>(
-          reinterpret_cast<char*>(&_impl_.swcnodedata_),
-          reinterpret_cast<char*>(&other->_impl_.swcnodedata_));
+      - PROTOBUF_FIELD_OFFSET(CreateSwcNodeDataResponse, _impl_.swcdata_)>(
+          reinterpret_cast<char*>(&_impl_.swcdata_),
+          reinterpret_cast<char*>(&other->_impl_.swcdata_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateSwcNodeDataResponse::GetMetadata() const {
@@ -7303,18 +7303,18 @@ void CreateSwcNodeDataResponse::InternalSwap(CreateSwcNodeDataResponse* other) {
 
 class DeleteSwcNodeDataResponse::_Internal {
  public:
-  static const ::proto::SwcDataV1& swcnodedata(const DeleteSwcNodeDataResponse* msg);
+  static const ::proto::SwcDataV1& swcdata(const DeleteSwcNodeDataResponse* msg);
 };
 
 const ::proto::SwcDataV1&
-DeleteSwcNodeDataResponse::_Internal::swcnodedata(const DeleteSwcNodeDataResponse* msg) {
-  return *msg->_impl_.swcnodedata_;
+DeleteSwcNodeDataResponse::_Internal::swcdata(const DeleteSwcNodeDataResponse* msg) {
+  return *msg->_impl_.swcdata_;
 }
-void DeleteSwcNodeDataResponse::clear_swcnodedata() {
-  if (GetArenaForAllocation() == nullptr && _impl_.swcnodedata_ != nullptr) {
-    delete _impl_.swcnodedata_;
+void DeleteSwcNodeDataResponse::clear_swcdata() {
+  if (GetArenaForAllocation() == nullptr && _impl_.swcdata_ != nullptr) {
+    delete _impl_.swcdata_;
   }
-  _impl_.swcnodedata_ = nullptr;
+  _impl_.swcdata_ = nullptr;
 }
 DeleteSwcNodeDataResponse::DeleteSwcNodeDataResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -7327,7 +7327,7 @@ DeleteSwcNodeDataResponse::DeleteSwcNodeDataResponse(const DeleteSwcNodeDataResp
   DeleteSwcNodeDataResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
-    , decltype(_impl_.swcnodedata_){nullptr}
+    , decltype(_impl_.swcdata_){nullptr}
     , decltype(_impl_.status_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -7340,8 +7340,8 @@ DeleteSwcNodeDataResponse::DeleteSwcNodeDataResponse(const DeleteSwcNodeDataResp
     _this->_impl_.message_.Set(from._internal_message(), 
       _this->GetArenaForAllocation());
   }
-  if (from._internal_has_swcnodedata()) {
-    _this->_impl_.swcnodedata_ = new ::proto::SwcDataV1(*from._impl_.swcnodedata_);
+  if (from._internal_has_swcdata()) {
+    _this->_impl_.swcdata_ = new ::proto::SwcDataV1(*from._impl_.swcdata_);
   }
   _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:proto.DeleteSwcNodeDataResponse)
@@ -7353,7 +7353,7 @@ inline void DeleteSwcNodeDataResponse::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
-    , decltype(_impl_.swcnodedata_){nullptr}
+    , decltype(_impl_.swcdata_){nullptr}
     , decltype(_impl_.status_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -7375,7 +7375,7 @@ DeleteSwcNodeDataResponse::~DeleteSwcNodeDataResponse() {
 inline void DeleteSwcNodeDataResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.message_.Destroy();
-  if (this != internal_default_instance()) delete _impl_.swcnodedata_;
+  if (this != internal_default_instance()) delete _impl_.swcdata_;
 }
 
 void DeleteSwcNodeDataResponse::SetCachedSize(int size) const {
@@ -7389,10 +7389,10 @@ void DeleteSwcNodeDataResponse::Clear() {
   (void) cached_has_bits;
 
   _impl_.message_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && _impl_.swcnodedata_ != nullptr) {
-    delete _impl_.swcnodedata_;
+  if (GetArenaForAllocation() == nullptr && _impl_.swcdata_ != nullptr) {
+    delete _impl_.swcdata_;
   }
-  _impl_.swcnodedata_ = nullptr;
+  _impl_.swcdata_ = nullptr;
   _impl_.status_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -7421,10 +7421,10 @@ const char* DeleteSwcNodeDataResponse::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // .proto.SwcDataV1 SwcNodeData = 3;
+      // .proto.SwcDataV1 SwcData = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_swcnodedata(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_swcdata(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7474,11 +7474,11 @@ uint8_t* DeleteSwcNodeDataResponse::_InternalSerialize(
         2, this->_internal_message(), target);
   }
 
-  // .proto.SwcDataV1 SwcNodeData = 3;
-  if (this->_internal_has_swcnodedata()) {
+  // .proto.SwcDataV1 SwcData = 3;
+  if (this->_internal_has_swcdata()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::swcnodedata(this),
-        _Internal::swcnodedata(this).GetCachedSize(), target, stream);
+      InternalWriteMessage(3, _Internal::swcdata(this),
+        _Internal::swcdata(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7504,11 +7504,11 @@ size_t DeleteSwcNodeDataResponse::ByteSizeLong() const {
         this->_internal_message());
   }
 
-  // .proto.SwcDataV1 SwcNodeData = 3;
-  if (this->_internal_has_swcnodedata()) {
+  // .proto.SwcDataV1 SwcData = 3;
+  if (this->_internal_has_swcdata()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.swcnodedata_);
+        *_impl_.swcdata_);
   }
 
   // bool status = 1;
@@ -7537,9 +7537,9 @@ void DeleteSwcNodeDataResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_m
   if (!from._internal_message().empty()) {
     _this->_internal_set_message(from._internal_message());
   }
-  if (from._internal_has_swcnodedata()) {
-    _this->_internal_mutable_swcnodedata()->::proto::SwcDataV1::MergeFrom(
-        from._internal_swcnodedata());
+  if (from._internal_has_swcdata()) {
+    _this->_internal_mutable_swcdata()->::proto::SwcDataV1::MergeFrom(
+        from._internal_swcdata());
   }
   if (from._internal_status() != 0) {
     _this->_internal_set_status(from._internal_status());
@@ -7570,9 +7570,9 @@ void DeleteSwcNodeDataResponse::InternalSwap(DeleteSwcNodeDataResponse* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(DeleteSwcNodeDataResponse, _impl_.status_)
       + sizeof(DeleteSwcNodeDataResponse::_impl_.status_)
-      - PROTOBUF_FIELD_OFFSET(DeleteSwcNodeDataResponse, _impl_.swcnodedata_)>(
-          reinterpret_cast<char*>(&_impl_.swcnodedata_),
-          reinterpret_cast<char*>(&other->_impl_.swcnodedata_));
+      - PROTOBUF_FIELD_OFFSET(DeleteSwcNodeDataResponse, _impl_.swcdata_)>(
+          reinterpret_cast<char*>(&_impl_.swcdata_),
+          reinterpret_cast<char*>(&other->_impl_.swcdata_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteSwcNodeDataResponse::GetMetadata() const {

@@ -139,13 +139,13 @@ message GetAllSwcMetaInfoResponse{
 message CreateSwcNodeDataResponse{
     bool status = 1;
     string Message = 2;
-    SwcDataV1 SwcNodeData = 3;
+    SwcDataV1 SwcData = 3;
 }
 
 message DeleteSwcNodeDataResponse{
     bool status = 1;
     string Message = 2;
-    SwcDataV1 SwcNodeData = 3;
+    SwcDataV1 SwcData = 3;
 }
 
 message UpdateSwcNodeDataResponse{

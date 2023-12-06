@@ -7,6 +7,8 @@
 #include "editorprojectmetainfo.h"
 #include "editorswcmetainfo.h"
 #include "src/framework/defination/ImageDefination.h"
+#include "viewswcnodedata.h"
+#include "editorswcnode.h"
 
 RightClientView::RightClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui(new Ui::RightClientView) {
     ui->setupUi(this);
@@ -14,7 +16,7 @@ RightClientView::RightClientView(MainWindow* mainWindow) : QWidget(mainWindow), 
 
     m_TabWidget = new QTabWidget(this);
     m_TabWidget->setTabsClosable(true);
-    connect(m_TabWidget, &QTabWidget::tabCloseRequested, this, [&](int index) {
+    connect(m_TabWidget, &QTabWidget::tabCloseRequested, this, [this](int index) {
         auto editor = m_TabWidget->widget(index);
 
         if (!editor) {
@@ -259,3 +261,44 @@ int RightClientView::findIfTabAlreadOpenned(const std::string& name, MetaInfoTyp
     }
     return -1;
 }
+
+void RightClientView::openSwcNodeData(const std::string &swcName) {
+    auto index = findIfTabAlreadOpenned(swcName, MetaInfoType::eSwcData);
+
+    proto::GetSwcFullNodeDataResponse response;
+
+    if (index != -1) {
+        m_TabWidget->setCurrentIndex(index);
+
+        auto qeditor = m_TabWidget->widget(index);
+        if (!qeditor) {
+            return;
+        }
+        auto base = dynamic_cast<EditorBase *>(qeditor);
+        if (!base) {
+            return;
+        }
+        if (WrappedCall::getSwcFullNodeData(swcName, response, this)) {
+            auto editor= dynamic_cast<EditorSwcNode *>(base);
+            if (!editor) {
+                return;
+            }
+            editor->refreshUserArea();
+        }
+        return;
+    }
+
+    if (WrappedCall::getSwcFullNodeData(swcName, response, this)) {
+        auto* editor = new EditorSwcNode(swcName, m_TabWidget);
+        auto newIndex = m_TabWidget->addTab(editor, QIcon(Image::ImageDaily),QString::fromStdString(swcName));
+        m_TabWidget->setCurrentIndex(newIndex);
+    }
+}
+
+void RightClientView::closeWithoutSavingSwcNodeData(const std::string &swcName) {
+    auto index = findIfTabAlreadOpenned(swcName, MetaInfoType::eSwcData);
+    if(index!=-1) {
+        m_TabWidget->removeTab(index);
+    }
+}
+

@@ -18,7 +18,7 @@ EditorUserSettings::EditorUserSettings(LeftClientView *leftClientView) :
     m_LeftClientView = leftClientView;
 
     ui->ChangeHeadPhoto->setIcon(QIcon(Image::ImageEdit));
-    connect(ui->ChangeHeadPhoto,&QPushButton::clicked,this,[&](){
+    connect(ui->ChangeHeadPhoto,&QPushButton::clicked,this,[this](){
         QFileDialog dialog;
         dialog.setWindowTitle("Select your head photo");
         dialog.setDirectory(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
@@ -36,10 +36,10 @@ EditorUserSettings::EditorUserSettings(LeftClientView *leftClientView) :
             ui->HeadPhoto->setPixmap(pixmap);
         }
     });
-    connect(ui->CancelBtn,&QPushButton::clicked,this,[&](){
+    connect(ui->CancelBtn,&QPushButton::clicked,this,[this](){
         reject();
     });
-    connect(ui->OKBtn,&QPushButton::clicked,this,[&](){
+    connect(ui->OKBtn,&QPushButton::clicked,this,[this](){
         proto::UpdateUserRequest request;
         proto::UpdateUserResponse response;
         request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);

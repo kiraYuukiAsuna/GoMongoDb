@@ -67,19 +67,34 @@ message SwcMetaInfoV1{
     string Name = 2;
     string Description = 3;
     string Creator = 4;
-    google.protobuf.Timestamp CreateTime = 5;
-    google.protobuf.Timestamp LastModifiedTime = 6;
+    string SwcType = 5;
+    google.protobuf.Timestamp CreateTime = 6;
+    google.protobuf.Timestamp LastModifiedTime = 7;
 
+}
+
+message SwcNodeInternalDataV1{
+    int32 N = 1;
+    int32 Type = 2;
+    float X = 3;
+    float Y = 4;
+    float Z = 5;
+    float Radius = 6;
+    int32 Parent = 7;
+    int32 Seg_id = 8;
+    int32 Level = 9;
+    int32 Mode = 10;
+    int32 Timestamp = 11;
+    int32 Feature_value = 12;
 }
 
 message SwcNodeDataV1{
     MetaInfoBase Base = 1;
-    string SwcData = 2;
+    SwcNodeInternalDataV1 SwcNodeInternalData = 2;
     string Creator = 3;
     google.protobuf.Timestamp CreateTime = 4;
     google.protobuf.Timestamp LastModifiedTime = 5;
-    string AnnotatorUserUuid = 6;
-    string CheckerUserUuid = 7;
+    string CheckerUserUuid = 6;
 }
 
 message SwcDataV1{

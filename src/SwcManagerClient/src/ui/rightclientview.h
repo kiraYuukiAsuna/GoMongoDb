@@ -29,6 +29,9 @@ public:
     void closeWithoutSavingDailyStatistics(const std::string& dailyStatisticsName);
     void refreshDailyStatisticsMetaInfo(const std::string& dailyStatisticsName);
 
+    void openSwcNodeData(const std::string& swcName);
+    void closeWithoutSavingSwcNodeData(const std::string& swcName);
+
     void refreshAllOpenedProjectMetaInfo();
 
 private:
