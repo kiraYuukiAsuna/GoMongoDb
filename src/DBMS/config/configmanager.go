@@ -9,10 +9,12 @@ import (
 )
 
 type Config struct {
-	GrpcIP      string
-	GrpcPort    int32
-	MongodbIP   string
-	MongodbPort int32
+	GrpcIP          string
+	GrpcPort        int32
+	MongodbIP       string
+	MongodbPort     int32
+	MongodbUser     string
+	MongodbPassword string
 }
 
 var AppConfig Config

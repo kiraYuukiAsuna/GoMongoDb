@@ -25,8 +25,8 @@ func InitializeNewDataBaseIfNotExist(metaInfoDataBaseName string, swcDataBaseNam
 	createInfo := MongoDbConnectionCreateInfo{
 		Host:     config.AppConfig.MongodbIP,
 		Port:     config.AppConfig.MongodbPort,
-		User:     "defaultuser",
-		Password: "defaultpassword",
+		User:     config.AppConfig.MongodbUser,
+		Password: config.AppConfig.MongodbPassword,
 	}
 
 	connectionInfo := ConnectToMongoDb(createInfo)

@@ -18,7 +18,7 @@ import (
 func ConnectToMongoDb(createInfo MongoDbConnectionCreateInfo) MongoDbConnectionInfo {
 	//mongodb://defaultuser:defaultpassword@localhost:27017/?authMechanism=DEFAULT
 	//url := "mongodb://" + createInfo.user + ":" + createInfo.password + "@" + createInfo.host + ":" + string(createInfo.port) + "/?authMechanism=DEFAULT"
-	url := "mongodb://" + createInfo.Host + ":" + strconv.Itoa(int(createInfo.Port))
+	url := "mongodb://" + createInfo.User + ":" + createInfo.Password + "@" + createInfo.Host + ":" + strconv.Itoa(int(createInfo.Port)) + "/?authMechanism=DEFAULT"
 	var connectionInfo MongoDbConnectionInfo
 	connectionInfo.Client, connectionInfo.Err = mongo.Connect(context.TODO(), options.Client().ApplyURI(url).SetConnectTimeout(10*time.Second))
 	if connectionInfo.Err != nil {

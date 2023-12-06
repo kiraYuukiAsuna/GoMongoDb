@@ -16,8 +16,8 @@ func Initialize() {
 	var createInfo dal.MongoDbConnectionCreateInfo
 	createInfo.Host = config.AppConfig.MongodbIP
 	createInfo.Port = config.AppConfig.MongodbPort
-	createInfo.User = ""
-	createInfo.Password = ""
+	createInfo.User = config.AppConfig.MongodbUser
+	createInfo.Password = config.AppConfig.MongodbPassword
 	connectionInfo := dal.ConnectToMongoDb(createInfo)
 
 	if connectionInfo.Err != nil {
