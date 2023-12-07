@@ -43,10 +43,24 @@ int main(int argc, char *argv[]) {
 
     qApp->setWindowIcon(QIcon(Image::ImageAppIcon));
 
-    AppConfig::getInstance().initialize("AppConfig.json");
+    AppConfig::getInstance().initialize("AppSecurityConfig.json", "AppConfig.json");
+    AppConfig::getInstance().readSecurityConfig();
     AppConfig::getInstance().readConfig();
 
-    RpcCall::getInstance().initialize("127.0.0.1:8088");
+    auto serverIP = AppConfig::getInstance().getConfig(AppConfig::ConfigItem::eServerIP);
+    auto serverPort = AppConfig::getInstance().getConfig(AppConfig::ConfigItem::eServerPort);
+
+    if(serverIP.empty()){
+        serverIP = "127.0.0.1";
+    }
+
+    if(serverPort.empty()){
+        serverPort = "8088";
+    }
+
+    auto endPoint = serverIP + ":" + serverPort;
+
+    RpcCall::getInstance().initialize(endPoint);
 
     if(LoginWindow loginWindow{}; loginWindow.exec() != QDialog::Accepted) {
         return -1;

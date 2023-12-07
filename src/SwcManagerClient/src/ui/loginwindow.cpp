@@ -37,9 +37,9 @@ LoginWindow::~LoginWindow() {
 }
 
 void LoginWindow::verifyCachedAccount() {
-    auto cachedUserName = AppConfig::getInstance().getConfig(AppConfig::ConfigItem::eCachedUserName);
-    auto cachedPassword = AppConfig::getInstance().getConfig(AppConfig::ConfigItem::eCachedPassword);
-    auto accountExpiredTime = AppConfig::getInstance().getConfig(AppConfig::ConfigItem::eAccountExpiredTime);
+    auto cachedUserName = AppConfig::getInstance().getSecurityConfig(AppConfig::SecurityConfigItem::eCachedUserName);
+    auto cachedPassword = AppConfig::getInstance().getSecurityConfig(AppConfig::SecurityConfigItem::eCachedPassword);
+    auto accountExpiredTime = AppConfig::getInstance().getSecurityConfig(AppConfig::SecurityConfigItem::eAccountExpiredTime);
 
     auto timestampeNow = std::chrono::system_clock::now().time_since_epoch().count();
     long long timestampeAccountExpired = 0;
@@ -83,17 +83,17 @@ bool LoginWindow::doLogin(QString userName, QString password, bool slientMode) {
             if(!slientMode) {
                 QMessageBox::information(this,"Info","Login Successfully!");
             }
-            AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eCachedUserName, userName.toStdString());
-            AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eCachedPassword, password.toStdString());
+            AppConfig::getInstance().setSecurityConfig(AppConfig::SecurityConfigItem::eCachedUserName, userName.toStdString());
+            AppConfig::getInstance().setSecurityConfig(AppConfig::SecurityConfigItem::eCachedPassword, password.toStdString());
 
             auto timestampeNow = std::chrono::system_clock::now();
             std::chrono::days days(15);
             auto expiredTime = timestampeNow + days;
             auto seconds_since_epoch = expiredTime.time_since_epoch().count();
 
-            AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eAccountExpiredTime, std::to_string(seconds_since_epoch));
+            AppConfig::getInstance().setSecurityConfig(AppConfig::SecurityConfigItem::eAccountExpiredTime, std::to_string(seconds_since_epoch));
 
-            AppConfig::getInstance().writeConfig();
+            AppConfig::getInstance().writeSecurityConfig();
 
             CachedProtoData::getInstance().CachedUserMetaInfo = response.userinfo();
             CachedProtoData::getInstance().OnlineStatus = true;

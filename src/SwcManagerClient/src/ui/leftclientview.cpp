@@ -18,6 +18,7 @@
 #include "viewcreateproject.h"
 #include "viewcreateswc.h"
 #include "src/framework/config/AppConfig.h"
+#include "viewimportswcfromfile.h"
 
 LeftClientView::LeftClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui(new Ui::LeftClientView) {
     ui->setupUi(this);
@@ -68,10 +69,10 @@ LeftClientView::LeftClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui
             auto status = RpcCall::getInstance().Stub()->UserLogout(&context,request,&response);
             if(status.ok()) {
                 if(response.status()) {
-                    AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eCachedUserName, "");
-                    AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eCachedPassword, "");
-                    AppConfig::getInstance().setConfig(AppConfig::ConfigItem::eAccountExpiredTime, "");
-                    AppConfig::getInstance().writeConfig();
+                    AppConfig::getInstance().setSecurityConfig(AppConfig::SecurityConfigItem::eCachedUserName, "");
+                    AppConfig::getInstance().setSecurityConfig(AppConfig::SecurityConfigItem::eCachedPassword, "");
+                    AppConfig::getInstance().setSecurityConfig(AppConfig::SecurityConfigItem::eAccountExpiredTime, "");
+                    AppConfig::getInstance().writeSecurityConfig();
 
                     qApp->exit(RestartCode);
                 }
@@ -262,7 +263,8 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     MenuImportSwcFile->setText("Import Swc File");
     MenuImportSwcFile->setIcon(QIcon(Image::ImageImport));
     connect(MenuImportSwcFile,&QAction::triggered,this,[this](bool checked) {
-
+        ViewImportSwcFromFile view;
+        view.exec();
     });
 
     auto* MenuExportToSwcFile = new QAction(this);

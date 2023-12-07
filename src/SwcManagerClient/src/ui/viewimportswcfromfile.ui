@@ -21,15 +21,12 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>File Path:</string>
+          <string>Select Swc Files Path:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="SelectBtn">
          <property name="text">
           <string>Select</string>
          </property>
@@ -40,36 +37,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <layout class="QFormLayout" name="formLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Property:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Value:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Detected Swc Node Number:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QTableWidget" name="SwcFileInfo"/>
        </item>
       </layout>
      </item>
@@ -89,14 +57,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="Import">
+        <widget class="QPushButton" name="ImportBtn">
          <property name="text">
           <string>Import</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="Cancel">
+        <widget class="QPushButton" name="CancelBtn">
          <property name="text">
           <string>Cancel</string>
          </property>

@@ -126,9 +126,7 @@ func (D DBMSServerController) GetUser(ctx context.Context, request *request.GetU
 }
 
 func (D DBMSServerController) GetAllUser(ctx context.Context, request *request.GetAllUserRequest) (*response.GetAllUserResponse, error) {
-	userMetaInfo := UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
-
-	fmt.Println("TODO: Add permission check" + userMetaInfo.Name)
+	_ = UserMetaInfoV1ProtobufToDbmodel(request.UserInfo)
 
 	var userMetaInfoList []dbmodel.UserMetaInfoV1
 	var protoMessage []*message.UserMetaInfoV1
