@@ -16,6 +16,7 @@ EditorProjectMetaInfo::EditorProjectMetaInfo(proto::GetProjectResponse &response
                              "QListWidget::indicator:unchecked{image:url(" +
                              Image::ImageCheckBoxUnchecked + ");}";
     ui->SwcList->setStyleSheet(QString::fromStdString(stylesheet));
+    ui->UserPermissionOverride->resizeColumnsToContents();
 
     refresh(response);
 }

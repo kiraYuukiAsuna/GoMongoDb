@@ -6,10 +6,13 @@
 #include "Message/Request.pb.h"
 #include "src/framework/service/CachedProtoData.h"
 #include "src/framework/service/WrappedCall.h"
+#include "mainwindow.h"
 
-ViewImportSwcFromFile::ViewImportSwcFromFile(QWidget *parent) :
-    QDialog(parent), ui(new Ui::ViewImportSwcFromFile) {
+ViewImportSwcFromFile::ViewImportSwcFromFile(MainWindow *mainWindow) :
+    QDialog(mainWindow), ui(new Ui::ViewImportSwcFromFile) {
     ui->setupUi(this);
+
+    m_MainWindow = mainWindow;
 
     ui->SwcFileInfo->clear();
     ui->SwcFileInfo->setColumnCount(5);
@@ -73,11 +76,12 @@ ViewImportSwcFromFile::ViewImportSwcFromFile(QWidget *parent) :
                                              new QTableWidgetItem(QString::fromStdString("Unprocessed")));
                 }
             }
+            ui->SwcFileInfo->resizeColumnsToContents();
         }
 
     });
 
-    connect(ui->ImportBtn,&QPushButton::clicked,this,[this]() {
+    connect(ui->ImportBtn,&QPushButton::clicked,this,[this, &mainWindow]() {
         if (ui->SwcFileInfo->rowCount() != m_SwcList.size() + m_ESwcList.size()) {
             QMessageBox::critical(this, "Error", "Data outdated! Please reopen this import window!");
             return;
@@ -190,6 +194,7 @@ ViewImportSwcFromFile::ViewImportSwcFromFile(QWidget *parent) :
 
         m_ActionImportComplete = true;
         QMessageBox::information(this, "Info", "Import action has completed! Please check the <Import Status> in the table!");
+        mainWindow->getLeftClientView().refreshTree();
     });
 
     connect(ui->CancelBtn,&QPushButton::clicked,this,[this](){

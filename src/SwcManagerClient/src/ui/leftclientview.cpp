@@ -263,7 +263,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     MenuImportSwcFile->setText("Import Swc File");
     MenuImportSwcFile->setIcon(QIcon(Image::ImageImport));
     connect(MenuImportSwcFile,&QAction::triggered,this,[this](bool checked) {
-        ViewImportSwcFromFile view;
+        ViewImportSwcFromFile view(m_MainWindow);
         view.exec();
     });
 

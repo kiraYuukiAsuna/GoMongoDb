@@ -265,8 +265,6 @@ int RightClientView::findIfTabAlreadOpenned(const std::string& name, MetaInfoTyp
 void RightClientView::openSwcNodeData(const std::string &swcName) {
     auto index = findIfTabAlreadOpenned(swcName, MetaInfoType::eSwcData);
 
-    proto::GetSwcFullNodeDataResponse response;
-
     if (index != -1) {
         m_TabWidget->setCurrentIndex(index);
 
@@ -278,21 +276,17 @@ void RightClientView::openSwcNodeData(const std::string &swcName) {
         if (!base) {
             return;
         }
-        if (WrappedCall::getSwcFullNodeData(swcName, response, this)) {
-            auto editor= dynamic_cast<EditorSwcNode *>(base);
-            if (!editor) {
-                return;
-            }
-            editor->refreshUserArea();
+        auto editor= dynamic_cast<EditorSwcNode *>(base);
+        if (!editor) {
+            return;
         }
+        editor->refreshUserArea();
         return;
     }
 
-    if (WrappedCall::getSwcFullNodeData(swcName, response, this)) {
-        auto* editor = new EditorSwcNode(swcName, m_TabWidget);
-        auto newIndex = m_TabWidget->addTab(editor, QIcon(Image::ImageDaily),QString::fromStdString(swcName));
-        m_TabWidget->setCurrentIndex(newIndex);
-    }
+    auto* editor = new EditorSwcNode(swcName, m_TabWidget);
+    auto newIndex = m_TabWidget->addTab(editor, QIcon(Image::ImageDaily),QString::fromStdString(swcName));
+    m_TabWidget->setCurrentIndex(newIndex);
 }
 
 void RightClientView::closeWithoutSavingSwcNodeData(const std::string &swcName) {

@@ -173,6 +173,29 @@ public:
         return false;
     }
 
+    static bool getSwcNodeDataListByTimeAndUserResponse(const std::string& swcName, const std::string& userName, google::protobuf::Timestamp& startTime, google::protobuf::Timestamp& endTime, proto::GetSwcNodeDataListByTimeAndUserResponse& response, QWidget* parent) {
+        proto::GetSwcNodeDataListByTimeAndUserRequest request;
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+        request.mutable_swcinfo()->set_name(swcName);
+        request.set_username(userName);
+        request.mutable_starttime()->CopyFrom(startTime);
+        request.mutable_endtime()->CopyFrom(endTime);
+
+        grpc::ClientContext context;
+        auto result = RpcCall::getInstance().Stub()->GetSwcNodeDataListByTimeAndUser(&context, request,&response);
+        if(result.ok()){
+            if(response.status()) {
+                return true;
+            }else {
+                QMessageBox::warning(parent,"Info","GetSwcNodeDataListByTimeAndUser Failed!" + QString::fromStdString(response.message()));
+            }
+
+        }else{
+            QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
+        }
+        return false;
+    }
+
     static bool addSwcNodeData(const std::string& swcName, proto::SwcDataV1& swcData, proto::CreateSwcNodeDataResponse& response, QWidget* parent) {
         proto::CreateSwcNodeDataRequest request;
         request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);

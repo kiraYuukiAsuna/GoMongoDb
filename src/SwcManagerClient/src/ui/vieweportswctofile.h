@@ -1,9 +1,4 @@
-//
-// Created by KiraY on 2023/11/23.
-//
-
-#ifndef VIEWEPORTSWCTOFILE_H
-#define VIEWEPORTSWCTOFILE_H
+#pragma once
 
 #include <QDialog>
 
@@ -22,6 +17,3 @@ public:
 private:
     Ui::ViewEportSwcToFile *ui;
 };
-
-
-#endif //VIEWEPORTSWCTOFILE_H

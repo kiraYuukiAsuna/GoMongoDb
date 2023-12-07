@@ -88,11 +88,15 @@ EditorSwcNode::EditorSwcNode(const std::string &swcName, QWidget *parent) :
         }
     });
 
-    connect(ui->QueryAll,&QPushButton::clicked,this,[this](){
+    connect(ui->QueryAllBtn,&QPushButton::clicked,this,[this](){
         refreshAll();
     });
 
-    connect(ui->QueryByUserAndTime,&QPushButton::clicked,this,[this](){
+    connect(ui->QueryByUserAndTimeBtn,&QPushButton::clicked,this,[this](){
+        refreshByQueryOption();
+    });
+
+    connect(ui->ExportQueryResultBtn,&QPushButton::clicked,this,[this](){
 
     });
 
@@ -104,12 +108,20 @@ EditorSwcNode::~EditorSwcNode() {
     delete ui;
 }
 
-void EditorSwcNode::refreshAll() {
-    proto::GetSwcFullNodeDataResponse response;
-    WrappedCall::getSwcFullNodeData(m_SwcName, response, this);
+void EditorSwcNode::refreshUserArea() {
+    proto::GetAllUserResponse response;
+    WrappedCall::getAllUserMetaInfo(response, this);
+    for (int i = 0; i < response.userinfo_size(); i++) {
+        auto userInfo = response.userinfo().Get(i);
+        auto *item = new QListWidgetItem;
+        item->setText(QString::fromStdString(userInfo.name()));
+        item->setCheckState(Qt::Checked);
+        ui->UserList->addItem(item);
+    }
+}
 
+void EditorSwcNode::refreshTable(){
     ui->SwcNodeDataTable->clear();
-    ui->SwcNodeDataTable->setRowCount(response.swcnodedata().swcdata_size());
     ui->SwcNodeDataTable->setColumnCount(12);
     QStringList headerLabels;
     headerLabels
@@ -126,9 +138,60 @@ void EditorSwcNode::refreshAll() {
             << "timestamp"
             << "feature_value";
     ui->SwcNodeDataTable->setHorizontalHeaderLabels(headerLabels);
+}
 
-    for (int i = 0; i < response.swcnodedata().swcdata_size(); i++) {
-        auto info = response.swcnodedata().swcdata().Get(i);
+void EditorSwcNode::refreshAll() {
+    proto::GetSwcFullNodeDataResponse response;
+    WrappedCall::getSwcFullNodeData(m_SwcName, response, this);
+
+
+
+    refreshTable();
+    ui->SwcNodeDataTable->setRowCount(response.swcnodedata().swcdata_size());
+
+    auto swcData = response.swcnodedata();
+    loadSwcData(swcData);
+}
+
+void EditorSwcNode::refreshByQueryOption() {
+    proto::GetSwcNodeDataListByTimeAndUserResponse response;
+
+    google::protobuf::Timestamp startTime;
+    startTime.set_seconds(ui->StartTime->dateTime().toSecsSinceEpoch());
+    google::protobuf::Timestamp endTime;
+    endTime.set_seconds(ui->EndTime->dateTime().toSecsSinceEpoch());
+
+    int checkedUserNumber = 0;
+    std::vector<std::string> checkedUserNames;
+    for(int i=0;i<ui->UserList->count();i++){
+        if(ui->UserList->item(i)->checkState() == Qt::Checked){
+            checkedUserNames.push_back(ui->UserList->item(i)->text().toStdString());
+            checkedUserNumber++;
+        }
+    }
+
+    if(checkedUserNumber > 1){
+        QMessageBox::information(this, "Warning", "Current only support select one user as query option!");
+        return;
+    }
+
+    std::string userName = checkedUserNames[0];
+    if(checkedUserNumber == 0){
+        userName = "";
+    }
+
+    WrappedCall::getSwcNodeDataListByTimeAndUserResponse(m_SwcName, userName, startTime, endTime, response, this);
+
+    refreshTable();
+    ui->SwcNodeDataTable->setRowCount(response.swcnodedata().swcdata_size());
+
+    auto swcData = response.swcnodedata();
+    loadSwcData(swcData);
+}
+
+void EditorSwcNode::loadSwcData(proto::SwcDataV1& swcData) {
+    for (int i = 0; i < swcData.swcdata_size(); i++) {
+        auto info = swcData.swcdata().Get(i);
         ui->SwcNodeDataTable->setItem(i, 0,
                                       new QTableWidgetItem(QString::fromStdString(
                                               std::to_string(info.mutable_swcnodeinternaldata()->n()))));
@@ -178,19 +241,7 @@ void EditorSwcNode::refreshAll() {
                                                       info.mutable_swcnodeinternaldata()->feature_value()))));
     }
 
-    m_SwcData.CopyFrom(response.swcnodedata());
+    m_SwcData.CopyFrom(swcData);
 
     ui->SwcNodeDataTable->resizeColumnsToContents();
-}
-
-void EditorSwcNode::refreshUserArea() {
-    proto::GetAllUserResponse response;
-    WrappedCall::getAllUserMetaInfo(response, this);
-    for (int i = 0; i < response.userinfo_size(); i++) {
-        auto userInfo = response.userinfo().Get(i);
-        auto *item = new QListWidgetItem;
-        item->setText(QString::fromStdString(userInfo.name()));
-        item->setCheckState(Qt::Checked);
-        ui->UserList->addItem(item);
-    }
 }

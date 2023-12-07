@@ -586,6 +586,16 @@ func CreateSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1,
 	return ReturnWrapper{true, "Create many node Success"}
 }
 
+func DeleteSwcDataCollection(swcMetaInfo dbmodel.SwcMetaInfoV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
+	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
+
+	err := collection.Drop(context.TODO())
+	if err != nil {
+		return ReturnWrapper{false, err.Error()}
+	}
+	return ReturnWrapper{true, "Delete swcdata collection " + swcMetaInfo.Name + " successfully!"}
+}
+
 func DeleteSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1, databaseInfo MongoDbDataBaseInfo) ReturnWrapper {
 	collection := databaseInfo.SwcDb.Collection(swcMetaInfo.Name)
 

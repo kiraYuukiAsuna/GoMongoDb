@@ -18,7 +18,9 @@ public:
     ~EditorSwcNode() override;
 
     void refreshUserArea();
+    void refreshTable();
     void refreshAll();
+    void refreshByQueryOption();
 
     virtual std::string getName() {
         return "";
@@ -34,6 +36,8 @@ public:
     }
 
 private:
+    void loadSwcData(proto::SwcDataV1& swcData);
+
     Ui::EditorSwcNode *ui;
 
     std::string m_SwcName;

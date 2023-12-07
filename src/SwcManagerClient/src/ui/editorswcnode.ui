@@ -101,16 +101,23 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="QueryAll">
+            <widget class="QPushButton" name="QueryAllBtn">
              <property name="text">
               <string>Query All</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="QueryByUserAndTime">
+            <widget class="QPushButton" name="QueryByUserAndTimeBtn">
              <property name="text">
               <string>Query By User And Time</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="ExportQueryResultBtn">
+             <property name="text">
+              <string>Export Query Result</string>
              </property>
             </widget>
            </item>

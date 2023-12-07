@@ -766,20 +766,22 @@ func (D DBMSServerController) DeleteSwc(ctx context.Context, request *request.De
 	}
 
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + "Delete Swc " + swcMetaInfo.Name)
-		DailyStatisticsInfo.DeletedSwcNumber += 1
-		return &response.DeleteSwcResponse{
-			Status:  true,
-			Message: result.Message,
-			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
-		}, nil
-	} else {
-		return &response.DeleteSwcResponse{
-			Status:  false,
-			Message: result.Message,
-			SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
-		}, nil
+		result = dal.DeleteSwcDataCollection(*swcMetaInfo, dal.GetDbInstance())
+		if result.Status {
+			fmt.Println("User " + request.UserInfo.Name + "Delete Swc " + swcMetaInfo.Name)
+			DailyStatisticsInfo.DeletedSwcNumber += 1
+			return &response.DeleteSwcResponse{
+				Status:  true,
+				Message: result.Message,
+				SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+			}, nil
+		}
 	}
+	return &response.DeleteSwcResponse{
+		Status:  false,
+		Message: result.Message,
+		SwcInfo: SwcMetaInfoV1DbmodelToProtobuf(swcMetaInfo),
+	}, nil
 }
 
 func (D DBMSServerController) UpdateSwc(ctx context.Context, request *request.UpdateSwcRequest) (*response.UpdateSwcResponse, error) {
