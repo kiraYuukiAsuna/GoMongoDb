@@ -122,6 +122,7 @@ set(PROJECT_SOURCES
         src/ui/viewimportswcfromfile.h
         src/ui/viewimportswcfromfile.ui
 
+        app_win32.rc
 )
 
 add_executable(${PROJECT_NAME} ${QRESOURCE} ${PROJECT_HEADERS} ${PROJECT_SOURCES})
@@ -135,6 +136,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         PRIVATE spdlog::spdlog
         PRIVATE gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts
 )
+
+if (WIN32)
+    Set_Target_Properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
+endif ()
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

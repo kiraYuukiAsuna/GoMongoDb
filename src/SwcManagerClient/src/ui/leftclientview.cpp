@@ -266,6 +266,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     connect(MenuImportSwcFile,&QAction::triggered,this,[this](bool checked) {
         ViewImportSwcFromFile view(m_MainWindow);
         view.exec();
+        refreshTree();
     });
 
     auto* MenuExportToSwcFile = new QAction(this);
