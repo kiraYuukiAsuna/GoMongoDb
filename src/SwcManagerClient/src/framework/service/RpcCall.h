@@ -10,7 +10,13 @@ public:
 
     void initialize(const std::string& endpoint) {
         m_Endpoint = endpoint;
-        m_Channel = grpc::CreateChannel(m_Endpoint, grpc::InsecureChannelCredentials());
+        grpc::ChannelArguments channelArgs;
+        channelArgs.SetInt(GRPC_ARG_MAX_RECEIVE_MESSAGE_LENGTH, 256 * 1024 * 1024); // 256mb
+        channelArgs.SetInt(GRPC_ARG_MAX_SEND_MESSAGE_LENGTH, 256 * 1024 * 1024); // 256mb
+
+        m_Channel = grpc::CreateCustomChannel(
+                m_Endpoint, grpc::InsecureChannelCredentials(), channelArgs);
+
         m_Stub = proto::DBMS::NewStub(m_Channel);
 
     }

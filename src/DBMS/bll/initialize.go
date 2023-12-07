@@ -35,7 +35,8 @@ func NewGrpcServer() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	s := grpc.NewServer()
+
+	s := grpc.NewServer(grpc.MaxRecvMsgSize(1024*1024*256), grpc.MaxSendMsgSize(1024*1024*256)) // 256mb, 256mb
 
 	var instanceDBMSServerController DBMSServerController
 	service.RegisterDBMSServer(s, instanceDBMSServerController)

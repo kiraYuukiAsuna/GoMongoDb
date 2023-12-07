@@ -232,4 +232,25 @@ public:
         }
         return false;
     }
+
+    static bool createSwcMeta(const std::string& name, const std::string& description , proto::CreateSwcResponse& response, QWidget* parent){
+        proto::CreateSwcRequest request;
+        grpc::ClientContext context;
+
+        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
+
+        request.mutable_swcinfo()->set_name(name);
+        request.mutable_swcinfo()->set_description(description);
+
+        auto status = RpcCall::getInstance().Stub()->CreateSwc(&context, request, &response);
+        if (status.ok()) {
+            if (response.status()) {
+                return true;
+            }
+            QMessageBox::critical(parent, "Error", QString::fromStdString(response.message()));
+        }
+        QMessageBox::critical(parent, "Error", QString::fromStdString(status.error_message()));
+        return false;
+    }
+
 };

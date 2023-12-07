@@ -27,42 +27,34 @@ struct NeuronUnit
 
 	}
 	std::string getString(bool isApoOutput = false) {
-        if(!isApoOutput){
-            std::string str =
-                    std::to_string(n) + " " +
-                    std::to_string(type) + " " +
-                    std::to_string(x) + " " +
-                    std::to_string(y) + " " +
-                    std::to_string(z) + " " +
-                    std::to_string(radius) + " " +
-                    std::to_string(parent) + " " +
-                    std::to_string(seg_id) + " " +
-                    std::to_string(level) + " " +
-                    std::to_string(mode) + " " +
-                    std::to_string(timestamp) + " " +
-                    std::to_string(feature_value);
-            return str;
-        }else{
-            //for apo format zxy
-            std::string str = "0, , , , " +
-                std::to_string(z) + ", " + std::to_string(x) + ", " + std::to_string(y) +
-            ", 0.000, 0.000, 0.000, 314.159, 0.000, , , , 128, 168, 255";
-                return str;
-        }
+        std::string str =
+                std::to_string(n) + " " +
+                std::to_string(type) + " " +
+                std::to_string(x) + " " +
+                std::to_string(y) + " " +
+                std::to_string(z) + " " +
+                std::to_string(radius) + " " +
+                std::to_string(parent) + " " +
+                std::to_string(seg_id) + " " +
+                std::to_string(level) + " " +
+                std::to_string(mode) + " " +
+                std::to_string(timestamp) + " " +
+                std::to_string(feature_value);
+        return str;
 	}
 
-	int n;
-	int type;
-	float x;
-	float y;
-	float z;
-	float radius;
-	int parent;
-	int seg_id;
-	int level;
-	int mode;
-	int timestamp;
-	int feature_value;
+	int n=0;
+	int type=0;
+	float x=0.0;
+	float y=0.0;
+	float z=0.0;
+	float radius=0.0;
+	int parent=0;
+	int seg_id=0;
+	int level=0;
+	int mode=0;
+	int timestamp=0;
+	int feature_value=0;
 };
 
 class ESwc
@@ -102,7 +94,7 @@ public:
 			unit.level = std::stoi(splitResult[8]);
 			unit.mode = std::stoi(splitResult[9]);
 			unit.timestamp = std::stoi(splitResult[10]);
-			//unit.feature_value = std::stoi(splitResult[11]);
+//			unit.feature_value = std::stoi(splitResult[11]);
 
 			m_Neuron.push_back(unit);
 

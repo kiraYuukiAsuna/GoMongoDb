@@ -1,11 +1,7 @@
-//
-// Created by KiraY on 2023/11/23.
-//
-
-#ifndef VIEWIMPORTSWCFROMFILE_H
-#define VIEWIMPORTSWCFROMFILE_H
+#pragma once
 
 #include <QDialog>
+#include "src/swcio/SwcReader.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -21,7 +17,8 @@ public:
 
 private:
     Ui::ViewImportSwcFromFile *ui;
+
+    std::vector<Swc> m_SwcList;
+    std::vector<ESwc> m_ESwcList;
+    bool m_ActionImportComplete= false;
 };
-
-
-#endif //VIEWIMPORTSWCFROMFILE_H

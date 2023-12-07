@@ -3,10 +3,8 @@
 #include <QMessageBox>
 #include <Message/Request.pb.h>
 #include <Message/Response.pb.h>
-
+#include "src/framework/service/WrappedCall.h"
 #include "ui_ViewCreateSwc.h"
-#include "src/framework/service/CachedProtoData.h"
-#include "src/framework/service/RpcCall.h"
 
 ViewCreateSwc::ViewCreateSwc(QWidget* parent) : QDialog(parent), ui(new Ui::ViewCreateSwc) {
     ui->setupUi(this);
@@ -16,11 +14,7 @@ ViewCreateSwc::ViewCreateSwc(QWidget* parent) : QDialog(parent), ui(new Ui::View
     });
 
     connect(ui->OKBtn, &QPushButton::clicked, this, [this]() {
-        proto::CreateSwcRequest request;
         proto::CreateSwcResponse response;
-        grpc::ClientContext context;
-
-        request.mutable_userinfo()->CopyFrom(CachedProtoData::getInstance().CachedUserMetaInfo);
 
         if (ui->Name->text().trimmed().isEmpty()) {
             QMessageBox::warning(this, "Error", "Name cannot be empty!");
@@ -30,20 +24,11 @@ ViewCreateSwc::ViewCreateSwc(QWidget* parent) : QDialog(parent), ui(new Ui::View
             QMessageBox::warning(this, "Error", "Description cannot be empty!");
             return false;
         }
-        request.mutable_swcinfo()->set_name(ui->Name->text().toStdString());
-        request.mutable_swcinfo()->set_description(ui->Description->text().toStdString());
 
-        auto status = RpcCall::getInstance().Stub()->CreateSwc(&context, request, &response);
-        if (status.ok()) {
-            if (response.status()) {
-                QMessageBox::information(this, "Info", "Create Swc Successfully!");
-                accept();
-                return true;
-            }
-            QMessageBox::critical(this, "Error", QString::fromStdString(response.message()));
+        if(WrappedCall::createSwcMeta(ui->Name->text().trimmed().toStdString(),ui->Description->text().toStdString(),response,this)){
+            accept();
         }
-        QMessageBox::critical(this, "Error", QString::fromStdString(status.error_message()));
-        return false;
+
     });
 }
 
