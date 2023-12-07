@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>860</width>
     <height>800</height>
    </rect>
   </property>
@@ -28,7 +28,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="SavePath"/>
          </item>
          <item>
           <widget class="QPushButton" name="SelectSavePathBtn">
@@ -56,7 +56,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QListWidget" name="listWidget"/>
+          <widget class="QListWidget" name="SwcList"/>
          </item>
         </layout>
        </item>
@@ -74,7 +74,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QTableWidget" name="tableWidget"/>
+          <widget class="QTableWidget" name="ResultTable"/>
          </item>
         </layout>
        </item>

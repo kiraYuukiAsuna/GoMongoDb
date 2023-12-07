@@ -16,7 +16,6 @@ EditorProjectMetaInfo::EditorProjectMetaInfo(proto::GetProjectResponse &response
                              "QListWidget::indicator:unchecked{image:url(" +
                              Image::ImageCheckBoxUnchecked + ");}";
     ui->SwcList->setStyleSheet(QString::fromStdString(stylesheet));
-    ui->UserPermissionOverride->resizeColumnsToContents();
 
     refresh(response);
 }
@@ -107,6 +106,7 @@ void EditorProjectMetaInfo::refresh(proto::GetProjectResponse &response) {
 
     proto::GetAllSwcMetaInfoResponse responseAllSwc;
     WrappedCall::getAllSwcMetaInfo(responseAllSwc, this);
+
     for (int i = 0; i < responseAllSwc.swcinfo_size(); i++) {
         auto swcInfo = responseAllSwc.swcinfo().Get(i);
         bool bFind = false;
@@ -140,6 +140,7 @@ void EditorProjectMetaInfo::refresh(proto::GetProjectResponse &response) {
             << "ProjectWritePermissionDeleteData"
             << "ProjectReadPerimissionQuery";
     ui->UserPermissionOverride->setHorizontalHeaderLabels(headerLabels);
+    ui->UserPermissionOverride->resizeColumnsToContents();
 
     for (int i = 0; i < responseAllUser.userinfo_size(); i++) {
         auto userInfo = responseAllUser.userinfo().Get(i);

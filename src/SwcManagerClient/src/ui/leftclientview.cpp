@@ -19,6 +19,7 @@
 #include "viewcreateswc.h"
 #include "src/framework/config/AppConfig.h"
 #include "viewimportswcfromfile.h"
+#include "vieweportswctofile.h"
 
 LeftClientView::LeftClientView(MainWindow* mainWindow) : QWidget(mainWindow), ui(new Ui::LeftClientView) {
     ui->setupUi(this);
@@ -270,8 +271,79 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     auto* MenuExportToSwcFile = new QAction(this);
     MenuExportToSwcFile->setText("Export Swc File");
     MenuExportToSwcFile->setIcon(QIcon(Image::ImageExport));
-    connect(MenuExportToSwcFile,&QAction::triggered,this,[this](bool checked) {
+    connect(MenuExportToSwcFile,&QAction::triggered,this,[this, &data](bool checked) {
+        auto result = QMessageBox::information(this,"Info","This may takes few seconds please waiting for export popup!!",
+                                               QMessageBox::StandardButton::Ok,QMessageBox::StandardButton::Cancel);
+        if(result == QMessageBox::StandardButton::Ok) {
+            if(data.type == MetaInfoType::eSwc){
+                proto::GetSwcMetaInfoResponse response1;
+                if(!WrappedCall::getSwcMetaInfoByName(data.name,response1,this)){
+                    return;
+                }
 
+                proto::GetSwcFullNodeDataResponse response2;
+                if(!WrappedCall::getSwcFullNodeData(data.name, response2, this)){
+                    return;
+                }
+
+                std::vector<ExportSwcData> dataList;
+                ExportSwcData exportSwcData;
+                exportSwcData.swcData = response2.swcnodedata();
+                exportSwcData.swcMetaInfo = response1.swcinfo();
+                dataList.push_back(exportSwcData);
+
+                ViewEportSwcToFile view(dataList,false,this);
+                view.exec();
+            }else if(data.type == MetaInfoType::eSwcContainer){
+                proto::GetAllSwcMetaInfoResponse response;
+                if(!WrappedCall::getAllSwcMetaInfo(response,this)){
+                    return;
+                }
+
+                std::vector<ExportSwcData> dataList;
+                for(int i=0;i<response.swcinfo_size();i++){
+                    ExportSwcData exportSwcData;
+                    exportSwcData.swcMetaInfo = response.swcinfo(i);
+                    dataList.push_back(exportSwcData);
+                }
+
+                ViewEportSwcToFile view(dataList,true,this);
+                view.exec();
+            }else if(data.type == MetaInfoType::eProject){
+                proto::GetProjectResponse projectResponse;
+                if(!WrappedCall::getProjectMetaInfoByName(data.name, projectResponse, this)){
+                    return;
+                }
+
+                std::vector<proto::SwcMetaInfoV1> swcMetaInfos;
+
+                proto::GetAllSwcMetaInfoResponse responseAllSwc;
+                WrappedCall::getAllSwcMetaInfo(responseAllSwc, this);
+                for (int i = 0; i < responseAllSwc.swcinfo_size(); i++) {
+                    auto& swcInfo = responseAllSwc.swcinfo(i);
+                    bool bFind = false;
+                    for (int j = 0; j < projectResponse.projectinfo().swclist().size(); j++) {
+                        auto name = projectResponse.projectinfo().swclist(j);
+                        if (name == swcInfo.name()) {
+                            bFind = true;
+                        }
+                    }
+                    if(bFind){
+                        swcMetaInfos.push_back(responseAllSwc.swcinfo(i));
+                    }
+                }
+
+                std::vector<ExportSwcData> dataList;
+                for(const auto & swcMetaInfo : swcMetaInfos){
+                    ExportSwcData exportSwcData;
+                    exportSwcData.swcMetaInfo = swcMetaInfo;
+                    dataList.push_back(exportSwcData);
+                }
+
+                ViewEportSwcToFile view(dataList,true,this);
+                view.exec();
+            }
+        }
     });
 
     auto* MenuCreateSwc = new QAction(this);
@@ -374,6 +446,8 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
         case MetaInfoType::eProject: {
             popMenu->addAction(MenuEditProject);
             popMenu->addSeparator();
+            popMenu->addAction(MenuExportToSwcFile);
+            popMenu->addSeparator();
             popMenu->addAction(MenuDeleteProject);
             break;
         }
@@ -387,6 +461,8 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
         case MetaInfoType::eSwc: {
             popMenu->addAction(MenuEditSwc);
             popMenu->addAction(MenuEditSwcNodeData);
+            popMenu->addSeparator();
+            popMenu->addAction(MenuExportToSwcFile);
             popMenu->addSeparator();
             popMenu->addAction(MenuDeleteSwc);
             break;

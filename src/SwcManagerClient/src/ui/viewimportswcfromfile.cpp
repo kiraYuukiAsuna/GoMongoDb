@@ -2,7 +2,7 @@
 #include "ui_ViewImportSwcFromFile.h"
 #include <QFileDialog>
 #include <QStandardPaths>
-#include "src/swcio/SwcReader.h"
+#include "src/swcio/SwcIO.h"
 #include "Message/Request.pb.h"
 #include "src/framework/service/CachedProtoData.h"
 #include "src/framework/service/WrappedCall.h"
@@ -45,6 +45,7 @@ ViewImportSwcFromFile::ViewImportSwcFromFile(MainWindow *mainWindow) :
                 std::filesystem::path filePath(fileNames[i].toStdString());
                 if(filePath.extension() == ".swc"){
                     Swc swc(filePath.string());
+                    swc.ReadFromFile();
                     auto neuron = swc.getNeuron();
                     m_SwcList.emplace_back(swc);
 
@@ -61,6 +62,7 @@ ViewImportSwcFromFile::ViewImportSwcFromFile(MainWindow *mainWindow) :
                     
                 }else if(filePath.extension() == ".eswc"){
                     ESwc eSwc(filePath.string());
+                    eSwc.ReadFromFile();
                     auto neuron = eSwc.getNeuron();
                     m_ESwcList.emplace_back(eSwc);
 

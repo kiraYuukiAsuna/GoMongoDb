@@ -21,7 +21,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","GetAllProjectMetaInfo Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","GetAllProjectMetaInfo Failed!" + QString::fromStdString(response.message()));
             }
 
         }else{
@@ -42,7 +42,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","GetAllSwcMetaInfo Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Error","GetAllSwcMetaInfo Failed!" + QString::fromStdString(response.message()));
             }
 
         }else{
@@ -63,7 +63,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","GetAllDailyStatistics Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","GetAllDailyStatistics Failed!" + QString::fromStdString(response.message()));
             }
 
         }else{
@@ -84,7 +84,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","GetAllUserMetaInfo Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","GetAllUserMetaInfo Failed!" + QString::fromStdString(response.message()));
             }
 
         }else{
@@ -104,7 +104,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","GetProjectMetaInfo Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","GetProjectMetaInfo Failed!" + QString::fromStdString(response.message()));
             }
         }else{
             QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
@@ -124,7 +124,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","GetSwcMetaInfo Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","GetSwcMetaInfo Failed!" + QString::fromStdString(response.message()));
             }
 
         }else{
@@ -144,7 +144,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","GetSwcMetaInfo Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","GetSwcMetaInfo Failed!" + QString::fromStdString(response.message()));
             }
 
         }else{
@@ -164,7 +164,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","GetSwcFullNodeData Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","GetSwcFullNodeData Failed!" + QString::fromStdString(response.message()));
             }
 
         }else{
@@ -187,7 +187,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","GetSwcNodeDataListByTimeAndUser Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","GetSwcNodeDataListByTimeAndUser Failed!" + QString::fromStdString(response.message()));
             }
 
         }else{
@@ -208,7 +208,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","CreateSwcNodeData Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","CreateSwcNodeData Failed!" + QString::fromStdString(response.message()));
             }
         }else{
             QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
@@ -228,7 +228,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","UpdateSwcNodeData Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","UpdateSwcNodeData Failed!" + QString::fromStdString(response.message()));
             }
         }else{
             QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
@@ -248,7 +248,7 @@ public:
             if(response.status()) {
                 return true;
             }else {
-                QMessageBox::warning(parent,"Info","DeleteSwcNodeData Failed!" + QString::fromStdString(response.message()));
+                QMessageBox::critical(parent,"Info","DeleteSwcNodeData Failed!" + QString::fromStdString(response.message()));
             }
         }else{
             QMessageBox::critical(parent,"Error",QString::fromStdString(result.error_message()));
@@ -264,6 +264,7 @@ public:
 
         request.mutable_swcinfo()->set_name(name);
         request.mutable_swcinfo()->set_description(description);
+        request.mutable_swcinfo()->set_swctype("eswc"); // by default when creating new swc using eswc type
 
         auto status = RpcCall::getInstance().Stub()->CreateSwc(&context, request, &response);
         if (status.ok()) {

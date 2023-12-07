@@ -4,6 +4,7 @@
 #include "src/framework/service/WrappedCall.h"
 #include "src/framework/defination/ImageDefination.h"
 #include "viewswcnodedata.h"
+#include "vieweportswctofile.h"
 
 EditorSwcNode::EditorSwcNode(const std::string &swcName, QWidget *parent) :
         QWidget(parent), ui(new Ui::EditorSwcNode) {
@@ -97,7 +98,20 @@ EditorSwcNode::EditorSwcNode(const std::string &swcName, QWidget *parent) :
     });
 
     connect(ui->ExportQueryResultBtn,&QPushButton::clicked,this,[this](){
+        proto::GetSwcMetaInfoResponse response;
+        if(!WrappedCall::getSwcMetaInfoByName(m_SwcName,response,this)){
+            QMessageBox::critical(this,"Error","Get Swc MetaInfo Failed!");
+            return;
+        }
 
+        std::vector<ExportSwcData> dataList;
+        ExportSwcData data;
+        data.swcData = m_SwcData;
+        data.swcMetaInfo = response.swcinfo();
+        dataList.push_back(data);
+
+        ViewEportSwcToFile view(dataList,false,this);
+        view.exec();
     });
 
 
@@ -142,9 +156,9 @@ void EditorSwcNode::refreshTable(){
 
 void EditorSwcNode::refreshAll() {
     proto::GetSwcFullNodeDataResponse response;
-    WrappedCall::getSwcFullNodeData(m_SwcName, response, this);
-
-
+    if(!WrappedCall::getSwcFullNodeData(m_SwcName, response, this)){
+        QMessageBox::critical(this,"Error","Get Swc Node Data Failed!");
+    }
 
     refreshTable();
     ui->SwcNodeDataTable->setRowCount(response.swcnodedata().swcdata_size());
