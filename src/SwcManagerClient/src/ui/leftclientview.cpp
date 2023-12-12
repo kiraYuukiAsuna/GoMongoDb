@@ -273,7 +273,7 @@ void LeftClientView::customTreeWidgetContentMenu(const QPoint&pos) {
     MenuExportToSwcFile->setText("Export Swc File");
     MenuExportToSwcFile->setIcon(QIcon(Image::ImageExport));
     connect(MenuExportToSwcFile,&QAction::triggered,this,[this, &data](bool checked) {
-        auto result = QMessageBox::information(this,"Info","This may takes few seconds please waiting for export popup!!",
+        auto result = QMessageBox::information(this,"Info","Exporting action may takes few time please waiting for export steps finish!",
                                                QMessageBox::StandardButton::Ok,QMessageBox::StandardButton::Cancel);
         if(result == QMessageBox::StandardButton::Ok) {
             if(data.type == MetaInfoType::eSwc){

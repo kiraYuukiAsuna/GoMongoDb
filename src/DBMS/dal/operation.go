@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -140,7 +139,7 @@ func QueryAllProject(projectMetaInfoList *[]dbmodel.ProjectMetaInfoV1, databaseI
 	}
 
 	if err = cursor.All(context.TODO(), projectMetaInfoList); err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 		return ReturnWrapper{false, "Query all Project failed!"}
 	}
 
@@ -153,7 +152,7 @@ func QueryAllProject(projectMetaInfoList *[]dbmodel.ProjectMetaInfoV1, databaseI
 		if err != nil {
 			return ReturnWrapper{false, "Query all Project failed!"}
 		}
-		//fmt.Printf("%s\n", output)
+		//log.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all Project Success"}
 }
@@ -242,7 +241,7 @@ func QueryAllUser(userMetaInfoList *[]dbmodel.UserMetaInfoV1, databaseInfo Mongo
 	}
 
 	if err = cursor.All(context.TODO(), userMetaInfoList); err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 		return ReturnWrapper{false, "Query all user failed!"}
 	}
 
@@ -255,7 +254,7 @@ func QueryAllUser(userMetaInfoList *[]dbmodel.UserMetaInfoV1, databaseInfo Mongo
 		if err != nil {
 			return ReturnWrapper{false, "Query all user failed!"}
 		}
-		//fmt.Printf("%s\n", output)
+		//log.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all user Success"}
 }
@@ -344,7 +343,7 @@ func QueryAllPermissionGroup(permissionGroupList *[]dbmodel.PermissionGroupMetaI
 	}
 
 	if err = cursor.All(context.TODO(), permissionGroupList); err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 		return ReturnWrapper{false, "Query all PermissionGroup failed!"}
 	}
 
@@ -357,7 +356,7 @@ func QueryAllPermissionGroup(permissionGroupList *[]dbmodel.PermissionGroupMetaI
 		if err != nil {
 			return ReturnWrapper{false, "Query all PermissionGroup failed!"}
 		}
-		//fmt.Printf("%s\n", output)
+		//log.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all PermissionGroup Success"}
 }
@@ -446,7 +445,7 @@ func QueryAllSwc(swcMetaInfoList *[]dbmodel.SwcMetaInfoV1, databaseInfo MongoDbD
 	}
 
 	if err = cursor.All(context.TODO(), swcMetaInfoList); err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 		return ReturnWrapper{false, "Query all swc failed!"}
 	}
 
@@ -459,7 +458,7 @@ func QueryAllSwc(swcMetaInfoList *[]dbmodel.SwcMetaInfoV1, databaseInfo MongoDbD
 		if err != nil {
 			return ReturnWrapper{false, "Query all swc failed!"}
 		}
-		//fmt.Printf("%s\n", output)
+		//log.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all swc Success"}
 }
@@ -548,7 +547,7 @@ func QueryAllDailyStatistics(dailyStatisticsList *[]dbmodel.DailyStatisticsMetaI
 	}
 
 	if err = cursor.All(context.TODO(), dailyStatisticsList); err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 		return ReturnWrapper{false, "Query all DailyStatistics failed!"}
 	}
 
@@ -561,7 +560,7 @@ func QueryAllDailyStatistics(dailyStatisticsList *[]dbmodel.DailyStatisticsMetaI
 		if err != nil {
 			return ReturnWrapper{false, "Query all DailyStatistics failed!"}
 		}
-		//fmt.Printf("%s\n", output)
+		//log.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query all DailyStatistics Success"}
 }
@@ -613,7 +612,7 @@ func DeleteSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData dbmodel.SwcDataV1,
 	// 使用这个过滤器来删除所有匹配的文档
 	result, err := collection.DeleteMany(context.TODO(), filterInterface)
 	if err != nil {
-		fmt.Print(err.Error())
+		log.Print(err.Error())
 		if result != nil {
 			return ReturnWrapper{false,
 				"Delete many node failed! Deleted:" + strconv.Itoa(int(result.DeletedCount)) +
@@ -681,7 +680,7 @@ func QuerySwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcDataV1,
 		if err != nil {
 			return ReturnWrapper{false, "Query many node failed!"}
 		}
-		//fmt.Printf("%s\n", output)
+		//log.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query many node Success"}
 }
@@ -731,7 +730,7 @@ func QuerySwcDataByUserAndTime(
 		if err != nil {
 			return ReturnWrapper{false, "QuerySwcDataByUserAndTime failed!"}
 		}
-		//fmt.Printf("%s\n", output)
+		//log.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "QuerySwcDataByUserAndTime Success"}
 }
@@ -762,7 +761,7 @@ func QueryAllSwcData(swcMetaInfo dbmodel.SwcMetaInfoV1, swcData *dbmodel.SwcData
 		if err != nil {
 			return ReturnWrapper{false, "Query many node failed!"}
 		}
-		//fmt.Printf("%s\n", output)
+		//log.Printf("%s\n", output)
 	}
 	return ReturnWrapper{true, "Query many node Success"}
 }

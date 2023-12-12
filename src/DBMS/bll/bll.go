@@ -8,9 +8,9 @@ import (
 	"DBMS/dal"
 	"DBMS/dbmodel"
 	"context"
-	"fmt"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"log"
 	"time"
 )
 
@@ -33,7 +33,7 @@ func (D DBMSServerController) CreateUser(ctx context.Context, request *request.C
 
 	result := dal.CreateUser(*userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("User " + request.UserInfo.Name + " Created")
+		log.Println("User " + request.UserInfo.Name + " Created")
 		return &response.CreateUserResponse{
 			Status:   true,
 			Message:  result.Message,
@@ -70,7 +70,7 @@ func (D DBMSServerController) DeleteUser(ctx context.Context, request *request.D
 
 	result = dal.DeleteUser(*userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("User " + request.UserInfo.Name + " Deleted")
+		log.Println("User " + request.UserInfo.Name + " Deleted")
 		return &response.DeleteUserResponse{
 			Status:   true,
 			Message:  result.Message,
@@ -90,7 +90,7 @@ func (D DBMSServerController) UpdateUser(ctx context.Context, request *request.U
 
 	result := dal.ModifyUser(*userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("User " + request.UserInfo.Name + " Updated")
+		log.Println("User " + request.UserInfo.Name + " Updated")
 		return &response.UpdateUserResponse{
 			Status:   true,
 			Message:  result.Message,
@@ -110,7 +110,7 @@ func (D DBMSServerController) GetUser(ctx context.Context, request *request.GetU
 
 	result := dal.QueryUser(userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("User " + request.UserInfo.Name + " Get")
+		log.Println("User " + request.UserInfo.Name + " Get")
 		return &response.GetUserResponse{
 			Status:   true,
 			Message:  result.Message,
@@ -133,7 +133,7 @@ func (D DBMSServerController) GetAllUser(ctx context.Context, request *request.G
 
 	result := dal.QueryAllUser(&userMetaInfoList, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("User " + request.UserInfo.Name + " Try Get AllUser")
+		log.Println("User " + request.UserInfo.Name + " Try Get AllUser")
 		for _, userMetaInfo := range userMetaInfoList {
 			userMetaInfo.Password = ""
 			protoMessage = append(protoMessage, UserMetaInfoV1DbmodelToProtobuf(&userMetaInfo))
@@ -166,7 +166,7 @@ func (D DBMSServerController) UserLogin(ctx context.Context, request *request.Us
 	result := dal.QueryUser(&userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		if userMetaInfo.Password == request.Password {
-			fmt.Println("User " + request.UserName + " Login")
+			log.Println("User " + request.UserName + " Login")
 
 			bFind := false
 			for _, onlineUserInfo := range OnlineUserInfoCache {
@@ -178,7 +178,7 @@ func (D DBMSServerController) UserLogin(ctx context.Context, request *request.Us
 				DailyStatisticsInfo.ActiveUserNumber += 1
 				OnlineUserInfoCache = append(OnlineUserInfoCache,
 					OnlineUserInfo{userMetaInfo, false, time.Now().Add(30 * time.Second)})
-				fmt.Println("User " + userMetaInfo.Name + " HeartBeat Init")
+				log.Println("User " + userMetaInfo.Name + " HeartBeat Init")
 			}
 
 			return &response.UserLoginResponse{
@@ -218,14 +218,14 @@ func (D DBMSServerController) UserLogout(ctx context.Context, request *request.U
 	result := dal.QueryUser(&userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		if userMetaInfo.Password == request.UserInfo.Password {
-			fmt.Println("User " + request.UserInfo.Name + " Logout")
+			log.Println("User " + request.UserInfo.Name + " Logout")
 
 			for idx, onlineUserInfo := range OnlineUserInfoCache {
 				if userMetaInfo.Name == onlineUserInfo.UserInfo.Name {
 					onlineUserInfo.expired = true
 					DailyStatisticsInfo.ActiveUserNumber -= 1
 					OnlineUserInfoCache = append(OnlineUserInfoCache[:idx], OnlineUserInfoCache[idx+1:]...)
-					fmt.Println("User " + onlineUserInfo.UserInfo.Name + " HeaatBeat Close")
+					log.Println("User " + onlineUserInfo.UserInfo.Name + " HeaatBeat Close")
 					break
 				}
 			}
@@ -257,7 +257,7 @@ func (D DBMSServerController) UserOnlineHeartBeatNotifications(ctx context.Conte
 	result := dal.QueryUser(&userMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
 		if userMetaInfo.Password == notification.UserInfo.Password {
-			fmt.Println("User " + notification.UserInfo.Name + " OnlineHeartBeatNotifications")
+			log.Println("User " + notification.UserInfo.Name + " OnlineHeartBeatNotifications")
 
 			bFind := false
 			var idx int
@@ -269,12 +269,12 @@ func (D DBMSServerController) UserOnlineHeartBeatNotifications(ctx context.Conte
 			}
 			if bFind {
 				OnlineUserInfoCache[idx].LastHeartBeatTime = time.Now().Add(30 * time.Second)
-				fmt.Println("User " + onlineUserInfo.UserInfo.Name + " HeartBeat Refresh")
+				log.Println("User " + onlineUserInfo.UserInfo.Name + " HeartBeat Refresh")
 			} else {
 				DailyStatisticsInfo.ActiveUserNumber += 1
 				OnlineUserInfoCache = append(OnlineUserInfoCache,
 					OnlineUserInfo{userMetaInfo, false, time.Now().Add(30 * time.Second)})
-				fmt.Println("User " + userMetaInfo.Name + " HeartBeat Init by HeartBeat Notification")
+				log.Println("User " + userMetaInfo.Name + " HeartBeat Init by HeartBeat Notification")
 			}
 
 			return &response.UserOnlineHeartBeatResponse{
@@ -300,7 +300,7 @@ func (D DBMSServerController) GetUserPermissionGroup(ctx context.Context, reques
 		permissionGroupMetaInfo.Name = userMetaInfo.UserPermissionGroup
 		result = dal.QueryPermissionGroup(&permissionGroupMetaInfo, dal.GetDbInstance())
 		if result.Status == true {
-			fmt.Println("User " + request.UserInfo.Name + " GetUserPermissionGroup")
+			log.Println("User " + request.UserInfo.Name + " GetUserPermissionGroup")
 			return &response.GetUserPermissionGroupResponse{
 				Status:          true,
 				Message:         result.Message,
@@ -325,7 +325,7 @@ func (D DBMSServerController) GetPermissionGroup(ctx context.Context, request *r
 	if result.Status == true {
 		result = dal.QueryPermissionGroup(permissionGroupMetaInfo, dal.GetDbInstance())
 		if result.Status == true {
-			fmt.Println("User " + request.UserInfo.Name + " GetPermissionGroup")
+			log.Println("User " + request.UserInfo.Name + " GetPermissionGroup")
 			return &response.GetPermissionGroupResponse{
 				Status:          true,
 				Message:         result.Message,
@@ -351,7 +351,7 @@ func GetAllPermissionGroup(ctx context.Context, request *request.GetAllPermissio
 	if result.Status == true {
 		result = dal.QueryAllPermissionGroup(&permissionGroupList, dal.GetDbInstance())
 		if result.Status == true {
-			fmt.Println("User " + request.UserInfo.Name + " GetAllPermissionGroup")
+			log.Println("User " + request.UserInfo.Name + " GetAllPermissionGroup")
 			for _, permissionGroupMetaInfo := range permissionGroupList {
 				protoMessage = append(protoMessage, PermissionGroupMetaInfoV1DbmodelToProtobuf(&permissionGroupMetaInfo))
 			}
@@ -392,7 +392,7 @@ func (D DBMSServerController) ChangeUserPermissionGroup(ctx context.Context, req
 			if result.Status == true {
 				result = dal.ModifyUser(*targetUserMetaInfo, dal.GetDbInstance())
 
-				fmt.Println("User " + request.UserInfo.Name + " Changed PermissionGroup")
+				log.Println("User " + request.UserInfo.Name + " Changed PermissionGroup")
 				return &response.ChangeUserPermissionGroupResponse{
 					Status:  true,
 					Message: result.Message,
@@ -459,7 +459,7 @@ func (D DBMSServerController) CreateProject(ctx context.Context, request *reques
 
 	result = dal.CreateProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("Project " + request.ProjectInfo.Name + " Created")
+		log.Println("Project " + request.ProjectInfo.Name + " Created")
 		DailyStatisticsInfo.CreatedProjectNumber += 1
 		return &response.CreateProjectResponse{
 			Status:      true,
@@ -509,7 +509,7 @@ func (D DBMSServerController) DeleteProject(ctx context.Context, request *reques
 
 	result = dal.DeleteProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("Project " + request.ProjectInfo.Name + " Deleted")
+		log.Println("Project " + request.ProjectInfo.Name + " Deleted")
 		DailyStatisticsInfo.DeletedProjectNumber += 1
 		return &response.DeleteProjectResponse{
 			Status:      true,
@@ -561,7 +561,7 @@ func (D DBMSServerController) UpdateProject(ctx context.Context, request *reques
 
 	result = dal.ModifyProject(*projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("Project " + request.UserInfo.Name + " Updated")
+		log.Println("Project " + request.UserInfo.Name + " Updated")
 		DailyStatisticsInfo.ModifiedProjectNumber += 1
 		return &response.UpdateProjectResponse{
 			Status:      true,
@@ -611,7 +611,7 @@ func (D DBMSServerController) GetProject(ctx context.Context, request *request.G
 
 	result = dal.QueryProject(projectMetaInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("Project " + request.UserInfo.Name + " Get")
+		log.Println("Project " + request.UserInfo.Name + " Get")
 		DailyStatisticsInfo.ProjectQueryNumber += 1
 		return &response.GetProjectResponse{
 			Status:      true,
@@ -635,7 +635,7 @@ func (D DBMSServerController) GetAllProject(ctx context.Context, request *reques
 
 	result := dal.QueryAllProject(&projectMetaInfoList, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("User " + request.UserInfo.Name + " Try Get AllProject")
+		log.Println("User " + request.UserInfo.Name + " Try Get AllProject")
 		DailyStatisticsInfo.ProjectQueryNumber += 1
 		for _, projectMetaInfo := range projectMetaInfoList {
 			protoMessage = append(protoMessage, ProjectMetaInfoV1DbmodelToProtobuf(&projectMetaInfo))
@@ -698,7 +698,7 @@ func (D DBMSServerController) CreateSwc(ctx context.Context, request *request.Cr
 
 	result = dal.CreateSwc(*swcMetaInfo, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + "Create Swc " + swcMetaInfo.Name)
+		log.Println("User " + request.UserInfo.Name + "Create Swc " + swcMetaInfo.Name)
 		DailyStatisticsInfo.CreatedSwcNumber += 1
 		return &response.CreateSwcResponse{
 			Status:  true,
@@ -768,7 +768,7 @@ func (D DBMSServerController) DeleteSwc(ctx context.Context, request *request.De
 	if result.Status {
 		result = dal.DeleteSwcDataCollection(*swcMetaInfo, dal.GetDbInstance())
 		if result.Status {
-			fmt.Println("User " + request.UserInfo.Name + "Delete Swc " + swcMetaInfo.Name)
+			log.Println("User " + request.UserInfo.Name + "Delete Swc " + swcMetaInfo.Name)
 			DailyStatisticsInfo.DeletedSwcNumber += 1
 			return &response.DeleteSwcResponse{
 				Status:  true,
@@ -820,7 +820,7 @@ func (D DBMSServerController) UpdateSwc(ctx context.Context, request *request.Up
 
 	result = dal.ModifySwc(*swcMetaInfo, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Update SwcMetaInfo " + swcMetaInfo.Name)
+		log.Println("User " + request.UserInfo.Name + " Update SwcMetaInfo " + swcMetaInfo.Name)
 		DailyStatisticsInfo.ModifiedSwcNumber += 1
 		return &response.UpdateSwcResponse{
 			Status:  true,
@@ -870,7 +870,7 @@ func (D DBMSServerController) GetSwcMetaInfo(ctx context.Context, request *reque
 
 	result = dal.QuerySwc(swcMetaInfo, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Query SwcMetaInfo " + swcMetaInfo.Name)
+		log.Println("User " + request.UserInfo.Name + " Query SwcMetaInfo " + swcMetaInfo.Name)
 		DailyStatisticsInfo.SwcQueryNumber += 1
 		return &response.GetSwcMetaInfoResponse{
 			Status:  true,
@@ -894,7 +894,7 @@ func (D DBMSServerController) GetAllSwcMetaInfo(ctx context.Context, request *re
 	var protoMessage []*message.SwcMetaInfoV1
 	result := dal.QueryAllSwc(&dbmodelMessage, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Query All SwcMetaInfo ")
+		log.Println("User " + request.UserInfo.Name + " Query All SwcMetaInfo ")
 		for _, dbMessage := range dbmodelMessage {
 			protoMessage = append(protoMessage, SwcMetaInfoV1DbmodelToProtobuf(&dbMessage))
 		}
@@ -961,7 +961,7 @@ func (D DBMSServerController) CreateSwcNodeData(ctx context.Context, request *re
 
 	result = dal.CreateSwcData(*swcMetaInfo, swcData, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Create Swc node " + swcMetaInfo.Name)
+		log.Println("User " + request.UserInfo.Name + " Create Swc node " + swcMetaInfo.Name)
 		DailyStatisticsInfo.CreateSwcNodeNumber += 1
 		return &response.CreateSwcNodeDataResponse{
 			Status:  true,
@@ -1016,7 +1016,7 @@ func (D DBMSServerController) DeleteSwcNodeData(ctx context.Context, request *re
 
 	result = dal.DeleteSwcData(*swcMetaInfo, swcData, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Delete Swc " + swcMetaInfo.Name)
+		log.Println("User " + request.UserInfo.Name + " Delete Swc " + swcMetaInfo.Name)
 		DailyStatisticsInfo.DeletedSwcNodeNumber += 1
 		return &response.DeleteSwcNodeDataResponse{
 			Status:  true,
@@ -1070,7 +1070,7 @@ func (D DBMSServerController) UpdateSwcNodeData(ctx context.Context, request *re
 
 	result = dal.ModifySwcData(*swcMetaInfo, *swcNodeData, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Update Swc " + swcMetaInfo.Name)
+		log.Println("User " + request.UserInfo.Name + " Update Swc " + swcMetaInfo.Name)
 		DailyStatisticsInfo.ModifiedSwcNodeNumber += 1
 		return &response.UpdateSwcNodeDataResponse{
 			Status:      true,
@@ -1128,7 +1128,7 @@ func (D DBMSServerController) GetSwcNodeData(ctx context.Context, request *reque
 
 	result = dal.DeleteSwcData(*swcMetaInfo, dbmodelMessage, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Get SwcData " + swcMetaInfo.Name)
+		log.Println("User " + request.UserInfo.Name + " Get SwcData " + swcMetaInfo.Name)
 
 		DailyStatisticsInfo.NodeQueryNumber += 1
 
@@ -1187,7 +1187,7 @@ func (D DBMSServerController) GetSwcFullNodeData(ctx context.Context, request *r
 
 	result = dal.QueryAllSwcData(*swcMetaInfo, &dbmodelMessage, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Get SwcFullNodeData " + swcMetaInfo.Name)
+		log.Println("User " + request.UserInfo.Name + " Get SwcFullNodeData " + swcMetaInfo.Name)
 		DailyStatisticsInfo.NodeQueryNumber += 1
 		for _, swcNodeData := range dbmodelMessage {
 			protoMessage.SwcData = append(protoMessage.SwcData, SwcNodeDataV1DbmodelToProtobuf(&swcNodeData))
@@ -1259,7 +1259,7 @@ func (D DBMSServerController) GetSwcNodeDataListByTimeAndUser(ctx context.Contex
 
 	result = dal.QuerySwcDataByUserAndTime(*swcMetaInfo, request.UserName, startTime, endTime, &dbmodelMessage, dal.GetDbInstance())
 	if result.Status {
-		fmt.Println("User " + request.UserInfo.Name + " Get SwcDataByUserAndTime " + swcMetaInfo.Name)
+		log.Println("User " + request.UserInfo.Name + " Get SwcDataByUserAndTime " + swcMetaInfo.Name)
 		DailyStatisticsInfo.NodeQueryNumber += 1
 
 		for _, swcNodeData := range dbmodelMessage {
@@ -1281,7 +1281,7 @@ func (D DBMSServerController) GetSwcNodeDataListByTimeAndUser(ctx context.Contex
 }
 
 func (D DBMSServerController) BackupFullDatabase(ctx context.Context, request *request.BackupFullDatabaseRequest) (*response.BackupFullDatabaseResponse, error) {
-	fmt.Println("Unimplemented")
+	log.Println("Unimplemented")
 
 	return &response.BackupFullDatabaseResponse{
 		Status:          false,
@@ -1322,7 +1322,7 @@ func (D DBMSServerController) CreateDailyStatistics(ctx context.Context, request
 
 	result := dal.CreateDailyStatistics(*dailyStatisticsInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Created")
+		log.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Created")
 		return &response.CreateDailyStatisticsResponse{
 			Status:              true,
 			Message:             result.Message,
@@ -1360,7 +1360,7 @@ func (D DBMSServerController) DeleteDailyStatistics(ctx context.Context, request
 
 	result = dal.DeleteDailyStatistics(*dailyStatisticsInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Delete")
+		log.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Delete")
 		return &response.DeleteDailyStatisticsResponse{
 			Status:              true,
 			Message:             result.Message,
@@ -1381,7 +1381,7 @@ func (D DBMSServerController) UpdateDailyStatistics(ctx context.Context, request
 
 	result := dal.ModifyDailyStatistics(*dailyStatisticsInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Updated")
+		log.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Updated")
 		return &response.UpdateDailyStatisticsResponse{
 			Status:              true,
 			Message:             result.Message,
@@ -1402,7 +1402,7 @@ func (D DBMSServerController) GetDailyStatistics(ctx context.Context, request *r
 
 	result := dal.QueryDailyStatistics(dailyStatisticsInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Get")
+		log.Println("DailyStatistics " + request.DailyStatisticsInfo.Name + " Get")
 		return &response.GetDailyStatisticsResponse{
 			Status:              true,
 			Message:             result.Message,
@@ -1424,7 +1424,7 @@ func (D DBMSServerController) GetAllDailyStatistics(ctx context.Context, request
 
 	result := dal.QueryAllDailyStatistics(&dailyStatisticsInfo, dal.GetDbInstance())
 	if result.Status == true {
-		fmt.Println("User " + request.UserInfo.Name + " Get DailyStatistics")
+		log.Println("User " + request.UserInfo.Name + " Get DailyStatistics")
 
 		for _, message := range dailyStatisticsInfo {
 			dailyStatisticsInfoProto = append(dailyStatisticsInfoProto, DailyStatisticsMetaInfoV1DbmodelToProtobuf(&message))

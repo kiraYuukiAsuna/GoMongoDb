@@ -25,7 +25,6 @@ func startHttpReverseProxyServer() error {
 	// Note: Make sure the gRPC server is running properly and accessible
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-
 	address := config.AppConfig.GrpcIP + ":" + strconv.Itoa(int(config.AppConfig.GrpcPort))
 	err := service.RegisterDBMSHandlerFromEndpoint(ctx, mux, address, opts)
 	if err != nil {
