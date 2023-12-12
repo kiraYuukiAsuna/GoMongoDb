@@ -1,0 +1,2336 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Service/Service.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "DBMS"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/proto.DBMS/BackupFullDatabase": {
+      "post": {
+        "operationId": "DBMS_BackupFullDatabase",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoBackupFullDatabaseResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoBackupFullDatabaseRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/ChangeUserPermissionGroup": {
+      "post": {
+        "operationId": "DBMS_ChangeUserPermissionGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoChangeUserPermissionGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoChangeUserPermissionGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/CreateDailyStatistics": {
+      "post": {
+        "operationId": "DBMS_CreateDailyStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreateDailyStatisticsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreateDailyStatisticsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/CreateProject": {
+      "post": {
+        "operationId": "DBMS_CreateProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreateProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreateProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/CreateSwc": {
+      "post": {
+        "operationId": "DBMS_CreateSwc",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreateSwcResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreateSwcRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/CreateSwcNodeData": {
+      "post": {
+        "operationId": "DBMS_CreateSwcNodeData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreateSwcNodeDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreateSwcNodeDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/CreateUser": {
+      "post": {
+        "operationId": "DBMS_CreateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/DeleteDailyStatistics": {
+      "post": {
+        "operationId": "DBMS_DeleteDailyStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDeleteDailyStatisticsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoDeleteDailyStatisticsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/DeleteProject": {
+      "post": {
+        "operationId": "DBMS_DeleteProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDeleteProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoDeleteProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/DeleteSwc": {
+      "post": {
+        "operationId": "DBMS_DeleteSwc",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDeleteSwcResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoDeleteSwcRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/DeleteSwcNodeData": {
+      "post": {
+        "operationId": "DBMS_DeleteSwcNodeData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDeleteSwcNodeDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoDeleteSwcNodeDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/DeleteUser": {
+      "post": {
+        "operationId": "DBMS_DeleteUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDeleteUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoDeleteUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetAllDailyStatistics": {
+      "post": {
+        "operationId": "DBMS_GetAllDailyStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetAllDailyStatisticsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetAllDailyStatisticsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetAllPermissionGroup": {
+      "post": {
+        "operationId": "DBMS_GetAllPermissionGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetAllPermissionGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetAllPermissionGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetAllProject": {
+      "post": {
+        "operationId": "DBMS_GetAllProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetAllProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetAllProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetAllSwcMetaInfo": {
+      "post": {
+        "operationId": "DBMS_GetAllSwcMetaInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetAllSwcMetaInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetAllSwcMetaInfoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetAllUser": {
+      "post": {
+        "operationId": "DBMS_GetAllUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetAllUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetAllUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetDailyStatistics": {
+      "post": {
+        "operationId": "DBMS_GetDailyStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetDailyStatisticsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetDailyStatisticsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetPermissionGroup": {
+      "post": {
+        "operationId": "DBMS_GetPermissionGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetPermissionGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetPermissionGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetProject": {
+      "post": {
+        "operationId": "DBMS_GetProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetSwcFullNodeData": {
+      "post": {
+        "operationId": "DBMS_GetSwcFullNodeData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetSwcFullNodeDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetSwcFullNodeDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetSwcMetaInfo": {
+      "post": {
+        "operationId": "DBMS_GetSwcMetaInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetSwcMetaInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetSwcMetaInfoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetSwcNodeData": {
+      "post": {
+        "operationId": "DBMS_GetSwcNodeData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetSwcNodeDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetSwcNodeDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetSwcNodeDataListByTimeAndUser": {
+      "post": {
+        "operationId": "DBMS_GetSwcNodeDataListByTimeAndUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetSwcNodeDataListByTimeAndUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetSwcNodeDataListByTimeAndUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetUser": {
+      "post": {
+        "operationId": "DBMS_GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetUserPermissionGroup": {
+      "post": {
+        "operationId": "DBMS_GetUserPermissionGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetUserPermissionGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetUserPermissionGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/UpdateDailyStatistics": {
+      "post": {
+        "operationId": "DBMS_UpdateDailyStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUpdateDailyStatisticsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUpdateDailyStatisticsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/UpdateProject": {
+      "post": {
+        "operationId": "DBMS_UpdateProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUpdateProjectResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUpdateProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/UpdateSwc": {
+      "post": {
+        "operationId": "DBMS_UpdateSwc",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUpdateSwcResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUpdateSwcRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/UpdateSwcNodeData": {
+      "post": {
+        "operationId": "DBMS_UpdateSwcNodeData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUpdateSwcNodeDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUpdateSwcNodeDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/UpdateUser": {
+      "post": {
+        "operationId": "DBMS_UpdateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUpdateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUpdateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/UserLogin": {
+      "post": {
+        "operationId": "DBMS_UserLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUserLoginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUserLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/UserLogout": {
+      "post": {
+        "operationId": "DBMS_UserLogout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUserLogoutResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUserLogoutRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/UserOnlineHeartBeatNotifications": {
+      "post": {
+        "operationId": "DBMS_UserOnlineHeartBeatNotifications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUserOnlineHeartBeatResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUserOnlineHeartBeatNotification"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoBackupFullDatabaseRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "InstantBackup": {
+          "type": "boolean"
+        },
+        "DelayBackupTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protoBackupFullDatabaseResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "InstantBackup": {
+          "type": "boolean"
+        },
+        "DelayBackupTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protoChangeUserPermissionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "TargetUserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "PermissionGroup": {
+          "$ref": "#/definitions/protoPermissionGroupMetaInfoV1"
+        }
+      }
+    },
+    "protoChangeUserPermissionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        }
+      }
+    },
+    "protoCreateDailyStatisticsRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "DailyStatisticsInfo": {
+          "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+        }
+      }
+    },
+    "protoCreateDailyStatisticsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "DailyStatisticsInfo": {
+          "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+        }
+      }
+    },
+    "protoCreateProjectRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "ProjectInfo": {
+          "$ref": "#/definitions/protoProjectMetaInfoV1"
+        }
+      }
+    },
+    "protoCreateProjectResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "ProjectInfo": {
+          "$ref": "#/definitions/protoProjectMetaInfoV1"
+        }
+      }
+    },
+    "protoCreateSwcNodeDataRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        },
+        "SwcData": {
+          "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoCreateSwcNodeDataResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcData": {
+          "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoCreateSwcRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        }
+      }
+    },
+    "protoCreateSwcResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        }
+      }
+    },
+    "protoCreateUserRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoCreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoDailyStatisticsMetaInfoV1": {
+      "type": "object",
+      "properties": {
+        "Base": {
+          "$ref": "#/definitions/protoMetaInfoBase"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Day": {
+          "type": "string"
+        },
+        "CreatedProjectNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CreatedSwcNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CreateSwcNodeNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "DeletedProjectNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "DeletedSwcNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "DeletedSwcNodeNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ModifiedProjectNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ModifiedSwcNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ModifiedSwcNodeNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ProjectQueryNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "SwcQueryNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "NodeQueryNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ActiveUserNumber": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protoDeleteDailyStatisticsRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "DailyStatisticsInfo": {
+          "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+        }
+      }
+    },
+    "protoDeleteDailyStatisticsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "DailyStatisticsInfo": {
+          "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+        }
+      }
+    },
+    "protoDeleteProjectRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "ProjectInfo": {
+          "$ref": "#/definitions/protoProjectMetaInfoV1"
+        }
+      }
+    },
+    "protoDeleteProjectResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "ProjectInfo": {
+          "$ref": "#/definitions/protoProjectMetaInfoV1"
+        }
+      }
+    },
+    "protoDeleteSwcNodeDataRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        },
+        "SwcData": {
+          "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoDeleteSwcNodeDataResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcData": {
+          "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoDeleteSwcRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        }
+      }
+    },
+    "protoDeleteSwcResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        }
+      }
+    },
+    "protoDeleteUserRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoDeleteUserResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGetAllDailyStatisticsRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGetAllDailyStatisticsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "DailyStatisticsInfo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+          }
+        }
+      }
+    },
+    "protoGetAllPermissionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGetAllPermissionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "PermissionGroupList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoPermissionGroupMetaInfoV1"
+          }
+        }
+      }
+    },
+    "protoGetAllProjectRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGetAllProjectResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "ProjectInfo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoProjectMetaInfoV1"
+          }
+        }
+      }
+    },
+    "protoGetAllSwcMetaInfoRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGetAllSwcMetaInfoResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcInfo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoSwcMetaInfoV1"
+          }
+        }
+      }
+    },
+    "protoGetAllUserRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGetAllUserResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "UserInfo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoUserMetaInfoV1"
+          }
+        }
+      }
+    },
+    "protoGetDailyStatisticsRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "DailyStatisticsInfo": {
+          "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+        }
+      }
+    },
+    "protoGetDailyStatisticsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "DailyStatisticsInfo": {
+          "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+        }
+      }
+    },
+    "protoGetPermissionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "PermissionGroup": {
+          "$ref": "#/definitions/protoPermissionGroupMetaInfoV1"
+        }
+      }
+    },
+    "protoGetPermissionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "PermissionGroup": {
+          "$ref": "#/definitions/protoPermissionGroupMetaInfoV1"
+        }
+      }
+    },
+    "protoGetProjectRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "ProjectInfo": {
+          "$ref": "#/definitions/protoProjectMetaInfoV1"
+        }
+      }
+    },
+    "protoGetProjectResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "ProjectInfo": {
+          "$ref": "#/definitions/protoProjectMetaInfoV1"
+        }
+      }
+    },
+    "protoGetSwcFullNodeDataRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        }
+      }
+    },
+    "protoGetSwcFullNodeDataResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcNodeData": {
+          "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoGetSwcMetaInfoRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        }
+      }
+    },
+    "protoGetSwcMetaInfoResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        }
+      }
+    },
+    "protoGetSwcNodeDataListByTimeAndUserRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        },
+        "StartTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "EndTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "UserName": {
+          "type": "string"
+        }
+      }
+    },
+    "protoGetSwcNodeDataListByTimeAndUserResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcNodeData": {
+          "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoGetSwcNodeDataRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        },
+        "SwcNodeData": {
+          "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoGetSwcNodeDataResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcNodeData": {
+          "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoGetUserPermissionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGetUserPermissionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "PermissionGroup": {
+          "$ref": "#/definitions/protoPermissionGroupMetaInfoV1"
+        }
+      }
+    },
+    "protoGetUserRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGetUserResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGlobalPermissionMetaInfoV1": {
+      "type": "object",
+      "properties": {
+        "WritePermissionCreateProject": {
+          "type": "boolean"
+        },
+        "WritePermissionModifyProject": {
+          "type": "boolean"
+        },
+        "WritePermissionDeleteProject": {
+          "type": "boolean"
+        },
+        "ReadPerimissionQuery": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protoMetaInfoBase": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "ApiVersion": {
+          "type": "string"
+        },
+        "Uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "protoPermissionGroupMetaInfoV1": {
+      "type": "object",
+      "properties": {
+        "Base": {
+          "$ref": "#/definitions/protoMetaInfoBase"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "GlobalPermission": {
+          "$ref": "#/definitions/protoGlobalPermissionMetaInfoV1"
+        },
+        "ProjectPermission": {
+          "$ref": "#/definitions/protoProjectPermissionMetaInfoV1"
+        }
+      }
+    },
+    "protoProjectMetaInfoV1": {
+      "type": "object",
+      "properties": {
+        "Base": {
+          "$ref": "#/definitions/protoMetaInfoBase"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Creator": {
+          "type": "string"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "LastModifiedTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "SwcList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "UserPermissionOverride": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoUserPermissionOverrideMetaInfoV1"
+          }
+        },
+        "WorkMode": {
+          "type": "string"
+        }
+      }
+    },
+    "protoProjectPermissionMetaInfoV1": {
+      "type": "object",
+      "properties": {
+        "WritePermissionAddData": {
+          "type": "boolean"
+        },
+        "WritePermissionModifyData": {
+          "type": "boolean"
+        },
+        "WritePermissionDeleteData": {
+          "type": "boolean"
+        },
+        "ReadPerimissionQuery": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protoSwcDataV1": {
+      "type": "object",
+      "properties": {
+        "SwcData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoSwcNodeDataV1"
+          }
+        }
+      }
+    },
+    "protoSwcMetaInfoV1": {
+      "type": "object",
+      "properties": {
+        "Base": {
+          "$ref": "#/definitions/protoMetaInfoBase"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Creator": {
+          "type": "string"
+        },
+        "SwcType": {
+          "type": "string"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "LastModifiedTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protoSwcNodeDataV1": {
+      "type": "object",
+      "properties": {
+        "Base": {
+          "$ref": "#/definitions/protoMetaInfoBase"
+        },
+        "SwcNodeInternalData": {
+          "$ref": "#/definitions/protoSwcNodeInternalDataV1"
+        },
+        "Creator": {
+          "type": "string"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "LastModifiedTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "CheckerUserUuid": {
+          "type": "string"
+        }
+      }
+    },
+    "protoSwcNodeInternalDataV1": {
+      "type": "object",
+      "properties": {
+        "N": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "X": {
+          "type": "number",
+          "format": "float"
+        },
+        "Y": {
+          "type": "number",
+          "format": "float"
+        },
+        "Z": {
+          "type": "number",
+          "format": "float"
+        },
+        "Radius": {
+          "type": "number",
+          "format": "float"
+        },
+        "Parent": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "SegId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Level": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Mode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Timestamp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "FeatureValue": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protoUpdateDailyStatisticsRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "DailyStatisticsInfo": {
+          "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+        }
+      }
+    },
+    "protoUpdateDailyStatisticsResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "DailyStatisticsInfo": {
+          "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+        }
+      }
+    },
+    "protoUpdateProjectRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "ProjectInfo": {
+          "$ref": "#/definitions/protoProjectMetaInfoV1"
+        }
+      }
+    },
+    "protoUpdateProjectResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "ProjectInfo": {
+          "$ref": "#/definitions/protoProjectMetaInfoV1"
+        }
+      }
+    },
+    "protoUpdateSwcNodeDataRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        },
+        "SwcNodeData": {
+          "$ref": "#/definitions/protoSwcNodeDataV1"
+        }
+      }
+    },
+    "protoUpdateSwcNodeDataResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcNodeData": {
+          "$ref": "#/definitions/protoSwcNodeDataV1"
+        }
+      }
+    },
+    "protoUpdateSwcRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        }
+      }
+    },
+    "protoUpdateSwcResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "SwcInfo": {
+          "$ref": "#/definitions/protoSwcMetaInfoV1"
+        }
+      }
+    },
+    "protoUpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoUpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoUserLoginRequest": {
+      "type": "object",
+      "properties": {
+        "UserName": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        }
+      }
+    },
+    "protoUserLoginResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoUserLogoutRequest": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoUserLogoutResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        }
+      }
+    },
+    "protoUserMetaInfoV1": {
+      "type": "object",
+      "properties": {
+        "Base": {
+          "$ref": "#/definitions/protoMetaInfoBase"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "HeadPhotoBinData": {
+          "type": "string",
+          "format": "byte"
+        },
+        "UserPermissionGroup": {
+          "type": "string"
+        }
+      }
+    },
+    "protoUserOnlineHeartBeatNotification": {
+      "type": "object",
+      "properties": {
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        },
+        "HeartBeatTime": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "protoUserOnlineHeartBeatResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "Message": {
+          "type": "string"
+        }
+      }
+    },
+    "protoUserPermissionOverrideMetaInfoV1": {
+      "type": "object",
+      "properties": {
+        "ProjectPermission": {
+          "$ref": "#/definitions/protoProjectPermissionMetaInfoV1"
+        },
+        "UserName": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
