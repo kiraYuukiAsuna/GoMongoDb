@@ -29,7 +29,7 @@ func SetDafaultAppConfig() {
 }
 
 func ReadConfig() bool {
-	jsonFile, err := os.Open("config_dev.json")
+	jsonFile, err := os.Open("config.json")
 
 	if err != nil {
 		log.Println(err)
