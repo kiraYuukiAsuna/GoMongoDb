@@ -28,7 +28,8 @@ services:
     image: nginx:1.24
     restart: always
     ports:
-      - 8090:8090
+      - 14251:8088
+      - 14252:8089
     networks:
       - swcdbmsnet
     volumes:
