@@ -9,7 +9,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME: defaultuser
       MONGO_INITDB_ROOT_PASSWORD: defaultpassword
     volumes:
-      - ./mongodbdata:/data
+      - ./mongodbdata/db:/data/db
+      - ./mongodbdata/configdb:/data/configdb
 
   swcdbms:
     image: swcdbms:v1
